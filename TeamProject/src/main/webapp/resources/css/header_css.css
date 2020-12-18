@@ -1,0 +1,312 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
+
+.header_body {
+	background-color : white;
+	padding-bottom: 80px;
+}
+
+body {
+	background-color: white;
+	font-family: 'East Sea Dokdo', cursive;
+}
+
+#topMenu {
+	height: 0px; /* 카테고리 메뉴 맨 끝 작은칸 */
+	width: 972px; /* [변경] 하위 메뉴와 동일하게 맞춤  108 x 메뉴 갯수 */ 
+	position: relative;
+	background-color: white; /* [추가] 늘어난만큼 배경색도 보이도록 수정 */
+	margin:0 auto;
+	z-index:1;
+}
+
+#topMenu ul { /* 메인 메뉴 안의 ul을 설정함: 상위메뉴의 ul+하위 메뉴의 ul */
+	list-style-type: none;
+	margin: 0px;
+	padding: 0px;
+}
+
+#topMenu ul li { /* 메인 메뉴 안에 ul 태그 안에 있는 li 태그의 스타일 적용(상위/하위메뉴 모두) */
+	color: white;
+	background-color: white; /* 전체 메뉴 색깔 */
+	float: left;
+	line-height: 30px;
+	vertical-align: middle;
+	text-align: center;
+	-position: relative;
+}
+
+.menuLink, .submenuLink { /* 상위 메뉴와 하위 메뉴의 a 태그에 공통으로 설정할 스타일 */
+	text-decoration: none;
+	display: block;
+	width: 108px;   /* 카테고리 하나 당 길이 108px */
+	font-size: 23px;
+	font-family: 'East Sea Dokdo', cursive;
+}
+
+.menuLink { /* 상위 메뉴의 글씨색을 흰색으로 설정*/
+	color: black;
+	border: 1px solid #DCDCDC
+	
+}
+
+.nav-link {
+	color: orange;
+}
+.topMenuLi:hover .menuLink { /* 상위 메뉴의 li에 마우스오버 되었을 때 스타일 설정 */
+	color: red;
+	background-color: #4d4d4d;
+}
+
+.longLink { /* 좀 더 긴 메뉴 스타일 설정 */
+	width: 190px;
+}
+
+.submenuLink { /* 하위 메뉴의 a 태그 스타일 설정 */
+	color: #2d2d2d;
+	background-color: white; /* [변경] 배경색 변경 */
+	-border: solid 1px black; /* [삭제] 테두리 삭제 */
+	-margin-right: -1px; /* [삭제] 공백 보정 삭제 */
+}
+
+.submenu { /* 하위 메뉴 스타일 설정 */
+ 	position: absolute; 
+	height: 0px; 
+ 	overflow: hidden; 
+	transition: height .2s; 
+	-webkit-transition: height .2s; 
+	-moz-transition: height .2s; 
+	-o-transition: height .2s; 
+ 	left: 0; 
+ 	width: 972px;           /*  메인 메뉴의 길이 108 x n */ 
+	background-color: white; /* [추가] 하위 메뉴 전체에 배경색 설정 */
+	border: 1px solid #dcdcdc;
+}
+
+.submenu li {
+	display: inline-block;
+}
+
+.topMenuLi:hover .submenu {
+	height: 32px;
+}
+
+.submenuLink:hover {
+	color: red;
+	background-color: white;
+	
+}
+
+#btnSearch{        /* 검색어창 돋보기 버튼 */ 
+	width: 50px;
+	height: 100%;
+	border: 0px;
+	float:right;
+	color:#424242;
+	background:white;
+}
+
+.container-1{  			/* 검색어창 div 전체 */
+	width:400px;
+	height:50px;
+	border-bottom: 4px solid orange;
+	left: 40%;
+	top : 85%;
+	position: absolute;
+}
+
+.txtSearch {          /* 검색어창 input박스 */
+	font-size:24px; 
+	outline:none; 
+	width:235px; 
+	padding:10px;
+	border:0px;
+	background-color: #ffffff;
+    background-color: rgba( 255, 255, 255, 0);
+}
+
+.topHeader {         /* 화면 맨 위 배경*/
+	background : orange;
+	
+	
+}
+.bottomFooter {         /* 화면 맨 아래 배경*/
+	background : orange;
+	
+	
+	
+}
+.bottomLine {         /* 화면 맨 아래 위치*/
+	bottom: 100%;
+}
+
+.loginHeader{		/*  로그인 폼 배경*/
+	background : orange;
+	width:450px;
+	outline:orange; 	
+	padding:10px;
+	border:5px;
+	position: relative;
+	left: 38%;  /*  나중에 고치기*/
+     
+	
+}
+.loginHeaderModal{		/*  로그인 폼 배경*/
+	background : orange;
+	width:450px;
+	outline:orange; 	
+	padding:10px;
+	border:5px;
+	position: absolute; 
+	
+     
+	
+}
+.topHeader-button{        /* 화면 맨 위 버튼들 */ 
+	float:right;
+	color:white;
+	font-size : 16px;
+}
+.loginFont{        /* 로그인 폼의 글씨 설정 */ 
+	
+	color:white;
+	font-size : 16px;
+}
+.loginFontHead{        /* 로그인 폼의 머릿글 글씨 설정 */ 
+	
+	color:white;
+	font-size : 32px;
+}
+
+.topHeader-button:hover {        /* 화면 맨 위 버튼들 */ 
+	color:black;
+	text-decoration: none;
+}
+
+.btnHome {             /* 메인 사이트  홈 버튼 */
+	font-size:40px; 
+	color:orange;
+	text-decoration:none !important;
+	font-weight : bold;
+	position: absolute;
+    left: 10%;
+    top: 70%;
+    
+}
+
+.btnHome:hover {
+	color:orange;
+}
+	
+.divHome {			/* div 메인 사이트 홈 버튼 */ 
+	padding-left:200px;
+	
+}
+
+.allCategory{
+	font-size:43px;
+	position: absolute;
+    top: -10px;
+    left: 150px;
+}
+
+.borderAllCategory {
+	padding-left : 340px;
+	border-bottom: 2px solid;
+    height: 50;
+}
+	
+.lblAllCategory {
+	font-size:30px;
+}
+
+.allCategory_ul {
+	display:none;
+	border: 1px solid black;
+	list-style:none;
+	margin:0px;
+	padding:0px;
+	position:absolute;
+	left:30px;
+	top:25px;
+	background: white;
+	color : black;
+	width: 140px;          /* 전체 카테고리 하나 당 길이 */
+	height: 156px;       /* 전체 카테고리 높이 */
+	text-align:center;
+	z-index:2;            /* 메인 카테고리와 겹침 (2번이 맨위) */ 
+	font-size :  20px;
+}
+
+.allCategory_ul li {
+	border-bottom: 1px solid black;
+}
+
+.allCategory_ul li:hover {
+	background-color:white;
+}
+
+.allCategory_ul li a:hover {
+	color:black;
+	font-weight: bold;
+}
+
+.default {
+	height : 70px;
+	
+}
+
+.listMenu li {
+	width:243px;          /* 상품 리스트 헤더 하나 당 길이 * /  
+	
+}
+
+.listMain {					/* 상품 리스트 전체 길이 */
+ 	background-color : white;
+	text-align:center;
+	border: 1px solid lightgray;
+	color: black;
+	font-size : 22px;
+}
+
+.listMenu {
+	padding-left : 155px;
+	padding-bottom : 5px;	
+	
+}
+
+
+.productList {
+	padding : 0px;
+	padding-left : 155px;
+}
+
+.list {
+	width: 972px;
+	background : white;
+	border-bottom: 1px solid gray;
+}
+
+.productName {
+	color : black;
+	font-size : 22px;
+}
+	
+.seller {
+	position: relative;
+    padding-top: 100px;
+    left: 200px;
+    font-size : 22px;
+}
+
+#price {
+	font-weight: bold;
+    font-size: 30px;
+    padding-left: 11px;
+}
+
+</style>
