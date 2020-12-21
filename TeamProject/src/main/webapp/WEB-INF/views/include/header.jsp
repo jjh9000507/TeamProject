@@ -28,10 +28,15 @@ $(function(){
 				<div class="col-md-2"></div>
 				
 					<div class="col-md-8">
-						<c:if test="${sessionScope.memberVo == null}">
-							<a href="/loginForm" type="button" class="btn btn-link topHeader-button">로그인</a>
-							<a type="button" class="btn btn-link topHeader-button">회원가입</a>
-						</c:if>
+						<c:choose>
+							<c:when test="${empty sessionScope.memberVo}">
+								<a href="/loginForm" type="button" class="btn btn-link topHeader-button">로그인</a>
+								<a type="button" class="btn btn-link topHeader-button">회원가입</a>
+							</c:when>
+							<c:otherwise>
+								<a href="#" type="button" class="btn btn-link topHeader-button">판매하기</a>
+							</c:otherwise>
+						</c:choose>
 						<a type="button" class="btn btn-link topHeader-button">장바구니</a>
 						<a type="button" class="btn btn-link topHeader-button">고객 센터</a>
 					</div>

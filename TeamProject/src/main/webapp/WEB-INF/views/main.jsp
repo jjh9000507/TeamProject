@@ -9,9 +9,8 @@
 <script>
 $(function(){
 	$(".divMore").click(function(){
-		
-	var startNum = $(".list").length;
-	console.log(startNum);
+		var startNum = $(".list").length;
+		console.log(startNum);
 	});
 });
 
@@ -32,7 +31,6 @@ $(function(){
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
 		<div style="padding-top: 150px;">
 			<div class="row listMain">
-				${sessionScope.memberVo}
 					<ul class="nav nav-tabs listMenu">
 						<li class="nav-item"><a class="nav-link" href="#">전체</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">백화점</a></li>
