@@ -2,7 +2,7 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%-- <%@ page session="false"%> --%>
+<%@ page session="false"%>
 <%@ include file="include/header.jsp"%>
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
 
