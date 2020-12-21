@@ -30,12 +30,13 @@ public class HomeController {
 		return "/main";
 	}
 	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
-	public void loginForm() throws Exception {	
-		
+	public String loginForm() throws Exception {	
+		return "/loginForm";
 	}
 	@RequestMapping(value = "/loginRun", method = RequestMethod.POST)
 	public String loginRun(String m_id, String m_pass,String saveId, HttpServletResponse response , HttpSession session, RedirectAttributes rttr, HttpServletRequest request) throws Exception {	
 		MemberVo memberVo = memberService.login(m_id, m_pass);
+//		System.out.println("memberVo: " + memberVo);
 		String page ="";		
 		if(memberVo != null) {
 			Cookie cookie = new Cookie("saveId", m_id);

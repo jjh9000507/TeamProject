@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/resources/css/bootstrap.jsp" %>
 <%@ include file="/resources/css/header_css.css" %>
 <!-- <link type="text/css" rel="stylesheet" href="/resources/css/header_css.css"> -->
@@ -28,8 +28,10 @@ $(function(){
 				<div class="col-md-2"></div>
 				
 					<div class="col-md-8">
-						<a href="" type="button" class="btn btn-link topHeader-button">로그인</a>
-						<a type="button" class="btn btn-link topHeader-button">회원가입</a>
+						<c:if test="${sessionScope.memberVo == null}">
+							<a href="/loginForm" type="button" class="btn btn-link topHeader-button">로그인</a>
+							<a type="button" class="btn btn-link topHeader-button">회원가입</a>
+						</c:if>
 						<a type="button" class="btn btn-link topHeader-button">장바구니</a>
 						<a type="button" class="btn btn-link topHeader-button">고객 센터</a>
 					</div>

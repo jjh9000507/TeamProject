@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <nav id="topMenu">
-
 	<ul>
 		<!-- 카테고리1 -->
 		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>패션의류</a>
