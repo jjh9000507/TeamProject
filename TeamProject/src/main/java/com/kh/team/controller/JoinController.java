@@ -11,28 +11,28 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/funiture")
 public class JoinController {
 	
-	@RequestMapping(value = "/", method = RequestMethod.GET)
+	@RequestMapping(value = "funiture/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {	
 		//return "/joinForm";
 		return "joinForm";
 	}
 	
-	@RequestMapping(value = "/map", method = RequestMethod.GET)
+	@RequestMapping(value = "funiture/map", method = RequestMethod.GET)
 	public String map() {
 		//return "/joinForm";
 		return "map";
 	}
 	
-	@RequestMapping(value = "/joinForm", method = RequestMethod.GET)
+	@RequestMapping(value = "funiture/joinForm", method = RequestMethod.GET)
 	public String joinForm() {	
 		//return "/joinForm";
 		return "joinForm";
 	}
 	
-	@RequestMapping(value="/displayImage", method=RequestMethod.GET)
+	@RequestMapping(value="funiture/displayImage", method=RequestMethod.GET)
 	@ResponseBody
 	public byte[] displayImage(/*@RequestParam("fileName")*/ String fileName) throws Exception {
 		
@@ -46,7 +46,7 @@ public class JoinController {
 		return bytes;
 	}
 	
-	@RequestMapping(value="/getAddress", method = RequestMethod.GET)
+	@RequestMapping(value="funiture/getAddress", method = RequestMethod.GET)
 	public String getAddress(String txtAddress) throws Exception{
 				
 		return null;
