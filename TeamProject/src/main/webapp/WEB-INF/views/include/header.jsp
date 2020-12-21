@@ -34,7 +34,7 @@ $(function(){
 								<a type="button" class="btn btn-link topHeader-button">회원가입</a>
 							</c:when>
 							<c:otherwise>
-								<a href="#" type="button" class="btn btn-link topHeader-button">판매하기</a>
+								<a href="/whitegoods/sellWhiteGoods" type="button" class="btn btn-link topHeader-button">판매하기</a>
 							</c:otherwise>
 						</c:choose>
 						<a type="button" class="btn btn-link topHeader-button">장바구니</a>

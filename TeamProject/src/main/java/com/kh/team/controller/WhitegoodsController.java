@@ -3,6 +3,7 @@ package com.kh.team.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.WhitegoodsVo;
 import com.kh.team.service.WhitegoodsService;
 
@@ -40,5 +42,26 @@ public class WhitegoodsController {
 //		System.out.println("detailwhitegoodsVo: " + detailwhitegoodsVo);
 		model.addAttribute("detailwhitegoodsVo", detailwhitegoodsVo);
 		return "/whitegoods/detailwhitegoods";
+	}
+	
+	@RequestMapping(value="/sellWhiteGoods", method=RequestMethod.GET)
+	public String sellWhiteGoods() throws Exception {
+		return "/sell/sellproduct";
+	}
+	
+	@RequestMapping(value="/sellWhiteGoodsUpload", method=RequestMethod.GET)
+	public String sellWhiteGoodsUpload(WhitegoodsVo whitegoodsVo, HttpSession session) throws Exception {
+		System.out.println("whitegoodsVo1: " + whitegoodsVo);
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		whitegoodsVo.setP_seller(memberVo.getM_id());
+		
+		if(whitegoodsVo.getP_thumbimg() == null) {
+			whitegoodsVo.setP_thumbimg("0.png");
+		}
+		
+		System.out.println("whitegoodsVo2: " + whitegoodsVo);
+		
+//		whiteGoodsService.insertWhiteGoods(whitegoodsVo);
+		return "/main";
 	}
 }
