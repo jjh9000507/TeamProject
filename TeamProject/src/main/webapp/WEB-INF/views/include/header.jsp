@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="/resources/css/bootstrap.jsp" %>
 <%@ include file="/resources/css/header_css.css" %>
@@ -16,12 +15,6 @@ $(function(){
 		$(".allCategory_ul").hide();
 	});
 	
-	var msg = "${msg}";
-	if (msg == "loginSuccess") {
-		alert("로그인 성공");
-	}else if (msg == "loginFail") {
-		alert("로그인 실패");
-	}
 });
 </script>
 
@@ -35,26 +28,10 @@ $(function(){
 				<div class="col-md-2"></div>
 				
 					<div class="col-md-8">
-					<c:choose>
-							<c:when test="${empty sessionScope.memberVo}">
-						<a href="/loginForm" type="submit" class="btn btn-link topHeader-button">로그인</a>
-						</c:when>
-							<c:otherwise>
-								<a href="/logout" type="submit" class="btn btn-link topHeader-button">로그아웃</a>
-							</c:otherwise>
-						</c:choose>
+						<a href="" type="button" class="btn btn-link topHeader-button">로그인</a>
 						<a type="button" class="btn btn-link topHeader-button">회원가입</a>
 						<a type="button" class="btn btn-link topHeader-button">장바구니</a>
 						<a type="button" class="btn btn-link topHeader-button">고객 센터</a>
-						<c:choose>
-							<c:when test="${empty sessionScope.memberVo}">
-								<a class="btn btn-link topHeader-button">회원정보 없음</a>
-							</c:when>
-							<c:otherwise>
-								<a class="btn btn-link topHeader-button">${sessionScope.memberVo.m_id}님 반갑습니다.</a>
-							</c:otherwise>
-						</c:choose>
-						
 					</div>
 					
 				<div class="col-md-2"></div>
@@ -72,7 +49,7 @@ $(function(){
 					
 			<!-- Home 버튼 -->		
 				<div class="divHome">
-					<a type="button" href="/" class="btn btn-link btnHome"><img class="default" src="resources/image/main_logo.png"/> 중고 동네	</a>
+					<a type="button" href="/" class="btn btn-link btnHome"><img class="default" src="/resources/image/main_logo.png"/> 중고 동네	</a>
 				</div>
 				
 				<br>

@@ -48,7 +48,7 @@ body {
 	font-family: 'East Sea Dokdo', cursive;
 }
 
-.menuLink { /* 상위 메뉴의 글씨색을 흰색으로 설정*/
+.menuLink { /* 상위 메뉴의 글씨색을 흰색으로 설정 */
 	color: black;
 	border: 1px solid #DCDCDC
 	
@@ -58,8 +58,10 @@ body {
 	color: orange;
 }
 .topMenuLi:hover .menuLink { /* 상위 메뉴의 li에 마우스오버 되었을 때 스타일 설정 */
-	color: red;
-	background-color: #4d4d4d;
+	color: black;
+	background-color: white;
+	border-bottom : 3px solid red;
+	text-decoration : none;
 }
 
 .longLink { /* 좀 더 긴 메뉴 스타일 설정 */
@@ -105,9 +107,9 @@ body {
 	width: 50px;
 	height: 100%;
 	border: 0px;
-	float:right;
-	color:#424242;
-	background:white;
+	float: right;
+	color: orange;
+	background : white;
 }
 
 .container-1{  			/* 검색어창 div 전체 */
@@ -129,57 +131,14 @@ body {
     background-color: rgba( 255, 255, 255, 0);
 }
 
-.topHeader {         /* 화면 맨 위 배경*/
+.topHeader {         /* 화면 맨 위 배경 */
 	background : orange;
-	
-	
-}
-.bottomFooter {         /* 화면 맨 아래 배경*/
-	background : orange;
-	
-	
-	
-}
-.bottomLine {         /* 화면 맨 아래 위치*/
-	bottom: 100%;
 }
 
-.loginHeader{		/*  로그인 폼 배경*/
-	background : orange;
-	width:450px;
-	outline:orange; 	
-	padding:10px;
-	border:5px;
-	position: relative;
-	left: 38%;  /*  나중에 고치기*/
-     
-	
-}
-.loginHeaderModal{		/*  로그인 폼 배경*/
-	background : orange;
-	width:450px;
-	outline:orange; 	
-	padding:10px;
-	border:5px;
-	position: absolute; 
-	
-     
-	
-}
-.topHeader-button{        /* 화면 맨 위 버튼들 */ 
+.topHeader-button {        /* 화면 맨 위 버튼들 */ 
 	float:right;
 	color:white;
 	font-size : 16px;
-}
-.loginFont{        /* 로그인 폼의 글씨 설정 */ 
-	
-	color:white;
-	font-size : 16px;
-}
-.loginFontHead{        /* 로그인 폼의 머릿글 글씨 설정 */ 
-	
-	color:white;
-	font-size : 32px;
 }
 
 .topHeader-button:hover {        /* 화면 맨 위 버튼들 */ 
@@ -257,7 +216,7 @@ body {
 
 .default {
 	height : 70px;
-	
+	padding-top : 9px;
 }
 
 .listMenu li {
@@ -279,6 +238,9 @@ body {
 	
 }
 
+.nav-tabs {
+	border-bottom : 0px;
+}
 
 .productList {
 	padding : 0px;
@@ -309,4 +271,65 @@ body {
     padding-left: 11px;
 }
 
+.page_ul {
+	font-size: 22px;
+	color : black;
+}
+
+.page_num {
+	color : black;
+	margin-left : 7.5px;
+	margin-right : 7.5px;
+	height : 40px;
+	width : 42px;
+}
+
+.page_num:hover {
+	border: 1px solid black;
+	color: black;
+}
+
+.page_move {
+	border : none;
+	font-size : 18px;
+	color: black;
+}
+
+.page_move:hover {
+	background-color : white;
+	color : black;
+	text-decoration: underline;
+}
+
+.btnMore {
+	padding-left : 24.7%
+}
+
+.divMore {
+	width: 972px;
+	text-align : center;
+	color: black;
+}
+
+.divMore:hover {
+	border : 1px solid black;
+}
+
+.a_More {
+	color : black;
+	text-decoration: none;
+	font-size : 20px;
+}
+
+.a_More:hover {
+	color : black;
+	text-decoration: none;
+}
+
+.arrow img {
+	padding-left: 10px;
+    width: 55px;
+    margin-bottom: 7px;
+    height: 19px;
+}
 </style>
