@@ -28,9 +28,11 @@
 		<!-- 카테고리2 -->
 		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="resources/image/t-shirt.png"><br>생활가전</a>
 			<ul class="submenu">
-				<li><a href="#" class="submenuLink">가정</a></li>
-				<li><a href="#" class="submenuLink">주방</a></li>
-				<li><a href="#" class="submenuLink">미용</a></li>
+				<li><a href="/whitegoods/whitegoodsform/301" class="submenuLink">영상가전</a></li>
+				<li><a href="/whitegoods/whitegoodsform/302" class="submenuLink">계절가전</a></li>
+				<li><a href="/whitegoods/whitegoodsform/303" class="submenuLink">주방가전</a></li>
+				<li><a href="/whitegoods/whitegoodsform/304" class="submenuLink">생활가전</a></li>
+				<li><a href="/whitegoods/whitegoodsform/305" class="submenuLink">기타</a></li>
 			</ul></li>
 
 		<!-- 						<li>|</li> -->
