@@ -24,10 +24,11 @@ public class WhitegoodsController {
 	
 	@RequestMapping(value="/whitegoodsform/{cate_no}", method=RequestMethod.GET)
 	public String whitegoodsform(@PathVariable("cate_no") String cate_no, Model model) throws Exception {
-		System.out.println("cate_no: " + cate_no);
+//		System.out.println("cate_no: " + cate_no);
 		List<WhitegoodsVo> getWhitegoodsList = whiteGoodsService.getWhiteGoodsList(cate_no);
 		List<CategoryVo> getCategoryList = whiteGoodsService.getCategoryList(cate_no);
 //		System.out.println("getWhitegoodsList" + getWhitegoodsList);
+//		System.out.println("getCategoryList:" + getCategoryList);
 		model.addAttribute("getWhitegoodsList", getWhitegoodsList);
 		model.addAttribute("getCategoryList", getCategoryList);
 		return "/whitegoods/whitegoodsform";
@@ -36,7 +37,7 @@ public class WhitegoodsController {
 	@RequestMapping(value="/detailWhiteGoods/{p_no}", method=RequestMethod.GET)
 	public String detailWhiteGoods(@PathVariable("p_no") int p_no, Model model) throws Exception {
 		WhitegoodsVo detailwhitegoodsVo= whiteGoodsService.detailWhitegoods(p_no);
-		System.out.println("detailwhitegoodsVo: " + detailwhitegoodsVo);
+//		System.out.println("detailwhitegoodsVo: " + detailwhitegoodsVo);
 		model.addAttribute("detailwhitegoodsVo", detailwhitegoodsVo);
 		return "/whitegoods/detailwhitegoods";
 	}

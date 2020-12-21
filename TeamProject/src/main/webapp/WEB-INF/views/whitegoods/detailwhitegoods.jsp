@@ -8,12 +8,14 @@
 <style>
 .goodsDescant{
 	font-size: 50px;
-	left: auto;
+	text-align: center;
 }
 
 .goodsTitle{
 	font-size:30px;
+	text-align: right;
 }
+
 
 .seller{
 	cursor: pointer;
@@ -23,103 +25,7 @@
 		<div class="col-md-2"></div>
 
 <div class="col-md-8" >
-
 <br>
-<nav id="topMenu">
-
-	<ul>
-		<!-- 카테고리1 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>패션의류</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">상의</a></li>
-				<li><a href="#" class="submenuLink">하의</a></li>
-				<li><a href="#" class="submenuLink">신발</a></li>
-			</ul></li>
-
-		<!-- 						<li>|</li> -->
-
-		<!-- 카테고리2 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>생활가전</a>
-			<ul class="submenu">
-				<li><a href="/whitegoods/whitegoodsform/301" class="submenuLink">영상가전</a></li>
-				<li><a href="/whitegoods/whitegoodsform/302" class="submenuLink">계절가전</a></li>
-				<li><a href="/whitegoods/whitegoodsform/303" class="submenuLink">주방가전</a></li>
-				<li><a href="/whitegoods/whitegoodsform/304" class="submenuLink">생활가전</a></li>
-				<li><a href="/whitegoods/whitegoodsform/305" class="submenuLink">기타</a></li>
-			</ul></li>
-
-		<!-- 						<li>|</li> -->
-
-		<!-- 카테고리3 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>스포츠 레저</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">수영</a></li>
-				<li><a href="#" class="submenuLink">등산</a></li>
-				<li><a href="#" class="submenuLink">낚시</a></li>
-			</ul></li>
-
-		<!-- 						<li>|</li> -->
-
-		<!-- 카테고리4 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>도서</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">도서</a></li>
-				<li><a href="#" class="submenuLink">상품권</a></li>
-				<li><a href="#" class="submenuLink">음반</a></li>
-			</ul></li>
-
-		<!-- 						<li>|</li> -->
-
-		<!-- 카테고리5 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>컴퓨터</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">기타1</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-			</ul></li>
-
-		<!-- 						<li>|</li> -->
-
-		<!-- 카테고리6 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>기타등등</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">기타1</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-			</ul></li>
-
-		<!-- 						<li>|</li> -->
-
-		<!-- 카테고리7 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>기타등등</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">기타1</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-			</ul></li>
-			
-		<!-- 카테고리8 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>기타등등</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">기타1</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-			</ul></li>
-			
-		<!-- 카테고리9 -->
-		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/t-shirt.png"><br>기타1등등</a>
-			<ul class="submenu">
-				<li><a href="#" class="submenuLink">기타1</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-				<li><a href="#" class="submenuLink">기타2</a></li>
-			</ul></li>
-	</ul>
-</nav>
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 		<div style="padding-top: 150px;">
 			<div class="row listMain">
@@ -142,5 +48,11 @@
 </div>
 		
 		<div class="col-md-2"></div>
-
+	<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
+			<a href="/" class="btn btn-primary">목록</a>
+		</div>
+		<div class="col-md-2"></div>
+	</div>
 <%@ include file="../include/footer.jsp"%>

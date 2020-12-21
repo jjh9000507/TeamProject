@@ -18,20 +18,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.service.MemberService;
 
-/**
- * Handles requests for the application home page.
- */
 @Controller
 public class HomeController {
 	
 	@Inject
 	private MemberService memberService;
-	
-	
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		
