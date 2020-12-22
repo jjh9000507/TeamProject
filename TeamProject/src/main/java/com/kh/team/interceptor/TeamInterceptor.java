@@ -18,16 +18,14 @@ public class TeamInterceptor extends HandlerInterceptorAdapter{
 			throws Exception {
 				//로그인 되어있는지 확인
 				HttpSession session = request.getSession();
-				MemberVo memberVo = (MemberVo) session.getAttribute("memberVo");
-				
-		        String uri = request.getRequestURI();
-				String queryString = request.getQueryString();
-				System.out.println("TeamProject_uri:" + uri);
-				System.out.println("TeamProject_queryString:" +queryString);
-				System.out.println("TeamProject_memberVo:" + memberVo);
-				
-					
-		        
+				MemberVo memberVo =  (MemberVo) session.getAttribute("memberVo");
+				String nonBuyer = (String) session.getAttribute("nonBuyer");
+				System.out.println("TeamProject_nonBuyer:" + nonBuyer);
+				if(nonBuyer != null && memberVo == null) {
+				System.out.println("비회원 로그인");	
+				response.sendRedirect("/");
+				return false;
+				}
 		        return true;
 	}
 	

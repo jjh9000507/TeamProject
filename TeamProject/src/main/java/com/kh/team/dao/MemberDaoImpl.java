@@ -22,11 +22,7 @@ private final String NAMESPACE = "com.kh.team.member.";
 	@Inject
 	private SqlSession sqlSession;
 
-	@Override
-	public void insert() throws Exception {
-		// TODO Auto-generated method stub
-
-	}
+	
 
 	@Override
 	public MemberVo login(String m_id, String m_pass) throws Exception {
@@ -63,16 +59,5 @@ private final String NAMESPACE = "com.kh.team.member.";
 		
 	}
 
-	@Override
-	public void nonbuyerCreate() throws Exception {
-		sqlSession.insert(NAMESPACE + "nonBuyerCreate");
-		
-	}
-
-	@Override
-	public NonBuyer nonbuyerLogin(int non_buyer) throws Exception {
-		NonBuyer nonBuyer = sqlSession.selectOne(NAMESPACE + "nonBuyerLogin", non_buyer);
-		return nonBuyer;
-	}
-
+	
 }

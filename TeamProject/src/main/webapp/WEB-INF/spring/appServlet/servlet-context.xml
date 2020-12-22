@@ -23,7 +23,7 @@
 	
 	<context:component-scan base-package="com.kh.team" />
 	
-	<!-- 인터셉터 -->
+<!-- 인터셉터 --> 
 	<beans:bean
 		class="com.kh.team.interceptor.TeamInterceptor"
 		id="teamInterceptor">
@@ -34,7 +34,8 @@
 	<interceptors>
 		
 		<interceptor>
-			<mapping path="/**/*" />
+			<mapping path="/whitegoods/*" />
+			<exclude-mapping path="/main" />
 			<beans:ref bean="teamInterceptor" />
 
 		</interceptor>

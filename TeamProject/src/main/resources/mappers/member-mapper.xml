@@ -10,11 +10,7 @@
 		where m_id = #{m_id}
 		and m_pass = #{m_pass}
 	</select>
-	<select id="nonBuyerLogin" resultType="NonBuyer">
-		select *
-		from non_member
-		where count_number = #{non_buyer} + 1	
-	</select>
+	
 	<select id="sendEmailForFindId" resultType="String">
 		select m_id
 		from member
@@ -31,8 +27,5 @@
 			m_pass = #{m_pass_new}
 		where m_id = #{m_id}				
 	</update>
-	<insert id="nonBuyerCreate">
-		insert into non_member (count_number)
-		values (seq_non_member_no.nextval)
-	</insert>
+	
 </mapper>

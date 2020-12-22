@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/resources/css/bootstrap.jsp"%>
-<%@ include file="/resources/css/footer_css.css"%>
+<%-- <%@ include file="/resources/css/bootstrap.jsp"%> --%>
+
 <div class="row bottomLine">
 	<!--bottom-footer -->
 	<div class="col-md-12 bottomFooter">
@@ -19,3 +19,4 @@
 		<div class="col-md-2"></div>
 	</div>
 </div>
+</body>

@@ -16,12 +16,6 @@ public class MemberServiceImpl implements MemberService {
 	private MemberDao memberDao;
 
 	@Override
-	public void insert() throws Exception {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
 	public MemberVo login(String m_id, String m_pass) throws Exception {
 		MemberVo memberVo = memberDao.login(m_id, m_pass);
 		return memberVo;
@@ -45,16 +39,5 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
-	@Override
-	public void nonbuyerCreate() throws Exception {
-		memberDao.nonbuyerCreate();
-		
-	}
-
-	@Override
-	public NonBuyer nonbuyerLogin(int non_buyer) throws Exception {
-	    NonBuyer nonBuyer = memberDao.nonbuyerLogin(non_buyer);
-		return nonBuyer;
-	}
-
+	
 }

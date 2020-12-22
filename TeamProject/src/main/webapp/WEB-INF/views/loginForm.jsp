@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%-- <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%> --%>
 <%@ include file="include/header.jsp"%>
 
 <br>
@@ -74,7 +74,7 @@
 					$("#btnEmailPwSendClose").trigger("click");
 					secretNum = data[1];
 					console.log("data[1]:" + data[1]);
-					$("#modal-123574").trigger("click");
+					$("#changePwModal").trigger("click");
 				} else if (data[0] == "fail") {
 					alert("비밀번호 전송실패");
 				}
@@ -132,10 +132,10 @@
 							</button>
 						</div>
 						<div class="modal-body">
-						<form role="form" class="loginHeader" action="/nonBuyerRun"
+						<form role="form" class="loginHeader" action="/login/nonBuyerRun"
 							method="get" style="display: none;">
 						<input type="number" class="form-control" id="non_buyer" name="non_buyer"
-								  value=1 style="display: none;"/>
+								  style="display: none;"/>
 								  <button type="submit" id="submitNonBuyer"></button>
 						</form>
 						</div>
@@ -230,14 +230,14 @@
 	</div>
 	<div class="row">
 		<div class="col-md-12">
-			<a id="modal-123574" href="#modal-container-123574" role="button"
+			<a id="changePwModal" href="#modal-container-123574123" role="button"
 				class="btn" data-toggle="modal" style="display: none;">Launch
 				demo modal</a>
 
-			<div class="modal fade" id="modal-container-123574" role="dialog"
+			<div class="modal fade" id="modal-container-123574123" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
-					<div class="modal-content">
+					<div class="modal-content loginHeaderModal">
 						<div class="modal-header">
 							<h5 class="modal-title" id="myModalLabel">새 비밀번호</h5>
 							<button type="button" class="close" data-dismiss="modal">
@@ -273,7 +273,7 @@
 
 	<div class="row">
 		<div class="col-md-12">
-			<form role="form" class="loginHeader" action="/loginRun"
+			<form role="form" class="loginHeader" action="/login/loginRun"
 				method="post">
 
 				<div class="form-group">

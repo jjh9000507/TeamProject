@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/resources/css/bootstrap.jsp" %>
 <%@ include file="/resources/css/header_css.css" %>
+<%@ include file="/resources/css/loginForm_css.css" %>
+<%@ include file="/resources/css/footer_css.css"%>
 
 
 <!-- <link type="text/css" rel="stylesheet" href="/resources/css/header_css.css"> -->
@@ -26,13 +28,15 @@ $(function(){
 		alert("비밀번호 변경 성공");
 	}else if (msg == "changePwFail") {
 		alert("비밀번호 변경 실패(아이디가 잘못되었는지 확인하시오)");
+	}else if (msg == "nonBuyerLoginSuccess"){
+		alert("비회원으로 입장 하셨습니다.");
 	}
 
 });
 </script>
-${sessionScope.memberVo}
 <body>
-	<div class="container-fluid header_body">
+ 	<div class="container-fluid header_body">
+	
 		<div class="row">
 		
 			<!--top-header -->
@@ -42,11 +46,14 @@ ${sessionScope.memberVo}
 					<div class="col-md-8">
 
 					<c:choose>														
-							<c:when test="${empty sessionScope.memberVo.m_id}">
-						<a href="/loginForm" type="submit" class="btn btn-link topHeader-button">로그인</a>
+							<c:when test="${empty sessionScope.memberVo && empty sessionScope.nonBuyer}">
+						<a href="/login/loginForm" type="submit" class="btn btn-link topHeader-button">로그인</a>
 							</c:when>							
-							<c:when test="${not empty sessionScope.memberVo.m_id}">
+							<c:when test="${not empty sessionScope.memberVo && empty sessionScope.nonBuyer}">
 						<a href="/logout" type="submit" class="btn btn-link topHeader-button">로그아웃</a>
+							</c:when>
+							<c:when test="${empty sessionScope.memberVo && not empty sessionScope.nonBuyer}">
+						<a href="/logout" type="submit" class="btn btn-link topHeader-button">비회원 로그아웃</a>
 							</c:when>
 
 						</c:choose>
@@ -56,24 +63,19 @@ ${sessionScope.memberVo}
 
 						<c:choose>
 
-							<c:when test="${empty sessionScope.memberVo.m_id}">
+							<c:when test="${empty sessionScope.memberVo && empty sessionScope.nonBuyer}">
 								<a class="btn btn-link topHeader-button">회원정보 없음</a>
 							</c:when>							
-							<c:when test="${not empty sessionScope.memberVo.m_id}">
+							<c:when test="${not empty sessionScope.memberVo && empty sessionScope.nonBuyer}">
 						<a class="btn btn-link topHeader-button">${sessionScope.memberVo.m_id}님 반갑습니다.</a>
-						</c:when>
-
-							<c:when test="${empty sessionScope.memberVo}">
-								<a href="/loginForm" type="button" class="btn btn-link topHeader-button">로그인</a>
-								<a type="button" class="btn btn-link topHeader-button">회원가입</a>
+							<a href="/whitegoods/sellWhiteGoods" type="button" class="btn btn-link topHeader-button">판매하기</a>
 							</c:when>
-							<c:otherwise>
-								<a href="/whitegoods/sellWhiteGoods" type="button" class="btn btn-link topHeader-button">판매하기</a>
-							</c:otherwise>
+							<c:when test="${not empty sessionScope.nonBuyer && empty sessionScope.memberVo}">
+						<a class="btn btn-link topHeader-button">비회원 신분이십니다.</a>							
+							</c:when>
 
 						</c:choose>
-						<a type="button" class="btn btn-link topHeader-button">장바구니</a>
-						<a type="button" class="btn btn-link topHeader-button">고객 센터</a>
+						
 					</div>
 					
 				<div class="col-md-2"></div>
