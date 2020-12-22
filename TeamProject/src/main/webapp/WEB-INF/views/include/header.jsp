@@ -3,6 +3,8 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/resources/css/bootstrap.jsp" %>
 <%@ include file="/resources/css/header_css.css" %>
+
+
 <!-- <link type="text/css" rel="stylesheet" href="/resources/css/header_css.css"> -->
 
 <script>
@@ -13,9 +15,8 @@ $(function(){
 	});
 	$(".allCategory, .allCategory_ul").on("mouseout" , function(){
 		$(".allCategory_ul").hide();
-	});
-	
-<<<<<<< HEAD
+	});	
+
 	var msg = "${msg}";
 	if (msg == "loginSuccess") {
 		alert("로그인 성공");
@@ -26,11 +27,10 @@ $(function(){
 	}else if (msg == "changePwFail") {
 		alert("비밀번호 변경 실패(아이디가 잘못되었는지 확인하시오)");
 	}
-=======
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
+
 });
 </script>
-${sessionScope}
+${sessionScope.memberVo}
 <body>
 	<div class="container-fluid header_body">
 		<div class="row">
@@ -40,7 +40,7 @@ ${sessionScope}
 				<div class="col-md-2"></div>
 				
 					<div class="col-md-8">
-<<<<<<< HEAD
+
 					<c:choose>														
 							<c:when test="${empty sessionScope.memberVo.m_id}">
 						<a href="/loginForm" type="submit" class="btn btn-link topHeader-button">로그인</a>
@@ -48,33 +48,21 @@ ${sessionScope}
 							<c:when test="${not empty sessionScope.memberVo.m_id}">
 						<a href="/logout" type="submit" class="btn btn-link topHeader-button">로그아웃</a>
 							</c:when>
-<%-- 							<c:when test="${not empty sessionScope.nonBuyer.count_number && empty sessionScope.memberVo.m_id}"> --%>
-<!-- 								<a href="/logout" type="submit" class="btn btn-link topHeader-button">로그아웃</a> -->
-<%-- 							</c:when> --%>
-<%-- 							<c:when test="${not empty sessionScope.nonBuyer.count_number && not empty sessionScope.memberVo.m_id}"> --%>
-<!-- 								<a href="/logout" type="submit" class="btn btn-link topHeader-button">로그아웃</a> -->
-<%-- 							</c:when> --%>
+
 						</c:choose>
 						<a type="button" class="btn btn-link topHeader-button">회원가입</a>
 						<a type="button" class="btn btn-link topHeader-button">장바구니</a>
 						<a type="button" class="btn btn-link topHeader-button">고객 센터</a>
-=======
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
+
 						<c:choose>
-<<<<<<< HEAD
+
 							<c:when test="${empty sessionScope.memberVo.m_id}">
 								<a class="btn btn-link topHeader-button">회원정보 없음</a>
 							</c:when>							
 							<c:when test="${not empty sessionScope.memberVo.m_id}">
 						<a class="btn btn-link topHeader-button">${sessionScope.memberVo.m_id}님 반갑습니다.</a>
 						</c:when>
-<%-- 							<c:when test="${not empty sessionScope.nonBuyer.count_number && empty sessionScope.memberVo.m_id}"> --%>
-<!-- 						<a class="btn btn-link topHeader-button">비회원 신분이십니다.</a> -->
-<%-- 						</c:when> --%>
-<%-- 							<c:when test="${not empty sessionScope.nonBuyer.count_number && not empty sessionScope.memberVo.m_id}"> --%>
-<!-- 								<a class="btn btn-link topHeader-button">오류</a> -->
-<%-- 							</c:when>							 --%>
-=======
+
 							<c:when test="${empty sessionScope.memberVo}">
 								<a href="/loginForm" type="button" class="btn btn-link topHeader-button">로그인</a>
 								<a type="button" class="btn btn-link topHeader-button">회원가입</a>
@@ -82,7 +70,7 @@ ${sessionScope}
 							<c:otherwise>
 								<a href="/whitegoods/sellWhiteGoods" type="button" class="btn btn-link topHeader-button">판매하기</a>
 							</c:otherwise>
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
+
 						</c:choose>
 						<a type="button" class="btn btn-link topHeader-button">장바구니</a>
 						<a type="button" class="btn btn-link topHeader-button">고객 센터</a>

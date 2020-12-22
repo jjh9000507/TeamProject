@@ -23,6 +23,21 @@
 	
 	<context:component-scan base-package="com.kh.team" />
 	
+	<!-- 인터셉터 -->
+	<beans:bean
+		class="com.kh.team.interceptor.TeamInterceptor"
+		id="teamInterceptor">
+
+	</beans:bean>
 	
+
+	<interceptors>
+		
+		<interceptor>
+			<mapping path="/**/*" />
+			<beans:ref bean="teamInterceptor" />
+
+		</interceptor>
+	</interceptors>
 	
 </beans:beans>

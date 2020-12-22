@@ -1,6 +1,7 @@
 package com.kh.team.controller;
 
 import javax.inject.Inject;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.NonBuyer;
 import com.kh.team.service.MemberService;
 
 @Controller
@@ -45,7 +47,5 @@ public class LoginController {
 		
 		
 	}
-	
-	
 	
 }

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="include/header.jsp"%>
+
 <br>
 <br>
 <br>
@@ -314,15 +315,5 @@
 		</div>
 	</div>
 </div>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+
 <%@ include file="include/footer.jsp"%>

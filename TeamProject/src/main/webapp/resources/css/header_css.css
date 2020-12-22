@@ -220,7 +220,7 @@ body {
 }
 
 .listMenu li {
-	width:243px;          /* 상품 리스트 헤더 하나 당 길이 * /  
+	width:243px;         
 	
 }
 
@@ -331,5 +331,27 @@ body {
     width: 55px;
     margin-bottom: 7px;
     height: 19px;
+}
+
+.loginHeader{		/*  로그인 폼 배경*/
+	background : orange;
+	width:450px;
+	outline:orange; 	
+	padding:10px;
+	border:5px;
+	position: relative; 
+	left: 38%;  /*  나중에 고치기*/
+     
+	
+}
+.loginFont{        /* 로그인 폼의 글씨 설정 */ 
+	
+	color:white;
+	font-size : 16px;
+}
+.loginFontHead{        /* 로그인 폼의 머릿글 글씨 설정 */ 
+	
+	color:white;
+	font-size : 32px;
 }
 </style>
