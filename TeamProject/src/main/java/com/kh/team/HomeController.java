@@ -23,8 +23,12 @@ import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.NonBuyer;
 import com.kh.team.service.MemberService;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 @Controller
+<<<<<<< HEAD
 public class HomeController {	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -33,6 +37,17 @@ public class HomeController {
 	@Inject
 	private MemberService memberService;
 	
+=======
+public class HomeController {
+	
+	@Inject
+	private MemberService memberService;
+	private int NON_BUYER_NUMBER = 1;
+	MemberVo memberVo = new MemberVo();
+	NonBuyer nonBuyer = new NonBuyer();
+
+
+>>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "/main";
@@ -46,8 +61,26 @@ public class HomeController {
 		}
 		return "loginForm";
 	}
+<<<<<<< HEAD
 	
 
+=======
+	@RequestMapping(value = "/nonBuyerRun", method = RequestMethod.GET)
+	public String nonBuyerRun(int non_buyer, RedirectAttributes rttr, HttpSession session ) throws Exception {
+		System.out.println("non_buyer_num:" + non_buyer);
+		if(non_buyer == NON_BUYER_NUMBER) {
+			session.removeAttribute("memberVo");
+			memberService.nonbuyerCreate();
+			nonBuyer = memberService.nonbuyerLogin(non_buyer);
+			System.out.println("nonBuyer:" + nonBuyer);
+			session.setAttribute("nonBuyer", nonBuyer);			
+		}
+		return "/main";	
+		
+	public String loginForm() throws Exception {	
+		return "/loginForm";
+	}
+>>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
 		session.invalidate();
@@ -55,8 +88,16 @@ public class HomeController {
 	}
 	@RequestMapping(value = "/loginRun", method = RequestMethod.POST)
 	public String loginRun(String m_id, String m_pass,String saveId, HttpSession session , HttpServletResponse response , RedirectAttributes rttr, HttpServletRequest request) throws Exception {	
+<<<<<<< HEAD
 		MemberVo memberVo = memberService.login(m_id, m_pass);	
 
+=======
+		session.removeAttribute("nonBuyer");
+		memberVo = memberService.login(m_id, m_pass);
+	public String loginRun(String m_id, String m_pass,String saveId, HttpServletResponse response , HttpSession session, RedirectAttributes rttr, HttpServletRequest request) throws Exception {	
+		MemberVo memberVo = memberService.login(m_id, m_pass);
+//		System.out.println("memberVo: " + memberVo);
+>>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 		String page ="";		
 		if(memberVo != null) {
 			Cookie cookie = new Cookie("saveId", m_id);
