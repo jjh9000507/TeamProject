@@ -23,36 +23,22 @@ import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.NonBuyer;
 import com.kh.team.service.MemberService;
 
-<<<<<<< HEAD
-
-/**
- * Handles requests for the application home page.
- */
-=======
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 @Controller
 public class HomeController {
 	
 	@Inject
 	private MemberService memberService;
-<<<<<<< HEAD
 	private int NON_BUYER_NUMBER = 1;
 	MemberVo memberVo = new MemberVo();
 	NonBuyer nonBuyer = new NonBuyer();
-	
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-=======
 
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
+
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String home(Locale locale, Model model, HttpSession session) {
 		session.setAttribute("memberVo", memberVo);
 		return "/main";
 	}
 	@RequestMapping(value = "/loginForm", method = RequestMethod.GET)
-<<<<<<< HEAD
 	public String loginForm(HttpSession session) throws Exception {	
 		 session.getAttribute("memberVo");
 		 String session1 = session.toString();
@@ -71,10 +57,8 @@ public class HomeController {
 		}
 		return "/main";	
 		
-=======
 	public String loginForm() throws Exception {	
 		return "/loginForm";
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 	}
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session) throws Exception {
@@ -82,15 +66,12 @@ public class HomeController {
 		return "/loginForm";
 	}
 	@RequestMapping(value = "/loginRun", method = RequestMethod.POST)
-<<<<<<< HEAD
 	public String loginRun(String m_id, String m_pass,String saveId, HttpSession session , HttpServletResponse response , RedirectAttributes rttr, HttpServletRequest request) throws Exception {	
 		session.removeAttribute("nonBuyer");
 		memberVo = memberService.login(m_id, m_pass);
-=======
 	public String loginRun(String m_id, String m_pass,String saveId, HttpServletResponse response , HttpSession session, RedirectAttributes rttr, HttpServletRequest request) throws Exception {	
 		MemberVo memberVo = memberService.login(m_id, m_pass);
 //		System.out.println("memberVo: " + memberVo);
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 		String page ="";		
 		if(memberVo != null) {
 			Cookie cookie = new Cookie("saveId", m_id);
