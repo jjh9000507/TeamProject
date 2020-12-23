@@ -7,6 +7,7 @@
 	<select id="getWhiteGoodsList" resultType="WhiteGoodsVo">
 		select * from whitegoods
 		where cate_no like #{cate_no} || '%'
+		order by p_no desc
 	</select>
 	
 	<insert	id="insertWhite">

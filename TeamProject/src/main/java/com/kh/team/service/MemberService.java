@@ -1,7 +1,8 @@
 package com.kh.team.service;
 
 import com.kh.team.domain.MemberVo;
-import com.kh.team.domain.NonBuyer;
+
+
 
 public interface MemberService {
 	

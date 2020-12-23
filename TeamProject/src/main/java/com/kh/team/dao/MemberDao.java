@@ -1,7 +1,8 @@
 package com.kh.team.dao;
 
 import com.kh.team.domain.MemberVo;
-import com.kh.team.domain.NonBuyer;
+
+
 
 
 public interface MemberDao {

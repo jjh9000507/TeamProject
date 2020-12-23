@@ -3,11 +3,12 @@ package com.kh.team.service;
 
 import javax.inject.Inject;
 
+
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.MemberDao;
 import com.kh.team.domain.MemberVo;
-import com.kh.team.domain.NonBuyer;
+
 
 @Service
 public class MemberServiceImpl implements MemberService {

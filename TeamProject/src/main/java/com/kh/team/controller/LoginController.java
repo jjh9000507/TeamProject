@@ -4,10 +4,13 @@ package com.kh.team.controller;
 
 import javax.inject.Inject;
 
+
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 
 
 import org.springframework.stereotype.Controller;
@@ -18,16 +21,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.MemberVo;
-import com.kh.team.domain.NonBuyer;
+
 import com.kh.team.service.MemberService;
 
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {
 	private int CHANGE_PW_NUM = 1;
-//	private int NON_BUYER_NUMBER = 1;
-	MemberVo memberVo = new MemberVo();
-	NonBuyer nonBuyer = new NonBuyer();
+
+	
 	
 		
 		
@@ -62,6 +64,7 @@ public class LoginController {
 			System.out.println("로그인 되어있어서 main으로 돌아감");
 			return "redirect:/";
 		}
+		
 		return "loginForm";
 	}
 
