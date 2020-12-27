@@ -2,37 +2,41 @@ package com.kh.team.controller;
 
 
 
+import java.util.HashMap;
+
+
+import java.util.Random;
+
 import javax.inject.Inject;
-
-
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
-
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
-
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.kh.team.domain.MemberVo;
 
+
+import com.kh.team.domain.MemberVo;
 import com.kh.team.service.MemberService;
+
+import net.nurigo.java_sdk.api.Message;
+
+
+
 
 @Controller
 @RequestMapping(value="/login")
 public class LoginController {
 	private int CHANGE_PW_NUM = 1;
-
 	
 	
-		
-		
 	@Inject
 	private MemberService memberService;
 	
@@ -75,6 +79,14 @@ public class LoginController {
 		return "/main";	
 	}
 	
+	@RequestMapping(value = "/memberVoInfoForm/{m_id}", method = RequestMethod.GET)
+	public String memberVoInfoForm(@PathVariable("m_id") String m_id,HttpServletRequest request) throws Exception {
+		System.out.println("/memberVoInfoForm/:" + m_id);
+		MemberVo memberVo = memberService.memberVoInfoSearch(m_id);
+		request.setAttribute("memberVoInfo", memberVo);
+		return "/memberVoInfoForm";	
+	}
+	
 	@RequestMapping(value = "/loginRun", method = RequestMethod.POST)
 	public String loginRun(String m_id, String m_pass,String saveId,HttpSession session, HttpServletResponse response , RedirectAttributes rttr, HttpServletRequest request) throws Exception {	
 		MemberVo memberVo = memberService.login(m_id, m_pass);
@@ -102,6 +114,77 @@ public class LoginController {
 		return page;
 		}
 	
+	@RequestMapping(value="/sendMessageForMemberInfoUpdate", method=RequestMethod.POST)
+	@ResponseBody
+	public String[] sendMessageForMemberInfoUpdate(String m_phonenumber_send) throws Exception{
+		System.out.println("m_phonenumber_send:" + m_phonenumber_send);
+		String api_key = "NCSPZBDNMXWXI2FY";
+	    String api_secret = "YSK6MRNJIZW71OJDRNCB5MNAAHGPIV1D";
+	    Message coolsms = new Message(api_key, api_secret);    
+		
+	    Random rd = new Random();//랜덤 객체 생성
+	    int[] secretCode = new int[6];
+        for(int i=0;i<6;i++) {
+        	secretCode[i] = rd.nextInt(45)+1;
+        }
+        String secretCodeNumber = Integer.toString(secretCode[0]) + Integer.toString(secretCode[1]) + Integer.toString(secretCode[2])
+        							+ Integer.toString(secretCode[3]) + Integer.toString(secretCode[4]) + Integer.toString(secretCode[5]);
+        
+        System.out.println("문자로 보낸 인증코드 확인:" + secretCodeNumber);
+        HashMap<String, String> set = new HashMap<String, String>();
+    	set.put("to", m_phonenumber_send); // 수신번호
+    	set.put("from", "01042327310"); // 발신번호
+    	set.put("text", "안녕하세요 중고동네입니다. 인증번호는 [" + secretCodeNumber + "] 입니다."); // 문자내용
+    	set.put("type", "sms"); // 문자 타입
+    	
+    	String[] resultRedirect = {null,null};
+    	
+//    	JSONObject obj = (JSONObject) coolsms.send(set);
+//        if(obj != null) {
+//        	resultRedirect = "success";
+//        	
+//        	
+//        }else if(obj == null) {
+//        	resultRedirect = "fail";        	
+//        }
+//        
+    	
+        	resultRedirect[0] = "success";
+        	resultRedirect[1] = secretCodeNumber;
+        	
+        	
+       
+        	
+        	
+        	
+        
+		return resultRedirect;		
+	}
 	
+	@RequestMapping(value="/sendMessageForMemberInfoUpdateContents", method=RequestMethod.POST)
+	@ResponseBody
+	public String sendMessageForMemberInfoUpdateContents(String secretCodeNumberConfirm) throws Exception{
+		System.out.println("secretCodeNumberConfirm:" + secretCodeNumberConfirm);
+		
+		String resultRedirect ="";
+		
+//    	JSONObject obj = (JSONObject) coolsms.send(set);
+//        if(obj != null) {
+//        	resultRedirect = "success";
+//        	
+//        	
+//        }else if(obj == null) {
+//        	resultRedirect = "fail";        	
+//        }
+//        
+		
+		resultRedirect = "success";
+		
+		
+		
+		return resultRedirect;		
+	}
+	
+
 	
 }

@@ -13,7 +13,10 @@
 				</div>
 				<strong class="footerFont">Copyright &copy; 2020-2050 <a
 					href="http://almsaeedstudio.com" class="footerFont">세계로산업</a>.
-				</strong> All rights reserved.
+				</strong> 
+				<div class="footerFont">
+				All rights reserved.
+				</div>
 			</footer>
 		</div>
 		<div class="col-md-2"></div>

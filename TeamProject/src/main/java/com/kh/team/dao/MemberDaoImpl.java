@@ -30,7 +30,7 @@ private final String NAMESPACE = "com.kh.team.member.";
 		Map<String, String> map = new HashMap<>();
 		map.put("m_id", m_id);
 		map.put("m_pass", m_pass);
-		MemberVo memberVo =  sqlSession.selectOne(NAMESPACE + "login", map);
+		MemberVo memberVo = sqlSession.selectOne(NAMESPACE + "login", map);
 		return memberVo;
 	}
 
@@ -58,6 +58,12 @@ private final String NAMESPACE = "com.kh.team.member.";
 		int count = sqlSession.update(NAMESPACE + "changePw", map);
 		return count;	
 		
+	}
+
+	@Override
+	public MemberVo memberVoInfoSearch(String m_id) throws Exception {
+		MemberVo memberVo = sqlSession.selectOne(NAMESPACE + "memberVoInfoSearch", m_id);
+		return memberVo;
 	}
 
 	

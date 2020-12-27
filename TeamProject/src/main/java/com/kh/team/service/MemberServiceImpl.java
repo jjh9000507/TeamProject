@@ -40,5 +40,11 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	@Override
+	public MemberVo memberVoInfoSearch(String m_id) throws Exception {
+		MemberVo memberVo = memberDao.memberVoInfoSearch(m_id);
+		return memberVo;
+	}
+
 	
 }

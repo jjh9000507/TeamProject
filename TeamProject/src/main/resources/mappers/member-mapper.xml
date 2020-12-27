@@ -16,6 +16,11 @@
 		from member
 		where email = #{to}		
 	</select>
+	<select id="memberVoInfoSearch" resultType="MemberVo">
+		select *
+		from member
+		where m_id = #{m_id}		
+	</select>
 	<select id="sendEmailForFindPw" resultType="String">
 		select m_pass
 		from member

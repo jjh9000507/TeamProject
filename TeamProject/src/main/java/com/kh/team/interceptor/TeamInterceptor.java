@@ -21,6 +21,7 @@ public class TeamInterceptor extends HandlerInterceptorAdapter{
 				MemberVo memberVo =  (MemberVo) session.getAttribute("memberVo");
 				String nonBuyer = (String) session.getAttribute("nonBuyer");
 				System.out.println("TeamProject_nonBuyer:" + nonBuyer);
+				
 				if(nonBuyer != null && memberVo == null) {
 				System.out.println("비회원 로그인");	
 				response.sendRedirect("/");

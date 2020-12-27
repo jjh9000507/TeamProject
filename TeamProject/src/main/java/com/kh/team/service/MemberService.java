@@ -14,5 +14,7 @@ public interface MemberService {
 	public String sendEmailForFindPw(String to, String m_id) throws Exception;
 	// 비밀번호 변경하기
 	public int changePw(String m_id, String m_pass_new) throws Exception;
+	// 회원정보 내역 보기
+	public MemberVo memberVoInfoSearch(String m_id) throws Exception;
 	
 }

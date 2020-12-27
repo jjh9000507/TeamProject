@@ -24,21 +24,21 @@
 	<context:component-scan base-package="com.kh.team" />
 	
 <!-- 인터셉터 --> 
-	<beans:bean
-		class="com.kh.team.interceptor.TeamInterceptor"
-		id="teamInterceptor">
+<!-- 	<beans:bean -->
+<!-- 		class="com.kh.team.interceptor.TeamInterceptor" -->
+<!-- 		id="teamInterceptor"> -->
 
-	</beans:bean>
+<!-- 	</beans:bean> -->
 	
 
-	<interceptors>
+<!-- 	<interceptors> -->
 		
-		<interceptor>
-			<mapping path="/whitegoods/*" />
-			<exclude-mapping path="/main" />
-			<beans:ref bean="teamInterceptor"/>
+<!-- 		<interceptor> -->
+<!-- 			<mapping path="/whitegoods/*" /> -->
+<!-- 			<exclude-mapping path="/main" /> -->
+<!-- 			<beans:ref bean="teamInterceptor"/> -->
 
-		</interceptor>
-	</interceptors>
+<!-- 		</interceptor> -->
+<!-- 	</interceptors> -->
 	
 </beans:beans>
