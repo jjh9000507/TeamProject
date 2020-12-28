@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.team.computers">
+	<select id="getComptersProductList" resultType="ComputerVo">
+		select * from computer_product 
+		where c_com_cate_no like #{c_com_cate_no} || '%'
+		order by p_no desc
+	</select>
+	
+	<select id="getCategoryInfo" resultType="CategoryVo">
+		select * from category
+		where cate_ref = #{cate_ref}
+	</select>
+	
+	<select id="detailComputerInfo" resultType="ComputerVo">
+		select * from computer_product
+		where p_no = #{p_no}
+	</select>
+</mapper>

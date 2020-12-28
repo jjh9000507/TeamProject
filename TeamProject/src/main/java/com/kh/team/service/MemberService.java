@@ -16,5 +16,7 @@ public interface MemberService {
 	public int changePw(String m_id, String m_pass_new) throws Exception;
 	// 회원정보 내역 보기
 	public MemberVo memberVoInfoSearch(String m_id) throws Exception;
+	// 회원정보 변경하기(문자이용)
+	public int memberVoInfoChange(MemberVo memberVo) throws Exception;
 	
 }

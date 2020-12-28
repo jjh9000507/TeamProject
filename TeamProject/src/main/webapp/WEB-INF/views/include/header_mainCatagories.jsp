@@ -26,10 +26,8 @@
 		<!-- 카테고리3 -->
 		<li class="topMenuLi"><a class="menuLink" href="#"><img class="default" src="/resources/image/computer.png"><br>컴퓨터</a>
 			<ul class="submenu">
-				<li><a href="#" class="submenuLink">노트북/PC</a></li>
-				<li><a href="#" class="submenuLink">모니터</a></li>
-				<li><a href="#" class="submenuLink">PC주변기기</a></li>
-				<li><a href="#" class="submenuLink">저장 장치</a></li>
+				<li><a href="/computerProduct/computersForm/501" class="submenuLink">데크스탑</a></li>
+				<li><a href="/computerProduct/computersForm/502" class="submenuLink">노트북</a></li>				
 			</ul></li>
 
 		<!-- 						<li>|</li> -->

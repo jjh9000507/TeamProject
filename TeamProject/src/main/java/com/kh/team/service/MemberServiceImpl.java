@@ -46,5 +46,11 @@ public class MemberServiceImpl implements MemberService {
 		return memberVo;
 	}
 
+	@Override
+	public int memberVoInfoChange(MemberVo memberVo) throws Exception {
+		int count = memberDao.memberVoInfoChange(memberVo);
+		return count;
+	}
+
 	
 }

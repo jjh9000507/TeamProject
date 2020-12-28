@@ -9,6 +9,7 @@
 <br>
 <script>
 $(function() {
+	var secretCodeNum = "";
 	
 	$("#memberVoInfoUpdateButton").click(function() {
 		$("#modal-549609").trigger("click");
@@ -30,12 +31,12 @@ $(function() {
 			console.log("sendMessageForMemberInfoUpdate + data1:" + data);
 			
 			
-			if (data == "success") {
-				alert("문자 전송");
+			if (data[0] == "success") {
+				alert("인증코드 폼");
 // 				$("#btnEmailPwSendClose").trigger("click");
 				$("#closeSecretNumberSend").trigger("click");
 				$("#modal-pw").trigger("click");
-				
+				secretCodeNum = data[1];
 			} else if (data[0] == "fail") {
 				alert("문자 전송 실패");
 			}
@@ -43,31 +44,34 @@ $(function() {
 	});
 	
 	$("#changePwByPhonenumber").click(function() {
-		var m_pass_new = $("#m_pass_new").val();
-		var secretCodeNumberConfirm = $("#secretCodeNumberConfirm").val();
+		var m_id_for_change = $("#m_id_for_change").val();		
+		var m_pass_new = $("#m_pass_new").val();		
 		var m_email_new = $("#m_email_new").val();
 		var m_phonenumber_new = $("#m_phonenumber_new").val();
 		var url = "/login/sendMessageForMemberInfoUpdateContents";
-		var sendData = { 			
+		var sendData = { 
+			"m_id" : m_id_for_change,
 			"m_pass" : m_pass_new,
 			"email" : m_email_new,
-			"m_phonenumber" : m_phonenumber_new,
-			"secretCodeNumberConfirm" : secretCodeNumberConfirm
+			"m_phonenumber" : m_phonenumber_new			
 		};
+		var secretCodeNumberConfirm = $("#secretCodeNumberConfirm").val();
+		console.log("secretCodeNum:" + secretCodeNum);
+		console.log("secretCodeNumberConfirm:" + secretCodeNumberConfirm);
+		if(secretCodeNum == secretCodeNumberConfirm){	
+		
 		$.post(url, sendData, function(data) {
 			console.log("sendMessageForMemberInfoUpdateContents + data:" + data);
 			if (data == "success") {
-				alert("비밀번호 변환 성공");
-// 				$("#btnEmailPwSendClose").trigger("click");
-				secretNum = data;
-				
-// 				$("#closeSecretNumberSend").trigger("click");
-// 				$("#modal-pw").trigger("click");
-				
+				alert("회원정보 변환 성공");
+				$("#changePwByPhonenumberClose").trigger("click");			
 			} else if (data == "fail") {
-				alert("비밀번호 변환 실패");
+				alert("회원정보 변환 실패");
 			}
 		});
+		}else{
+			alert("인증코드가 다르니 다시 입력하시오.");
+		}
 	});
 	
 	
@@ -137,12 +141,14 @@ $(function() {
 							<input type="tel" class="form-control" id="m_phonenumber_new"
 								 name="m_phonenumber_new"	required="required"
 								 placeholder="변경할 전화번호를 입력하시오"/>
+							<input type="text" style="display: none;" id="m_id_for_change"
+								 name="m_id_for_change" value="${memberVoInfo.m_id}"/>
 						</div>
 						<div class="modal-footer">							 
 							<button type="button" id="changePwByPhonenumber" class="btn btn-primary">
 								비밀번호 변환
 							</button> 
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+							<button type="button" id="changePwByPhonenumberClose" class="btn btn-secondary" data-dismiss="modal">
 								닫기
 							</button>
 						</div>

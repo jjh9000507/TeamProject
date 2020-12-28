@@ -32,5 +32,12 @@
 			m_pass = #{m_pass_new}
 		where m_id = #{m_id}				
 	</update>
+	<update id="memberVoInfoChange">
+		update member set
+			m_pass = #{m_pass},
+			email = #{email},
+			m_phonenumber = #{m_phonenumber}
+		where m_id = #{m_id}				
+	</update>
 	
 </mapper>

@@ -66,5 +66,14 @@ private final String NAMESPACE = "com.kh.team.member.";
 		return memberVo;
 	}
 
+	@Override
+	public int memberVoInfoChange(MemberVo memberVo) throws Exception {
+		int count = sqlSession.update(NAMESPACE + "memberVoInfoChange", memberVo);
+		
+		return count;
+		
+		
+	}
+
 	
 }
