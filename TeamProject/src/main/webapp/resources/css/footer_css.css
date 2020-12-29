@@ -8,10 +8,11 @@
 .bottomFooter{		/*  풋터 폼 배경*/
 	background : orange;
 	position: relative;
-	bottom: auto;
+	
 	
 		
 }
+
 .footerFont{        /* 풋터 폼의 글씨 설정 */ 
 	
 	color:white;

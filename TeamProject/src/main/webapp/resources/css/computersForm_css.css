@@ -1,0 +1,96 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
+.computersFormDiv{
+	display:inline-block;
+	width:100%;	
+}
+
+
+.header{
+	width:85%;
+	height:15%;	
+	background: green;
+	float:left;
+}
+.asideUp{
+	display:inline-block;
+	width:15%;
+	height:15%;
+	float:left;		
+}
+.asideUpBanner{	
+	width:100%;
+	height:100%;
+			
+}
+.asideBanner{	
+	width:100%;
+	
+			
+}
+
+.navLeft{
+	display:inline-block;
+	width:15%;
+	height:100%;	
+	float:left;
+	background: blue;		
+}
+
+.section{
+	width:70%;
+	height:100%;
+	overflow:scroll;	
+	float:left;	
+}
+.aside{
+	display:inline-block;
+	height:100%;
+	width:15%;	
+	float:left;
+	background: purple;	
+}
+
+
+.computerFormListMenu{
+	color:white;
+	font-size : 32px;
+	
+}
+.computerFormListMenuItem{
+	color:white;
+	font-size : 26px;
+	
+}
+.computerTable{
+	width:100%;
+	height:15%;
+	font-size : 22px;	
+	
+	
+}
+.computerThead{
+	width:100%;
+	height:15%;
+	font-size : 30px;	
+}
+.text-center {
+	text-align: center;
+	
+}
+
+.searchInComputer{
+	font-size: 26px;
+	color:white;	
+}
+.pageNav{
+	position: relative;
+	bottom: -210px;
+}
+
+
+</style>

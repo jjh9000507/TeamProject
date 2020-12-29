@@ -2,12 +2,12 @@
 	pageEncoding="UTF-8"%>
 <%-- <%@ include file="/resources/css/bootstrap.jsp"%> --%>
 
-<div class="row bottomLine">
+<footer class="bottomLine">
 	<!--bottom-footer -->
 	<div class="col-md-12 bottomFooter">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<footer class="main-footer">
+			<div class="main-footer">
 				<div class="pull-right hidden-xs footerFont">
 					<b>중고동네</b> 052-000-0000
 				</div>
@@ -17,9 +17,9 @@
 				<div class="footerFont">
 				All rights reserved.
 				</div>
-			</footer>
-		</div>
-		<div class="col-md-2"></div>
+			</div>
+		</div>	
+		<div class="col-md-2"></div>	
 	</div>
-</div>
+</footer>
 </body>
