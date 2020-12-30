@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.SanctionVo;
@@ -145,10 +146,20 @@ public class AdminController {
 			adminService.adminWhitegoodsDelete(p_no);
 		}
 		
-		
 		List<ProductVo> allProductList = adminService.allProductList();
-//		rttr.addFlashAttribute("allProductList", allProductList);
 		model.addAttribute("allProductList", allProductList);
 		return "/admin/a_d_delete";
+	}
+	
+	@RequestMapping(value="/adminCategoryInput", method=RequestMethod.GET)
+	public String adminCategoryInput() throws Exception {
+		return "/admin/a_c_input";
+	}
+	
+	@RequestMapping(value="/adminCategoryDelete", method=RequestMethod.GET)
+	public String adminCategoryDelete(Model model) throws Exception {
+		List<CategoryVo> categoryList = adminService.getCategoryList();
+		model.addAttribute("categoryList", categoryList);
+		return "/admin/a_c_delete";
 	}
 }

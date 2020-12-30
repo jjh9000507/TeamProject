@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.AdminDao;
+import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
 @Service
@@ -54,6 +55,22 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void adminFLifeDelete(int p_no) throws Exception {
 		adminDao.adminFLifeDelete(p_no);
+	}
+
+	@Override
+	public void adminCategoryInput(CategoryVo categoryVo) throws Exception {
+		adminDao.adminCategoryInput(categoryVo);
+	}
+
+	@Override
+	public void adminCategoryDelete(String cate_no) throws Exception {
+		adminDao.adminCategoryDelete(cate_no);
+	}
+
+	@Override
+	public List<CategoryVo> getCategoryList() throws Exception {
+		List<CategoryVo> getCategoryList = adminDao.getCategoryList();
+		return getCategoryList;
 	}
 
 }

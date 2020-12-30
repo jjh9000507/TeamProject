@@ -2,6 +2,7 @@ package com.kh.team.service;
 
 import java.util.List;
 
+import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
 public interface AdminService {
@@ -13,4 +14,8 @@ public interface AdminService {
 	public void adminFInteriorDelete(int p_no) throws Exception;
 	public void adminFKitchenDelete(int p_no) throws Exception;
 	public void adminFLifeDelete(int p_no) throws Exception;
+	
+	public void adminCategoryInput(CategoryVo categoryVo) throws Exception;
+	public void adminCategoryDelete(String cate_no) throws Exception;
+	public List<CategoryVo> getCategoryList() throws Exception;
 }

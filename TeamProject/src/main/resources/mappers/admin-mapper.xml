@@ -41,6 +41,7 @@
 	)
 	</select>
 	
+	<!-- 여기부터 관리자가 상품 등록된 것 삭제하는 것 -->
 	<delete id="adminDeleteFBed">
 		delete from furniture_bed
 		where bed_no = #{bed_no}
@@ -72,4 +73,24 @@
 		delete from whitegoods
 		where w_no =  #{w_no}
 	</delete>
+	<!-- 여기까지가 삭제 -->
+	
+	<!-- 여기부터 카테고리 추가 -->
+	<insert id="adminCategoryInput">
+		insert into category(cate_no, cate_name, cate_ref)
+		values (#{cate_no}, #{cate_name}, #{cate_ref})
+	</insert>
+	<!-- 여기까지 카테고리 추가 -->
+	
+	<!-- 여기부터 카테고리 삭제 -->
+	<delete id="adminCategoryDelete">
+		delete category set
+		where cate_no = #{cate_no}
+	</delete>
+	<!-- 여기까지 카테고리 삭제 -->
+	
+	<!-- 카테고리 목록 가져오기 -->
+	<select id="getCategoryList" resultType="CategoryVo">
+		select * from category
+	</select>
 </mapper>

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
 @Repository
@@ -56,6 +57,22 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void adminFLifeDelete(int p_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "adminDeleteFLife", p_no);
+	}
+
+	@Override
+	public void adminCategoryInput(CategoryVo categoryVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "adminCategoryInput", categoryVo);
+	}
+
+	@Override
+	public void adminCategoryDelete(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCategoryDelete", cate_no);
+	}
+
+	@Override
+	public List<CategoryVo> getCategoryList() throws Exception {
+		List<CategoryVo> getCategoryList = sqlSession.selectList(NAMESPACE + "getCategoryList");
+		return getCategoryList;
 	}
 
 }

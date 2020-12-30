@@ -53,5 +53,13 @@
 			</table>
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<a href="/admin/adminMember">이전 화면으로</a>
+			<a href="/admin/adminForm">관리자 메인 화면으로</a>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
 </div>
 <%@include file="../include/footer.jsp" %>
