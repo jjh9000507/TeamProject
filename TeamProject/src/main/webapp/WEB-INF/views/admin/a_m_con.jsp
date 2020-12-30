@@ -25,19 +25,30 @@
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="MemberVo" items="${memberList}">
-					<tr>
-						<td>${MemberVo.m_id}</td>
-						<td>${MemberVo.m_name}</td>
-						<td>${MemberVo.email}</td>
-						<td>${MemberVo.m_phonenumber}</td>
-						<td>${MemberVo.m_regdate}</td>
-						<td>${MemberVo.m_selling_regdate}</td>
-						<td>
-							<a href="/admin/adminMemberDelete/${MemberVo.m_id}">회원 강제탈퇴</a>
-						</td>
-					</tr>
-				</c:forEach>
+				
+					<c:forEach var="MemberVo" items="${memberList}">
+						<tr>
+							<td>${MemberVo.m_id}</td>
+							<td>${MemberVo.m_name}</td>
+							<td>${MemberVo.email}</td>
+							<td>${MemberVo.m_phonenumber}</td>
+							<td>${MemberVo.m_regdate}</td>
+							<td>
+								<c:choose>
+									<c:when test="${MemberVo.m_selling_regdate != null}">
+									${MemberVo.m_selling_regdate}
+									</c:when>
+									<c:otherwise>
+									미등록
+									</c:otherwise>
+								</c:choose>
+							</td>
+							<td>
+								<a href="/admin/adminMemberDelete/${MemberVo.m_id}">회원 강제탈퇴</a>
+							</td>
+						</tr>
+					</c:forEach>
+				
 				</tbody>
 			</table>
 		</div>

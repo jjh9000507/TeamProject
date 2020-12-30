@@ -56,4 +56,10 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 		return whitegoodsVo;
 	}
 
+	@Override
+	public void userPAlldelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "userPAlldelete", m_id);
+		
+	}
+
 }

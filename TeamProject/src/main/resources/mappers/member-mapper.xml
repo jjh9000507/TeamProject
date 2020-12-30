@@ -42,7 +42,7 @@
 	
 	<select id="adminMemberSearch" resultType="MemberVo">
 		select * from member
-		where m_id != 'admin'
+		where ADMIN_CHECK != 1
 	</select>
 	
 	<delete id="adminMemberDelete">

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.team.admin">
+	<select id="allProductList" resultType="ProductVo">
+		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no from (
+																								select a.*
+																								from clothes_product a
+																							
+																								union all 
+																							
+																								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no
+																								from computer_product b 
+																							
+																								union all 
+																							
+																								select c1.* 
+																								from furniture_bed c1
+																							
+																								union all
+																								
+																								select c2.* 
+																								from furniture_interior c2
+																								
+																								union all
+																								
+																								select c3.*
+																								from furniture_kitchen c3
+																								
+																								union all
+																								
+																								select c4.*
+																								from furniture_life c4
+																								
+																								union all
+																								
+																								select d.*
+																								from whitegoods d
+	)
+	</select>
+	
+	<delete id="adminDeleteFBed">
+		delete from furniture_bed
+		where bed_no = #{bed_no}
+	</delete>
+
+	<delete id="adminDeleteFInterior">
+		delete from furniture_interior
+		where interior_no = #{interior_no}
+	</delete>
+
+	<delete id="adminDeleteFKitchen">
+		delete from furniture_kitchen
+		where kitchen_no = #{kitchen_no}
+	</delete>
+
+	<delete id="adminDeleteFLife">
+		delete from furniture_life
+		where life_no =  #{life_no}
+	</delete>
+	<delete id="adminDeleteClothes">
+		delete from clothes_product
+		where p_no =  #{p_no}
+	</delete>
+	<delete id="adminDeleteComputer">
+		delete from computer_product
+		where c_com_no =  #{c_com_no}
+	</delete>
+	<delete id="adminDeleteWhitegoods">
+		delete from whitegoods
+		where w_no =  #{w_no}
+	</delete>
+</mapper>

@@ -9,12 +9,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.SanctionVo;
+import com.kh.team.service.AdminService;
 import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
 import com.kh.team.service.SellProductService;
+import com.kh.team.service.WhitegoodsService;
 
 @Controller
 @RequestMapping("/admin")
@@ -26,7 +30,14 @@ public class AdminController {
 	@Inject
 	private SanctionService sanctionService;
 	
+	@Inject
 	private MemberService memberService;
+	
+	@Inject
+	private WhitegoodsService whitegoodsService;
+	
+	@Inject
+	private AdminService adminService;
 
 	//관리자 시작페이지로 이동
 	@RequestMapping(value="/adminForm", method=RequestMethod.GET)
@@ -60,8 +71,7 @@ public class AdminController {
 	@RequestMapping(value="/adminMemberCon", method=RequestMethod.GET)
 	public String adminMemberCon(Model model) throws Exception {
 		List<MemberVo> memberList = memberService.adminMemberSearch();
-		System.out.println("memberList" + memberList);
-//		model.addAttribute("memberList", memberList);
+		model.addAttribute("memberList", memberList);
 		return "/admin/a_m_con";
 	}
 	
@@ -94,9 +104,51 @@ public class AdminController {
 	//관리자페이지 회원 강제탈퇴
 	@RequestMapping(value="/adminMemberDelete/{m_id}", method=RequestMethod.GET)
 	public String adminMemberDelete(@PathVariable("m_id") String m_id, Model model) throws Exception{
+		whitegoodsService.userPAlldelete(m_id);
 		memberService.adminMemberDelete(m_id);
 		List<MemberVo> memberList = memberService.adminMemberSearch();
 		model.addAttribute("memberList", memberList);
-		return "/admin.a_m_con";
+		return "/admin/a_m_con";
+	}
+	
+	@RequestMapping(value="detailDelete", method=RequestMethod.GET)
+	public String detailDeletePage(Model model) throws Exception{
+		List<ProductVo> allProductList = adminService.allProductList();
+		model.addAttribute("allProductList", allProductList);
+		return "/admin/a_d_delete";
+	}
+	
+	@RequestMapping(value="/adminProductDelete/{cate_no}/{p_no}", method=RequestMethod.GET)
+	public String adminDelete(@PathVariable("cate_no") String cate_no,
+								@PathVariable("p_no") int p_no, Model model) throws Exception{
+		String cate_sub = cate_no.substring(0, 2);
+		if(cate_sub.equals("50")) {
+			//컴퓨터
+			adminService.adminComputerDelete(p_no);
+		} else if(cate_sub.equals("10")) {
+			//의류
+			adminService.adminClothesDelete(p_no);
+		} else if(cate_sub.equals("20")) {
+			//가구
+			String cate_sub2 = cate_no.substring(0,3);
+			if(cate_sub2.equals("201")) {
+				adminService.adminFLifeDelete(p_no);
+			} else if(cate_sub2.equals("202")) {
+				adminService.adminFInteriorDelete(p_no);
+			} else if(cate_sub2.equals("203")) {
+				adminService.adminFBedDelete(p_no);
+			} else if(cate_sub2.equals("204")) {
+				adminService.adminFKitchenDelete(p_no);
+			}
+		} else if(cate_sub.equals("30")) {
+			//가전제품
+			adminService.adminWhitegoodsDelete(p_no);
+		}
+		
+		
+		List<ProductVo> allProductList = adminService.allProductList();
+//		rttr.addFlashAttribute("allProductList", allProductList);
+		model.addAttribute("allProductList", allProductList);
+		return "/admin/a_d_delete";
 	}
 }

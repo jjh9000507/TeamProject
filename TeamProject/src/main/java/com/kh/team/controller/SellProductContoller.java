@@ -60,16 +60,19 @@ public class SellProductContoller {
 	@Inject
 	private SanctionService sanctionService;
 	
+	//판매하기 화면 이동
 	@RequestMapping(value="/sellproductMain", method=RequestMethod.GET)
 	public String sellproductMain(HttpSession session, Model model) throws Exception {
 		return "/sell/sellproductmain";
 	}
 	
+	//
 	@RequestMapping(value="/sellproduct", method=RequestMethod.GET)
 	public String sellproductPage() throws Exception {
 		return "/sell/sellproduct";
 	}
 	
+	//판매상품 등록시 카테고리 가져오기
 	@RequestMapping(value="/getCategoryList", method=RequestMethod.GET)
 	@ResponseBody
 	public List<CategoryVo> getCategoryList(String cate_no) throws Exception {
@@ -77,6 +80,7 @@ public class SellProductContoller {
 		return categoryList;
 	}
 	
+	//가전제품 등록
 	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.GET)
 	public String whitegoodsUpload(ProductVo productVo, HttpSession session) throws Exception {
 		System.out.println("productVo: " + productVo);
@@ -90,37 +94,47 @@ public class SellProductContoller {
 		return "/main";
 	}
 	
+	//의류 등록
 	@RequestMapping(value="/clothesUpload", method=RequestMethod.GET)
 	public String clothesUpload(ClothesVo clothesVo) throws Exception {
 		clothesService.insertClothes(clothesVo);
 		return "/main";
 	}
 	
+	//가구 등록
 	@RequestMapping(value="/furnitureUpload", method=RequestMethod.GET)
 	public String furnitureUpload() throws Exception {
 		return "/main";
 	}
 	
+	//컴퓨터 등록
 	@RequestMapping(value="/computerUpload", method=RequestMethod.GET)
 	public String computerUpload() throws Exception {
 		return "/main";
 	}
 	
+	//판매자 등록화면 이동
 	@RequestMapping(value="/registration", method=RequestMethod.GET)
 	public String registration(HttpSession session, Model model) throws Exception {
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 		String m_id = memberVo.getM_id();
 		SanctionVo sanctionVo = sanctionService.searchSanc(m_id);
 		String page;
-		if(sanctionVo.getSanc_count() >= 3) {
-			page = "/sell/sellproductmain";
-			model.addAttribute("msg", "Count3");
-		} else {
+		if(sanctionVo == null) {
 			page = "/sell/sellerreg";
+		} else {
+			if(sanctionVo.getSanc_count() >= 3) {
+				page = "/sell/sellproductmain";
+				model.addAttribute("msg", "Count3");
+			} else {
+				page = "/sell/sellerreg";
+			}
 		}
+		
 		return page;
 	}
 	
+	//판매자 등록
 	@RequestMapping(value="/registrationRun", method=RequestMethod.GET)
 	public String registrationRun(HttpSession session, Model model) throws Exception {
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
@@ -146,6 +160,7 @@ public class SellProductContoller {
 //		return bytes;
 //	}
 	
+	//이미지 출력(아직 안됨)
 	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")
 	@SuppressWarnings("resource")
 	@ResponseBody
@@ -188,7 +203,7 @@ public class SellProductContoller {
 		return entity;
 	}
 
-	
+	//이미지 등록시 업로드
 	@RequestMapping(value="/uploadedFile", method=RequestMethod.POST, produces="application/test;charset=utf-8")
 	@ResponseBody
 	public String uploadedFile(MultipartFile file, String str, HttpSession session, HttpServletRequest request, Model model) throws Exception {

@@ -49,4 +49,9 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 		return detailWhitegoods;
 	}
 
+	@Override
+	public void userPAlldelete(String m_id) throws Exception {
+		whitegoodsDao.userPAlldelete(m_id);
+	}
+
 }

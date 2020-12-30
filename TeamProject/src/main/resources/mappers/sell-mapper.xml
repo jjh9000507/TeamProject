@@ -26,7 +26,7 @@
 	<select id="sellerList" resultType="MemberVo">
 		select * from member
 		where m_selling = 1
-		and m_id != 'admin'
+		and ADMIN_CHECK != 1
 	</select>
 
  </mapper>

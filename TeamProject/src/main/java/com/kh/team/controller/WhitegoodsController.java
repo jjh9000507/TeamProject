@@ -26,8 +26,8 @@ public class WhitegoodsController {
 	public String WhitegoodsPage(@PathVariable("w_cate_no") String w_cate_no, Model model) throws Exception {
 		List<WhitegoodsVo> getWhitegoodsList = whitegoodsService.getWhitegoodsList(w_cate_no);
 		List<CategoryVo> getCategoryList = whitegoodsService.getCategoryList(w_cate_no);
-		System.out.println("whitegoodsList: " + getWhitegoodsList);
-		System.out.println("CategoryList: " + getCategoryList);
+//		System.out.println("whitegoodsList: " + getWhitegoodsList);
+//		System.out.println("CategoryList: " + getCategoryList);
 		model.addAttribute("WhitegoodsList", getWhitegoodsList);
 		model.addAttribute("categoryList", getCategoryList);
 		return "/whitegoods/whitegoodsList";
