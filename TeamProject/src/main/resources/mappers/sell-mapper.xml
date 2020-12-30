@@ -4,6 +4,29 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.kh.team.sell">
-<!--  	<insert id="sellProduct"> -->
-<!--  	</insert> -->
+	<update id="registration">
+		update member set
+    		m_selling = 1,
+    		m_selling_regdate = sysdate
+		where m_id = #{m_id}
+	</update>
+	
+	<select id="getCategoryList" resultType="CategoryVo">
+		select * from category
+		where cate_ref = #{cate_ref}
+	</select>
+	
+	<update id="rollbackSeller">
+		update member set
+    		m_selling = 0,
+    		m_selling_regdate = null
+		where m_id = #{m_id}
+	</update>
+	
+	<select id="sellerList" resultType="MemberVo">
+		select * from member
+		where m_selling = 1
+		and m_id != 'admin'
+	</select>
+
  </mapper>

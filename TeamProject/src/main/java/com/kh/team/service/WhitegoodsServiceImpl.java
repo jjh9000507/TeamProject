@@ -6,7 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
-import com.kh.team.dao.WhiteGoodsDao;
+import com.kh.team.dao.WhitegoodsDao;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.WhitegoodsVo;
 
@@ -14,39 +14,38 @@ import com.kh.team.domain.WhitegoodsVo;
 public class WhitegoodsServiceImpl implements WhitegoodsService {
 
 	@Inject
-	private WhiteGoodsDao whiteGoodsDao;
+	private WhitegoodsDao whitegoodsDao;
 	
 	@Override
-	public List<WhitegoodsVo> getWhiteGoodsList(String cate_no) throws Exception {
-		List<WhitegoodsVo> getWhiteGoodsList = whiteGoodsDao.list(cate_no);
-		List<CategoryVo> getCategoryList = whiteGoodsDao.getCategoryList(cate_no);
-		return getWhiteGoodsList;
+	public List<WhitegoodsVo> getWhitegoodsList(String w_cate_no) throws Exception {
+		List<WhitegoodsVo> getWhitegoodsList = whitegoodsDao.getWhitegoodsList(w_cate_no);
+		return getWhitegoodsList;
 	}
 
 	@Override
-	public void insertWhiteGoods(WhitegoodsVo whiteGoodsVo) throws Exception {
-		whiteGoodsDao.insertWhiteGoods(whiteGoodsVo);
+	public void insertWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
+		whitegoodsDao.insertWhitegoods(whitegoodsVo);
 	}
 
 	@Override
-	public void updateWhiteGoods(WhitegoodsVo whiteGoodsVo) throws Exception {
-		whiteGoodsDao.updateWhiteGoods(whiteGoodsVo);
+	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
+		whitegoodsDao.updateWhitegoods(whitegoodsVo);
 	}
 
 	@Override
-	public void deleteWhiteGoods(int p_no, String p_seller) throws Exception {
-		whiteGoodsDao.deleteWhiteGoods(p_no, p_seller);
+	public void deleteWhitegoods(int w_no, String w_seller) throws Exception {
+		whitegoodsDao.deleteWhitegoods(w_no, w_seller);
 	}
 
 	@Override
 	public List<CategoryVo> getCategoryList(String cate_ref) throws Exception {
-		List<CategoryVo> getCategoryList = whiteGoodsDao.getCategoryList(cate_ref);
+		List<CategoryVo> getCategoryList = whitegoodsDao.getCategoryList(cate_ref);
 		return getCategoryList;
 	}
 
 	@Override
-	public WhitegoodsVo detailWhitegoods(int p_no) throws Exception {
-		WhitegoodsVo detailWhitegoods = whiteGoodsDao.detailWhitegoods(p_no);
+	public WhitegoodsVo detailWhitegoods(int w_no) throws Exception {
+		WhitegoodsVo detailWhitegoods = whitegoodsDao.detailWhitegoods(w_no);
 		return detailWhitegoods;
 	}
 

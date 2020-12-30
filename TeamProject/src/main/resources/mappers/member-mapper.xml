@@ -40,4 +40,14 @@
 		where m_id = #{m_id}				
 	</update>
 	
+	<select id="adminMemberSearch" resultType="MemberVo">
+		select * from member
+		where m_id != 'admin'
+	</select>
+	
+	<delete id="adminMemberDelete">
+		delete from member
+		where m_id = #{m_id}
+	</delete>
+	
 </mapper>

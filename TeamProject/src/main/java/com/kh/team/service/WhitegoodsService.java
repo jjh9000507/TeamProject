@@ -6,10 +6,10 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 public interface WhitegoodsService {
-	public List<WhitegoodsVo> getWhiteGoodsList(String cate_no) throws Exception;
-	public void insertWhiteGoods(WhitegoodsVo whiteGoodsVo) throws Exception;
-	public void updateWhiteGoods(WhitegoodsVo whiteGoodsVo) throws Exception;
-	public void deleteWhiteGoods(int p_no, String p_seller) throws Exception;
+	public List<WhitegoodsVo> getWhitegoodsList(String w_cate_no) throws Exception;
+	public void insertWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception;
+	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception;
+	public void deleteWhitegoods(int w_no, String w_seller) throws Exception;
 	public List<CategoryVo> getCategoryList(String cate_ref) throws Exception;
-	public WhitegoodsVo detailWhitegoods(int p_no) throws Exception;
+	public WhitegoodsVo detailWhitegoods(int w_no) throws Exception;
 }

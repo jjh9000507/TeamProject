@@ -2,103 +2,75 @@ package com.kh.team.domain;
 
 import java.sql.Timestamp;
 
-
 public class WhitegoodsVo {
-	private int p_no;
-	private String p_name;
-	private String p_seller;
-	private int p_price;
+	private int w_no;
+	private String w_name;
 	private String cate_no;
-	private String p_content;
-	private String p_thumbimg;
-	private Timestamp p_regdate;
-	
-	
-	public int getP_no() {
-		return p_no;
+	private int w_price;
+	private String w_content;
+	private String w_seller;
+	private String w_thumbimg;
+	private Timestamp w_regdate;
+	private int p_no;
+	public int getW_no() {
+		return w_no;
 	}
-
-
-	public void setP_no(int p_no) {
-		this.p_no = p_no;
+	public void setW_no(int w_no) {
+		this.w_no = w_no;
 	}
-
-
-	public String getP_name() {
-		return p_name;
+	public String getW_name() {
+		return w_name;
 	}
-
-
-	public void setP_name(String p_name) {
-		this.p_name = p_name;
+	public void setW_name(String w_name) {
+		this.w_name = w_name;
 	}
-
-
-	public String getP_seller() {
-		return p_seller;
-	}
-
-
-	public void setP_seller(String p_seller) {
-		this.p_seller = p_seller;
-	}
-
-
-	public int getP_price() {
-		return p_price;
-	}
-
-
-	public void setP_price(int p_price) {
-		this.p_price = p_price;
-	}
-
-
 	public String getCate_no() {
 		return cate_no;
 	}
-
-
 	public void setCate_no(String cate_no) {
 		this.cate_no = cate_no;
 	}
-
-
-	public String getP_content() {
-		return p_content;
+	public int getW_price() {
+		return w_price;
 	}
-
-
-	public void setP_content(String p_content) {
-		this.p_content = p_content;
+	public void setW_price(int w_price) {
+		this.w_price = w_price;
 	}
-
-
-	public String getP_thumbimg() {
-		return p_thumbimg;
+	public String getW_content() {
+		return w_content;
 	}
-
-
-	public void setP_thumbimg(String p_thumbimg) {
-		this.p_thumbimg = p_thumbimg;
+	public void setW_content(String w_content) {
+		this.w_content = w_content;
 	}
-
-
-	public Timestamp getP_regdate() {
-		return p_regdate;
+	public String getW_seller() {
+		return w_seller;
 	}
-
-
-	public void setP_regdate(Timestamp p_regdate) {
-		this.p_regdate = p_regdate;
+	public void setW_seller(String w_seller) {
+		this.w_seller = w_seller;
 	}
-
-
+	public String getW_thumbimg() {
+		return w_thumbimg;
+	}
+	public void setW_thumbimg(String w_thumbimg) {
+		this.w_thumbimg = w_thumbimg;
+	}
+	public Timestamp getW_regdate() {
+		return w_regdate;
+	}
+	public void setW_regdate(Timestamp w_regdate) {
+		this.w_regdate = w_regdate;
+	}
+	public int getP_no() {
+		return p_no;
+	}
+	public void setP_no(int p_no) {
+		this.p_no = p_no;
+	}
 	@Override
 	public String toString() {
-		return "WhiteGoodsVo [p_no=" + p_no + ", p_name=" + p_name + ", p_seller=" + p_seller + ", p_price=" + p_price
-				+ ", cate_no=" + cate_no + ", p_content=" + p_content + ", p_thumbimg=" + p_thumbimg + ", p_regdate="
-				+ p_regdate + "]";
+		return "WhitegoodsVo [w_no=" + w_no + ", w_name=" + w_name + ", cate_no=" + cate_no + ", w_price=" + w_price
+				+ ", w_content=" + w_content + ", w_seller=" + w_seller + ", w_thumbimg=" + w_thumbimg + ", w_regdate="
+				+ w_regdate + ", p_no=" + p_no + "]";
 	}
 	
 }

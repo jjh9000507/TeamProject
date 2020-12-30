@@ -57,4 +57,16 @@ public class UploadFileUtils {
 			}
 		}
 	}
+	
+	
+	public static boolean isImage(String fileName) {
+		int dotIndex = fileName.lastIndexOf(".");
+		String extName = fileName.substring(dotIndex + 1);
+		String upper = extName.toUpperCase();
+		if(upper.equals("JPG") || upper.equals("PNG") || upper.equals("GIF")) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 }

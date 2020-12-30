@@ -84,13 +84,23 @@ body {
 	-moz-transition: height .2s; 
 	-o-transition: height .2s; 
  	left: 0; 
+ 	top: 104px;
  	width: 972px;           /*  메인 메뉴의 길이 108 x n */ 
 	background-color: white; /* [추가] 하위 메뉴 전체에 배경색 설정 */
-	border: 1px solid #dcdcdc;
+	
 }
 
 .submenu li {
 	display: inline-block;
+	border-bottom: 1px solid #DCDCDC;
+}
+
+.submenu li:first-child {
+	border-left: 1px solid #DCDCDC;
+}
+	
+.submenu li:last-child {
+	border-right: 1px solid #DCDCDC;
 }
 
 .topMenuLi:hover .submenu {
@@ -100,6 +110,7 @@ body {
 .submenuLink:hover {
 	color: red;
 	background-color: white;
+	text-decoration:none;
 	
 }
 
@@ -220,7 +231,7 @@ body {
 }
 
 .listMenu li {
-	width:243px;         
+	width:243px;          /* 상품 리스트 헤더 하나 당 길이 * /  
 	
 }
 
@@ -243,6 +254,11 @@ body {
 }
 
 .productList {
+	padding : 0px;
+	padding-left : 155px;
+}
+
+.divSecondShow {
 	padding : 0px;
 	padding-left : 155px;
 }
@@ -332,26 +348,67 @@ body {
     margin-bottom: 7px;
     height: 19px;
 }
+/* --------------------------------------------------------------------- */
 
-.loginHeader{		/*  로그인 폼 배경*/
-	background : orange;
-	width:450px;
-	outline:orange; 	
-	padding:10px;
-	border:5px;
-	position: relative; 
-	left: 38%;  /*  나중에 고치기*/
-     
-	
+.lblHOT {
+  position: absolute;
+  left: 15%;
+  top: 100px;
+  display: table-cell;
+  text-align: center;
+  vertical-align: middle;
 }
-.loginFont{        /* 로그인 폼의 글씨 설정 */ 
-	
-	color:white;
-	font-size : 16px;
+
+.neon {
+  font-family: neon;
+  color: red;
+  font-size: 1vw;
+  
 }
-.loginFontHead{        /* 로그인 폼의 머릿글 글씨 설정 */ 
-	
-	color:white;
-	font-size : 32px;
+
+.flux {
+  font-family: neon;
+  color: #426DFB;
+  font-size: 1vw;
+ 
 }
+
+.neon {
+  animation: neon 2s ease infinite;
+  -moz-animation: neon 2s ease infinite;
+  -webkit-animation: neon 2s ease infinite;
+}
+
+@keyframes neon {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #FA1C16, 0 0 3vw #FA1C16, 0 0 10vw #FA1C16, 0 0 10vw #FA1C16, 0 0 .4vw red, .5vw .5vw .1vw #806914;
+    color: red;
+  }
+  50% {
+   
+  }
+}
+
+.flux {
+  animation: flux 2s linear infinite;
+  -moz-animation: flux 2s linear infinite;
+  -webkit-animation: flux 2s linear infinite;
+  -o-animation: flux 2s linear infinite;
+}
+
+@keyframes flux {
+  0%,
+  100% {
+    text-shadow: 0 0 1vw #1041FF, 0 0 3vw #1041FF, 0 0 10vw #1041FF, 0 0 10vw #1041FF, 0 0 .4vw #8BFDFE, .5vw .5vw .1vw #147280;
+    color: #28D7FE;
+  }
+  50% {
+    text-shadow: 0 0 .5vw #082180, 0 0 1.5vw #082180, 0 0 5vw #082180, 0 0 5vw #082180, 0 0 .2vw #082180, .5vw .5vw .1vw #0A3940;
+    color: #146C80;
+  }
+}
+
+
+
 </style>

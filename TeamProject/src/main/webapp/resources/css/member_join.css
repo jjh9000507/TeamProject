@@ -4,7 +4,7 @@
 #header_wrap{min-width:980px !important}
 .lnb_container,.header_container,.gnb_container{width:980px !important}
 #locbar .holder{width:980px !important}
-#body{position:relative;width:980px;padding-right:0;margin:0 auto;z-index:2;}
+/* #body{position:relative;width:980px;padding-right:0;margin:0 auto;z-index:2;} */
 #body:before,#body:after{display:table;content:''}
 #body:after{clear:both}
 #body{width:980px !important;/* IE6 fixLeftbox() 스크립트 때문에 !important 처리함. 스크립트 사용 안할 때 !important 삭제 */}
@@ -19,7 +19,8 @@
 .invisible{visibility:hidden;overflow:hidden;position:absolute;width:0;height:0;font-size:0;line-height:0}
 
 .styleSelect{font-size:12px;border:1px solid;}
-button{cursor:pointer; width:150px;}
+
+.bottomBtn{position:relative;left: 180%;text-align: center;}
 
 div.uxa-mpheadin{position:relative;width:100% !important;margin:0 auto;padding-top:75px;}
 div.uxa-mpheadin h1 {position:absolute;top:-68px !important;left:0;}
@@ -50,7 +51,8 @@ div.uxc-termsin div.uxc-iframebox iframe{scrollbar-face-color:#EEEEEE;scrollbar-
 
 /* 가장 상위 div */
 /* 옥션회원가입 리뉴얼 */
-.kcc_wrap .info-enter .inner{padding:32px 0 3px}
+.kcc_wrap .info-enter .inner{padding:32px 0 3px;position: relative;
+    left: 403px;}
 .kcc_wrap .terms-agree .inner{padding:30px 0 15px}
 .kcc_wrap .terms-agree .terms-cont-inner{border:0}
 .kcc_wrap .terms-agree .terms-cont .check-set{padding-top:3px;border:0;background:none}
@@ -92,7 +94,7 @@ div.uxc-termsin div.uxc-iframebox iframe{scrollbar-face-color:#EEEEEE;scrollbar-
 .licensee h3,.freemember h3,.identi-cert h3,.info-enter h3,.terms-agree h3{float:left;width:282px}
 
 /* 두번째 div */
-.info-enter .inner{padding:32px 0 11px}
+.info-enter .inner{padding:32px 0 11px;}
 .info-enter .info-cont{float:left}
 .licensee_entry input[type=text],.join_state input[type=text],.info-enter .info-cont input[type=text],.info-enter .info-cont input[type=password],.userBsBb input[type=text]{padding:4px 0 7px 11px;border-top:1px solid #999;border-right:1px solid #e2e2e2;border-bottom:1px solid #ddd;border-left:1px solid #aaa;font:13px Malgun Gothic,Dotum;color:#767676}
 .info-enter .info-cont input[type=text].focus,.info-enter .info-cont input[type=password].focus{border:1px solid #999;color:#333}
@@ -103,8 +105,11 @@ div.uxc-termsin div.uxc-iframebox iframe{scrollbar-face-color:#EEEEEE;scrollbar-
 .passwordInfoImg{background:url(//pics.auction.co.kr/join/txt_pw.gif) no-repeat 11px 8px} 
 .info-enter .info-cont input[type=checkbox],.info-enter .info-cont input[type=radio]{margin:0 2px 0 3px;vertical-align:-2px;*vertical-align:0}
 .info-enter .info-cont select{width:161px;height:30px}
-.info-enter .info-cont>ul>li{padding-bottom:18px}
+.info-enter .info-cont>ul>li{padding-bottom:18px;}
 .info-enter .info-cont>ul>li p{padding-top:7px}
+
+
+
 .info-enter .info-cont>ul>li .enter-guide{display:none;padding-top:5px;font:13px Malgun Gothic,Dotum;color:#797979}
 .info-enter .info-cont>ul>li .txt01{padding-top:5px;font:13px Malgun Gothic,Dotum;color:#44d2d6;letter-spacing:-1px}
 .info-enter .info-cont>ul>li .txt02{padding:5px 0 0 20px;background:url(//pics.auction.co.kr/join/bul_arrow.gif) no-repeat 0 6px;font:13px Malgun Gothic,Dotum;color:#ff424c;letter-spacing:-1px}
@@ -116,7 +121,7 @@ div.uxc-termsin div.uxc-iframebox iframe{scrollbar-face-color:#EEEEEE;scrollbar-
 .info-enter .info-cont>ul>li .cell-cert{overflow:hidden;width:85px;height:32px;margin-left:3px;border:0;background:url(//pics.auction.co.kr/join/btn_cell_cert.gif) no-repeat;text-indent:-9999px}
 .info-enter .info-cont>ul>li .zipcode{overflow:hidden;width:94px;height:32px;margin-left:3px;*margin-left:-5px;border:0;background:url(//pics.auction.co.kr/join/btn_zipcode.gif) no-repeat;text-indent:-9999px}
 .info-enter .info-cont>ul>li .address{padding-top:10px}
-.info-enter .info-cont>ul>li>ul{padding-top:5px}
+.info-enter .info-cont>ul>li>ul{padding-top:5px;}
 .info-enter .info-cont>ul>li>ul>li{margin-top:3px;padding-left:10px;background:url(//pics.auction.co.kr/join/bul_square.gif) no-repeat 0 6px;font-family:Malgun Gothic,Dotum;color:#999}
 .info-enter .info-cont>ul>li>ul>li span{color:#666}
 .info-enter .info-cont>ul>li .noti-ment{padding:0 0 15px;font:bold 13px Malgun Gothic,Dotum}

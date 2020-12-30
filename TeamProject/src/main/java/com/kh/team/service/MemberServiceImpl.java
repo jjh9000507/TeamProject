@@ -1,6 +1,8 @@
 package com.kh.team.service;
 
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 
@@ -51,6 +53,18 @@ public class MemberServiceImpl implements MemberService {
 		int count = memberDao.memberVoInfoChange(memberVo);
 		return count;
 	}
+
+	@Override
+	public List<MemberVo> adminMemberSearch() throws Exception {
+		List<MemberVo> memberList = memberDao.adminMemberSearch();
+		return memberList;
+	}
+
+	@Override
+	public void adminMemberDelete(String m_id) throws Exception {
+		memberDao.adminMemberDelete(m_id);
+	}	
+	
 
 	
 }

@@ -7,6 +7,7 @@ import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
@@ -27,7 +28,7 @@ public class S3Util {
 		conn.setEndpoint("s3.ap-northeast-2.amazonaws.com");
 	}
 	
-	//ÆÄÀÏ ¾÷·Îµå
+	// íŒŒì¼ ì—…ë¡œë“œ
 	public void fileUpload(String bucketName, String fileName, byte[] fileData) throws Exception {
 		String filePath = (fileName).replace(File.separatorChar, '/');
 		ObjectMetadata metaData = new ObjectMetadata();
@@ -37,13 +38,13 @@ public class S3Util {
 		conn.putObject(bucketName, filePath, byteArrayInputStream, metaData);
 	}
 	
-	//ÆÄÀÏ »èÁ¦
+	// íŒŒì¼ ì‚­ì œ
 	public void fileDelete(String bucketName, String fileName) throws Exception {
 		String imgName = (fileName).replace(File.separatorChar, '/');
 		conn.deleteObject(bucketName, imgName);
 	}
 	
-	//ÆÄÀÏ URL
+	// íŒŒì¼ URL
 	public String getFileURL(String bucketName, String fileName) throws Exception {
 		String imgName = (fileName).replace(File.separatorChar, '/');
 		return conn.generatePresignedUrl(new GeneratePresignedUrlRequest(bucketName, imgName)).toString();
