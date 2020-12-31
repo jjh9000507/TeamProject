@@ -61,9 +61,13 @@ $(function(){
 </script>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4"><h1>상품게시물 삭제</h1></div>
-		<div class="col-md-4"></div>
+		<div class="col-md-12" style="text-align: center;"><h1>상품게시물 삭제</h1></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" style="text-align: center">
+			<a href="/admin/adminDetail">이전 화면으로</a>
+			<a href="/admin/adminForm">관리자 메인 화면으로</a>
+		</div>
 	</div>
 	<div class="row listMain">
 					<ul class="nav nav-tabs categoryMenu">
@@ -114,14 +118,7 @@ $(function(){
 		<div class="col-md-2"></div>
 	</div>
 	
-	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<a href="/admin/adminDetail">이전 화면으로</a>
-			<a href="/admin/adminForm">관리자 메인 화면으로</a>
-		</div>
-		<div class="col-md-4"></div>
-	</div>
+	
 </div>
 
 <%@include file="../include/footer.jsp" %>
