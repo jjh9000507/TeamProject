@@ -153,12 +153,12 @@ body {
 }
 
 .btnHome {             /* 메인 사이트  홈 버튼 */
-	font-size:70px; 
+	font-size:50px; 
 	color:black;
 	text-decoration:none !important;
 	position: absolute;
     left: 40%;
-    top: 10%;
+    top: 25%;
     
 }
 
@@ -250,7 +250,7 @@ body {
 
 .productList {
 	padding : 0px;
-	padding-left : 155px;
+	padding-left : 24%;
 }
 
 .list {
