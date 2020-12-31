@@ -6,6 +6,7 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -20,6 +21,7 @@ public class PageController {
 	@Inject
 	PageService pageService;
 	
+	// 메인에서 더보기 버튼 
 	@RequestMapping(value="/morePage" , method=RequestMethod.GET)
 	@ResponseBody
 	public List<ProductVo> moreList(int startNum) throws Exception {
@@ -37,4 +39,13 @@ public class PageController {
 		model.addAttribute("list" , list);
 		return "/searchForm";
 	}
+	
+	@RequestMapping(value="/mapSearch" , method=RequestMethod.GET)
+	public String map(String roadAddress, Model model) throws Exception {
+		System.out.println("roadAddress : " + roadAddress);
+		model.addAttribute("roadAddress" , roadAddress);
+		return "/map";
+	}
+	
+	
 } // main class

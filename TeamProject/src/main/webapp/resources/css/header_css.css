@@ -3,25 +3,25 @@
 
 <style>
 
-@import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
 
 .header_body {
 	background-color : white;
-	padding-bottom: 80px;
+	padding-bottom: 60px;
 }
 
 body {
 	background-color: white;
-	font-family: 'East Sea Dokdo', cursive;
 }
 
 #topMenu {
 	height: 0px; /* 카테고리 메뉴 맨 끝 작은칸 */
-	width: 972px; /* [변경] 하위 메뉴와 동일하게 맞춤  108 x 메뉴 갯수 */ 
+	width: 1124px; /* [변경] 하위 메뉴와 동일하게 맞춤  108 x 메뉴 갯수 */ 
 	position: relative;
 	background-color: white; /* [추가] 늘어난만큼 배경색도 보이도록 수정 */
 	margin:0 auto;
 	z-index:1;
+	top : 20%;
+	left : 4.7%
 }
 
 #topMenu ul { /* 메인 메뉴 안의 ul을 설정함: 상위메뉴의 ul+하위 메뉴의 ul */
@@ -32,7 +32,6 @@ body {
 
 #topMenu ul li { /* 메인 메뉴 안에 ul 태그 안에 있는 li 태그의 스타일 적용(상위/하위메뉴 모두) */
 	color: white;
-	background-color: white; /* 전체 메뉴 색깔 */
 	float: left;
 	line-height: 30px;
 	vertical-align: middle;
@@ -43,14 +42,13 @@ body {
 .menuLink, .submenuLink { /* 상위 메뉴와 하위 메뉴의 a 태그에 공통으로 설정할 스타일 */
 	text-decoration: none;
 	display: block;
-	width: 108px;   /* 카테고리 하나 당 길이 108px */
+	width: 100px;   /* 카테고리 하나 당 길이 108px */
 	font-size: 23px;
 	font-family: 'East Sea Dokdo', cursive;
 }
 
 .menuLink { /* 상위 메뉴의 글씨색을 흰색으로 설정 */
 	color: black;
-	border: 1px solid #DCDCDC
 	
 }
 
@@ -59,8 +57,6 @@ body {
 }
 .topMenuLi:hover .menuLink { /* 상위 메뉴의 li에 마우스오버 되었을 때 스타일 설정 */
 	color: black;
-	background-color: white;
-	border-bottom : 3px solid red;
 	text-decoration : none;
 }
 
@@ -84,23 +80,20 @@ body {
 	-moz-transition: height .2s; 
 	-o-transition: height .2s; 
  	left: 0; 
- 	top: 104px;
- 	width: 972px;           /*  메인 메뉴의 길이 108 x n */ 
+ 	top: 30px;
+ 	width: 1124px;           /*  메인 메뉴의 길이 108 x n */ 
 	background-color: white; /* [추가] 하위 메뉴 전체에 배경색 설정 */
 	
 }
 
 .submenu li {
 	display: inline-block;
-	border-bottom: 1px solid #DCDCDC;
 }
 
 .submenu li:first-child {
-	border-left: 1px solid #DCDCDC;
 }
 	
 .submenu li:last-child {
-	border-right: 1px solid #DCDCDC;
 }
 
 .topMenuLi:hover .submenu {
@@ -115,41 +108,43 @@ body {
 }
 
 #btnSearch{        /* 검색어창 돋보기 버튼 */ 
-	width: 50px;
-	height: 100%;
-	border: 0px;
-	float: right;
-	color: orange;
-	background : white;
+	width: 30px;
+    height: 50%;
+    border: 0px;
+    position: relative;
+    top: -85%;
+    float: right;
+    color: black;
+    background-color: #e6e4e4;
 }
 
 .container-1{  			/* 검색어창 div 전체 */
-	width:400px;
-	height:50px;
-	border-bottom: 4px solid orange;
-	left: 40%;
-	top : 85%;
-	position: absolute;
+	width: 150px;
+    height: 26px;
+    left: 100%;
+    top: 2px;
+    background: #e6e4e4;
+    position: absolute;
+    border-radius: 10px;
 }
 
 .txtSearch {          /* 검색어창 input박스 */
-	font-size:24px; 
+	font-size:16px; 
 	outline:none; 
-	width:235px; 
-	padding:10px;
+	width:150px; 
 	border:0px;
 	background-color: #ffffff;
     background-color: rgba( 255, 255, 255, 0);
 }
 
 .topHeader {         /* 화면 맨 위 배경 */
-	background : orange;
+	background : #f7f7f7;
 }
 
 .topHeader-button {        /* 화면 맨 위 버튼들 */ 
 	float:right;
-	color:white;
-	font-size : 16px;
+	color:black;
+	font-size : 12px;
 }
 
 .topHeader-button:hover {        /* 화면 맨 위 버튼들 */ 
@@ -158,18 +153,17 @@ body {
 }
 
 .btnHome {             /* 메인 사이트  홈 버튼 */
-	font-size:40px; 
-	color:orange;
+	font-size:70px; 
+	color:black;
 	text-decoration:none !important;
-	font-weight : bold;
 	position: absolute;
-    left: 10%;
-    top: 70%;
+    left: 40%;
+    top: 10%;
     
 }
 
 .btnHome:hover {
-	color:orange;
+	color:black;
 }
 	
 .divHome {			/* div 메인 사이트 홈 버튼 */ 
@@ -186,12 +180,13 @@ body {
 
 .borderAllCategory {
 	padding-left : 340px;
-	border-bottom: 2px solid;
+	border-top: 1px solid;
     height: 50;
+    padding-top: 10px;
 }
 	
-.lblAllCategory {
-	font-size:30px;
+#lblAllCategory {
+	font-size:40px;
 }
 
 .allCategory_ul {
@@ -254,11 +249,6 @@ body {
 }
 
 .productList {
-	padding : 0px;
-	padding-left : 155px;
-}
-
-.divSecondShow {
 	padding : 0px;
 	padding-left : 155px;
 }
@@ -409,6 +399,114 @@ body {
   }
 }
 
+.divPlace {
+	position: relative;
+    float: right;
+    padding-right: 7%;
+    padding-top: 3%;
+    font-size: 18px;
+}
+
+.divPlace a img {
+	height : 30px;
+}
+
+/* 주변 매물 찾기 모달 창 css  */
+
+#fileDrop {
+	width: 60%;
+	height: 100px;
+	background-color: white;
+	border: 4px dashed #c8d7ff;
+}
+
+
+.modal.modal-center {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal.modal-center:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog.modal-fullsize {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-dialog.modal-center {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle; 
+}
+
+.modal-dialog.modal-80size {
+  width: 80%;
+  height: 80%;
+  margin: 0;
+  padding: 0;
+}
+
+.modal-content.modal-fullsize {
+  height: auto;
+  min-height: 100%;
+  border-radius: 0;
+  
+}
+
+.modal-content {
+    width: 68%;
+    left: 15%;
+}
+
+.modal-content.modal-80size {
+  height: auto;
+  min-height: 80%;
+}
+
+.modal-body {
+  	left: 12%;
+}
+
+#moadlTxtAddrSearch {
+	font-size: 25px;
+    position: relative;
+    left: 10%;
+}
+
+#modalAddrFind {
+	position: relative;
+    left: 12%;
+}
+
+#searchAddr {
+	position: relative;
+    padding-bottom: 15px;
+}
+
+#sample4_detailAddress {
+	width: 60%;
+}
+
+#roadAndextraAddr {
+	position: relative;
+    padding-bottom: 2%;
+}
+
+#sample4_roadAddress , #sample4_extraAddress {
+	width: 40%;
+}
+
+#divPlace{
+	width: 130px;
+}
 
 
 </style>

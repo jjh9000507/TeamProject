@@ -10,4 +10,5 @@ public interface PageService {
 	
 	// 검색
 	public List<ProductVo> search(String searchName) throws Exception;
+	
 }

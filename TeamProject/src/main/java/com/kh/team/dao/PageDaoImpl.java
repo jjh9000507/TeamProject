@@ -36,6 +36,6 @@ public class PageDaoImpl implements PageDao {
 //		System.out.println("Dao , list : " + list);
 		return list;
 	}
-
+	
 
 }

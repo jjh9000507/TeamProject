@@ -13,7 +13,7 @@ $(function(){
 		
 		console.log(startNum);
 		
-	var url = "/page/morePage";
+	var url = "/page/searchAndmorePage";
 	var sendData = {
 		"startNum" : startNum	
 	};
