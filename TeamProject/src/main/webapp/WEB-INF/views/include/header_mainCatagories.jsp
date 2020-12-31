@@ -40,7 +40,7 @@
 				<li><a href="/whitegoods/whitegoodsPage/302" class="submenuLink">계절 가전</a></li>
 				<li><a href="/whitegoods/whitegoodsPage/303" class="submenuLink">주방 가전</a></li>
 				<li><a href="/whitegoods/whitegoodsPage/304" class="submenuLink">생활 가전</a></li>
-				<li><a href="/whitegoods/whitegoodsPage/305" class="submenuLink">기타2</a></li>
+				<li><a href="/whitegoods/whitegoodsPage/305" class="submenuLink">기타</a></li>
 			</ul></li>
 
 		<!-- 						<li>|</li> -->
