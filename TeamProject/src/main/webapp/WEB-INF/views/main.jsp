@@ -34,6 +34,7 @@ $(function(){
 		
 // 		startNum = startNum + 1;
 	});
+	
 }); // main function
 
 
@@ -52,44 +53,13 @@ $(function(){
 
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 
-<div class="col-md-2"></div>
-
-<div class="col-md-8">
-	
-
-
-
-		</div>
-<div class="col-md-2"></div>
-
-
-
-
-<!------------------------------------------ 상품 리스트 ---------------------------------------->
-		<div style="padding-top: 150px;">
-			<div class="row listMain">
-					
-			</div>
-				<div class="col-md-8 productList">
-					
-					<!-- 히든(복사) 데이터 -->
-					<ul class="nav nav-pills list" style="display:none;">
-						<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/shirt.jpg"/></a></li>
-						<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
-						<li class="nav-item"><a class="nav-link seller">판매자</a></li>
-					</ul>
-					
-				</div>
-				<div class="col-md-2"></div>
-		</div>
-<!------------------------------------------ 상품 리스트 ---------------------------------------->
 	</div>
 </div>
 		<div class="col-md-2"></div>
 
 			<div class="row">
 				<div class="col-md-12">
-					<div class="carousel slide" id="carousel-849276">
+					<div class="carousel slide" id="carousel-849276" data-interval="4000">
 						<ol class="carousel-indicators">
 							<li data-slide-to="0" data-target="#carousel-849276"></li>
 							<li data-slide-to="1" data-target="#carousel-849276"></li>
@@ -136,6 +106,29 @@ $(function(){
 							data-slide="next"><span class="carousel-control-next-icon"></span>
 							<span class="sr-only">Next</span></a>
 					</div>
+					
+					<!------------------------------------------ 상품 리스트 ---------------------------------------->
+					
+	<div class="col-md-2"></div>
+					
+		<div style="padding-top: 40px;">
+			<div class="row listMain">
+					
+			</div>
+				<div class="col-md-8 productList">
+					
+					<!-- 히든(복사) 데이터 -->
+					<ul class="nav nav-pills list" style="display:none;">
+						<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/shirt.jpg"/></a></li>
+						<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
+						<li class="nav-item"><a class="nav-link seller">판매자</a></li>
+					</ul>
+					
+				</div>
+				<div class="col-md-2"></div>
+		</div>
+<!------------------------------------------ 상품 리스트 ---------------------------------------->
+					
 				</div>
 			</div>
 
