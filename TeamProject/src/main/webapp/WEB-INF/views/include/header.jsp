@@ -210,20 +210,10 @@ $(function(){
 				<div class="divHome">
 					<a type="button" href="/" class="btn btn-link btnHome">중고 동네</a>
 				</div>
-				
+				<br>
 				<br>
 				
-			
-				
-					
-				
-				<br>
-				
-		
-
 <!--------------------------------------- 전체 카테고리 메뉴 ----------------------------------------->
-				
-					
 
 					</div>
 				<div class="col-md-2"></div>
