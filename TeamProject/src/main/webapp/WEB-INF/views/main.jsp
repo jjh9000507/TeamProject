@@ -36,7 +36,7 @@ $(function(){
 						<li class="nav-item"><a class="nav-link" href="#">중고</a></li>
 						<li class="nav-item"><a class="nav-link" href="#">기타</a></li>
 					</ul>
-					
+			</div>
 				<div class="col-md-8 productList">
 				
 					<ul class="nav nav-pills list">
@@ -47,7 +47,6 @@ $(function(){
 					
 				</div>
 				<div class="col-md-2"></div>
-			</div>
 		</div>
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
 	</div>

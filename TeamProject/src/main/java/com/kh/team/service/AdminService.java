@@ -18,4 +18,5 @@ public interface AdminService {
 	public void adminCategoryInput(CategoryVo categoryVo) throws Exception;
 	public void adminCategoryDelete(String cate_no) throws Exception;
 	public List<CategoryVo> getCategoryList() throws Exception;
+	public List<ProductVo> productCateList(String cate_no) throws Exception;
 }

@@ -36,8 +36,17 @@
 <script>
 	$(function(){
 		$("#btnCart").click(function(){
-			$("#frmDetail").attr("action", "/whitegoods/cart")
-			$("#frmDetail").submit();
+			var url = "/cart/cartInput";
+			var sendData = {
+					"p_no": $("#btnCart").attr("data-pno")
+			}
+			$.get(url, sendData, function(data){
+				if(data.trim() == "success"){
+					alert("상품이 장바구니에 담겼습니다.");
+				} else if(data.trim() == "fail"){
+					alert("이미 존재하는 상품입니다.");
+				}
+			});
 		});
 	});
 </script>
@@ -54,14 +63,11 @@
 		<li class="nav-item seller">${whitegoodsVo.w_seller}<br></li>
 	</ul>
 	<ul class="nav nav-pills btnlist">
-		<li><button type="button" class="btn btndetail cart" id="btnCart">장바구니</button></li>
+		<li><button type="button" class="btn btndetail cart" id="btnCart" data-pno="${whitegoodsVo.p_no}">장바구니</button></li>
 		<li><button type="button" class="btn btndetail sell" id="btnSell">구매하기</button></li>
 	</ul>
 </div>
-	<form id="frmDetail" action="" method="get">
-	<input type="hidden" name="w_no" value="${whitegoodsVo.w_no}">
-	
-	</form>
+
 	</div>
 	<div class="col-md-2"></div>
 </div>
