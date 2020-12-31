@@ -73,4 +73,10 @@ public class AdminServiceImpl implements AdminService{
 		return getCategoryList;
 	}
 
+	@Override
+	public List<ProductVo> productCateList(String cate_no) throws Exception {
+		List<ProductVo> productCateList = adminDao.productCateList(cate_no);
+		return productCateList;
+	}
+
 }

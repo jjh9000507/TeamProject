@@ -7,7 +7,7 @@ import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
-
+import com.amazonaws.services.iot.model.CannedAccessControlList;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.GeneratePresignedUrlRequest;
@@ -34,7 +34,7 @@ public class S3Util {
 		ObjectMetadata metaData = new ObjectMetadata();
 		metaData.setContentLength(fileData.length);
 		ByteArrayInputStream byteArrayInputStream = new ByteArrayInputStream(fileData);
-		
+//		CannedAccessControlList.PublicReadWrite
 		conn.putObject(bucketName, filePath, byteArrayInputStream, metaData);
 	}
 	

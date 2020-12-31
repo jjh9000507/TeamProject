@@ -22,6 +22,7 @@ public class WhitegoodsController {
 	@Inject
 	private WhitegoodsService whitegoodsService;
 	
+	//가전제품 카테고리 클릭하여 리스트 보기
 	@RequestMapping(value="/whitegoodsPage/{w_cate_no}", method=RequestMethod.GET)
 	public String WhitegoodsPage(@PathVariable("w_cate_no") String w_cate_no, Model model) throws Exception {
 		List<WhitegoodsVo> getWhitegoodsList = whitegoodsService.getWhitegoodsList(w_cate_no);
@@ -33,20 +34,16 @@ public class WhitegoodsController {
 		return "/whitegoods/whitegoodsList";
 	}
 	
+	//상품 상세보기 페이지
 	@RequestMapping(value="/detailWhitegoods/{w_no}", method=RequestMethod.GET)
 	public String detailWhitegoods(@PathVariable("w_no") int w_no, Model model) throws Exception {
 		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
 		model.addAttribute("whitegoodsVo", whitegoodsVo);
 		return "/whitegoods/detailwhitegoods";
 	}
+
 	
-	
-	@RequestMapping(value="/cart", method=RequestMethod.GET)
-	public String detailWhitegoods() throws Exception {
-		
-		return "/";
-	}
-	
+	//카테고리 가져오기
 	@RequestMapping(value="/getCategoryList", method=RequestMethod.GET)
 	@ResponseBody
 	public List<CategoryVo> getCategoryList(String cate_no) throws Exception {

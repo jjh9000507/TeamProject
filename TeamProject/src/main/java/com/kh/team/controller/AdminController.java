@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
@@ -112,16 +113,32 @@ public class AdminController {
 		return "/admin/a_m_con";
 	}
 	
+	//게시글 삭제 페이지로 이동
 	@RequestMapping(value="detailDelete", method=RequestMethod.GET)
 	public String detailDeletePage(Model model) throws Exception{
 		List<ProductVo> allProductList = adminService.allProductList();
+		List<CategoryVo> categoryList = adminService.getCategoryList();
 		model.addAttribute("allProductList", allProductList);
+		model.addAttribute("categoryList", categoryList);
 		return "/admin/a_d_delete";
 	}
 	
-	@RequestMapping(value="/adminProductDelete/{cate_no}/{p_no}", method=RequestMethod.GET)
-	public String adminDelete(@PathVariable("cate_no") String cate_no,
-								@PathVariable("p_no") int p_no, Model model) throws Exception{
+	//게시글 삭제페이지 카테고리 별 띄우기
+	@RequestMapping(value="detailDeleteCatePage/{cate_no}", method=RequestMethod.GET)
+	public String detailDeleteCatePage(@PathVariable("cate_no") String cate_no, Model model) throws Exception {
+		List<ProductVo> productCateList = adminService.productCateList(cate_no);
+		List<CategoryVo> categoryList = adminService.getCategoryList();
+		model.addAttribute("allProductList", productCateList);
+		model.addAttribute("categoryList", categoryList);
+		return "/admin/a_d_delete";
+	}
+	
+	//게시글 삭제
+	@RequestMapping(value="/adminProductDelete", method=RequestMethod.GET)
+	@ResponseBody
+	public String adminDelete(String cate_no, int p_no, Model model) throws Exception{
+//		System.out.println("cate_no:" + cate_no);
+//		System.out.println("p_no: " + p_no);
 		String cate_sub = cate_no.substring(0, 2);
 		if(cate_sub.equals("50")) {
 			//컴퓨터
@@ -146,9 +163,9 @@ public class AdminController {
 			adminService.adminWhitegoodsDelete(p_no);
 		}
 		
-		List<ProductVo> allProductList = adminService.allProductList();
-		model.addAttribute("allProductList", allProductList);
-		return "/admin/a_d_delete";
+//		List<ProductVo> allProductList = adminService.allProductList();
+//		model.addAttribute("allProductList", allProductList);
+		return "success";
 	}
 	
 	@RequestMapping(value="/adminCategoryInput", method=RequestMethod.GET)
