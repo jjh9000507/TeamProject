@@ -52,8 +52,10 @@ $(function(){
 		<!-- 카테고리2 -->
 		<li class="topMenuLi"><a class="menuLink" href="#">가구 생활</a>
 			<ul class="submenu">
-				<li><a href="/furniture/house" class="submenuLink">가정</a></li>
-				<li><a href="/furniture/office" class="submenuLink">사무</a></li>
+				<li><a href="/furniture/interior" class="submenuLink">조명/인테리어</a></li>
+				<li><a href="/furniture/life" class="submenuLink">생활</a></li>
+				<li><a href="/furniture/bed" class="submenuLink">침구/커튼</a></li>
+				<li><a href="/furniture/kitchen" class="submenuLink">주방</a></li>
 			</ul></li>
 
 		<!-- 						<li>|</li> -->
