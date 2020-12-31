@@ -21,15 +21,29 @@ public class ComputersServiceImpl implements ComputersService {
 		return list;
 	}
 
-	@Override
-	public List<CategoryVo> categoryInfo(String cate_no) throws Exception {
-		List<CategoryVo> categoryList = computersDao.categoryInfo(cate_no);
-		return categoryList;
-	}
+	
 
 	@Override
 	public ComputerVo detailComputerInfo(int p_no) throws Exception {
 		ComputerVo categoryVo = computersDao.detailComputerInfo(p_no);
 		return categoryVo;
+	}
+
+	@Override
+	public List<ComputerVo> listArray(String[] checkList, String now_cate_no) throws Exception {
+		List<ComputerVo> list = computersDao.listArray(checkList, now_cate_no);
+		return list;
+	}
+
+	@Override
+	public List<CategoryVo> categoryInfoArray(String[] checkList, String now_cate_no) throws Exception {
+		List<CategoryVo> categoryList = computersDao.categoryInfoArray(checkList, now_cate_no);
+		return categoryList;
+	}
+
+	@Override
+	public List<CategoryVo> categoryInfoArray(String[] checkList) throws Exception {
+		List<CategoryVo> categoryList = computersDao.categoryInfoArray(checkList);
+		return categoryList;
 	}
 }

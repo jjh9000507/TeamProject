@@ -7,14 +7,14 @@
 
 .bottomFooter{		/*  풋터 폼 배경*/
 	background : orange;
-	position: relative;
-	
-	
+	position: fixed;
+	bottom:0;
+	left:0;
+	width:100%;	
 		
 }
 
-.footerFont{        /* 풋터 폼의 글씨 설정 */ 
-	
+.footerFont{        /* 풋터 폼의 글씨 설정 */	
 	color:white;
 	font-size : 16px;
 }

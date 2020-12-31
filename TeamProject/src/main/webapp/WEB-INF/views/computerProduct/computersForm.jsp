@@ -4,6 +4,34 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/computersForm_css.css" %>
 <%@ include file="../include/header.jsp"%>
+
+<script>
+
+$(function() {
+	$("#checkboxSearch").click(function() {
+		var inputCheckbox = $(".checkB");
+		var url = "/computerProduct/computersForm";
+		
+		var checkList = new Array(6);
+		var now_cate_no = inputCheckbox.find("input").eq(0).val(); 
+		for(var i = 0; i < checkList.length; i++){
+			if(inputCheckbox.find("input").eq(i).is(":checked") == true){			
+				checkList[i] =inputCheckbox.find("input").eq(i).val();
+			console.log("checkList:" + checkList[i]);
+			var sendData = {
+					"checkList" : checkList,
+					"now_cate_no" : now_cate_no
+				};
+				console.log(sendData);
+				$.post(url, sendData, function() {
+					
+					
+				});
+			}
+		}		
+	});
+});
+</script>
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -19,13 +47,16 @@
 
 <header class="header">
 <c:if test="${categoryInfo != null}">
-<h1 class="computerFormListMenu">전체</h1>
+<label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
 <ul class="nav nav-tabs computerFormListMenuItem">
 <c:forEach var="CategoryVo" items="${categoryInfo}">
-<li class="nav-item">&nbsp&nbsp&nbsp<a href="/computerProduct/computersForm/${CategoryVo.cate_no}">${CategoryVo.cate_name}</a></li>
+<li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
+&nbsp<input type="checkbox" name="${CategoryVo.cate_no}" value="${CategoryVo.cate_no}"/>
+</li>
 </c:forEach>
 </ul>
 </c:if>
+
 </header>
 <aside class="asideUp">
 <a href="http://www.auction.co.kr/" target="_blank" title="제휴사이트입니다.">
@@ -33,19 +64,17 @@
 </a></aside>
 <nav class="navLeft">
 <br>
-
 <form role="form">
-				<div class="form-group searchInComputer">					 
-					<label>
-						결과내 검색
-					</label>
-					<input type="text" class="form-control" placeholder="검색어를 입력하시오"/>
-					<button type="submit" class="btn btn-xs btn-warning">
-					검색
-					</button>
-				</div>				
-			</form>
-			
+<div class="form-group searchInComputer">					 
+<label>
+결과내 검색
+</label>
+<input type="text" class="form-control" placeholder="검색어를 입력하시오"/>
+<button type="submit" class="btn btn-xs btn-warning">
+검색
+</button>
+</div>				
+</form>			
 <br>
 <br>			
 <form role="form">
@@ -91,6 +120,7 @@
 <section class="section">
 <div class="col-md-12">
 	<c:forEach var="ComputerVo" items="${computerList}">
+	
 						<table class="computerTable">
 							<thead class="computerThead">
 								<tr>
@@ -139,6 +169,7 @@
 									</td>
 								</tr>
 							</tbody>
+			
 						</table>
 						<hr>
 					</c:forEach>
