@@ -143,7 +143,7 @@ $(function(){
 				<div class="col-md-2"></div>
 				
 					<div class="col-md-8">
-
+					<a href="/auction/auctionMain" class="btn btn-link topHeader-button">경매사이트로</a>
 					<c:choose>														
 						<c:when test="${empty sessionScope.memberVo && empty sessionScope.nonBuyer}">
 							<a href="/login/loginForm" type="submit" class="btn btn-link topHeader-button">로그인</a>
