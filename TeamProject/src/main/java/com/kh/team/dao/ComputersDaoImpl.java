@@ -16,7 +16,9 @@ import com.kh.team.domain.ComputerVo;
 public class ComputersDaoImpl implements ComputersDao {
 
 private final String NAMESPACE = "com.kh.team.computers.";
+	private String CONSTNAT_CHAR = "99999";
 	
+
 	@Inject
 	private SqlSession sqlSession;
 
@@ -35,16 +37,19 @@ private final String NAMESPACE = "com.kh.team.computers.";
 	}
 
 	@Override
-	public List<ComputerVo> listArray(String[] checkList, String now_cate_no) throws Exception {
-		String[] newMap = {"99999","99999","99999","99999","99999","99999"};
+	public List<ComputerVo> listArray(String[] checkList) throws Exception {
+		String[] newMap = {CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR};
 		Map<String, Object> map = new HashMap<>();
 		for(int i=0; i<checkList.length; i++) {
 			newMap[i] = checkList[i];
+			if(checkList[i] == null || checkList[i].equals("")) {
+				newMap[i] = CONSTNAT_CHAR;
+			}
 			System.out.println("checkList_dao:" + checkList[i]);
-			System.out.println("newMap_dao:" + newMap[i]);			
+			System.out.println("newMap_dao_list:" + newMap[i]);			
 		}		
 		for(int i=0; i<6; i++) {
-			System.out.println("newMap[i]:" + newMap[i]);
+			System.out.println("list_cate_no:" + newMap[i]);
 			map.put("cate_no" + i, newMap[i]);
 			}
 		System.out.println("checkList.length:" + checkList.length);	
@@ -54,39 +59,35 @@ private final String NAMESPACE = "com.kh.team.computers.";
 	}
 
 	@Override
-	public List<CategoryVo> categoryInfoArray(String[] checkList, String now_cate_no) throws Exception {
-		String[] newMap = {"99999","99999","99999"};
-		Map<String, Object> map = new HashMap<>();
-		map.put("length", checkList.length);		
-		map.put("now_cate_no", now_cate_no);
+	public List<CategoryVo> categoryInfoArray(String[] checkList) throws Exception {
+		String[] newMap = {CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR};
+		Map<String, Object> map = new HashMap<>();		
 		for(int i=0; i<checkList.length; i++) {
 			newMap[i] = checkList[i];
-			if(newMap[i] == null || newMap[i].equals("")) {
-				newMap[i] = "gg";
+			if(checkList[i] == null || checkList[i].equals("")) {
+				newMap[i] = CONSTNAT_CHAR;
 			}
 			
-			System.out.println("checkList_dao:" + checkList[i]);
-			System.out.println("newMap_dao:" + newMap[i]);			
+			System.out.println("checkCategory_dao:" + checkList[i]);
+			System.out.println("newMap_dao_category:" + newMap[i]);			
 		}		
 		
 		for(int i=0; i<3; i++) {
-		System.out.println("newMap[i]:" + newMap[i]);
+		System.out.println("category_cate_no:" + newMap[i]);
 		map.put("cate_no" + i, newMap[i]);
 		}
 		System.out.println("checkList.length:" + checkList.length);
-		System.out.println("now_cate_no:" + now_cate_no);
+		
 		
 		List<CategoryVo> categorylist = sqlSession.selectList(NAMESPACE + "getCategoryInfoArray", map);
 		return categorylist;
 	}
 
 
-
 	@Override
-	public List<CategoryVo> categoryInfoArray(String[] checkList) throws Exception {
-		System.out.println("checkList[0]:" + checkList[0]);
-		List<CategoryVo> list = sqlSession.selectList(NAMESPACE + "getCategoryInfo", checkList[0]);
-		return null;
+	public List<CategoryVo> categoryInfo(String cate_no) throws Exception {
+		List<CategoryVo> list = sqlSession.selectList(NAMESPACE + "getCategoryInfo", cate_no);
+		return list;
 	}
 
 	

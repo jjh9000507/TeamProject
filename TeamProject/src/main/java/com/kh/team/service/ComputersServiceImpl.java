@@ -30,20 +30,20 @@ public class ComputersServiceImpl implements ComputersService {
 	}
 
 	@Override
-	public List<ComputerVo> listArray(String[] checkList, String now_cate_no) throws Exception {
-		List<ComputerVo> list = computersDao.listArray(checkList, now_cate_no);
+	public List<ComputerVo> listArray(String[] checkList) throws Exception {
+		List<ComputerVo> list = computersDao.listArray(checkList);
 		return list;
-	}
-
-	@Override
-	public List<CategoryVo> categoryInfoArray(String[] checkList, String now_cate_no) throws Exception {
-		List<CategoryVo> categoryList = computersDao.categoryInfoArray(checkList, now_cate_no);
-		return categoryList;
 	}
 
 	@Override
 	public List<CategoryVo> categoryInfoArray(String[] checkList) throws Exception {
 		List<CategoryVo> categoryList = computersDao.categoryInfoArray(checkList);
+		return categoryList;
+	}
+
+	@Override
+	public List<CategoryVo> categoryInfo(String cate_no) throws Exception {
+		List<CategoryVo> categoryList = computersDao.categoryInfo(cate_no);
 		return categoryList;
 	}
 }

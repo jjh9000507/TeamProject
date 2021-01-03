@@ -9,29 +9,47 @@
 
 $(function() {
 	$("#checkboxSearch").click(function() {
-		var inputCheckbox = $(".checkB");
-		var url = "/computerProduct/computersForm";
 		
-		var checkList = new Array(6);
-		var now_cate_no = inputCheckbox.find("input").eq(0).val(); 
-		for(var i = 0; i < checkList.length; i++){
-			if(inputCheckbox.find("input").eq(i).is(":checked") == true){			
-				checkList[i] =inputCheckbox.find("input").eq(i).val();
-			console.log("checkList:" + checkList[i]);
-			var sendData = {
-					"checkList" : checkList,
-					"now_cate_no" : now_cate_no
-				};
-				console.log(sendData);
-				$.post(url, sendData, function() {
-					
-					
-				});
+		var inputCheckbox = $(".checkB");
+		var inputCheckForm = $("#divData");
+		inputCheckForm.empty();	
+// 		for(var i = 0; i < 6; i++){
+			if(inputCheckbox.find("input").eq(0).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(0).clone();
+				input.attr("name","ano");
+				inputCheckForm.append(input);			
 			}
-		}		
+			if(inputCheckbox.find("input").eq(1).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(1).clone();
+				input.attr("name","bno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(2).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(2).clone();
+				input.attr("name","cno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(3).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(3).clone();
+				input.attr("name","dno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(4).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(4).clone();
+				input.attr("name","eno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(5).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(5).clone();
+				input.attr("name","fno");
+				inputCheckForm.append(input);			
+			}
+			$("#frmData").submit();
+				
 	});
 });
 </script>
+
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -49,13 +67,20 @@ $(function() {
 <c:if test="${categoryInfo != null}">
 <label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
 <ul class="nav nav-tabs computerFormListMenuItem">
+
 <c:forEach var="CategoryVo" items="${categoryInfo}">
 <li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
 &nbsp<input type="checkbox" name="${CategoryVo.cate_no}" value="${CategoryVo.cate_no}"/>
 </li>
 </c:forEach>
 </ul>
+
 </c:if>
+<form id="frmData" action="/computerProduct/computersFormCheck" method="post">
+	<div id="divData" style="display:none;">
+		
+	</div>
+</form>
 
 </header>
 <aside class="asideUp">
