@@ -4,6 +4,52 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/computersForm_css.css" %>
 <%@ include file="../include/header.jsp"%>
+
+<script>
+
+$(function() {
+	$("#checkboxSearch").click(function() {
+		
+		var inputCheckbox = $(".checkB");
+		var inputCheckForm = $("#divData");
+		inputCheckForm.empty();	
+// 		for(var i = 0; i < 6; i++){
+			if(inputCheckbox.find("input").eq(0).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(0).clone();
+				input.attr("name","ano");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(1).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(1).clone();
+				input.attr("name","bno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(2).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(2).clone();
+				input.attr("name","cno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(3).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(3).clone();
+				input.attr("name","dno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(4).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(4).clone();
+				input.attr("name","eno");
+				inputCheckForm.append(input);			
+			}
+			if(inputCheckbox.find("input").eq(5).is(":checked") == true){
+				var input = inputCheckbox.find("input").eq(5).clone();
+				input.attr("name","fno");
+				inputCheckForm.append(input);			
+			}
+			$("#frmData").submit();
+				
+	});
+});
+</script>
+
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -19,13 +65,23 @@
 
 <header class="header">
 <c:if test="${categoryInfo != null}">
-<h1 class="computerFormListMenu">전체</h1>
+<label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
 <ul class="nav nav-tabs computerFormListMenuItem">
+
 <c:forEach var="CategoryVo" items="${categoryInfo}">
-<li class="nav-item">&nbsp&nbsp&nbsp<a href="/computerProduct/computersForm/${CategoryVo.cate_no}">${CategoryVo.cate_name}</a></li>
+<li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
+&nbsp<input type="checkbox" name="${CategoryVo.cate_no}" value="${CategoryVo.cate_no}"/>
+</li>
 </c:forEach>
 </ul>
+
 </c:if>
+<form id="frmData" action="/computerProduct/computersFormCheck" method="post">
+	<div id="divData" style="display:none;">
+		
+	</div>
+</form>
+
 </header>
 <aside class="asideUp">
 <a href="http://www.auction.co.kr/" target="_blank" title="제휴사이트입니다.">
@@ -33,19 +89,17 @@
 </a></aside>
 <nav class="navLeft">
 <br>
-
 <form role="form">
-				<div class="form-group searchInComputer">					 
-					<label>
-						결과내 검색
-					</label>
-					<input type="text" class="form-control" placeholder="검색어를 입력하시오"/>
-					<button type="submit" class="btn btn-xs btn-warning">
-					검색
-					</button>
-				</div>				
-			</form>
-			
+<div class="form-group searchInComputer">					 
+<label>
+결과내 검색
+</label>
+<input type="text" class="form-control" placeholder="검색어를 입력하시오"/>
+<button type="submit" class="btn btn-xs btn-warning">
+검색
+</button>
+</div>				
+</form>			
 <br>
 <br>			
 <form role="form">
@@ -91,6 +145,7 @@
 <section class="section">
 <div class="col-md-12">
 	<c:forEach var="ComputerVo" items="${computerList}">
+	
 						<table class="computerTable">
 							<thead class="computerThead">
 								<tr>
@@ -139,6 +194,7 @@
 									</td>
 								</tr>
 							</tbody>
+			
 						</table>
 						<hr>
 					</c:forEach>

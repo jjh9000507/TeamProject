@@ -208,8 +208,8 @@
 						</div>
 						<div class="modal-body">
 							<input type="text" class="form-control" id="m_id_find_pw"
-								name="m_id" placeholder="아이디를 입력하시오" required="required" /> <input
-								type="email" class="form-control" id="toRe" name="to"
+								name="m_id" placeholder="아이디를 입력하시오" required="required" /> 
+							<input type="email" class="form-control" id="toRe" name="to"
 								placeholder="등록된 e-mail를 입력하시오" required="required" />
 
 						</div>
@@ -275,7 +275,7 @@
 		<div class="col-md-12">
 			<form role="form" class="loginHeader" action="/login/loginRun"
 				method="post">
-
+				
 				<div class="form-group">
 
 					<h1 class="loginFontHead">로그인 폼</h1>
@@ -309,11 +309,14 @@
 				</div>
 				<button type="submit" class="btn btn-primary loginFont">
 					로그인</button>
-
+					<br>
+				<small>질문 : Tel. 010-111-1111</small>
 			</form>
 
 		</div>
 	</div>
 </div>
-
+<br>
+<br>
+<br>
 <%@ include file="include/footer.jsp"%>
