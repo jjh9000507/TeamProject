@@ -29,6 +29,7 @@ import com.kh.team.service.ClothesService;
 import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
 import com.kh.team.service.SellProductService;
+import com.kh.team.service.WhitegoodsService;
 import com.kh.team.util.UploadFileUtils;
 
 
@@ -51,6 +52,9 @@ public class SellProductContoller {
 	
 	@Inject
 	private SanctionService sanctionService;
+	
+	@Inject
+	private WhitegoodsService whitegoodsService;
 	
 	//판매하기 화면 이동
 	@RequestMapping(value="/sellproductMain", method=RequestMethod.GET)
@@ -80,8 +84,12 @@ public class SellProductContoller {
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 		whitegoodsVo.setW_name(productVo.getP_name());
 		whitegoodsVo.setW_seller(memberVo.getM_id());
+		whitegoodsVo.setW_price(productVo.getP_price());
 		whitegoodsVo.setCate_no(productVo.getCate_no());
 		whitegoodsVo.setW_content(productVo.getP_content());
+		whitegoodsVo.setW_thumbimg(productVo.getP_thumbimg());
+		
+		whitegoodsService.insertWhitegoods(whitegoodsVo);
 		
 		return "/main";
 	}

@@ -159,19 +159,15 @@ $(function(){
 				div.attr("data-filename", data);
 				var img = div.find("img");
 				if(isImage(rear)){
-					var sendData = {
-							"fileName" : fileName
-					};
-					$.get("/sellproduct/displayImage", sendData, function(data){
-						console.log(data);
-					});
-					img.attr("src", "/displayImage?fileName=https://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/" + fileName);
+					img.attr("src", "http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/" + data);
 					var span = div.find("span");
 					span.text(fileName.substring(fileName.lastIndexOf("_") + 1));
 					
 					$("#uploadedList").append(div);
 					div.show();
 				}
+				
+				$("input[name=p_thumbimg]").attr("value", data);
 			}
 		});
 	});
@@ -321,7 +317,7 @@ $(function(){
 				<div id="uploadedList">
 				
 				</div>
-				
+				<input type="hidden" name="p_thumbimg" value="">
 				<button type="button" id="btnSellProduct">상품 등록</button>
 			</form>
 		</div>
