@@ -1,6 +1,7 @@
 package com.kh.team.util;
 
 import java.io.File;
+import java.util.UUID;
 
 import com.amazonaws.ClientConfiguration;
 import com.amazonaws.Protocol;
@@ -44,11 +45,14 @@ public class UploadFileUtils implements Codes, Access{
 		
 		// 파일 업로드
 		// 예시 FileUploadUtil.upload(file, FileUploadUtil.DLVR_IMG);
-		public static void upload(File file, String fileName) {
+		public static String upload(File file, String fileName) {
 			AmazonS3 s3 = access();
-			PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKET, fileName, file);
+			UUID uuid = UUID.randomUUID();
+			String fileNames = uuid + "_" + fileName;
+			PutObjectRequest putObjectRequest = new PutObjectRequest(BUCKET + "/goods", fileNames, file);
 			putObjectRequest.setCannedAcl(CannedAccessControlList.PublicReadWrite);
 			s3.putObject(putObjectRequest);
+			return fileNames;
 		}
 		
 		// 파일 삭제

@@ -150,29 +150,28 @@ $(function(){
 			"data":formData,
 			"success":function(data){
 				console.log(data);
-				var slashIndex = data.lastIndexOf("/");
-				var front = data.substring(0, slashIndex + 1);
-				var rear = data.substring(slashIndex + 1);
+				var underbarIndex = data.lastIndexOf("_");
+				var front = data.substring(0, underbarIndex + 1);
+				var rear = data.substring(underbarIndex + 1);
 				var fileName = front + rear;
 				
 				var div = $("#uploadedList").prev().clone();
-// 				div.attr("data-filename", data);
-// 				var img = div.find("img");
-// 				if(isImage(rear)){
-// 					var sendData = {
-// 							"fileName" : fileName,
-// 							"directory" : "goods"
-// 					};
-// 					$.get("/sellproduct/displayImage", sendData, function(data){
-// 						console.log(data);
-// 					});
-// 					img.attr("src", "/displayImage?fileName=https://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/2020/12/29/" + fileName);
-// 					var span = div.find("span");
-// 					span.text(fileName.substring(fileName.lastIndexOf("_") + 1));
+				div.attr("data-filename", data);
+				var img = div.find("img");
+				if(isImage(rear)){
+					var sendData = {
+							"fileName" : fileName
+					};
+					$.get("/sellproduct/displayImage", sendData, function(data){
+						console.log(data);
+					});
+					img.attr("src", "/displayImage?fileName=https://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/" + fileName);
+					var span = div.find("span");
+					span.text(fileName.substring(fileName.lastIndexOf("_") + 1));
 					
-// 					$("#uploadedList").append(div);
-// 					div.show();
-// 				}
+					$("#uploadedList").append(div);
+					div.show();
+				}
 			}
 		});
 	});

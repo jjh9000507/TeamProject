@@ -1,11 +1,14 @@
 package com.kh.team.controller;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.maven.shared.utils.io.IOUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
@@ -26,6 +29,7 @@ import com.kh.team.service.ClothesService;
 import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
 import com.kh.team.service.SellProductService;
+import com.kh.team.util.UploadFileUtils;
 
 
 
@@ -150,18 +154,29 @@ public class SellProductContoller {
 	//이미지 출력(아직 안됨)
 	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")
 	@ResponseBody
-	public ResponseEntity<byte[]> displayImage(String fileName, String directory) throws Exception {
-		ResponseEntity<byte[]> entity = null;
-		
-		return entity;
+	public byte[] displayImage(String fileName) throws Exception {
+		FileInputStream fis = new FileInputStream(fileName);
+		byte[] bytes = IOUtil.toByteArray(fis);
+		return bytes;
 	}
 
 	//이미지 등록시 업로드
 	@RequestMapping(value="/uploadedFile", method=RequestMethod.POST, produces="application/test;charset=utf-8")
 	@ResponseBody
 	public String uploadedFile(MultipartFile file, String str, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		String goodsImage = "";
-		return goodsImage;
+		System.out.println("file: " + file.getOriginalFilename());
+		String fileName = file.getOriginalFilename();
+		boolean isImage = UploadFileUtils.isImage(fileName);
+		String upload;
+		if(isImage) {
+			File isFile = new File(file.getOriginalFilename());
+			file.transferTo(isFile);
+			
+			String fileNames = UploadFileUtils.upload(isFile, fileName);
+			upload = fileNames;
+		} else {
+			upload = "fail";
+		}
+		return upload;
 	}
-	
 }
