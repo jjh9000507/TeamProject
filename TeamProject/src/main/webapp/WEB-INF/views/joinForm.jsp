@@ -3,6 +3,7 @@
 <%@taglib  prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@taglib prefix="cs" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="/resources/css/bootstrap.jsp" %>
+<%@ include file = "include/header_mainCatagories.jsp" %>
 <%@ include file = "include/header.jsp" %>
 
  <title>회원가입</title>
@@ -249,9 +250,6 @@
 			
 			//------------------------------------------------- 내가 추가 -------------------------------------//
 			$(function(){
-				$("#goToMap").click(function(){
-					location.href="/join/map";
-				});//맵으로
 				
 				/*
 				전화는 문자를 보내고 확인 버튼을 누르면 결과값을 hidden에 넣어놓고
@@ -397,7 +395,8 @@
 					});
 					}
 				
-				});//btnEmailConfirm
+				});//
+
 				
 				function subStringEmail(email2){ //메일 도메인 부분 짜르기
 					var email2Array = new Array();
@@ -417,7 +416,6 @@
 		</script>
 
   <form name="form" method="get" action="/join/joinRun" id="form">
-  <button type="button" id="goToMap">맵으로</button>
 		<div id="wrap" class="kcc_wrap">
 			<div style="font-size:60px;text-align:center;font-family:font-family: 'East Sea Dokdo', cursive;color:orange">중고 동네 회원가입</div>
 			<div id="min_width">		
@@ -429,7 +427,7 @@
 						<div class="info-cont">
 							<ul>
 								<li class="entername_area">
-									<input name="m_name" type="text" id="m_name" class="enter-name placeholder" value="이름" style="width:427px;" maxlength="12" title="이름" placeholder="이름" onfocus="if(this.value == &#39;이름&#39;) this.value = &#39;&#39;"/>
+									<input name="m_name" type="text" id="m_name" class="enter-name placeholder" value="이름" style="width:427px; maxlength:12px;" title="이름" placeholder="이름" onfocus="if(this.value == &#39;이름&#39;) this.value = &#39;&#39;"/>
 								</li> 
 								<li class="enterid_area">
 									<input name="m_id" type="text" id="m_id" placeholder="아이디" value="아이디" maxlength="12" class="enter-id placeholder" onblur="FocusOut_IDForm(this)" style="width:427px;" onfocus="FocusIn_IDForm(this);" title="아이디" />
@@ -493,7 +491,7 @@
 										<option value="gmail.com">gmail.com</option>
 										<option value="direct_input">직접입력</option>
 									</select>	
-									<button type="button" style="width:70px" id="btnEmailConfirm">메일인증</button>	 
+									<button type="button" style="width:90px" id="btnEmailConfirm">메일인증</button>	 
 								</li>
 								<li>
 									<span id="spanMailSend" style="display:none">메일을 보냈습니다</span>
