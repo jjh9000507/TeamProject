@@ -9,14 +9,42 @@
 		where c_com_cate_no like #{c_com_cate_no} || '%'
 		order by p_no desc
 	</select>
+	<select id="getComptersProductListArray" resultType="ComputerVo">
+		select * from computer_product where 
+						c_com_cate_no like 
+					#{cate_no0} || '%'
+						or c_com_cate_no like 
+					#{cate_no1} || '%'
+						or c_com_cate_no like 
+					#{cate_no2} || '%'
+						or c_com_cate_no like 
+					#{cate_no3} || '%'
+						or c_com_cate_no like 
+					#{cate_no4} || '%'
+						or c_com_cate_no like 
+					#{cate_no5} || '%'
+						order by p_no desc
+
+		
+	</select>
 	
 	<select id="getCategoryInfo" resultType="CategoryVo">
 		select * from category
 		where cate_ref = #{cate_ref}
+	</select>
+	<select id="getCategoryInfoArray" resultType="CategoryVo">
+		select * from category where cate_ref = 
+						#{cate_no0}
+						or cate_ref =
+						#{cate_no1}
+						or cate_ref =
+						#{cate_no2} 												
 	</select>
 	
 	<select id="detailComputerInfo" resultType="ComputerVo">
 		select * from computer_product
 		where p_no = #{p_no}
 	</select>
+	
+	
 </mapper>
