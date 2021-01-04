@@ -47,12 +47,13 @@ div.uxc-termsin div.uxc-iframebox iframe{scrollbar-face-color:#EEEEEE;scrollbar-
 .licensee .inner,.freemember .inner,.identi-cert .inner,.info-enter .inner,.terms-agree .inner{overflow:hidden;width:100%}
 
 /* 하단 한줄 */
-.licensee .inner,.terms-agree .inner,.identi-cert .inner,.info-enter .inner{border-bottom:2px solid #e3e3e3}
+.licensee .inner,.terms-agree .inner,.identi-cert .inner,.info-enter .inner{
+}
 
 /* 가장 상위 div */
 /* 옥션회원가입 리뉴얼 */
-.kcc_wrap .info-enter .inner{padding:32px 0 3px;position: relative;
-    left: 403px;}
+.kcc_wrap .info-enter .inner{padding:32px 0 3px;position: relative; border:0px;
+    left: 66%;}
 .kcc_wrap .terms-agree .inner{padding:30px 0 15px}
 .kcc_wrap .terms-agree .terms-cont-inner{border:0}
 .kcc_wrap .terms-agree .terms-cont .check-set{padding-top:3px;border:0;background:none}
@@ -147,4 +148,5 @@ div.uxc-termsin div.uxc-iframebox iframe{scrollbar-face-color:#EEEEEE;scrollbar-
 .info-enter .info-cont input[type=password].inp_txt_repw,.info-enter .info-cont input[type=password].enter-repw{background:url(//pics.auction.co.kr/pc/member/join/join_repw.png) no-repeat 11px 8px;}
 .info-enter .info-cont .inp_txt_pw[type=password][disabled],.info-enter .info-cont .enter-pw[type=password][disabled]{background:#eee url(//pics.auction.co.kr/pc/member/join/join_pw_disable.png) no-repeat 11px 8px;}
 .info-enter .info-cont .inp_txt_repw[type=password][disabled],.info-enter .info-cont .enter-repw[type=password][disabled]{background:#eee url(//pics.auction.co.kr/pc/member/join/join_repw_disable.png) no-repeat 11px 8px;}
+
 
