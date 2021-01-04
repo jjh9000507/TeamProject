@@ -93,6 +93,14 @@
 	<!-- 카테고리 목록 가져오기 -->
 	<select id="getCategoryList" resultType="CategoryVo">
 		select * from category
+		order by cate_no
+	</select>
+	
+	<!-- 카테고리 선택시 목록 가져오기 -->
+	<select id="CategoryDeleteList" resultType="CategoryVo">
+		select * from category
+		where cate_no like '' || #{cate_no} || '%'
+		order by cate_no
 	</select>
 	
 	<select id="productCateList" resultType="ProductVo">

@@ -1,8 +1,5 @@
 package com.kh.team.controller;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -11,8 +8,6 @@ import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.util.IOUtils;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ClothesVo;
 import com.kh.team.domain.MemberVo;
@@ -32,19 +26,13 @@ import com.kh.team.service.ClothesService;
 import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
 import com.kh.team.service.SellProductService;
-import com.kh.team.util.S3Util;
-import com.kh.team.util.UploadFileUtils;
-import com.sun.net.ssl.HttpsURLConnection;
 
 
 
 @Controller
 @RequestMapping("/sellproduct")
 public class SellProductContoller {
-	
-	private static final Logger logger = LoggerFactory.getLogger(SellProductContoller.class);
-	
-	S3Util s3 = new S3Util();
+
 	String buckteName = "teamptbucket";
 	
 	
@@ -130,7 +118,6 @@ public class SellProductContoller {
 				page = "/sell/sellerreg";
 			}
 		}
-		
 		return page;
 	}
 	
@@ -162,43 +149,9 @@ public class SellProductContoller {
 	
 	//이미지 출력(아직 안됨)
 	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")
-	@SuppressWarnings("resource")
 	@ResponseBody
 	public ResponseEntity<byte[]> displayImage(String fileName, String directory) throws Exception {
-		System.out.println("fileName: " + fileName);
-		System.out.println("directory: " + directory);
-//		logger.info(directory);
-		InputStream in = null;
 		ResponseEntity<byte[]> entity = null;
-		HttpsURLConnection uCon = null;
-//		logger.info("File Name: " + fileName);
-		
-		String inputDirectory = null;
-		if(directory.equals("goods")) {
-			inputDirectory = "goods";
-		} else if(directory.equals("profile")) {
-			inputDirectory = "profile";
-		}
-		
-		try {
-			HttpHeaders headers = new HttpHeaders();
-			URL url;
-			try {
-				url = new URL(s3.getFileURL(buckteName, inputDirectory + fileName));
-				uCon = (HttpsURLConnection) url.openConnection();
-				in = uCon.getInputStream();
-			} catch (Exception e) {
-				url = new URL(s3.getFileURL(buckteName, "default.jpg"));
-				uCon = (HttpsURLConnection) url.openConnection();
-				in = uCon.getInputStream();
-			}
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		} finally {
-			in.close();
-		}
 		
 		return entity;
 	}
@@ -207,13 +160,7 @@ public class SellProductContoller {
 	@RequestMapping(value="/uploadedFile", method=RequestMethod.POST, produces="application/test;charset=utf-8")
 	@ResponseBody
 	public String uploadedFile(MultipartFile file, String str, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		logger.info("originalName: " + file.getOriginalFilename());
-		String uploadPath = "goods";
-		
-		ResponseEntity<String> img_path = new ResponseEntity<>(
-				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
-				HttpStatus.CREATED);
-		String goodsImage = (String)img_path.getBody();
+		String goodsImage = "";
 		return goodsImage;
 	}
 	
