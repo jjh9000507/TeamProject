@@ -14,7 +14,7 @@ import com.kh.team.domain.ClothesVo;
 @Repository
 public class ClothesDaoImpl implements ClothesDao {
 
-	private static final String NAMESPACE = "com.kh.team.cloth.";
+	private static final String NAMESPACE = "com.kh.team.clothes.";
 	
 	@Inject
 	private SqlSession sqlSession;

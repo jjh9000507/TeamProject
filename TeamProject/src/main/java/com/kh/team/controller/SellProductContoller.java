@@ -74,7 +74,7 @@ public class SellProductContoller {
 	}
 	
 	//가전제품 등록
-	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.POST)
+	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.GET)
 	public String whitegoodsUpload(ProductVo productVo, HttpSession session) throws Exception {
 		System.out.println("productVo: " + productVo);
 		WhitegoodsVo whitegoodsVo = new WhitegoodsVo();
@@ -88,29 +88,36 @@ public class SellProductContoller {
 		
 		whitegoodsService.insertWhitegoods(whitegoodsVo);
 		
-		return "/main";
+		return "redirect:/";
 	}
 	
 	//의류 등록
-	@RequestMapping(value="/clothesUpload", method=RequestMethod.POST)
-	public String clothesUpload(ClothesVo clothesVo, HttpSession session) throws Exception {
-		System.out.println("clothesVo: " + clothesVo);
+	@RequestMapping(value="/clothesUpload", method=RequestMethod.GET)
+	public String clothesUpload(ProductVo productVo, HttpSession session) throws Exception {
+		System.out.println("productVo: " + productVo);
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		ClothesVo clothesVo = new ClothesVo();
+		clothesVo.setP_name(productVo.getP_name());
 		clothesVo.setP_seller(memberVo.getM_id());
+		clothesVo.setP_price(productVo.getP_price());
+		clothesVo.setCate_no(productVo.getCate_no());
+		clothesVo.setP_content(productVo.getP_content());
+		clothesVo.setP_thumbimg(productVo.getP_thumbimg());
+		
 		clothesService.insertClothes(clothesVo);
-		return "/main";
+		return "redirect:/";
 	}
 	
 	//가구 등록
 	@RequestMapping(value="/furnitureUpload", method=RequestMethod.GET)
-	public String furnitureUpload() throws Exception {
-		return "/main";
+	public String furnitureUpload(ProductVo productVo) throws Exception {
+		return "redirect:/";
 	}
 	
 	//컴퓨터 등록
 	@RequestMapping(value="/computerUpload", method=RequestMethod.GET)
-	public String computerUpload() throws Exception {
-		return "/main";
+	public String computerUpload(ProductVo productVo) throws Exception {
+		return "redirect:/";
 	}
 	
 	//판매자 등록화면 이동

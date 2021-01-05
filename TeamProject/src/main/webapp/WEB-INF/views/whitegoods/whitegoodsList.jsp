@@ -82,7 +82,7 @@ $(function(){
 				
 					<c:forEach var="whitegoodsVo" items="${WhitegoodsList}">
 						<ul class="nav nav-pills list">
-							<li class="nav-item"><a class="nav-link" href="#"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}"/></a></li>
+							<li class="nav-item"><a class="nav-link" href="#"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}" style="width:50%; height:300px;"/></a></li>
 							<li class="nav-item"><a class="nav-link productName" href="/whitegoods/detailWhitegoods/${whitegoodsVo.w_no}">${whitegoodsVo.w_name}<br></a><span id="price">${whitegoodsVo.w_price}</span>원<br> 무료배송</li>
 							<li class="nav-item"><a class="nav-link seller">${whitegoodsVo.w_seller}</a></li>
 						</ul>
