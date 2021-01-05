@@ -53,7 +53,8 @@ $(function(){
 		var url="/admin/adminProductDelete";
 		var sendData={
 				"cate_no":$(this).attr("data-cateno"),
-				"p_no":$(this).attr("data-pno")
+				"p_no":$(this).attr("data-pno"),
+				"p_no2":$(this).attr("data-pno2")
 		}
 		$.get(url, sendData, function(data){
 			if(data.trim() == "success"){
@@ -76,7 +77,7 @@ $(function(){
 	<div class="row listMain">
 		<ul class="nav nav-tabs categoryMenu">
 			<li class="nav-item"><a class="nav-link" href="/admin/detailDelete">전체</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/adminCategoryDelete10">의류</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/adminCategoryDelete/10">의류</a></li>
 			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/20">가구</a></li>
 			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/50">컴퓨터</a></li>
 			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/30">가전제품</a></li>
@@ -111,7 +112,7 @@ $(function(){
 						<td class="pseller">${ProductVo.p_seller}</td>
 						<td class="pregdate">${ProductVo.p_regdate}</td>
 						<td class="pbtn">
-							<a href="#" class="contentDelete" data-pno="${ProductVo.p_no}" data-cateno="${ProductVo.cate_no}">게시물 삭제</a>
+							<a href="#" class="contentDelete" data-pno="${ProductVo.p_no}" data-cateno="${ProductVo.cate_no}" data-pno2="${ProductVo.p_no2}">게시물 삭제</a>
 							<button style="display: none;" type="button" class="btnHome" onclick="location.reload()">홈</button>
 						</td>
 					</tr>

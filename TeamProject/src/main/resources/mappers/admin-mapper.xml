@@ -155,4 +155,54 @@
 		where m_selling = 1
 		and ADMIN_CHECK != 1
 	</select>
+	
+	<!-- 카테고리 추가 시 대분류 -->
+	<select id="firstCategoryList" resultType="CategoryVo">
+		select * from category
+		where cate_ref is null
+	</select>
+	
+	<!-- 카테고리 추가 시 하위 분류 -->
+	<select id="otherCategoryList" resultType="CategoryVo">
+		select * from category
+		where cate_ref = ${cate_ref}
+	</select>
+	
+	<select id="imgNameSearch" resultType="string">
+		select p_thumbimg from (
+								select a.*
+								from clothes_product a
+
+								union all 
+																							
+								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no
+								from computer_product b 
+								
+								union all 
+								
+								select c1.* 
+								from furniture_bed c1
+								
+								union all
+								
+								select c2.* 
+								from furniture_interior c2
+								
+								union all
+								
+								select c3.*
+								from furniture_kitchen c3
+								
+								union all
+								
+								select c4.*
+								from furniture_life c4
+								
+								union all
+								
+								select d.*
+								from whitegoods d
+		)
+	where p_no2 = #{p_no2}
+	</select>
 </mapper>

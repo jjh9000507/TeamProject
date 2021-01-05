@@ -127,55 +127,53 @@ $(function(){
 	});
 	
 	//파일 업로드 시킬 칸 위에 마우스 올릴때
-	$("#fileDrop").on("dragenter dragover", function(e){
-// 		console.log(e);
-		e.preventDefault();
-	});
+// 	$("#fileDrop").on("dragenter dragover", function(e){
+// 		e.preventDefault();
+// 	});
 	
 	//파일 업로드 시킬 칸 위에 파일 놓을 때
-	$("#fileDrop").on("drop", function(e){
-		e.preventDefault();
-		var file = e.originalEvent.dataTransfer.files[0];
-// 		console.log(file);
+// 	$("#fileDrop").on("drop", function(e){
+// 		e.preventDefault();
+// 		var file = e.originalEvent.dataTransfer.files[0];
 		
-		var formData = new FormData();
-		formData.append("file", file);
-		var url="/sellproduct/uploadedFile";
+// 		var formData = new FormData();
+// 		formData.append("file", file);
+// 		var url="/sellproduct/uploadedFile";
 		
-		$.ajax({
-			"processData":false,
-			"contentType":false,
-			"method" : "post",
-			"url" : url,
-			"data":formData,
-			"success":function(data){
-				console.log(data);
-				var underbarIndex = data.lastIndexOf("_");
-				var front = data.substring(0, underbarIndex + 1);
-				var rear = data.substring(underbarIndex + 1);
-				var fileName = front + rear;
+// 		$.ajax({
+// 			"processData":false,
+// 			"contentType":false,
+// 			"method" : "post",
+// 			"url" : url,
+// 			"data":formData,
+// 			"success":function(data){
+// 				console.log(data);
+// 				var underbarIndex = data.lastIndexOf("_");
+// 				var front = data.substring(0, underbarIndex + 1);
+// 				var rear = data.substring(underbarIndex + 1);
+// 				var fileName = front + rear;
 				
-				var div = $("#uploadedList").prev().clone();
-				div.attr("data-filename", data);
-				var img = div.find("img");
-				if(isImage(rear)){
-					img.attr("src", "http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/" + data);
-					var span = div.find("span");
-					span.text(fileName.substring(fileName.lastIndexOf("_") + 1));
+// 				var div = $("#uploadedList").prev().clone();
+// 				div.attr("data-filename", data);
+// 				var img = div.find("img");
+// 				if(isImage(rear)){
+// 					img.attr("src", "http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/" + data);
+// 					var span = div.find("span");
+// 					span.text(fileName.substring(fileName.lastIndexOf("_") + 1));
 					
-					$("#uploadedList").append(div);
-					div.show();
-				}
+// 					$("#uploadedList").append(div);
+// 					div.show();
+// 				}
 				
-				$("input[name=p_thumbimg]").attr("value", data);
-			}
-		});
-	});
+// 				$("input[name=p_thumbimg]").attr("value", data);
+// 			}
+// 		});
+// 	});
 	
 	//이미지 등록창 띄우는 버튼
-	$("#btnImgDrop").click(function(){
-		$("#fileDrop").show();
-	});
+// 	$("#btnImgDrop").click(function(){
+// 		$("#fileDrop").show();
+// 	});
 	
 	
 	//상품등록 버튼
@@ -232,7 +230,7 @@ $(function(){
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<form role="form" id="frmUpload" action="" method="get" enctype="multipart/form-data">
+			<form role="form" id="frmUpload" action="" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 					<label for="p_name"> 상품명 </label>
 					<input name="p_name"
@@ -301,22 +299,27 @@ $(function(){
 					<textarea class="form-control" name="p_content" id="p_content" required></textarea>
 				</div>
 				
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="">상품 이미지</label><br> -->
+<!-- 					<button type="button" id="btnImgDrop">업로드</button> -->
+<!-- 					<div id="fileDrop" style="display: none"></div> -->
+<!-- 				</div> -->
+				
+<!-- 				<div class="divUploaded" style="display: none;"> -->
+<!-- 					<img src="/resources/image/default.png" height="100"><br> -->
+<!-- 					<span>default.png</span> -->
+<!-- 					<a href="#" style="cursor: pointer;" class="a_times">&times;</a> -->
+<!-- 				</div> -->
+
 				<div class="form-group">
-					<label for="">상품 이미지</label><br>
-					<button type="button" id="btnImgDrop">업로드</button>
-					<div id="fileDrop" style="display: none"></div>
+					<label for="p_thumbimg">대표이미지 등록</label><br>
+					<input type="file" name="file" id="img">
 				</div>
 				
-				<div class="divUploaded" style="display: none;">
-					<img src="/resources/image/default.png" height="100"><br>
-					<span>default.png</span>
-					<a href="#" style="cursor: pointer;" class="a_times">&times;</a>
-				</div>
+<!-- 				<div id="uploadedList"> -->
 				
-				<div id="uploadedList">
-				
-				</div>
-				<input type="hidden" name="p_thumbimg" value="">
+<!-- 				</div> -->
+				<input type="hidden" name="p_thumbimg">
 				<button type="button" id="btnSellProduct">상품 등록</button>
 			</form>
 		</div>
