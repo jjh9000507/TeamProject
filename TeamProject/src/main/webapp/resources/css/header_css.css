@@ -233,7 +233,6 @@ ul, li {
 
 .productList {
 	padding : 0px;
-	padding-left : 24%;
 }
 
 .list {
@@ -491,5 +490,10 @@ ul, li {
 	width: 130px;
 }
 
+#divSearch_text {
+	position: absolute;
+    top: 2%;
+    right: 62%;
+}
 
 </style>

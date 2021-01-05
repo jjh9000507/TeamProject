@@ -1,8 +1,7 @@
-	<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 
 <script>
 $(function(){
@@ -35,24 +34,24 @@ $(function(){
 }); // main function
 
 </script>
-
+<%@ include file="include/header.jsp"%>
 
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
-	
+<div class="container-fluid">
 <div class="row">
-<%@ include file="include/header.jsp"%>
-<%@ include file="include/header_mainCatagories.jsp"%>
 	<div class="col-md-2"></div>
-
-<br>
+		<div class="col-md-8" >
+			<%@ include file="include/header_mainCatagories.jsp"%>
+	
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
-
-
-<!------------------------------------------ 상품 리스트 ---------------------------------------->
-		<div style="padding-top: 150px;">
-<%-- 		${list} --%>
+			<div id="divSearch_text">
+				<span>'배터리' 로 상품을 검색한 결과 입니다</span>
+			</div>
+	
+<!----------------------------------------- 검색한 상품 리스트 ------------------------------------->	
+		<div class="productList" style="position:relative;top: -3%;left: 15%;">
 					
-				<div class="col-md-8 productList" style="position:relative;top: 1%;left: 33%;">
+				<div >
 					
 					<!-- 히든(복사) 데이터 -->
 					<ul class="nav nav-pills list" style="display:none;">
@@ -61,7 +60,7 @@ $(function(){
 						<li class="nav-item"><a class="nav-link seller">판매자</a></li>
 					</ul>
 					
-<!-- 					검색 데이터 -->
+					<!-- 검색 데이터 -->
 					<c:forEach var="list" items="${list}">
 						<ul class="nav nav-pills list">
 							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="/resources/image/${list.p_thumbimg}"/></a></li>
@@ -71,14 +70,16 @@ $(function(){
 					</c:forEach>
 					
 				</div>
-				<div class="col-md-2"></div>
 		</div>
-<!------------------------------------------ 상품 리스트 ---------------------------------------->
-</div>
-		
+		</div>
+
+<!----------------------------------------- 검색한 상품 리스트 ------------------------------------->	
+
+		<div class="col-md-2"></div>
+	</div><!-- row -->
+</div><!-- container-fluid -->
 
 
-<!------------------------------------------ 더보기 버튼 ---------------------------------------->
 <br>
 <div class="row">
 	<div class="col-md-12 btnMore">
@@ -90,4 +91,6 @@ $(function(){
 	</div>
 </div>
 
+<hr><br><br>
+<%@ include file="include/footer.jsp" %>
 
