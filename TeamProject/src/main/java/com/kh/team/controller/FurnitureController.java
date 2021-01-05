@@ -7,8 +7,8 @@ import java.util.Locale;
 import javax.inject.Inject;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,7 +25,7 @@ public class FurnitureController {
 	
 	@Inject
 	private FurnitureService furnitureService;
-	
+	//인테리어
 	@RequestMapping(value = "/202", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception{	
 		
@@ -33,8 +33,7 @@ public class FurnitureController {
 		model.addAttribute("list", list);
 		return "furnitureCategory/interior";
 	}
-	
-	// 생활
+	//생활
 	@RequestMapping(value = "/201", method = RequestMethod.GET)
 	public String joinForm() {	
 		//return "/joinForm";
@@ -46,15 +45,41 @@ public class FurnitureController {
 		return "furnitureCategory/writeForm";
 	}	
 	
-	@RequestMapping(value = "/uploadAjax", method = RequestMethod.POST)
+	@RequestMapping(value = "/uploadAjax/{num}", method = RequestMethod.POST)
 	@ResponseBody
-	public String uploadAjax(MultipartFile file) throws Exception {	
-		System.out.println("file:"+file);
-		//String originlName = file.getOriginalFilename();
-		String filePathAndName = FurnitureFileUtil.uploadFile(file, "furniture");
-		System.out.println(filePathAndName);
-		return filePathAndName;
+	public String uploadAjax(MultipartFile file, @PathVariable("num") int num) throws Exception {
+		
+		String fileName = file.getOriginalFilename();
+		boolean result = FurnitureFileUtil.checkImage(fileName);
+		String returnFileResult = "false";
+		
+		if(result) {
+		//System.out.println("Controller uploadAjax fileName:"+fileName);
+		//System.out.println("Controller uploadAjax num:"+num);
+		//System.out.println("Controller uploadAjax file:"+file);
+		
+		String filePathAndName = FurnitureFileUtil.uploadFile(file, String.valueOf(num));
+		//System.out.println(filePathAndName);
+		returnFileResult = filePathAndName;
+		}
+		
+		return returnFileResult;
 	}	
+	
+	@RequestMapping(value="/deleteAjax", method=RequestMethod.GET)
+	@ResponseBody
+	public String deleteAjax(String fileName) throws Exception{
+		
+		System.out.println("deleteAjax fileName:"+fileName);
+		
+		String result = "false";
+		
+		if(FurnitureFileUtil.deleteImage(fileName)) {
+			result = "success";
+		}
+		
+		return result;
+	}
 	
 	@RequestMapping(value="/displayImage", method=RequestMethod.GET)
 	@ResponseBody
@@ -82,7 +107,7 @@ public class FurnitureController {
 		List<FurnitureInteriorVo> list = furnitureService.getFurnitureInteriorAddList(num);
 		model.addAttribute("list", list);
 		
-		System.out.println("num:"+num+" ,list:"+list);
+		//System.out.println("num:"+num+" ,list:"+list);
 		
 		return list;
 	}

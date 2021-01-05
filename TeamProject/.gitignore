@@ -18,7 +18,8 @@ Access.java
 
 ### Team Ignore ###
 Access.java
-FurnitureAccess.java
+AuctionS3Key.java
+JoinSMSKey.java
 
 # External tool builders
 .externalToolBuilders/

@@ -3,15 +3,145 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-  
 <mapper namespace="com.kh.team.auction">
-
-	<select id="getAuctionList" resultType="AuctionVo">
-		select i.img, a.*
-		from auction_img i, auction a where i.p_no = a.p_no and i.main_img = '1'
+<!-- 
+	<resultMap type="com.kh.team.domain.AuctionVo" id="auctinoVoMap">
+		<id property="p_no" column="p_no" />
+		<id property="seller" column="seller" />
+		<id property="p_title" column="p_title" />
+		<id property="p_content" column="p_content" />
+		<id property="present_price" column="present_price" />
+		<id property="instant_price" column="instant_price" />
+		<id property="purchaser" column="purchaser" />
+		<id property="sold_price" column="sold_price" />
+		<id property="sell_status" column="sell_status" />
+	</resultMap>
+	<resultMap type="com.kh.team.domain.AuctionAddressVo" id="auctinoAddressVoMap">
+		<id property="address_no" column="address_no" />
+		<id property="zip" column="zip" />
+		<id property="road_address" column="road_address" />
+		<id property="jibun_address" column="jibun_address" />
+		<id property="detail_address" column="detail_address" />
+	</resultMap>
+	<resultMap type="com.kh.team.domain.AuctionRDateVo" id="auctionRDateVoMap">
+		<id property="r_no" column="r_no" />
+		<id property="r_year" column="r_year" />
+		<id property="r_month" column="r_month" />
+		<id property="r_day" column="r_day" />
+		<id property="r_hour" column="r_hour" />
+		<id property="r_minute" column="r_minute" />
+	</resultMap>
+	<resultMap type="com.kh.team.domain.AuctionEDateVo" id="auctionEDateVoMap">
+		<id property="e_no" column="e_no" />
+		<id property="e_year" column="e_year" />
+		<id property="e_month" column="e_month" />
+		<id property="e_day" column="e_day" />
+		<id property="e_hour" column="e_hour" />
+		<id property="e_minute" column="e_minute" />
+	</resultMap>
+	<resultMap type="com.kh.team.domain.AuctionMainImgVo" id="auctionMainImgVoMap">
+		<id property="main_img_no" column="main_img_no" />
+		<id property="main_img_name" column="main_img_name" />
+	</resultMap>
+	
+	<resultMap type="com.kh.team.domain.AuctionDBJoinVo" id="auctionDBJoinVoMap">
+		<collection property="auctionVo" resultMap="auctinoVoMap" />
+		<collection property="auctionAddressVo" resultMap="auctinoAddressVoMap" />
+		<collection property="auctionRDateVo" resultMap="auctionRDateVoMap" />
+		<collection property="auctionEDateVo" resultMap="auctionEDateVoMap" />
+		<collection property="auctionMainImgVo" resultMap="auctionMainImgVoMap" />
+	</resultMap>
+ -->
+ 	
+	<select id="getAuctoionMainList" resultType="AuctionSellVo">
+		select a.*, addr.*, rdate.*, edate.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_expiration_date edate
+		on rdate.p_no = edate.p_no
+		inner join auction_main_img img
+		on edate.p_no = img.p_no
+		where a.p_no not in (select p_no from auction_sold_date)
+		order by rdate.r_year desc , rdate.r_month desc, rdate.r_day desc, rdate.r_hour desc, rdate.r_minute desc
 	</select>
 
-	<select id="getAuctionImgMain" resultType="AuctionImgVo">
+	<select id="getAuctionUserMemberListSell" resultType="AuctionSellVo">
+		select a.*, addr.*, rdate.*, edate.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_expiration_date edate
+		on rdate.p_no = edate.p_no
+		inner join auction_main_img img
+		on edate.p_no = img.p_no
+		where a.seller=#{seller} and a.p_no not in (select p_no from auction_sold_date)
+	</select>
+
+	<select id="getAuctionUserMemberListSold" resultType="AuctionSoldVo">
+		select a.*, addr.*, rdate.*, sdate.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_sold_date sdate
+        on rdate.p_no = sdate.p_no
+        inner join auction_main_img img
+        on sdate.p_no = img.p_no
+		where a.p_no in (select p_no from auction_sold_date)
+		order by sdate.s_year desc , sdate.s_month desc, sdate.s_day desc, sdate.s_hour desc, sdate.s_minute desc
+	</select>
+	
+	<select id="getAuctionMainImg" resultType="AuctionMainImgVo">
+		select * from auction_main_img
+	</select>
+	
+	<select id="getAuctionImg" resultType="AuctionImgVo">
 		select * from auction_img
 	</select>
+	
+	<select id="getNextSeqNumber" resultType="int">
+		select last_number from user_sequences
+		where sequence_name = 'SEQ_AUCTION_PNO'
+	</select>
+	
+	<insert id="insertAuction">
+		insert into AUCTION(p_no, seller, p_title, p_content, present_price, instant_price)
+		values(SEQ_AUCTION_PNO.nextval ,#{seller}, #{p_title}, #{p_content},#{present_price} ,#{instant_price})
+	</insert>
+	
+	<insert id="insertAuctionAddress">
+		insert into auction_address(address_no, zip, road_address, jibun_address, detail_address, p_no)
+		values(SEQ_AUCTION_ADDRESSNO.nextval,#{zip},#{road_address},#{jibun_address},#{detail_address},#{p_no})
+	</insert>
+	
+	<insert id="insertAuctionImg">
+		insert into auction_img(img_no, img_name, main_img_status, p_no)
+		values(SEQ_AUCTION_IMG_NO.nextval,#{img_name},'0',#{p_no})
+	</insert>
+	
+	<insert id="insertAuctionMainImg">
+		insert into auction_main_img(main_img_no, main_img_name,p_no) values(seq_main_img_no.nextval, #{main_img_name}, #{p_no})
+	</insert>
+	
+	<insert id="insertAuctionRegisterDate">
+		insert into auction_register_date(r_no, r_year, r_month, r_day, r_hour, r_minute, p_no)
+		values(SEQ_REGISTER_DATE.nextval,#{r_year},#{r_month},#{r_day},#{r_hour},#{r_minute},#{p_no})
+	</insert>
+	
+	<insert id="insertAuctionExpirationDate">
+		insert into auction_expiration_date(e_no, e_year, e_month, e_day, e_hour, e_minute, p_no)
+		values(SEQ_EXPIRATION_DATE.nextval,#{e_year},#{e_month},#{e_day},#{e_hour},#{e_minute},#{p_no})
+	</insert>
+	
+	<insert id="insertAuctionSoldDate">
+		insert into auction_sold_date(s_no, s_year, s_month, s_day, s_hour, s_minute, p_no)
+		values(SEQ_SOLD_DATE.nextval,#{s_year},#{s_month},#{s_day},#{s_hour},#{s_minute},#{p_no})
+	</insert>
+	
 </mapper>

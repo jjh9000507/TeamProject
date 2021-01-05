@@ -27,7 +27,7 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 
 @Controller
 @RequestMapping(value="/join")
-public class JoinController {
+public class JoinController implements JoinSMSKey {
 
 	@Inject
 	private JavaMailSender mailSender;
@@ -78,8 +78,7 @@ public class JoinController {
 	public String phoneConfirm(@PathVariable("phoneNumber") String phoneNumber) throws Exception{
 		//System.out.println("phoneNumber:"+phoneNumber);
 	
-		String api_key = "NCSCFSGTCJPQNEHE";
-	    String api_secret = "B2UDAIBATPHSLEHHK2MQGYWCV3NKQ0ZJ";
+	
 	    Message sms = new Message(api_key, api_secret);
 	    
 	    String randomStr = makeRandom(4);
