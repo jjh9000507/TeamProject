@@ -91,4 +91,9 @@
 		) where p_name like '%' || #{searchName} || '%' 
 
 	</select>
+	
+	<select id="distinct_num" resultType="CategoryVo">
+		select * from category
+		where distinct_num = #{distinct_num}
+	</select>
 </mapper>

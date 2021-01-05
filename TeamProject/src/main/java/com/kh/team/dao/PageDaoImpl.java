@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
 @Repository
@@ -34,6 +35,12 @@ public class PageDaoImpl implements PageDao {
 	public List<ProductVo> search(String searchName) throws Exception {
 		List<ProductVo> list = sqlSession.selectList(NAMESPACE + "search" , searchName);
 //		System.out.println("Dao , list : " + list);
+		return list;
+	}
+
+	@Override
+	public List<CategoryVo> mainCatagories(int distinct_num) throws Exception {
+		List<CategoryVo> list = sqlSession.selectList(NAMESPACE + "distinct_num" , distinct_num);
 		return list;
 	}
 	

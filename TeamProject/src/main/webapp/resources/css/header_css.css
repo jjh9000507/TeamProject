@@ -43,8 +43,7 @@ body {
 	text-decoration: none;
 	display: block;
 	width: 100px;   /* 카테고리 하나 당 길이 108px */
-	font-size: 23px;
-	font-family: 'East Sea Dokdo', cursive;
+	font-size: 14px;
 }
 
 .menuLink { /* 상위 메뉴의 글씨색을 흰색으로 설정 */
