@@ -12,7 +12,8 @@ public interface ComputersService {
 		public List<ComputerVo> listArray(String[] checkList) throws Exception;
 		//컴퓨터 결과내 검색
 		public List<ComputerVo> listSearch(String c_com_name, String[] confirmList) throws Exception;
-
+		//컴퓨터 결과내 가격대 검색
+		public List<ComputerVo> listSearchPrice(int firstPrice,int lastPrice, String[] confirmList) throws Exception;
 		//카테고리 정보
 		public List<CategoryVo> categoryInfo(String cate_no) throws Exception;
 		//카테고리 정보

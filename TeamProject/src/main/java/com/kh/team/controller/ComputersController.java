@@ -84,6 +84,48 @@ public class ComputersController {
 		request.setAttribute("cate_no_confirm", confirmList);
 		return "/computerProduct/computersForm";
 	}
+	
+	@RequestMapping(value="/computersFormSearchPrice", method=RequestMethod.POST)
+	public String computersFormSearchPrice(int firstPrice,int lastPrice, String search0no,String search1no ,String search2no,String search3no,String search4no,String search5no, Model model,HttpServletRequest request) throws Exception {
+		System.out.println("firstPrice:" + firstPrice);		
+		System.out.println("lastPrice:" + lastPrice);		
+		
+		String[] confirmList = new String[6];
+		if(search0no != null) {
+			System.out.println("search0no:"+ search0no);
+			confirmList[0] = search0no;
+		}
+		if(search1no != null) {
+			System.out.println("search1no:"+ search1no);
+			confirmList[1] = search1no;
+		}
+		if(search2no != null) {
+			System.out.println("search2no:"+ search2no);
+			confirmList[2] = search2no;
+		}
+		if(search3no != null) {
+			System.out.println("search3no:"+ search3no);
+			confirmList[3] = search3no;
+		}
+		if(search4no != null) {
+			System.out.println("search4no:"+ search4no);
+			confirmList[4] = search4no;
+		}
+		if(search5no != null) {
+			System.out.println("search5no:"+ search5no);
+			confirmList[5] = search5no;
+		}
+		
+		
+		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(confirmList);
+		model.addAttribute("categoryInfo", categoryInfo);
+		System.out.println("categoryInfo_price:" + categoryInfo);
+		List<ComputerVo> computerList = computersService.listSearchPrice(firstPrice, lastPrice, confirmList);
+		System.out.println("computerList_price:" + computerList);
+		model.addAttribute("computerList", computerList);
+		request.setAttribute("cate_no_confirm", confirmList);
+		return "/computerProduct/computersForm";
+	}
 
 
 	@RequestMapping(value="/computersFormCheck", method=RequestMethod.POST)

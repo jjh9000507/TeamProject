@@ -119,5 +119,35 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		
 	}
 
+
+
+	@Override
+	public List<ComputerVo> listSearchPrice(int firstPrice, int lastPrice, String[] confirmList)
+			throws Exception {
+		String[] newMap = {CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR};
+		Map<String, Object> map = new HashMap<>();
+		map.put("firstPrice", firstPrice);
+		map.put("lastPrice", lastPrice);
+		System.out.println("firstPrice:"+firstPrice);
+		System.out.println("lastPrice:"+lastPrice);
+		for(int i=0; i<confirmList.length; i++) {
+			newMap[i] = confirmList[i];
+			if(confirmList[i] == null || confirmList[i].equals("")) {
+				newMap[i] = CONSTNAT_CHAR;
+			}
+			
+			System.out.println("searchComputer_dao:" + confirmList[i]);
+			System.out.println("newMap_dao_searchComputer:" + newMap[i]);			
+		}		
+		
+		for(int i=0; i<6; i++) {
+		System.out.println("searchComputer_cate_no:" + newMap[i]);
+		map.put("cate_no" + i, newMap[i]);
+		}
+		System.out.println("confirmList.length:" + confirmList.length);
+		List<ComputerVo> list = sqlSession.selectList(NAMESPACE + "getComptersProductListPrice", map);
+		return list;
+	}
+
 	
 }
