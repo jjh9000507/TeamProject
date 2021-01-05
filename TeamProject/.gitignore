@@ -14,11 +14,10 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-Access.java
-<<<<<<< HEAD
-=======
 
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
+#Team Ignore
+Access.java
+FurnitureAccess.java
 
 # External tool builders
 .externalToolBuilders/
