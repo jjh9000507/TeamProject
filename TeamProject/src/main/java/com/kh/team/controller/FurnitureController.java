@@ -26,7 +26,7 @@ public class FurnitureController {
 	@Inject
 	private FurnitureService furnitureService;
 	
-	@RequestMapping(value = "/interior", method = RequestMethod.GET)
+	@RequestMapping(value = "/202", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception{	
 		
 		List<FurnitureInteriorVo> list = furnitureService.getFurnitureInteriorList();
@@ -34,7 +34,8 @@ public class FurnitureController {
 		return "furnitureCategory/interior";
 	}
 	
-	@RequestMapping(value = "/life", method = RequestMethod.GET)
+	// 생활
+	@RequestMapping(value = "/201", method = RequestMethod.GET)
 	public String joinForm() {	
 		//return "/joinForm";
 		return "furnitureCategory/life";

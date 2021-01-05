@@ -8,19 +8,19 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @RequestMapping("/clothes")
 public class ClothesController {
 	
-	@RequestMapping(value="/maleClothes" , method=RequestMethod.GET)
+	@RequestMapping(value="/101" , method=RequestMethod.GET)
 	public String maleClothes() throws Exception {
 		System.out.println("ok");
 		return "/clothes/manClothes";
 	}
 	
-	@RequestMapping(value="/feMaleClothes" , method=RequestMethod.GET)
+	@RequestMapping(value="/102" , method=RequestMethod.GET)
 	public String feMaleClothes() throws Exception {
 		System.out.println("ok");
 		return "/clothes/feMaleClothes";
 	}
 	
-	@RequestMapping(value="/publicClothes" , method=RequestMethod.GET)
+	@RequestMapping(value="/103" , method=RequestMethod.GET)
 	public String publicClothes() throws Exception {
 		System.out.println("ok");
 		return "/clothes/publicClothes";

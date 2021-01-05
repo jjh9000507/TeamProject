@@ -3,6 +3,7 @@ package com.kh.team.service;
 import java.util.List;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 
 public interface AdminService {
@@ -33,4 +34,10 @@ public interface AdminService {
 		public List<ProductVo> productCateList(String cate_no) throws Exception;
 		//선택 카테고리 목록 가져오기
 		public List<CategoryVo> categoryDeleteList(String cate_no) throws Exception;
+		
+		//판매자 등록 취소
+		public void rollbackSeller(String m_id) throws Exception;
+		
+		//판매자 등록인원 확인
+		public List<MemberVo> sellerList() throws Exception;
 }

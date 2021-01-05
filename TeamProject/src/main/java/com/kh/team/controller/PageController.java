@@ -31,6 +31,7 @@ public class PageController {
 		return list;
 	}
 	
+	// 검색 
 	@RequestMapping(value="/search" , method=RequestMethod.GET)
 	public String search(String searchName, Model model) throws Exception {
 		System.out.println("searchName : " + searchName);
@@ -40,12 +41,14 @@ public class PageController {
 		return "/searchForm";
 	}
 	
+	// 내 주변 매물 찾기
 	@RequestMapping(value="/mapSearch" , method=RequestMethod.GET)
 	public String map(String roadAddress, Model model) throws Exception {
 		System.out.println("roadAddress : " + roadAddress);
 		model.addAttribute("roadAddress" , roadAddress);
 		return "/map";
 	}
+	
 	
 	
 } // main class

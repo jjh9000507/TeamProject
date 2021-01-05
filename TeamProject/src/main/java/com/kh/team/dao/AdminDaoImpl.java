@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 
 @Repository
@@ -93,10 +94,24 @@ public class AdminDaoImpl implements AdminDao{
 		return productCateList;
 	}
 
+	//카테고리 리스트(관리자페이지-카테고리-카테고리 삭제)
 	@Override
 	public List<CategoryVo> categoryDeleteList(String cate_no) throws Exception {
 		List<CategoryVo> categoryDeleteList = sqlSession.selectList(NAMESPACE + "CategoryDeleteList", cate_no);
 		return categoryDeleteList;
+	}
+	
+	//판매자 권한 삭제
+	@Override
+	public void rollbackSeller(String m_id) throws Exception {
+		sqlSession.update(NAMESPACE + "rollbackSeller", m_id);
+	}
+	
+	//판매자 권한 등록인원 확인
+	@Override
+	public List<MemberVo> sellerList() throws Exception {
+		List<MemberVo> sellerList = sqlSession.selectList(NAMESPACE + "sellerList");
+		return sellerList;
 	}
 
 }
