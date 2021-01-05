@@ -21,4 +21,6 @@ public interface ComputersService {
 		
 		//컴퓨터 제품 상세정보
 		public ComputerVo detailComputerInfo(int p_no) throws Exception;
+		//컴퓨터 제품 구매 폼
+		public ComputerVo buyComputerProduct(int p_no) throws Exception;
 }

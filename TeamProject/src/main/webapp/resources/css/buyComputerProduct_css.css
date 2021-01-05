@@ -1,0 +1,71 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
+<style>
+
+@import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
+.buycomputersFormDiv{
+	display:inline-block;
+	width:100%;	
+}
+.buyheader{
+	display:inline-block;
+	width:70%;
+	height:15%;		
+	float:left;
+}
+.buynav{
+	display:inline-block;
+	height:100%;
+	width:35%;
+	float:left;
+}
+.buyaside{
+	display:inline-block;
+	height:100%;
+	width:35%;	
+	float:left;		
+}
+.buyleftnav{
+	display:inline-block;
+	height:100%;
+	width:15%;
+	float:left;
+}
+.buyleftupnav{
+	display:inline-block;
+	height:15%;
+	width:15%;
+	float:left;
+}
+.buyleftdownnav{
+	display:inline-block;
+	height:15%;
+	width:15%;
+	float:left;
+}
+.buyrightaside{
+	display:inline-block;
+	height:100%;
+	width:15%;	
+	float:left;		
+}
+.buyrightupaside{
+	display:inline-block;
+	height:15%;
+	width:15%;	
+	float:left;		
+}
+.buyrightdownaside{
+	display:inline-block;
+	height:15%;
+	width:15%;	
+	float:left;		
+}
+.buyfooter{
+	display:inline-block;
+	width:70%;
+	height:15%;
+	float:left;
+}
+</style>

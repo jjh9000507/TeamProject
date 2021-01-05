@@ -3,6 +3,7 @@ package com.kh.team.controller;
 
 import java.util.List;
 
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,8 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
@@ -23,8 +23,7 @@ import com.kh.team.service.ComputersService;
 
 @Controller
 @RequestMapping("/computerProduct")
-public class ComputersController {
-	
+public class ComputersController {	
 	
 	@Inject
 	private ComputersService computersService;
@@ -43,6 +42,7 @@ public class ComputersController {
 		request.setAttribute("cate_no_confirm", checkList);
 		return "/computerProduct/computersForm";
 	}
+	
 //	@RequestParam(value="confirmList[]") String[] confirmList
 	@RequestMapping(value="/computersFormSearch", method=RequestMethod.POST)
 	public String computersFormSearch(String c_com_name,String search0no,String search1no ,String search2no,String search3no,String search4no,String search5no, Model model,HttpServletRequest request) throws Exception {
@@ -127,7 +127,6 @@ public class ComputersController {
 		return "/computerProduct/computersForm";
 	}
 
-
 	@RequestMapping(value="/computersFormCheck", method=RequestMethod.POST)
 	public String computersFormCheck(String check0no,String check1no ,String check2no,String check3no,String check4no,String check5no, Model model,HttpServletRequest request) throws Exception {
 		String[] checkList = new String[6];
@@ -165,8 +164,7 @@ public class ComputersController {
 		model.addAttribute("computerList", computerList);
 		request.setAttribute("cate_no_confirm", checkList);
 		return "/computerProduct/computersForm";
-	}	
-	
+	}		
 	
 	@RequestMapping(value="/detailComputerForm/{p_no}", method=RequestMethod.GET)
 	public String detailComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
@@ -174,6 +172,14 @@ public class ComputersController {
 		model.addAttribute("detailComputerVo", computerVo);
 		System.out.println("computerVo_Detail:" + computerVo);
 		return "/computerProduct/detailComputerForm";
+	}
+	
+	@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
+	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
+		ComputerVo computerVo = computersService.buyComputerProduct(p_no);
+		model.addAttribute("buyComputerVo", computerVo);
+		System.out.println("computerVo_Buy:" + computerVo);
+		return "/computerProduct/buyComputerProduct";
 	}
 	
 	
