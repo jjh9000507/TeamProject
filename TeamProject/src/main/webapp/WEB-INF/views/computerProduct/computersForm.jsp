@@ -75,7 +75,7 @@ $(function() {
  	 			}	
  		}
  		
-//  			
+ 			
 	
 	});	
 	$("#detailSearch").click(function() {
@@ -126,7 +126,21 @@ $(function() {
 		});
 });
 </script>
-	<form class="backList" style="display: none;">
+	
+<div class="row">
+		<div class="col-md-2"></div>
+<div class="col-md-8" >
+<%@ include file="../include/header_mainCatagories.jsp"%>
+<br>
+
+	</div>
+	<div class="col-md-2"></div>
+</div>		
+		
+		<br>
+		<br>
+		
+<form class="backList" style="display: none;">
 <c:forEach var="cate_no_list" items="${cate_no_confirm}">	
 	<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
 </c:forEach>
@@ -139,17 +153,6 @@ $(function() {
 <div class="form-group searchInComputerPriceSend" style="display: none;">
 </div>
 </form>
-<div class="row">
-		<div class="col-md-2"></div>
-<div class="col-md-8" >
-<%@ include file="../include/header_mainCatagories.jsp"%>
-<br>
-	</div>
-</div>		
-		<div class="col-md-2"></div>
-		<br>
-		<br>
-
 <div class="computersFormDiv">
 
 <header class="header">
@@ -239,7 +242,7 @@ $(function() {
 							<tbody>
 								<tr>
 									<td>
-									<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}">
+									<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">
 										<c:choose>
 											<c:when test="${ComputerVo.c_com_pic == null}">
 												<img src="/resources/computerImage/default.png"/>
@@ -251,7 +254,7 @@ $(function() {
 										</a>
 									</td>
 									<td>
-										<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}">${ComputerVo.c_com_name}</a>
+										<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">${ComputerVo.c_com_name}</a>
 									</td>
 									<td>
 										<a href="/login/memberVoInfoForm/${ComputerVo.c_com_seller}">${ComputerVo.c_com_seller}</a>

@@ -168,10 +168,11 @@ public class ComputersController {
 	}	
 	
 	
-	@RequestMapping(value="/detailComputerProduct/{p_no}", method=RequestMethod.GET)
+	@RequestMapping(value="/detailComputerForm/{p_no}", method=RequestMethod.GET)
 	public String detailComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
 		ComputerVo computerVo = computersService.detailComputerInfo(p_no);
 		model.addAttribute("detailComputerVo", computerVo);
+		System.out.println("computerVo_Detail:" + computerVo);
 		return "/computerProduct/detailComputerForm";
 	}
 	
