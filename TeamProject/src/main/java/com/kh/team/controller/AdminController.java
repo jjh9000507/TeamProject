@@ -19,6 +19,7 @@ import com.kh.team.service.AdminService;
 import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
 import com.kh.team.service.WhitegoodsService;
+import com.kh.team.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/admin")
@@ -131,9 +132,11 @@ public class AdminController {
 	//게시글 삭제
 	@RequestMapping(value="/adminProductDelete", method=RequestMethod.GET)
 	@ResponseBody
-	public String adminDelete(String cate_no, int p_no, Model model) throws Exception{
+	public String adminDelete(String cate_no, int p_no, int p_no2, Model model) throws Exception{
 //		System.out.println("cate_no:" + cate_no);
 //		System.out.println("p_no: " + p_no);
+		String imgName = adminService.imgNameSearch(p_no2);
+		UploadFileUtils.delete(imgName);
 		String cate_sub = cate_no.substring(0, 2);
 		if(cate_sub.equals("50")) {
 			//컴퓨터
@@ -162,8 +165,17 @@ public class AdminController {
 	
 	//카테고리 추가
 	@RequestMapping(value="/adminCategoryInput", method=RequestMethod.GET)
-	public String adminCategoryInput() throws Exception {
+	public String adminCategoryInput(Model model) throws Exception {
+		List<CategoryVo> firstCategoryList = adminService.firstCategoryList();
+		model.addAttribute("firstCategoryList", firstCategoryList);
 		return "/admin/a_c_input";
+	}
+	
+	//하위카테고리
+	@RequestMapping(value="/adminOtherCategoryList/{cate_no}", method=RequestMethod.GET)
+	@ResponseBody
+	public String adminOtherCategoryList(@PathVariable("cate_no") String cate_no) throws Exception {
+		return "";
 	}
 	
 	//카테고리 삭제 페이지로 이동
@@ -174,11 +186,18 @@ public class AdminController {
 		return "/admin/a_c_delete";
 	}
 	
-	//카테고리 삭제 페이지로 이동
+	//카테고리 삭제
 	@RequestMapping(value="/CategoryDelete/{cate_no}", method=RequestMethod.GET)
 	public String CategoryDelete(@PathVariable("cate_no") String cate_no , Model model) throws Exception {
-		List<CategoryVo> categoryDeleteList = adminService.categoryDeleteList(cate_no);
-		model.addAttribute("categoryList", categoryDeleteList);
+		adminService.adminCategoryDelete(cate_no);
+		return "redirect:/admin/adminCategoryDelete";
+	}
+	
+	//카테고리 별 삭제 페이지로 이동
+	@RequestMapping(value="/categoryDeletePage/{cate_no}", method=RequestMethod.GET)
+	public String categoryDeletePage(@PathVariable("cate_no") String cate_no, Model model) throws Exception {
+		List<CategoryVo> categoryList = adminService.categoryDeleteList(cate_no);
+		model.addAttribute("categoryList", categoryList);
 		return "/admin/a_c_delete";
 	}
 }

@@ -58,8 +58,8 @@
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 <div style="padding-top: 150px;">
 	<ul class="nav nav-pills list">
-		<li class="nav-item"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}"/></li>
-		<li class="nav-item detail">${whitegoodsVo.w_name}<br><span id="price" class="detail">${whitegoodsVo.w_price}</span>원</li>
+		<li class="nav-item"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}" style="width:200px; height:260px;"/></li>
+		<li class="nav-item detail" style="width:360px;">${whitegoodsVo.w_name}<br><span id="price" class="detail">${whitegoodsVo.w_price}</span>원</li>
 		<li class="nav-item seller">${whitegoodsVo.w_seller}<br></li>
 	</ul>
 	<ul class="nav nav-pills btnlist">

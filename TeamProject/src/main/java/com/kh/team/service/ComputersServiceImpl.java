@@ -51,7 +51,24 @@ public class ComputersServiceImpl implements ComputersService {
 
 	@Override
 	public List<ComputerVo> listSearch(String c_com_name, String[] confirmList) throws Exception {
-		List<ComputerVo> categoryList = computersDao.listSearch(c_com_name, confirmList);
-		return categoryList;
+		List<ComputerVo> computerList = computersDao.listSearch(c_com_name, confirmList);
+		return computerList;
+	}
+
+
+
+	@Override
+	public List<ComputerVo> listSearchPrice(int firstPrice, int lastPrice, String[] confirmList)
+			throws Exception {
+		List<ComputerVo> computerList = computersDao.listSearchPrice(firstPrice, lastPrice, confirmList);
+		return computerList;
+	}
+
+
+
+	@Override
+	public ComputerVo buyComputerProduct(int p_no) throws Exception {
+		ComputerVo computerVo = computersDao.buyComputerProduct(p_no);
+		return computerVo;
 	}
 }

@@ -114,4 +114,17 @@ public class AdminDaoImpl implements AdminDao{
 		return sellerList;
 	}
 
+	//대분류 카테고리
+	@Override
+	public List<CategoryVo> firstCategoryList() throws Exception {
+		List<CategoryVo> firstCategoryList = sqlSession.selectList(NAMESPACE + "firstCategoryList");
+		return firstCategoryList;
+	}
+
+	@Override
+	public String imgNameSearch(int p_no2) throws Exception {
+		String imgNameSearch = sqlSession.selectOne(NAMESPACE + "imgNameSearch", p_no2);
+		return imgNameSearch;
+	}
+
 }

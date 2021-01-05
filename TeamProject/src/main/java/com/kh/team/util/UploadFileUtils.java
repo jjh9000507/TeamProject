@@ -59,6 +59,6 @@ public class UploadFileUtils implements Codes, Access{
 		// 예시 FileUploadUtil.delete("dog.jpg", FileUploadUtil.DLVR_IMG);
 		public static void delete(String fileName) {
 			AmazonS3 s3 = access();
-			s3.deleteObject(BUCKET, fileName);
+			s3.deleteObject(BUCKET + "/goods", fileName);
 		}
 }

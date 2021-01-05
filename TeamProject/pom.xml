@@ -63,9 +63,9 @@
 
 <!-- aws -->
 <dependency>
-	<groupId>com.amazonaws</groupId>
-	<artifactId>aws-java-sdk-core</artifactId>
-	<version>1.11.172</version>
+    <groupId>com.amazonaws</groupId>
+    <artifactId>aws-java-sdk-core</artifactId>
+    <version>1.11.930</version>
 </dependency>
 
 <dependency>
@@ -76,8 +76,9 @@
 
 <dependency>
     <groupId>com.amazonaws</groupId>
-    <artifactId>aws-java-sdk-storagegateway</artifactId>
-    <version>1.11.499</version>
+    <artifactId>aws-java-sdk-bom</artifactId>
+    <version>1.11.930</version>
+    <type>pom</type>
 </dependency>
 
 	<!-- 스프링 테스트 -->

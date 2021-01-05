@@ -13,10 +13,11 @@ $(function() {
 	var backList = $(".backList");
 	var detailSearchFormFind = $(".detailSearchFormFind");
 	var searchInComputerInfo = $(".searchInComputerInfo");
+	var searchInComputerPriceSend = $(".searchInComputerPriceSend");
+	var searchInComputerPriceForm = $(".searchInComputerPriceForm");
 	
 	$("#checkboxSearch").click(function() {
-		inputCheckForm.empty();	
-		
+		inputCheckForm.empty();		
 		for(var i = 0; i<6; i++){
 			if(inputCheckbox.find("input").eq(i).is(":checked") == true){
 				var indexCheckBox = "check"+i + "no";
@@ -34,14 +35,10 @@ $(function() {
 			&& (inputCheckbox.find("input").eq(5).is(":checked") == false)			
 			){
 			alert("체크항목 없음");	
-		}else{
-			
+		}else{			
 		$("#frmData").submit();
-		}
-		
-						
+		}						
 	});
-
 	$("#computersBack").click(function() {		
 		inputCheckForm.empty();		
  		for(var i = 0; i<6; i++){
@@ -68,49 +65,84 @@ $(function() {
  	 		if(nth == 3){
  	 				alert("뒤로 갈수  없음");	
  	 			}else{
- 	 				$("#frmData").submit();
- 	 			
+ 	 				$("#frmData").submit(); 	 			
  	 			}	
- 		}
- 		
-//  			
-	
+ 		}	
 	});	
 	$("#detailSearch").click(function() {
 		searchInComputerInfo.empty();
 		var inputName = detailSearchFormFind.find("input").clone();
+		var inputVal = detailSearchFormFind.find("input").val();
+		console.log("inputVal:"+ inputVal);
 		searchInComputerInfo.append(inputName);
 		for(var i = 0; i<6; i++){
 			var searchIndex = "search"+i + "no";
  			var input = backList.find("input").eq(i).clone();
- 			console.log("searchIndex:" + searchIndex);
+ 			console.log("searchIndex_name:" + searchIndex);
  			input.attr("name",searchIndex);
  			searchInComputerInfo.append(input);
 		}
+		if(inputVal == ""){
+			alert("검색어를 입력하시오.");
+		}else{
+			
  		$("#frmSearchData").submit();
+		}
+		});
+	
+	
+	$("#detailPrice").click(function() {
+		searchInComputerPriceSend.empty();
+		var inputName1 = searchInComputerPriceForm.find("input").eq(0).clone();
+		var inputName2 = searchInComputerPriceForm.find("input").eq(1).clone();
+		var inputValue1 = searchInComputerPriceForm.find("input").eq(0).val();
+		var inputValue2 = searchInComputerPriceForm.find("input").eq(1).val();
+		console.log("inputValue1:" + inputValue1);
+		console.log("inputValue2:" + inputValue2);
+		searchInComputerPriceSend.append(inputName1);
+		searchInComputerPriceSend.append(inputName2);
+		for(var i = 0; i<6; i++){
+			var searchIndex = "search"+i + "no";
+ 			var input = backList.find("input").eq(i).clone();
+ 			console.log("searchIndex_price:" + searchIndex);
+ 			input.attr("name",searchIndex);
+ 			searchInComputerPriceSend.append(input);
+		}
+		if(inputValue1 == "" || inputValue2 == ""){
+			alert("가격대를 입력하시오.");
+		}else{			
+  		$("#frmSearchPrice").submit();
+		}
 		});
 });
 </script>
-	<form class="backList">
-<c:forEach var="cate_no_list" items="${cate_no_confirm}">	
-	<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
-</c:forEach>
-	</form>
-<form role="form" id="frmSearchData" action="/computerProduct/computersFormSearch" method="post">
-<div class="form-group searchInComputerInfo">
-</div>
-</form>
+	
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
 <%@ include file="../include/header_mainCatagories.jsp"%>
 <br>
-	</div>
-</div>		
-		<div class="col-md-2"></div>
-		<br>
-		<br>
 
+	</div>
+	<div class="col-md-2"></div>
+</div>		
+		
+		<br>
+		<br>
+		
+<form class="backList" style="display: none;">
+<c:forEach var="cate_no_list" items="${cate_no_confirm}">	
+<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
+</c:forEach>
+</form>
+<form role="form" id="frmSearchData" action="/computerProduct/computersFormSearch" method="post">
+<div class="form-group searchInComputerInfo" style="display: none;">
+</div>
+</form>
+<form role="form" id="frmSearchPrice" action="/computerProduct/computersFormSearchPrice" method="post">
+<div class="form-group searchInComputerPriceSend" style="display: none;">
+</div>
+</form>
 <div class="computersFormDiv">
 
 <header class="header">
@@ -124,7 +156,6 @@ $(function() {
 <li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
 &nbsp<input type="checkbox" name="${CategoryVo.cate_no}" value="${CategoryVo.cate_no}"/>
 </li>
-
 </c:forEach>
 </ul>
 
@@ -149,7 +180,7 @@ $(function() {
 <label>
 결과내 검색
 </label>
-<input type="text" id="c_com_name" class="form-control" placeholder="검색어를 입력하시오" name="c_com_name"/>
+<input type="text" id="c_com_name" class="form-control" placeholder="검색어를 입력하시오" name="c_com_name" required="required"/>
 <button type="button" id="detailSearch" class="btn btn-xs btn-warning">
 검색
 </button>
@@ -158,43 +189,19 @@ $(function() {
 <br>
 <br>			
 <form role="form">
-				<div class="form-group searchInComputer">					 
+				<div class="form-group searchInComputerPriceForm">					 
 					<label>
 						가격대
 					</label>
-					<input type="number" class="form-control" placeholder="시작 가격"/>
+					<input type="number" name="firstPrice" class="form-control" placeholder="시작 가격" required="required"/>
 					~
-					<input type="number" class="form-control" placeholder="나중 가격"/>
-					<button type="submit" class="btn btn-xs btn-warning">
+					<input type="number" name="lastPrice" class="form-control" placeholder="나중 가격" required="required"/>
+					<button type="button" id="detailPrice" class="btn btn-xs btn-warning">
 					검색
 					</button>
 				</div>				
 			</form>			
-<nav class="pageNav">
-<ul class="pagination">
-	<c:if test="${pagingDto.startPage != 1}">
-		<li class="page-item">
-			<a class="page-link" href="#" data-page="${pagingDto.startPage - 1}">이전</a>
-		</li>
-	</c:if>
 
-	<c:forEach var="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
-		<li
-			<c:choose>
-				<c:when test="${i == pagingDto.page}">
-					class="page-item active"
-				</c:when>
-				<c:otherwise>
-					class="page-item"
-				</c:otherwise>
-			</c:choose>><a class="page-link" href="#" data-page="${i}">${i}</a></li>
-	</c:forEach>
-
-	<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
-		<li class="page-item"><a class="page-link" href="#" data-page="${pagingDto.endPage + 1}">다음</a></li>
-	</c:if>
-				</ul>
-			</nav>
 
 </nav>
 <section class="section">
@@ -224,7 +231,7 @@ $(function() {
 							<tbody>
 								<tr>
 									<td>
-									<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}">
+									<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">
 										<c:choose>
 											<c:when test="${ComputerVo.c_com_pic == null}">
 												<img src="/resources/computerImage/default.png"/>
@@ -236,7 +243,7 @@ $(function() {
 										</a>
 									</td>
 									<td>
-										<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}">${ComputerVo.c_com_name}</a>
+										<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">${ComputerVo.c_com_name}</a>
 									</td>
 									<td>
 										<a href="/login/memberVoInfoForm/${ComputerVo.c_com_seller}">${ComputerVo.c_com_seller}</a>
@@ -245,7 +252,7 @@ $(function() {
 										<span id="price">${ComputerVo.c_com_price}</span>원
 									</td>
 									<td>
-										<a href="#">상품구매하기</a>
+										<a href="/computerProduct/buyComputerProduct/${ComputerVo.p_no}">상품구매하기</a>
 									</td>
 								</tr>
 							</tbody>
@@ -285,5 +292,5 @@ $(function() {
 </aside>
 </div>
 
-<%@ include file="../include/footer.jsp"%>
+
 

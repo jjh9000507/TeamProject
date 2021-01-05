@@ -16,6 +16,8 @@ public interface ComputersDao {
 	public List<ComputerVo> listArray(String[] checkList) throws Exception;
 	//컴퓨터 결과내 검색
 	public List<ComputerVo> listSearch(String c_com_name, String[] confirmList) throws Exception;
+	//컴퓨터 결과내 가격대 검색
+	public List<ComputerVo> listSearchPrice(int firstPrice,int lastPrice, String[] confirmList) throws Exception;
 	
 	
 	//카테고리 정보
@@ -26,4 +28,6 @@ public interface ComputersDao {
 	
 	//컴퓨터 제품 상세정보
 	public ComputerVo detailComputerInfo(int p_no) throws Exception;
+	//컴퓨터 제품 구매 폼
+	public ComputerVo buyComputerProduct(int p_no) throws Exception;
 }

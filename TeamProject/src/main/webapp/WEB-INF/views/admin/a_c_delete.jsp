@@ -29,29 +29,24 @@ h1{
 }
 </style>
 <script>
-	$(function(){
-		$(".categoryDelete").on("click", function(e){
-			e.preventDefault();
-			var url="";
-			var sendData = {
-					"cate_no":$(this).attr("data-cateno");
-			}
-		});
-	});
 </script>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4"><h1>카테고리 삭제</h1></div>
-		<div class="col-md-4"></div>
+		<div class="col-md-12" style="text-align: center"><h1>카테고리 삭제</h1></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" style="text-align: center">
+			<a href="/admin/adminCategory">이전 화면으로</a>
+			<a href="/admin/adminForm">관리자 메인 화면으로</a>
+		</div>
 	</div>
 	<div class="row listMain">
 		<ul class="nav nav-tabs categoryMenu">
 			<li class="nav-item"><a class="nav-link" href="/admin/adminCategoryDelete">전체</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/CategoryDelete/10">의류</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/CategoryDelete/20">가구</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/CategoryDelete/50">컴퓨터</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/CategoryDelete/30">가전제품</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/10">의류</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/20">가구</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/50">컴퓨터</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/30">가전제품</a></li>
 		</ul>
 	</div>
 	<div class="row">
@@ -71,8 +66,7 @@ h1{
 						<td class="categoryno">${CategoryVo.cate_no}</td>
 						<td class="categoryname">${CategoryVo.cate_name}</td>
 						<td class="categorybtn">
-							<a href="#" class="categoryDelete" data-cateno="${CategoryVo.cate_no}">삭제</a>
-							<button style="display: none;" type="button" class="btnHome" onclick="location.reload()">홈</button>
+							<a href="/admin/CategoryDelete/${CategoryVo.cate_no}" class="categoryDelete">삭제</a>
 						</td>
 					</tr>
 					</c:forEach>
