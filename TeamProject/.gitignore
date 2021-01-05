@@ -15,7 +15,7 @@ local.properties
 .loadpath
 .recommenders
 
-#Team Ignore
+### Team Ignore ###
 Access.java
 FurnitureAccess.java
 
