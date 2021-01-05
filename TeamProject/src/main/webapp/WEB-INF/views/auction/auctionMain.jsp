@@ -20,9 +20,36 @@ $(function(){
 	
 	$(document).ready(function() { 
 		$(".divCountDown").each(function(index){
-		
-			var that = $(this);
+			//${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
 			
+			//마감 날짜와 시간을 가져온다
+			var e_year = $(this).next().val();
+			var e_month = $(this).next().next().val();
+			var e_day = $(this).next().next().next().val();
+			var e_hour = $(this).next().next().next().next().val();
+			var e_minute = $(this).next().next().next().next().next().val();
+			var e_second = parseInt((Math.random() * 59)+1);
+			//console.log("e_year:"+e_year+" ,e_month:"+e_month+" ,e_day:"+e_day+" ,e_hour:"+e_hour+" e_minute:"+e_minute);
+			//console.log("second:"+second);
+			
+			//마감 날짜와 현재 날짜를 계산한다
+			var today = new Date();
+			var nowYear = today.getFullYear(); // 년도 	
+			var nowMonth = today.getMonth() + 1;  // 월
+			var nowDate = today.getDate();  // 날짜
+			var nowDay = today.getDay();  // 요일
+			var nowHhours = today.getHours(); // 시
+			var nowMinutes = today.getMinutes();  // 분
+			var nowseconds = today.getSeconds();  // 초
+			var seconds = today.getMilliseconds(); 
+			console.log("nowYear:"+nowYear+" ,nowMonth:"+nowMonth+" ,nowDate:"+nowDate+" ,e_hour:"+e_hour+" e_minute:"+e_minute);
+			
+			//마감 날짜와 현재 시간을 뺀 값을 this값에 넣는다 
+			$(this).text("월:일:시간:분:초")
+			
+			
+			//입력된 텀 시간을 불러와서 카운드 다운한다
+			var that = $(this);
 			countDown[index] = setInterval(function(){
 				var timeValue = that.text();
 				//console.log("timeValue:"+timeValue);
@@ -143,10 +170,17 @@ function makeTwoDigit(num){
 									<td>${auctionSellVo.present_price}</td>
 								</tr>
 								<tr>
-									<td style="font-size:10px">${auctionSellVo.seller} ${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
+									<td style="font-size:15px">${auctionSellVo.seller} ${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
 								</tr>
 								<tr>
-									<td><div class="divCountDown" style="color:red">${auctionSellVo.r_hour}:${auctionSellVo.r_minute}:00</div></td>
+									<td>
+										<div class="divCountDown" style="color:red"></div>
+										<input type="hidden" class="countDown_year" value="${auctionSellVo.e_year}">
+										<input type="hidden" class="countDown_month" value="${auctionSellVo.e_month}">
+										<input type="hidden" class="countDown_day" value="${auctionSellVo.e_day}">
+										<input type="hidden" class="countDown_hour" value="${auctionSellVo.e_hour}">
+										<input type="hidden" class="countDown_minute" value="${auctionSellVo.e_minute}">
+									</td>
 								</tr>
 			 				</table>
 						

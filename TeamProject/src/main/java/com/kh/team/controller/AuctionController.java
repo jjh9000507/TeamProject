@@ -187,38 +187,4 @@ public class AuctionController implements AuctionS3Key {
 		
 		return intArry;
 	}
-	
-	private void amazoneS3fileUpDownUtil() throws Exception {
-		//s3시작
-		String accesskey = "AKIAU25L6TN2RP3O5CLB";
-		String secretkey = " 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";
-		
-		//credential과 client객체 생성
-		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
-		AmazonS3 s3Client = AmazonS3ClientBuilder
-				.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(credential))
-				.withRegion(Regions.AP_NORTHEAST_2)
-				.build();
-		//버킷 생성
-		//s3Client.createBucket("sdk-new-bucket");
-		
-		//파일 업로드
-		String folderName = "13";
-		String fileName = "2_042fcecf-6c25-444d-a613-116309d97dd6.jpg";
-		String filePath = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//저장할 파일 위치
-		String bucketName = "sdk-new-bucket"; //버킷 이름
-		String bucketKey = folderName+"/"+fileName; //버킷에 폴더에 파일 이름
-		
-		s3Client.putObject(bucketName,bucketKey,new File(filePath));
-		
-		//파일 다운로드
-		String downFileName = "c:/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
-
-		S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
-		S3ObjectInputStream inputStream = s3Object.getObjectContent();
-		
-		FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));	
-		//s3끝
-	}
 }
