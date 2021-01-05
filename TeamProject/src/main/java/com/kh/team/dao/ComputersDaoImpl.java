@@ -32,8 +32,8 @@ private final String NAMESPACE = "com.kh.team.computers.";
 
 	@Override
 	public ComputerVo detailComputerInfo(int p_no) throws Exception {
-		ComputerVo categoryVo = sqlSession.selectOne(NAMESPACE + "detailComputerInfo", p_no);
-		return categoryVo;
+		ComputerVo computerVo = sqlSession.selectOne(NAMESPACE + "detailComputerInfo", p_no);
+		return computerVo;
 	}
 
 	@Override
@@ -147,6 +147,14 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		System.out.println("confirmList.length:" + confirmList.length);
 		List<ComputerVo> list = sqlSession.selectList(NAMESPACE + "getComptersProductListPrice", map);
 		return list;
+	}
+
+
+
+	@Override
+	public ComputerVo buyComputerProduct(int p_no) throws Exception {
+		ComputerVo computerVo = sqlSession.selectOne(NAMESPACE + "buyComputerProduct", p_no);
+		return computerVo;
 	}
 
 	

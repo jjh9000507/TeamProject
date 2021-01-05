@@ -17,8 +17,7 @@ $(function() {
 	var searchInComputerPriceForm = $(".searchInComputerPriceForm");
 	
 	$("#checkboxSearch").click(function() {
-		inputCheckForm.empty();	
-		
+		inputCheckForm.empty();		
 		for(var i = 0; i<6; i++){
 			if(inputCheckbox.find("input").eq(i).is(":checked") == true){
 				var indexCheckBox = "check"+i + "no";
@@ -36,14 +35,10 @@ $(function() {
 			&& (inputCheckbox.find("input").eq(5).is(":checked") == false)			
 			){
 			alert("체크항목 없음");	
-		}else{
-			
+		}else{			
 		$("#frmData").submit();
-		}
-		
-						
+		}						
 	});
-
 	$("#computersBack").click(function() {		
 		inputCheckForm.empty();		
  		for(var i = 0; i<6; i++){
@@ -70,13 +65,9 @@ $(function() {
  	 		if(nth == 3){
  	 				alert("뒤로 갈수  없음");	
  	 			}else{
- 	 				$("#frmData").submit();
- 	 			
+ 	 				$("#frmData").submit(); 	 			
  	 			}	
- 		}
- 		
- 			
-	
+ 		}	
 	});	
 	$("#detailSearch").click(function() {
 		searchInComputerInfo.empty();
@@ -119,8 +110,7 @@ $(function() {
 		}
 		if(inputValue1 == "" || inputValue2 == ""){
 			alert("가격대를 입력하시오.");
-		}else{
-			
+		}else{			
   		$("#frmSearchPrice").submit();
 		}
 		});
@@ -142,9 +132,9 @@ $(function() {
 		
 <form class="backList" style="display: none;">
 <c:forEach var="cate_no_list" items="${cate_no_confirm}">	
-	<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
+<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
 </c:forEach>
-	</form>
+</form>
 <form role="form" id="frmSearchData" action="/computerProduct/computersFormSearch" method="post">
 <div class="form-group searchInComputerInfo" style="display: none;">
 </div>
@@ -166,7 +156,6 @@ $(function() {
 <li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
 &nbsp<input type="checkbox" name="${CategoryVo.cate_no}" value="${CategoryVo.cate_no}"/>
 </li>
-
 </c:forEach>
 </ul>
 
@@ -263,7 +252,7 @@ $(function() {
 										<span id="price">${ComputerVo.c_com_price}</span>원
 									</td>
 									<td>
-										<a href="#">상품구매하기</a>
+										<a href="/computerProduct/buyComputerProduct/${ComputerVo.p_no}">상품구매하기</a>
 									</td>
 								</tr>
 							</tbody>

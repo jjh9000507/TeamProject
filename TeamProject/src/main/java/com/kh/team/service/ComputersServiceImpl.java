@@ -63,4 +63,12 @@ public class ComputersServiceImpl implements ComputersService {
 		List<ComputerVo> computerList = computersDao.listSearchPrice(firstPrice, lastPrice, confirmList);
 		return computerList;
 	}
+
+
+
+	@Override
+	public ComputerVo buyComputerProduct(int p_no) throws Exception {
+		ComputerVo computerVo = computersDao.buyComputerProduct(p_no);
+		return computerVo;
+	}
 }
