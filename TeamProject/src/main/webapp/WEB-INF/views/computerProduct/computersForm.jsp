@@ -209,31 +209,7 @@ $(function() {
 					</button>
 				</div>				
 			</form>			
-<nav class="pageNav">
-<ul class="pagination">
-	<c:if test="${pagingDto.startPage != 1}">
-		<li class="page-item">
-			<a class="page-link" href="#" data-page="${pagingDto.startPage - 1}">이전</a>
-		</li>
-	</c:if>
 
-	<c:forEach var="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
-		<li
-			<c:choose>
-				<c:when test="${i == pagingDto.page}">
-					class="page-item active"
-				</c:when>
-				<c:otherwise>
-					class="page-item"
-				</c:otherwise>
-			</c:choose>><a class="page-link" href="#" data-page="${i}">${i}</a></li>
-	</c:forEach>
-
-	<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
-		<li class="page-item"><a class="page-link" href="#" data-page="${pagingDto.endPage + 1}">다음</a></li>
-	</c:if>
-				</ul>
-			</nav>
 
 </nav>
 <section class="section">
@@ -324,5 +300,5 @@ $(function() {
 </aside>
 </div>
 
-<%@ include file="../include/footer.jsp"%>
+
 

@@ -13,7 +13,7 @@
 .header{
 	width:85%;
 	height:15%;	
-	background: green;
+	background-color:gray;
 	float:left;
 }
 .asideUp{
@@ -38,7 +38,8 @@
 	width:15%;
 	height:100%;	
 	float:left;
-	background: blue;		
+	background-color:gray;
+			
 }
 
 .section{
@@ -52,17 +53,18 @@
 	height:100%;
 	width:15%;	
 	float:left;
-	background: purple;	
+	background-color:gray;
+		
 }
 
 
 .computerFormListMenu{
-	color:white;
+	
 	font-size : 32px;
 	
 }
 .computerFormListMenuItem{
-	color:white;
+	
 	font-size : 26px;
 	
 }
@@ -85,12 +87,9 @@
 
 .searchInComputer{
 	font-size: 26px;
-	color:white;	
+		
 }
-.pageNav{
-	position: relative;
-	bottom: -210px;
-}
+
 
 
 </style>
