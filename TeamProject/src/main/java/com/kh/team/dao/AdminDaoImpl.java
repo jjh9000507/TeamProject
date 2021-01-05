@@ -93,4 +93,10 @@ public class AdminDaoImpl implements AdminDao{
 		return productCateList;
 	}
 
+	@Override
+	public List<CategoryVo> categoryDeleteList(String cate_no) throws Exception {
+		List<CategoryVo> categoryDeleteList = sqlSession.selectList(NAMESPACE + "CategoryDeleteList", cate_no);
+		return categoryDeleteList;
+	}
+
 }

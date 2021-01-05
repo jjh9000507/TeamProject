@@ -162,21 +162,28 @@ public class AdminController {
 			//가전제품
 			adminService.adminWhitegoodsDelete(p_no);
 		}
-		
-//		List<ProductVo> allProductList = adminService.allProductList();
-//		model.addAttribute("allProductList", allProductList);
 		return "success";
 	}
 	
+	//카테고리 추가
 	@RequestMapping(value="/adminCategoryInput", method=RequestMethod.GET)
 	public String adminCategoryInput() throws Exception {
 		return "/admin/a_c_input";
 	}
 	
+	//카테고리 삭제 페이지로 이동
 	@RequestMapping(value="/adminCategoryDelete", method=RequestMethod.GET)
 	public String adminCategoryDelete(Model model) throws Exception {
 		List<CategoryVo> categoryList = adminService.getCategoryList();
 		model.addAttribute("categoryList", categoryList);
+		return "/admin/a_c_delete";
+	}
+	
+	//카테고리 삭제 페이지로 이동
+	@RequestMapping(value="/CategoryDelete/{cate_no}", method=RequestMethod.GET)
+	public String CategoryDelete(@PathVariable("cate_no") String cate_no , Model model) throws Exception {
+		List<CategoryVo> categoryDeleteList = adminService.categoryDeleteList(cate_no);
+		model.addAttribute("categoryList", categoryDeleteList);
 		return "/admin/a_c_delete";
 	}
 }

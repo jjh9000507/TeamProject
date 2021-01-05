@@ -1,6 +1,23 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/header.jsp" %>
+<style>
+table, th, td{
+	text-align: center;
+}
+td.pname{
+	text-align: left;
+}
+.pno{
+	width:90px;
+}
+.btnCart{
+	width:100px;
+}
+.pseller{
+	width:300px;
+}
+</style>
 <script>
 $(function(){
 	$(".cartDelete").on("click", function(e){
@@ -19,35 +36,34 @@ $(function(){
 </script>
 <div class="container-fluid">
 <div class="row">
-	<div class="col-md-4"></div>
-	<div class="col-md-4">
-		<h1>${sessionScope.memberVo.m_id}님의 장바구니 입니다.</h1>
+	<div class="col-md-12">
+		<h1 style="text-align: center;">${sessionScope.memberVo.m_id}님의 장바구니 입니다.</h1>
 	</div>
-	<div class="col-md-4"></div>
 </div>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th>번호</th>
-						<th>상품명</th>
-						<th>판매자</th>
-						<th></th>
+						<th class="pno">번호</th>
+						<th class="pname">상품명</th>
+						<th class="pseller">판매자</th>
+						<th class="btnCart"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="CartVo" items="${cartList}">
 						<tr>
-							<td>${CartVo.cart_no}</td>
+							<td class="pno">${CartVo.cart_no}</td>
 							<c:forEach var="ProductVo" items="${productList}">
 								<c:if test="${CartVo.p_no == ProductVo.p_no2}">
-									<td>${ProductVo.p_name}</td>
-									<td>${ProductVo.p_seller}</td>
+									<td class="pname">${ProductVo.p_name}</td>
+									<td class="pseller">${ProductVo.p_seller}</td>
 								</c:if>
 							</c:forEach>
-							<td>
-								<a href="#" data-cartno="${CartVo.cart_no}" class="cartDelete">장바구니에서 제거</a>
+							<td class="btnCart">
+								<a href="#" data-cartno="${CartVo.cart_no}" class="cartDelete">취소</a>
 								<button type="button" onclick="location.reload()" class="cartHome" style="display: none">홈</button>
 							</td>
 						</tr>
@@ -55,6 +71,7 @@ $(function(){
 				</tbody>
 			</table>
 		</div>
+		<div class="col-md-2"></div>
 	</div>
 </div>
 <%@include file="../include/footer.jsp" %>
