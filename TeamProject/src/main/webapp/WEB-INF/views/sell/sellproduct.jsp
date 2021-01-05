@@ -270,10 +270,9 @@ $(function(){
 					<label>카테고리1</label>
 					<select id="large">
 						<option value="">선택하세요
-						<option value="10">의류
-						<option value="20">가구
-						<option value="50">컴퓨터
-						<option value="30">가전제품
+						<c:forEach var="CategoryVo" items="${firstCategoryList}">
+							<option value="${CategoryVo.cate_no}">${CategoryVo.cate_name}
+						</c:forEach>
 					</select>
 				</div>
 				

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
-import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductImgVo;
 
 @Repository
@@ -67,6 +66,12 @@ public class SellProductDaoImpl implements SellProductDao {
 	@Override
 	public void productImage(ProductImgVo productImgVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "productImage", productImgVo);
+	}
+
+	@Override
+	public List<CategoryVo> firstCategoryList() throws Exception {
+		List<CategoryVo> firstCategoryList = sqlSession.selectList(NAMESPACE + "firstCategoryList");
+		return firstCategoryList;
 	}
 
 }

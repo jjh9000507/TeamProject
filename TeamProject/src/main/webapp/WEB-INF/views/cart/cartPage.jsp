@@ -5,6 +5,9 @@
 table, th, td{
 	text-align: center;
 }
+table{
+	width: 100%;
+}
 td.pname{
 	text-align: left;
 }
@@ -16,6 +19,9 @@ td.pname{
 }
 .pseller{
 	width:300px;
+}
+.pimg{
+	wdith:10%;
 }
 </style>
 <script>
@@ -47,6 +53,7 @@ $(function(){
 				<thead>
 					<tr>
 						<th class="pno">번호</th>
+						<th class="pimg">상품이미지</th>
 						<th class="pname">상품명</th>
 						<th class="pseller">판매자</th>
 						<th class="btnCart"></th>
@@ -58,6 +65,7 @@ $(function(){
 							<td class="pno">${CartVo.cart_no}</td>
 							<c:forEach var="ProductVo" items="${productList}">
 								<c:if test="${CartVo.p_no == ProductVo.p_no2}">
+									<td class="pimg"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ProductVo.p_thumbimg}" style="width:80px; height:100px;"></td>
 									<td class="pname">${ProductVo.p_name}</td>
 									<td class="pseller">${ProductVo.p_seller}</td>
 								</c:if>

@@ -59,9 +59,11 @@ public class SellProductContoller {
 		return "/sell/sellproductmain";
 	}
 	
-	//
+	//상품판매
 	@RequestMapping(value="/sellproduct", method=RequestMethod.GET)
-	public String sellproductPage() throws Exception {
+	public String sellproductPage(Model model) throws Exception {
+		List<CategoryVo> firstCategoryList = sellProductService.firstCategoryList();
+		model.addAttribute("firstCategoryList", firstCategoryList);
 		return "/sell/sellproduct";
 	}
 	
@@ -156,15 +158,6 @@ public class SellProductContoller {
 				
 		return "/sell/sellproductmain";
 	}
-	
-//	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")
-//	@ResponseBody
-//	public byte[] displayImage(String fileName) throws Exception {
-//		System.out.println("fileName: " + fileName);
-//		FileInputStream fis = new FileInputStream(fileName);
-//		byte[] bytes = com.amazonaws.util.IOUtils.toByteArray(fis);
-//		return bytes;
-//	}
 	
 	//이미지 출력(아직 안됨)
 	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")

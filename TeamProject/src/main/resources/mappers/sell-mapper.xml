@@ -15,6 +15,11 @@
 		select * from category
 		where cate_ref = #{cate_ref}
 	</select>
+	
+	<select id="firstCategoryList" resultType="CategoryVo">
+		select * from category
+		where cate_ref is null
+	</select>
 
 	<!-- 컴퓨터 입력 -->
 	<insert id="computerInsert">

@@ -67,5 +67,11 @@ public class SellProductServiceImpl implements SellProductService {
 		
 	}
 
+	@Override
+	public List<CategoryVo> firstCategoryList() throws Exception {
+		List<CategoryVo> firstCategoryList = sellProductDao.firstCategoryList();
+		return firstCategoryList;
+	}
+
 
 }
