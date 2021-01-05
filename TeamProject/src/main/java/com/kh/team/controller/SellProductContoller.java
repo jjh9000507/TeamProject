@@ -74,7 +74,7 @@ public class SellProductContoller {
 	}
 	
 	//가전제품 등록
-	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.GET)
+	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.POST)
 	public String whitegoodsUpload(ProductVo productVo, HttpSession session) throws Exception {
 		System.out.println("productVo: " + productVo);
 		WhitegoodsVo whitegoodsVo = new WhitegoodsVo();
@@ -92,8 +92,11 @@ public class SellProductContoller {
 	}
 	
 	//의류 등록
-	@RequestMapping(value="/clothesUpload", method=RequestMethod.GET)
-	public String clothesUpload(ClothesVo clothesVo) throws Exception {
+	@RequestMapping(value="/clothesUpload", method=RequestMethod.POST)
+	public String clothesUpload(ClothesVo clothesVo, HttpSession session) throws Exception {
+		System.out.println("clothesVo: " + clothesVo);
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		clothesVo.setP_seller(memberVo.getM_id());
 		clothesService.insertClothes(clothesVo);
 		return "/main";
 	}

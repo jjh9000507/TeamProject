@@ -188,7 +188,7 @@ $(function(){
 		
 		var form = $("#frmUpload");
 		if(large == 10){
-			form.attr("action", "/sellproduct/clothes");
+			form.attr("action", "/sellproduct/clothesUpload");
 		} else if(large == 20){
 			form.attr("action", "/sellproduct/furniture");
 		} else if(large == 30){
