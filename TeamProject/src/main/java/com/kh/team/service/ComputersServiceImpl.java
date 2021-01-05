@@ -12,6 +12,7 @@ import com.kh.team.domain.ComputerVo;
 
 @Service
 public class ComputersServiceImpl implements ComputersService {
+	
 	@Inject
 	private ComputersDao computersDao;
 

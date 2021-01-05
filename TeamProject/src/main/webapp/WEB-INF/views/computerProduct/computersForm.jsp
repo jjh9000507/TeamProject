@@ -110,8 +110,13 @@ $(function() {
 		}
 		if(inputValue1 == "" || inputValue2 == ""){
 			alert("가격대를 입력하시오.");
-		}else{			
+		}else{	
+		if(inputValue1 <= inputValue2){
+			
   		$("#frmSearchPrice").submit();
+		}else{
+			alert("시작가격이 마지막 가격보다 작거나 같아야 합니다.");
+		}
 		}
 		});
 });

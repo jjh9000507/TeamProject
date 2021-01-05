@@ -25,29 +25,42 @@ import com.kh.team.service.ComputersService;
 @RequestMapping("/computerProduct")
 public class ComputersController {	
 	
+	//인젝
 	@Inject
 	private ComputersService computersService;
 	
+	//메인창에서 컴퓨터제품 폼을 카테고리의 cate_no를 참조하여 불러오기
 	@RequestMapping(value="/computersForm/{cate_no}", method=RequestMethod.GET)
 	public String computersForm(@PathVariable("cate_no") String cate_no, Model model,HttpServletRequest request) throws Exception {
-		System.out.println("cate_no:" + cate_no);		
+		System.out.println("cate_no:" + cate_no);
+		
+		//상품리스트 불러오기
 		List<ComputerVo> computerList = computersService.list(cate_no);
+		
+		//카테고리 불러오기
 		List<CategoryVo> categoryInfo = computersService.categoryInfo(cate_no);
 		System.out.println("computerList:" + computerList);
 		System.out.println("categoryInfo:" + categoryInfo);
+		
+		//모델을 이용하여 컴퓨터제품 폼에 상품리스트와 카테고리 전달하기
 		model.addAttribute("computerList", computerList);
 		model.addAttribute("categoryInfo", categoryInfo);
 		String[] checkList = new String[6];
 		checkList[0] = cate_no;
+		
+		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", checkList);
 		return "/computerProduct/computersForm";
 	}
 	
-//	@RequestParam(value="confirmList[]") String[] confirmList
+//	@RequestParam(value="confirmList[]") String[] confirmList   (배열을 전달받는데 사용하는 코드 기억해두기)
+	
+	//해당 카테고리 내에서 제품 검색 기능
 	@RequestMapping(value="/computersFormSearch", method=RequestMethod.POST)
 	public String computersFormSearch(String c_com_name,String search0no,String search1no ,String search2no,String search3no,String search4no,String search5no, Model model,HttpServletRequest request) throws Exception {
 		System.out.println("c_com_name:" + c_com_name);		
-				
+		
+		//배열을 이용하여 컴퓨터제품 폼에서 불러온 값 저장하기
 		String[] confirmList = new String[6];
 		if(search0no != null) {
 			System.out.println("search0no:"+ search0no);
@@ -74,22 +87,28 @@ public class ComputersController {
 			confirmList[5] = search5no;
 			}
 			
-		
+		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(confirmList);
 		model.addAttribute("categoryInfo", categoryInfo);
 		System.out.println("categoryInfo_search:" + categoryInfo);
+		
+		//컴퓨터제품 정보 불러와서 모델에 저장
 		List<ComputerVo> computerList = computersService.listSearch(c_com_name, confirmList);
         System.out.println("computerList_search:" + computerList);
 		model.addAttribute("computerList", computerList);
+		
+		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", confirmList);
 		return "/computerProduct/computersForm";
 	}
 	
+	//카테고리 내에서 가격대 검색
 	@RequestMapping(value="/computersFormSearchPrice", method=RequestMethod.POST)
 	public String computersFormSearchPrice(int firstPrice,int lastPrice, String search0no,String search1no ,String search2no,String search3no,String search4no,String search5no, Model model,HttpServletRequest request) throws Exception {
 		System.out.println("firstPrice:" + firstPrice);		
 		System.out.println("lastPrice:" + lastPrice);		
 		
+		//배열을 이용하여 컴퓨터제품 폼에서 불러온 값 저장하기
 		String[] confirmList = new String[6];
 		if(search0no != null) {
 			System.out.println("search0no:"+ search0no);
@@ -116,19 +135,26 @@ public class ComputersController {
 			confirmList[5] = search5no;
 		}
 		
-		
+		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(confirmList);
 		model.addAttribute("categoryInfo", categoryInfo);
 		System.out.println("categoryInfo_price:" + categoryInfo);
+		
+		//컴퓨터제품 정보 불러와서 모델에 저장
 		List<ComputerVo> computerList = computersService.listSearchPrice(firstPrice, lastPrice, confirmList);
 		System.out.println("computerList_price:" + computerList);
 		model.addAttribute("computerList", computerList);
+		
+		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", confirmList);
 		return "/computerProduct/computersForm";
 	}
 
+	//체크박스 기능을 이용하여 카테고리 및 제품 다중 검색하기
 	@RequestMapping(value="/computersFormCheck", method=RequestMethod.POST)
 	public String computersFormCheck(String check0no,String check1no ,String check2no,String check3no,String check4no,String check5no, Model model,HttpServletRequest request) throws Exception {
+		
+		//배열을 이용하여 컴퓨터제품 폼에서 불러온 값 저장하기
 		String[] checkList = new String[6];
 		
 		if(check0no != null) {
@@ -156,16 +182,22 @@ public class ComputersController {
 		checkList[5] = check5no;
 		}
 		
+		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(checkList);
 		model.addAttribute("categoryInfo", categoryInfo);
 		System.out.println("categoryInfo_check:" + categoryInfo);
+		
+		//컴퓨터제품 정보 불러와서 모델에 저장
 		List<ComputerVo> computerList = computersService.listArray(checkList);
         System.out.println("computerList_check:" + computerList);
 		model.addAttribute("computerList", computerList);
+		
+		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", checkList);
 		return "/computerProduct/computersForm";
 	}		
 	
+	//선택한 컴퓨터 상품정보 보기
 	@RequestMapping(value="/detailComputerForm/{p_no}", method=RequestMethod.GET)
 	public String detailComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
 		ComputerVo computerVo = computersService.detailComputerInfo(p_no);
@@ -174,6 +206,7 @@ public class ComputersController {
 		return "/computerProduct/detailComputerForm";
 	}
 	
+	//컴퓨터 구매하기 폼으로 가기
 	@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
 	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
 		ComputerVo computerVo = computersService.buyComputerProduct(p_no);

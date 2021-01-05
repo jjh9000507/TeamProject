@@ -2,9 +2,10 @@ package com.kh.team.service;
 
 import javax.inject.Inject;
 
+
 import org.springframework.stereotype.Service;
 
-import com.amazonaws.services.storagegateway.model.JoinDomainRequest;
+
 import com.kh.team.dao.JoinDao;
 import com.kh.team.domain.JoinEmailVo;
 import com.kh.team.domain.MemberVo;

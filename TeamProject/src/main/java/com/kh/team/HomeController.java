@@ -57,10 +57,14 @@ public class HomeController {
 		
 	}
 	
-	
+	//로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpSession session, HttpServletRequest request) throws Exception {
-		session.invalidate();	
+		
+		//세션 초기화
+		session.invalidate();
+		
+		//메인에서 alert창을 띄우기 위한 request구현
 		request.setAttribute("msg", "logoutSuccess");
 		return "/main";
 	}
