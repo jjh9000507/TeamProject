@@ -75,7 +75,7 @@ $(function() {
  	 			}	
  		}
  		
-//  			
+ 			
 	
 	});	
 	$("#detailSearch").click(function() {
@@ -126,7 +126,21 @@ $(function() {
 		});
 });
 </script>
-	<form class="backList" style="display: none;">
+	
+<div class="row">
+		<div class="col-md-2"></div>
+<div class="col-md-8" >
+<%@ include file="../include/header_mainCatagories.jsp"%>
+<br>
+
+	</div>
+	<div class="col-md-2"></div>
+</div>		
+		
+		<br>
+		<br>
+		
+<form class="backList" style="display: none;">
 <c:forEach var="cate_no_list" items="${cate_no_confirm}">	
 	<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
 </c:forEach>
@@ -139,17 +153,6 @@ $(function() {
 <div class="form-group searchInComputerPriceSend" style="display: none;">
 </div>
 </form>
-<div class="row">
-		<div class="col-md-2"></div>
-<div class="col-md-8" >
-<%@ include file="../include/header_mainCatagories.jsp"%>
-<br>
-	</div>
-</div>		
-		<div class="col-md-2"></div>
-		<br>
-		<br>
-
 <div class="computersFormDiv">
 
 <header class="header">
@@ -209,31 +212,7 @@ $(function() {
 					</button>
 				</div>				
 			</form>			
-<nav class="pageNav">
-<ul class="pagination">
-	<c:if test="${pagingDto.startPage != 1}">
-		<li class="page-item">
-			<a class="page-link" href="#" data-page="${pagingDto.startPage - 1}">이전</a>
-		</li>
-	</c:if>
 
-	<c:forEach var="i" begin="${pagingDto.startPage}" end="${pagingDto.endPage}">
-		<li
-			<c:choose>
-				<c:when test="${i == pagingDto.page}">
-					class="page-item active"
-				</c:when>
-				<c:otherwise>
-					class="page-item"
-				</c:otherwise>
-			</c:choose>><a class="page-link" href="#" data-page="${i}">${i}</a></li>
-	</c:forEach>
-
-	<c:if test="${pagingDto.endPage < pagingDto.totalPage}">
-		<li class="page-item"><a class="page-link" href="#" data-page="${pagingDto.endPage + 1}">다음</a></li>
-	</c:if>
-				</ul>
-			</nav>
 
 </nav>
 <section class="section">
@@ -263,7 +242,7 @@ $(function() {
 							<tbody>
 								<tr>
 									<td>
-									<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}">
+									<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">
 										<c:choose>
 											<c:when test="${ComputerVo.c_com_pic == null}">
 												<img src="/resources/computerImage/default.png"/>
@@ -275,7 +254,7 @@ $(function() {
 										</a>
 									</td>
 									<td>
-										<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}">${ComputerVo.c_com_name}</a>
+										<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">${ComputerVo.c_com_name}</a>
 									</td>
 									<td>
 										<a href="/login/memberVoInfoForm/${ComputerVo.c_com_seller}">${ComputerVo.c_com_seller}</a>
@@ -324,5 +303,5 @@ $(function() {
 </aside>
 </div>
 
-<%@ include file="../include/footer.jsp"%>
+
 
