@@ -40,6 +40,16 @@ $(function(){
 	  <a class="neon">HOT ITEM</a>
 			</li>
 			
+		<!-- 카테고리6 -->
+		<li class="topMenuLi"><a class="menuLink" id="divPlace" href="#">
+						<span style="color:red; font-weight:bold;">내 주변 매물 찾기</span>
+							</a>
+							
+			</li>
+
+		<!-- 						<li>|</li> -->	
+			
+			
 		<!-- 카테고리1 -->
 		<li class="topMenuLi"><a class="menuLink" href="#">패션의류</a>
 			<ul class="submenu">
@@ -94,14 +104,6 @@ $(function(){
 
 		<!-- 						<li>|</li> -->
 
-		<!-- 카테고리6 -->
-		<li class="topMenuLi"><a class="menuLink" id="divPlace" href="#">
-						<span style="color:red;">내 주변 매물 찾기</span>
-							</a>
-							
-			</li>
-
-		<!-- 						<li>|</li> -->
 
 		<!-- 카테고리7 -->
 		<li class="topMenuLi"><a class="menuLink" href="#">기타등등</a>
