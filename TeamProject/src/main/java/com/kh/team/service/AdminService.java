@@ -30,6 +30,8 @@ public interface AdminService {
 		public void adminCategoryDelete(String cate_no) throws Exception;
 		//카테고리 리스트 가져오기
 		public List<CategoryVo> getCategoryList() throws Exception;
+		//대분류 카테고리 가져오기
+		public List<CategoryVo> firstCategoryList() throws Exception;
 		//상품 목록 가져오기
 		public List<ProductVo> productCateList(String cate_no) throws Exception;
 		//선택 카테고리 목록 가져오기
@@ -40,4 +42,7 @@ public interface AdminService {
 		
 		//판매자 등록인원 확인
 		public List<MemberVo> sellerList() throws Exception;
+		
+		//관리자가 게시물 삭제 시 이미지 aws에서 지워야 할 때 파일 이름 가져오기
+		public String imgNameSearch(int p_no2) throws Exception;
 }

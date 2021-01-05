@@ -42,4 +42,7 @@ public interface AdminDao {
 	
 	//판매자 리스트
 	public List<MemberVo> sellerList() throws Exception;
+	
+	//관리자가 게시물 삭제 시 이미지 aws에서 지워야 할 때 파일 이름 가져오기
+	public String imgNameSearch(int p_no2) throws Exception;
 }

@@ -67,7 +67,7 @@ public class SellProductContoller {
 		return "/sell/sellproduct";
 	}
 	
-	//판매상품 등록시 카테고리 가져오기
+	//판매상품 카테고리 선택시 하위카테고리 가져오기
 	@RequestMapping(value="/getCategoryList", method=RequestMethod.GET)
 	@ResponseBody
 	public List<CategoryVo> getCategoryList(String cate_no) throws Exception {
@@ -76,9 +76,21 @@ public class SellProductContoller {
 	}
 	
 	//가전제품 등록
-	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.GET)
-	public String whitegoodsUpload(ProductVo productVo, HttpSession session) throws Exception {
-		System.out.println("productVo: " + productVo);
+	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
+	public String whitegoodsUpload(MultipartFile file, ProductVo productVo, HttpSession session) throws Exception {
+		String fileName = file.getOriginalFilename();
+		boolean isImage = UploadFileUtils.isImage(fileName);
+		String upload = null;
+		if(isImage) {
+			File isFile = new File(file.getOriginalFilename());
+			file.transferTo(isFile);
+			
+			String fileNames = UploadFileUtils.upload(isFile, fileName);
+			upload = fileNames;
+		} else {
+			upload = null;
+		}
+		
 		WhitegoodsVo whitegoodsVo = new WhitegoodsVo();
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 		whitegoodsVo.setW_name(productVo.getP_name());
@@ -86,17 +98,30 @@ public class SellProductContoller {
 		whitegoodsVo.setW_price(productVo.getP_price());
 		whitegoodsVo.setCate_no(productVo.getCate_no());
 		whitegoodsVo.setW_content(productVo.getP_content());
-		whitegoodsVo.setW_thumbimg(productVo.getP_thumbimg());
+		whitegoodsVo.setW_thumbimg(upload);
 		
+		System.out.println("whitegoodsVo: " + whitegoodsVo);
 		whitegoodsService.insertWhitegoods(whitegoodsVo);
 		
 		return "redirect:/";
 	}
 	
 	//의류 등록
-	@RequestMapping(value="/clothesUpload", method=RequestMethod.GET)
-	public String clothesUpload(ProductVo productVo, HttpSession session) throws Exception {
-		System.out.println("productVo: " + productVo);
+	@RequestMapping(value="/clothesUpload", method=RequestMethod.GET, produces="application/test;charset=utf-8")
+	public String clothesUpload(MultipartFile file, ProductVo productVo, HttpSession session) throws Exception {
+		String fileName = file.getOriginalFilename();
+		boolean isImage = UploadFileUtils.isImage(fileName);
+		String upload = null;
+		if(isImage) {
+			File isFile = new File(file.getOriginalFilename());
+			file.transferTo(isFile);
+			
+			String fileNames = UploadFileUtils.upload(isFile, fileName);
+			upload = fileNames;
+		} else {
+			upload = null;
+		}
+//		System.out.println("productVo: " + productVo);
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 		ClothesVo clothesVo = new ClothesVo();
 		clothesVo.setP_name(productVo.getP_name());
@@ -104,21 +129,45 @@ public class SellProductContoller {
 		clothesVo.setP_price(productVo.getP_price());
 		clothesVo.setCate_no(productVo.getCate_no());
 		clothesVo.setP_content(productVo.getP_content());
-		clothesVo.setP_thumbimg(productVo.getP_thumbimg());
+		clothesVo.setP_thumbimg(upload);
 		
 		clothesService.insertClothes(clothesVo);
 		return "redirect:/";
 	}
 	
 	//가구 등록
-	@RequestMapping(value="/furnitureUpload", method=RequestMethod.GET)
-	public String furnitureUpload(ProductVo productVo) throws Exception {
+	@RequestMapping(value="/furnitureUpload", method=RequestMethod.GET, produces="application/test;charset=utf-8")
+	public String furnitureUpload(MultipartFile file, ProductVo productVo) throws Exception {
+		String fileName = file.getOriginalFilename();
+		boolean isImage = UploadFileUtils.isImage(fileName);
+		String upload = null;
+		if(isImage) {
+			File isFile = new File(file.getOriginalFilename());
+			file.transferTo(isFile);
+			
+			String fileNames = UploadFileUtils.upload(isFile, fileName);
+			upload = fileNames;
+		} else {
+			upload = null;
+		}
 		return "redirect:/";
 	}
 	
 	//컴퓨터 등록
 	@RequestMapping(value="/computerUpload", method=RequestMethod.GET)
-	public String computerUpload(ProductVo productVo) throws Exception {
+	public String computerUpload(MultipartFile file, ProductVo productVo) throws Exception {
+		String fileName = file.getOriginalFilename();
+		boolean isImage = UploadFileUtils.isImage(fileName);
+		String upload = null;
+		if(isImage) {
+			File isFile = new File(file.getOriginalFilename());
+			file.transferTo(isFile);
+			
+			String fileNames = UploadFileUtils.upload(isFile, fileName);
+			upload = fileNames;
+		} else {
+			upload = null;
+		}
 		return "redirect:/";
 	}
 	

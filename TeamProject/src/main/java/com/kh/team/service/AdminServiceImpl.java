@@ -99,4 +99,16 @@ public class AdminServiceImpl implements AdminService{
 		return sellerList;
 	}
 
+	@Override
+	public List<CategoryVo> firstCategoryList() throws Exception {
+		List<CategoryVo> firstCategoryList = adminDao.firstCategoryList();
+		return firstCategoryList;
+	}
+
+	@Override
+	public String imgNameSearch(int p_no2) throws Exception {
+		String imgNameSearch = adminDao.imgNameSearch(p_no2);
+		return imgNameSearch;
+	}
+
 }

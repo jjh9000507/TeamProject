@@ -2,7 +2,6 @@
 	pageEncoding="UTF-8"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="include/header.jsp"%>
 
 
 <script>
@@ -41,38 +40,19 @@ $(function(){
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
 	
 <div class="row">
-	<div class="col-md-2"></div>
-		<div class="col-md-8" >
+<%@ include file="include/header.jsp"%>
 <%@ include file="include/header_mainCatagories.jsp"%>
+	<div class="col-md-2"></div>
+
 <br>
-
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
-<div class="col-md-2"></div>
-
-<div class="col-md-8">
-	<div class="lblHOT">
-	  <div class="neon">HOT ITEM</div>
-</div>
-
-</div>
-<div class="col-md-2"></div>
-
-
 
 
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
 		<div style="padding-top: 150px;">
 <%-- 		${list} --%>
-			<div class="row listMain">
-			
-					<ul class="nav nav-tabs listMenu">
-						<li class="nav-item"><a class="nav-link" href="#">전체</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">백화점</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">중고</a></li>
-						<li class="nav-item"><a class="nav-link" href="#">기타</a></li>
-					</ul>
 					
-				<div class="col-md-8 productList">
+				<div class="col-md-8 productList" style="position:relative;top: 1%;left: 33%;">
 					
 					<!-- 히든(복사) 데이터 -->
 					<ul class="nav nav-pills list" style="display:none;">
@@ -92,13 +72,10 @@ $(function(){
 					
 				</div>
 				<div class="col-md-2"></div>
-			</div>
 		</div>
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
-	</div>
 </div>
 		
-		<div class="col-md-2"></div>
 
 
 <!------------------------------------------ 더보기 버튼 ---------------------------------------->
