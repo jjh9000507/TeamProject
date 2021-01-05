@@ -18,7 +18,8 @@ $(function(){
 // 			$("#carousel-849276").css("margin-top", "0px");
 // 		}
 // 	});
-
+	
+	
 });
 </script>
 
@@ -42,29 +43,32 @@ $(function(){
 		<!-- 카테고리1 -->
 		<li class="topMenuLi"><a class="menuLink" href="#">패션의류</a>
 			<ul class="submenu">
-				<li><a href="/clothes/maleClothes" class="submenuLink">남성의류</a></li>
-				<li><a href="/clothes/feMaleClothes" class="submenuLink">여성의류</a></li>
-				<li><a href="/clothes/publicClothes" class="submenuLink">남녀공용</a></li>
-			</ul></li>
+				<c:forEach var="mainCategories_1" items="${mainCategories_1}">
+					<li><a href="/clothes/${mainCategories_1.cate_no }"  class="submenuLink">${mainCategories_1.cate_name}</a></li>
+				</c:forEach>
+			</ul>
+		</li>
 
 		<!-- 						<li>|</li> -->
 
 		<!-- 카테고리2 -->
 		<li class="topMenuLi"><a class="menuLink" href="#">가구 생활</a>
 			<ul class="submenu">
-				<li><a href="/furniture/interior" class="submenuLink">조명/인테리어</a></li>
-				<li><a href="/furniture/life" class="submenuLink">생활</a></li>
-				<li><a href="/furniture/bed" class="submenuLink">침구/커튼</a></li>
-				<li><a href="/furniture/kitchen" class="submenuLink">주방</a></li>
-			</ul></li>
+				<c:forEach var="mainCategories_2" items="${mainCategories_2}">
+					<li><a href="/furniture/${mainCategories_2.cate_no}" class="submenuLink">${mainCategories_2.cate_name}</a></li>
+				</c:forEach>		
+			</ul>
+		</li>
 
 		<!-- 						<li>|</li> -->
 
 		<!-- 카테고리3 -->
 		<li class="topMenuLi"><a class="menuLink" href="#">컴퓨터</a>
 			<ul class="submenu">
-				<li><a href="/computerProduct/computersForm/501" class="submenuLink">데크스탑</a></li>
-				<li><a href="/computerProduct/computersForm/502" class="submenuLink">노트북</a></li>				
+				<c:forEach var="mainCategories_5" items="${mainCategories_5}">
+					<li><a href="/computerProduct/computersForm/${mainCategories_5.cate_no}" class="submenuLink">${mainCategories_5.cate_name}</a></li>
+				</c:forEach>
+				
 			</ul></li>
 
 		<!-- 						<li>|</li> -->
@@ -72,11 +76,9 @@ $(function(){
 		<!-- 카테고리4 -->
 		<li class="topMenuLi"><a class="menuLink" href="#">가전·전자 제품</a>
 			<ul class="submenu">
-				<li><a href="/whitegoods/whitegoodsPage/301" class="submenuLink">영상 가전</a></li>
-				<li><a href="/whitegoods/whitegoodsPage/302" class="submenuLink">계절 가전</a></li>
-				<li><a href="/whitegoods/whitegoodsPage/303" class="submenuLink">주방 가전</a></li>
-				<li><a href="/whitegoods/whitegoodsPage/304" class="submenuLink">생활 가전</a></li>
-				<li><a href="/whitegoods/whitegoodsPage/305" class="submenuLink">기타</a></li>
+				<c:forEach var="mainCategories_3" items="${mainCategories_3}">
+					<li><a href="/whitegoods/whitegoodsPage/${mainCategories_3.cate_no}" class="submenuLink">${mainCategories_3.cate_name}</a></li>
+				</c:forEach>
 			</ul></li>
 
 		<!-- 						<li>|</li> -->

@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.PageDao;
+import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
 @Service
@@ -27,6 +28,13 @@ public class PageServiceImpl implements PageService {
 	public List<ProductVo> search(String searchName) throws Exception {
 		List<ProductVo> list = pageDao.search(searchName);
 //		System.out.println("Service , list : " + list);
+		return list;
+	}
+
+	// 메인 카테고리 뿌려주기
+	@Override
+	public List<CategoryVo> mainCategories(int distinct_num) throws Exception {
+		List<CategoryVo> list = pageDao.mainCatagories(distinct_num);
 		return list;
 	}
 
