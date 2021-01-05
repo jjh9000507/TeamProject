@@ -93,7 +93,7 @@
 	
 	<!-- 여기부터 카테고리 삭제 -->
 	<delete id="adminCategoryDelete">
-		delete category set
+		delete from category
 		where cate_no = #{cate_no}
 	</delete>
 	<!-- 여기까지 카테고리 삭제 -->

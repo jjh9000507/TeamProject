@@ -174,11 +174,18 @@ public class AdminController {
 		return "/admin/a_c_delete";
 	}
 	
-	//카테고리 삭제 페이지로 이동
+	//카테고리 삭제
 	@RequestMapping(value="/CategoryDelete/{cate_no}", method=RequestMethod.GET)
 	public String CategoryDelete(@PathVariable("cate_no") String cate_no , Model model) throws Exception {
-		List<CategoryVo> categoryDeleteList = adminService.categoryDeleteList(cate_no);
-		model.addAttribute("categoryList", categoryDeleteList);
+		adminService.adminCategoryDelete(cate_no);
+		return "redirect:/admin/adminCategoryDelete";
+	}
+	
+	//카테고리 별 삭제 페이지로 이동
+	@RequestMapping(value="/categoryDeletePage/{cate_no}", method=RequestMethod.GET)
+	public String categoryDeletePage(@PathVariable("cate_no") String cate_no, Model model) throws Exception {
+		List<CategoryVo> categoryList = adminService.categoryDeleteList(cate_no);
+		model.addAttribute("categoryList", categoryList);
 		return "/admin/a_c_delete";
 	}
 }

@@ -59,9 +59,11 @@ public class SellProductContoller {
 		return "/sell/sellproductmain";
 	}
 	
-	//
+	//상품판매
 	@RequestMapping(value="/sellproduct", method=RequestMethod.GET)
-	public String sellproductPage() throws Exception {
+	public String sellproductPage(Model model) throws Exception {
+		List<CategoryVo> firstCategoryList = sellProductService.firstCategoryList();
+		model.addAttribute("firstCategoryList", firstCategoryList);
 		return "/sell/sellproduct";
 	}
 	
@@ -88,26 +90,36 @@ public class SellProductContoller {
 		
 		whitegoodsService.insertWhitegoods(whitegoodsVo);
 		
-		return "/main";
+		return "redirect:/";
 	}
 	
 	//의류 등록
 	@RequestMapping(value="/clothesUpload", method=RequestMethod.GET)
-	public String clothesUpload(ClothesVo clothesVo) throws Exception {
+	public String clothesUpload(ProductVo productVo, HttpSession session) throws Exception {
+		System.out.println("productVo: " + productVo);
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		ClothesVo clothesVo = new ClothesVo();
+		clothesVo.setP_name(productVo.getP_name());
+		clothesVo.setP_seller(memberVo.getM_id());
+		clothesVo.setP_price(productVo.getP_price());
+		clothesVo.setCate_no(productVo.getCate_no());
+		clothesVo.setP_content(productVo.getP_content());
+		clothesVo.setP_thumbimg(productVo.getP_thumbimg());
+		
 		clothesService.insertClothes(clothesVo);
-		return "/main";
+		return "redirect:/";
 	}
 	
 	//가구 등록
 	@RequestMapping(value="/furnitureUpload", method=RequestMethod.GET)
-	public String furnitureUpload() throws Exception {
-		return "/main";
+	public String furnitureUpload(ProductVo productVo) throws Exception {
+		return "redirect:/";
 	}
 	
 	//컴퓨터 등록
 	@RequestMapping(value="/computerUpload", method=RequestMethod.GET)
-	public String computerUpload() throws Exception {
-		return "/main";
+	public String computerUpload(ProductVo productVo) throws Exception {
+		return "redirect:/";
 	}
 	
 	//판매자 등록화면 이동
@@ -146,15 +158,6 @@ public class SellProductContoller {
 				
 		return "/sell/sellproductmain";
 	}
-	
-//	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")
-//	@ResponseBody
-//	public byte[] displayImage(String fileName) throws Exception {
-//		System.out.println("fileName: " + fileName);
-//		FileInputStream fis = new FileInputStream(fileName);
-//		byte[] bytes = com.amazonaws.util.IOUtils.toByteArray(fis);
-//		return bytes;
-//	}
 	
 	//이미지 출력(아직 안됨)
 	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")

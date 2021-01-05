@@ -15,6 +15,11 @@
 		select * from category
 		where cate_ref = #{cate_ref}
 	</select>
+	
+	<select id="firstCategoryList" resultType="CategoryVo">
+		select * from category
+		where cate_ref is null
+	</select>
 
 	<!-- 컴퓨터 입력 -->
 	<insert id="computerInsert">
@@ -25,22 +30,22 @@
 	<!-- furniture 입력 -->
 	<insert id="fBedInsert">
 	insert into furniture_bed(bed_no, bed_name, cate_no, bed_price, bed_content, bed_seller, bed_thumbimg, p_no)
-	values(, #{bed_name}, #{cate_no}, #{bed_price}, #{bed_content}, #{bed_seller}, #{bed_thumbimg}, seq_product_no.nextval)
+	values(seq_furniter_interior_no, #{bed_name}, #{cate_no}, #{bed_price}, #{bed_content}, #{bed_seller}, #{bed_thumbimg}, seq_product_no.nextval)
 	</insert>
 	
 	<insert id="fInteriorInsert">
 	insert into furniture_interior(interior_no, interior_name, cate_no, interior_price, interior_content, interior_seller, interior_thumbimg, p_no)
-	values(, #{interior_name}, #{cate_no}, #{interior_price}, #{interior_content}, #{interior_seller}, #{interior_thumbimg}, seq_product_no.nextval)
+	values(seq_furniter_interior_no.nextval, #{interior_name}, #{cate_no}, #{interior_price}, #{interior_content}, #{interior_seller}, #{interior_thumbimg}, seq_product_no.nextval)
 	</insert>
 	
 	<insert id="fKitchenInsert">
 	insert into furniture_kitchen(kitchen_no, kitchen_name, cate_no, kitchen_price, kitchen_content, kitchen_seller, kitchen_thumbimg, p_no)
-	values(, #{kitchen_name}, #{cate_no}, #{kitchen_price}, #{kitchen_content}, #{kitchen_seller}, #{kitchen_thumbimg}, seq_product_no.nextval)
+	values(seq_furniter_interior_no, #{kitchen_name}, #{cate_no}, #{kitchen_price}, #{kitchen_content}, #{kitchen_seller}, #{kitchen_thumbimg}, seq_product_no.nextval)
 	</insert>
 	
 	<insert id="fLifeInsert">
 	insert into furniture_life(life_no, life_name, cate_no, life_price, life_content, life_seller, life_thumbimg, p_no)
-	values(, #{life_name}, #{cate_no}, #{life_price}, #{life_content}, #{life_seller}, #{life_thumbimg}, seq_product_no.nextval)
+	values(seq_furniter_interior_no, #{life_name}, #{cate_no}, #{life_price}, #{life_content}, #{life_seller}, #{life_thumbimg}, seq_product_no.nextval)
 	</insert>
 	
 	<insert id="productImage">

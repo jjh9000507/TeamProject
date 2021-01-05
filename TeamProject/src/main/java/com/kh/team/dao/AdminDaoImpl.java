@@ -114,4 +114,10 @@ public class AdminDaoImpl implements AdminDao{
 		return sellerList;
 	}
 
+	@Override
+	public List<CategoryVo> firstCategoryList() throws Exception {
+		sqlSession.selectList(NAMESPACE);
+		return null;
+	}
+
 }
