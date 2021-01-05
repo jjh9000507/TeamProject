@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.AdminDao;
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 
 @Service
@@ -83,6 +84,19 @@ public class AdminServiceImpl implements AdminService{
 	public List<CategoryVo> categoryDeleteList(String cate_no) throws Exception {
 		List<CategoryVo> categoryDeleteList = adminDao.categoryDeleteList(cate_no);
 		return categoryDeleteList;
+	}
+	
+	//판매자 등록 취소
+	@Override
+	public void rollbackSeller(String m_id) throws Exception {
+		adminDao.rollbackSeller(m_id);
+	}
+	
+	//판매자 리스트
+	@Override
+	public List<MemberVo> sellerList() throws Exception {
+		List<MemberVo> sellerList = adminDao.sellerList();
+		return sellerList;
 	}
 
 }

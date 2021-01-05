@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
@@ -19,15 +18,11 @@ import com.kh.team.domain.SanctionVo;
 import com.kh.team.service.AdminService;
 import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
-import com.kh.team.service.SellProductService;
 import com.kh.team.service.WhitegoodsService;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-	
-	@Inject
-	private SellProductService sellProductService;
 	
 	@Inject
 	private SanctionService sanctionService;
@@ -81,7 +76,7 @@ public class AdminController {
 	@RequestMapping(value="/adminMemberSellCon", method=RequestMethod.GET)
 	public String adminMemberSellCon(Model model) throws Exception {
 		List<SanctionVo> sancList = sanctionService.sancList();
-		List<MemberVo> sellerList = sellProductService.sellerList();
+		List<MemberVo> sellerList = adminService.sellerList();
 		model.addAttribute("sellerList", sellerList);
 		model.addAttribute("sancList", sancList);
 		return "/admin/a_m_seller";
@@ -91,14 +86,14 @@ public class AdminController {
 	@RequestMapping(value="/adminRollbackSeller/{m_id}", method=RequestMethod.GET)
 	public String adminRollbackSeller(@PathVariable("m_id") String m_id, Model model) throws Exception {
 		System.out.println("m_id: " + m_id);
-		sellProductService.rollbackSeller(m_id);
+		adminService.rollbackSeller(m_id);
 		SanctionVo sanctionVo = sanctionService.searchSanc(m_id);
 		if(sanctionVo == null) {
 			sanctionService.newSanc(m_id);
 		} else {
 			sanctionService.sancUpdate(m_id);
 		}
-		List<MemberVo> sellerList = sellProductService.sellerList();
+		List<MemberVo> sellerList = adminService.sellerList();
 		model.addAttribute("sellerList", sellerList);
 		return "/admin/a_m_seller";
 	}

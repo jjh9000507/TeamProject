@@ -8,7 +8,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerVo;
+import com.kh.team.domain.FurnitureInteriorVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.ProductImgVo;
 
 @Repository
 public class SellProductDaoImpl implements SellProductDao {
@@ -29,15 +32,41 @@ public class SellProductDaoImpl implements SellProductDao {
 		sqlSession.update(NAMESPACE + "registration", m_id);
 	}
 
+	
+
 	@Override
-	public List<MemberVo> sellerList() throws Exception {
-		List<MemberVo> sellerList = sqlSession.selectList(NAMESPACE + "sellerList");
-		return sellerList;
+	public void computerInsert(ComputerVo computerVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "computerInsert", computerVo);
+		
 	}
 
 	@Override
-	public void rollbackSeller(String m_id) throws Exception {
-		sqlSession.update(NAMESPACE + "rollbackSeller", m_id);
+	public void fBedInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "fBedInsert", furnitureInteriorVo);
+		
+	}
+
+	@Override
+	public void fInteriorInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "fInteriorInsert", furnitureInteriorVo);
+		
+	}
+
+	@Override
+	public void fKitchenInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "fKitchenInsert", furnitureInteriorVo);
+		
+	}
+
+	@Override
+	public void fLifeInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "fLifeInsert", furnitureInteriorVo);
+		
+	}
+
+	@Override
+	public void productImage(ProductImgVo productImgVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "productImage", productImgVo);
 	}
 
 }
