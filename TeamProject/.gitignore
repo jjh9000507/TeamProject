@@ -14,8 +14,10 @@ local.properties
 .settings/
 .loadpath
 .recommenders
-Access.java
 
+#Team Ignore
+Access.java
+FurnitureAccess.java
 
 # External tool builders
 .externalToolBuilders/

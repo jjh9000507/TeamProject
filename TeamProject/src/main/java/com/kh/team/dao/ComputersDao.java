@@ -14,6 +14,8 @@ public interface ComputersDao {
 	public List<ComputerVo> list(String cate_no) throws Exception;
 	//컴퓨터 제품 리스트 체크박스이용
 	public List<ComputerVo> listArray(String[] checkList) throws Exception;
+	//컴퓨터 결과내 검색
+	public List<ComputerVo> listSearch(String c_com_name, String[] confirmList) throws Exception;
 	
 	
 	//카테고리 정보

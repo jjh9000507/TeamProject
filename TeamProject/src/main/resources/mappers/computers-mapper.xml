@@ -9,6 +9,18 @@
 		where c_com_cate_no like #{c_com_cate_no} || '%'
 		order by p_no desc
 	</select>
+	<select id="getComptersProductListSearch" resultType="ComputerVo">
+		select * from computer_product 
+		where c_com_name like '%' || #{c_com_name} || '%'
+				and
+				(c_com_cate_no like #{cate_no0} || '%'
+				or c_com_cate_no like #{cate_no1} || '%'
+				or c_com_cate_no like #{cate_no2} || '%'
+				or c_com_cate_no like #{cate_no3} || '%'
+				or c_com_cate_no like #{cate_no4} || '%'
+				or c_com_cate_no like #{cate_no5} || '%')
+				 
+	</select>
 	<select id="getComptersProductListArray" resultType="ComputerVo">
 		select * from computer_product where 
 						c_com_cate_no like 
@@ -39,6 +51,12 @@
 						#{cate_no1}
 						or cate_ref =
 						#{cate_no2} 												
+						or cate_ref =
+						#{cate_no3} 												
+						or cate_ref =
+						#{cate_no4} 												
+						or cate_ref =
+						#{cate_no5} 																	
 	</select>
 	
 	<select id="detailComputerInfo" resultType="ComputerVo">
