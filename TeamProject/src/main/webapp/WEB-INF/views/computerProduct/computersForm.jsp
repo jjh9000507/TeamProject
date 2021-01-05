@@ -13,6 +13,8 @@ $(function() {
 	var backList = $(".backList");
 	var detailSearchFormFind = $(".detailSearchFormFind");
 	var searchInComputerInfo = $(".searchInComputerInfo");
+	var searchInComputerPriceSend = $(".searchInComputerPriceSend");
+	var searchInComputerPriceForm = $(".searchInComputerPriceForm");
 	
 	$("#checkboxSearch").click(function() {
 		inputCheckForm.empty();	
@@ -79,25 +81,62 @@ $(function() {
 	$("#detailSearch").click(function() {
 		searchInComputerInfo.empty();
 		var inputName = detailSearchFormFind.find("input").clone();
+		var inputVal = detailSearchFormFind.find("input").val();
+		console.log("inputVal:"+ inputVal);
 		searchInComputerInfo.append(inputName);
 		for(var i = 0; i<6; i++){
 			var searchIndex = "search"+i + "no";
  			var input = backList.find("input").eq(i).clone();
- 			console.log("searchIndex:" + searchIndex);
+ 			console.log("searchIndex_name:" + searchIndex);
  			input.attr("name",searchIndex);
  			searchInComputerInfo.append(input);
 		}
+		if(inputVal == ""){
+			alert("검색어를 입력하시오.");
+		}else{
+			
  		$("#frmSearchData").submit();
+		}
+		});
+	
+	
+	$("#detailPrice").click(function() {
+		searchInComputerPriceSend.empty();
+		var inputName1 = searchInComputerPriceForm.find("input").eq(0).clone();
+		var inputName2 = searchInComputerPriceForm.find("input").eq(1).clone();
+		var inputValue1 = searchInComputerPriceForm.find("input").eq(0).val();
+		var inputValue2 = searchInComputerPriceForm.find("input").eq(1).val();
+		console.log("inputValue1:" + inputValue1);
+		console.log("inputValue2:" + inputValue2);
+		searchInComputerPriceSend.append(inputName1);
+		searchInComputerPriceSend.append(inputName2);
+		for(var i = 0; i<6; i++){
+			var searchIndex = "search"+i + "no";
+ 			var input = backList.find("input").eq(i).clone();
+ 			console.log("searchIndex_price:" + searchIndex);
+ 			input.attr("name",searchIndex);
+ 			searchInComputerPriceSend.append(input);
+		}
+		if(inputValue1 == "" || inputValue2 == ""){
+			alert("가격대를 입력하시오.");
+		}else{
+			
+  		$("#frmSearchPrice").submit();
+		}
 		});
 });
 </script>
-	<form class="backList">
+	<form class="backList" style="display: none;">
 <c:forEach var="cate_no_list" items="${cate_no_confirm}">	
 	<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
 </c:forEach>
 	</form>
 <form role="form" id="frmSearchData" action="/computerProduct/computersFormSearch" method="post">
-<div class="form-group searchInComputerInfo">
+<div class="form-group searchInComputerInfo" style="display: none;">
+</div>
+</form>
+<form role="form" id="frmSearchPrice" action="/computerProduct/computersFormSearchPrice" method="post">
+<div class="form-group searchInComputerPriceSend" style="display: none;">
 </div>
 </form>
 <div class="row">
@@ -149,7 +188,7 @@ $(function() {
 <label>
 결과내 검색
 </label>
-<input type="text" id="c_com_name" class="form-control" placeholder="검색어를 입력하시오" name="c_com_name"/>
+<input type="text" id="c_com_name" class="form-control" placeholder="검색어를 입력하시오" name="c_com_name" required="required"/>
 <button type="button" id="detailSearch" class="btn btn-xs btn-warning">
 검색
 </button>
@@ -158,14 +197,14 @@ $(function() {
 <br>
 <br>			
 <form role="form">
-				<div class="form-group searchInComputer">					 
+				<div class="form-group searchInComputerPriceForm">					 
 					<label>
 						가격대
 					</label>
-					<input type="number" class="form-control" placeholder="시작 가격"/>
+					<input type="number" name="firstPrice" class="form-control" placeholder="시작 가격" required="required"/>
 					~
-					<input type="number" class="form-control" placeholder="나중 가격"/>
-					<button type="submit" class="btn btn-xs btn-warning">
+					<input type="number" name="lastPrice" class="form-control" placeholder="나중 가격" required="required"/>
+					<button type="button" id="detailPrice" class="btn btn-xs btn-warning">
 					검색
 					</button>
 				</div>				
