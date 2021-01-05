@@ -29,26 +29,26 @@ public class HomeController {
 		
 			List<CategoryVo> list = pageService.mainCategories(distinct_num);
 			model.addAttribute("mainCategories_1" , list);
-			System.out.println("list : " + list);
+//			System.out.println("list : " + list);
 			distinct_num++;
 		
 			List<CategoryVo> list2 = pageService.mainCategories(distinct_num);
-			System.out.println("list2 : " + list2);
+//			System.out.println("list2 : " + list2);
 			model.addAttribute("mainCategories_2" , list2);
 			distinct_num++;
 			
 			List<CategoryVo> list3 = pageService.mainCategories(distinct_num);
-			System.out.println("list3 : " + list3);
+//			System.out.println("list3 : " + list3);
 			model.addAttribute("mainCategories_3" , list3);
 			distinct_num++;
 
 			List<CategoryVo> list4 = pageService.mainCategories(distinct_num);
-			System.out.println("list4 : " + list4);
+//			System.out.println("list4 : " + list4);
 			model.addAttribute("mainCategories_4" , list4);
 			distinct_num++;
 			
 			List<CategoryVo> list5 = pageService.mainCategories(distinct_num);
-			System.out.println("list5 : " + list5);
+//			System.out.println("list5 : " + list5);
 			model.addAttribute("mainCategories_5" , list5);
 				
 		
