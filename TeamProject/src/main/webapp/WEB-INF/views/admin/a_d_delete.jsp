@@ -14,6 +14,9 @@ h1{
 	font-size : 22px;
 	border: 1px solid white;
 }
+.alld{
+	font-size: 14px;
+}
 table {
 	width:80%;
 }
@@ -21,7 +24,7 @@ th, td{
 	text-align: center;
 }
 .pno{
-	width:80px;
+	width:90px;
 }
 td.pname{
 	text-align: left;
@@ -39,11 +42,12 @@ td.pname{
 	width:150px;
 }
 .pbtn{
-	width:100px;
+	width:110px;
 }
 </style>
 <script>
 $(function(){
+	//삭제버튼
 	$(".contentDelete").on("click", function(e){
 		e.preventDefault();
 		var url="/admin/adminProductDelete";
@@ -61,19 +65,23 @@ $(function(){
 </script>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4"><h1>상품게시물 삭제</h1></div>
-		<div class="col-md-4"></div>
+		<div class="col-md-12" style="text-align: center;"><h1>상품게시물 삭제</h1></div>
+	</div>
+	<div class="row">
+		<div class="col-md-12" style="text-align: center">
+			<a href="/admin/adminDetail">이전 화면으로</a>
+			<a href="/admin/adminForm">관리자 메인 화면으로</a>
+		</div>
 	</div>
 	<div class="row listMain">
-					<ul class="nav nav-tabs categoryMenu">
-						<li class="nav-item"><a class="nav-link" href="/admin/detailDelete">전체</a></li>
-						<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/10">의류</a></li>
-						<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/20">가구</a></li>
-						<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/50">컴퓨터</a></li>
-						<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/30">가전제품</a></li>
-					</ul>
-			</div>
+		<ul class="nav nav-tabs categoryMenu">
+			<li class="nav-item"><a class="nav-link" href="/admin/detailDelete">전체</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/adminCategoryDelete10">의류</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/20">가구</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/50">컴퓨터</a></li>
+			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/30">가전제품</a></li>
+		</ul>
+	</div>
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -114,14 +122,7 @@ $(function(){
 		<div class="col-md-2"></div>
 	</div>
 	
-	<div class="row">
-		<div class="col-md-4"></div>
-		<div class="col-md-4">
-			<a href="/admin/adminDetail">이전 화면으로</a>
-			<a href="/admin/adminForm">관리자 메인 화면으로</a>
-		</div>
-		<div class="col-md-4"></div>
-	</div>
+	
 </div>
 
 <%@include file="../include/footer.jsp" %>

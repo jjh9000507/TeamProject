@@ -42,6 +42,14 @@
 	order by p_no2 desc
 	</select>
 	
+	<!-- 판매자 등록 취소 -->
+	<update id="rollbackSeller">
+		update member set
+    		m_selling = 0,
+    		m_selling_regdate = null
+		where m_id = #{m_id}
+	</update>
+	
 	<!-- 여기부터 관리자가 상품 등록된 것 삭제하는 것 -->
 	<delete id="adminDeleteFBed">
 		delete from furniture_bed
@@ -93,6 +101,14 @@
 	<!-- 카테고리 목록 가져오기 -->
 	<select id="getCategoryList" resultType="CategoryVo">
 		select * from category
+		order by cate_no
+	</select>
+	
+	<!-- 카테고리 선택시 목록 가져오기 -->
+	<select id="CategoryDeleteList" resultType="CategoryVo">
+		select * from category
+		where cate_no like '' || #{cate_no} || '%'
+		order by cate_no
 	</select>
 	
 	<select id="productCateList" resultType="ProductVo">
@@ -132,5 +148,11 @@
 	)
 	where cate_no like '' || #{cate_no} || '%'
 	order by p_no2 desc
+	</select>
+	
+	<select id="sellerList" resultType="MemberVo">
+		select * from member
+		where m_selling = 1
+		and ADMIN_CHECK != 1
 	</select>
 </mapper>

@@ -72,7 +72,7 @@ private final String NAMESPACE = "com.kh.team.computers.";
 			System.out.println("newMap_dao_category:" + newMap[i]);			
 		}		
 		
-		for(int i=0; i<3; i++) {
+		for(int i=0; i<6; i++) {
 		System.out.println("category_cate_no:" + newMap[i]);
 		map.put("cate_no" + i, newMap[i]);
 		}
@@ -88,6 +88,35 @@ private final String NAMESPACE = "com.kh.team.computers.";
 	public List<CategoryVo> categoryInfo(String cate_no) throws Exception {
 		List<CategoryVo> list = sqlSession.selectList(NAMESPACE + "getCategoryInfo", cate_no);
 		return list;
+	}
+
+
+
+	@Override
+	public List<ComputerVo> listSearch(String c_com_name,String[] confirmList) throws Exception {
+		String[] newMap = {CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR};
+		Map<String, Object> map = new HashMap<>();
+		map.put("c_com_name", c_com_name);
+		for(int i=0; i<confirmList.length; i++) {
+			newMap[i] = confirmList[i];
+			if(confirmList[i] == null || confirmList[i].equals("")) {
+				newMap[i] = CONSTNAT_CHAR;
+			}
+			
+			System.out.println("searchComputer_dao:" + confirmList[i]);
+			System.out.println("newMap_dao_searchComputer:" + newMap[i]);			
+		}		
+		
+		for(int i=0; i<6; i++) {
+		System.out.println("searchComputer_cate_no:" + newMap[i]);
+		map.put("cate_no" + i, newMap[i]);
+		}
+		System.out.println("confirmList.length:" + confirmList.length);
+		
+		
+		List<ComputerVo> list = sqlSession.selectList(NAMESPACE + "getComptersProductListSearch", map);
+		return list;
+		
 	}
 
 	

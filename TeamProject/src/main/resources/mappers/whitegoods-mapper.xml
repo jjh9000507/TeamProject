@@ -11,8 +11,8 @@
 	</select>
 	
 	<insert id="insertWhitegoods">
-		insert into whitegoods(w_no, w_name, w_seller, w_price, cate_no, w_content, w_pic, p_no)
-		values (seq_whitegoods_no.nextval, #{w_name}, #{w_seller}, #{w_price}, #{cate_no}, #{w_content}, #{w_pic}, seq_product_no.nextval)
+		insert into whitegoods(w_no, w_name, w_seller, w_price, cate_no, w_content, w_thumbimg, p_no)
+		values (seq_whitegoods_no.nextval, #{w_name}, #{w_seller}, #{w_price}, #{cate_no}, #{w_content}, #{w_thumbimg}, seq_product_no.nextval)
 	</insert>
 	
 	<update id="updateWhitegoods">
@@ -21,7 +21,7 @@
 			w_price = #{w_price},
 			cate_no = #{cate_no},
 			w_content = #{w_content},
-			w_pic = #{w_pic}
+			w_thumbimg = #{w_thumbimg}
 		where w_no = #{w_no}
 		and w_seller = #{w_seller}
 	</update>

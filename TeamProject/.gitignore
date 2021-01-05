@@ -16,6 +16,10 @@ local.properties
 .recommenders
 Access.java
 
+### Team Ignore ###
+Access.java
+FurnitureAccess.java
+
 # External tool builders
 .externalToolBuilders/
 

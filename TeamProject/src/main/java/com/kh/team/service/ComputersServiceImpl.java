@@ -46,4 +46,12 @@ public class ComputersServiceImpl implements ComputersService {
 		List<CategoryVo> categoryList = computersDao.categoryInfo(cate_no);
 		return categoryList;
 	}
+
+
+
+	@Override
+	public List<ComputerVo> listSearch(String c_com_name, String[] confirmList) throws Exception {
+		List<ComputerVo> categoryList = computersDao.listSearch(c_com_name, confirmList);
+		return categoryList;
+	}
 }

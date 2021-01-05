@@ -1,19 +1,14 @@
 package com.kh.team.controller;
 
-import java.io.InputStream;
-import java.net.URL;
-import java.net.URLConnection;
+import java.io.File;
+import java.io.FileInputStream;
 import java.util.List;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.apache.maven.shared.utils.io.IOUtil;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.amazonaws.util.IOUtils;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ClothesVo;
 import com.kh.team.domain.MemberVo;
@@ -32,19 +26,15 @@ import com.kh.team.service.ClothesService;
 import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
 import com.kh.team.service.SellProductService;
-import com.kh.team.util.S3Util;
+import com.kh.team.service.WhitegoodsService;
 import com.kh.team.util.UploadFileUtils;
-import com.sun.net.ssl.HttpsURLConnection;
 
 
 
 @Controller
 @RequestMapping("/sellproduct")
 public class SellProductContoller {
-	
-	private static final Logger logger = LoggerFactory.getLogger(SellProductContoller.class);
-	
-	S3Util s3 = new S3Util();
+
 	String buckteName = "teamptbucket";
 	
 	
@@ -59,6 +49,9 @@ public class SellProductContoller {
 	
 	@Inject
 	private SanctionService sanctionService;
+	
+	@Inject
+	private WhitegoodsService whitegoodsService;
 	
 	//판매하기 화면 이동
 	@RequestMapping(value="/sellproductMain", method=RequestMethod.GET)
@@ -88,8 +81,12 @@ public class SellProductContoller {
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 		whitegoodsVo.setW_name(productVo.getP_name());
 		whitegoodsVo.setW_seller(memberVo.getM_id());
+		whitegoodsVo.setW_price(productVo.getP_price());
 		whitegoodsVo.setCate_no(productVo.getCate_no());
 		whitegoodsVo.setW_content(productVo.getP_content());
+		whitegoodsVo.setW_thumbimg(productVo.getP_thumbimg());
+		
+		whitegoodsService.insertWhitegoods(whitegoodsVo);
 		
 		return "/main";
 	}
@@ -130,7 +127,6 @@ public class SellProductContoller {
 				page = "/sell/sellerreg";
 			}
 		}
-		
 		return page;
 	}
 	
@@ -162,59 +158,30 @@ public class SellProductContoller {
 	
 	//이미지 출력(아직 안됨)
 	@RequestMapping(value="/displayImage", method=RequestMethod.GET, produces="application/test;charset=utf-8")
-	@SuppressWarnings("resource")
 	@ResponseBody
-	public ResponseEntity<byte[]> displayImage(String fileName, String directory) throws Exception {
-		System.out.println("fileName: " + fileName);
-		System.out.println("directory: " + directory);
-//		logger.info(directory);
-		InputStream in = null;
-		ResponseEntity<byte[]> entity = null;
-		HttpsURLConnection uCon = null;
-//		logger.info("File Name: " + fileName);
-		
-		String inputDirectory = null;
-		if(directory.equals("goods")) {
-			inputDirectory = "goods";
-		} else if(directory.equals("profile")) {
-			inputDirectory = "profile";
-		}
-		
-		try {
-			HttpHeaders headers = new HttpHeaders();
-			URL url;
-			try {
-				url = new URL(s3.getFileURL(buckteName, inputDirectory + fileName));
-				uCon = (HttpsURLConnection) url.openConnection();
-				in = uCon.getInputStream();
-			} catch (Exception e) {
-				url = new URL(s3.getFileURL(buckteName, "default.jpg"));
-				uCon = (HttpsURLConnection) url.openConnection();
-				in = uCon.getInputStream();
-			}
-			entity = new ResponseEntity<byte[]>(IOUtils.toByteArray(in), headers, HttpStatus.CREATED);
-		} catch (Exception e) {
-			e.printStackTrace();
-			entity = new ResponseEntity<byte[]>(HttpStatus.BAD_REQUEST);
-		} finally {
-			in.close();
-		}
-		
-		return entity;
+	public byte[] displayImage(String fileName) throws Exception {
+		FileInputStream fis = new FileInputStream(fileName);
+		byte[] bytes = IOUtil.toByteArray(fis);
+		return bytes;
 	}
 
 	//이미지 등록시 업로드
 	@RequestMapping(value="/uploadedFile", method=RequestMethod.POST, produces="application/test;charset=utf-8")
 	@ResponseBody
 	public String uploadedFile(MultipartFile file, String str, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		logger.info("originalName: " + file.getOriginalFilename());
-		String uploadPath = "goods";
-		
-		ResponseEntity<String> img_path = new ResponseEntity<>(
-				UploadFileUtils.uploadFile(uploadPath, file.getOriginalFilename(), file.getBytes()),
-				HttpStatus.CREATED);
-		String goodsImage = (String)img_path.getBody();
-		return goodsImage;
+		System.out.println("file: " + file.getOriginalFilename());
+		String fileName = file.getOriginalFilename();
+		boolean isImage = UploadFileUtils.isImage(fileName);
+		String upload;
+		if(isImage) {
+			File isFile = new File(file.getOriginalFilename());
+			file.transferTo(isFile);
+			
+			String fileNames = UploadFileUtils.upload(isFile, fileName);
+			upload = fileNames;
+		} else {
+			upload = "fail";
+		}
+		return upload;
 	}
-	
 }
