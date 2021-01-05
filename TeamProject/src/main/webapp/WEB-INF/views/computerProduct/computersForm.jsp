@@ -8,48 +8,98 @@
 <script>
 
 $(function() {
+	var inputCheckbox = $(".checkB");
+	var inputCheckForm = $("#divData");
+	var backList = $(".backList");
+	var detailSearchFormFind = $(".detailSearchFormFind");
+	var searchInComputerInfo = $(".searchInComputerInfo");
+	
 	$("#checkboxSearch").click(function() {
-		
-		var inputCheckbox = $(".checkB");
-		var inputCheckForm = $("#divData");
 		inputCheckForm.empty();	
-// 		for(var i = 0; i < 6; i++){
-			if(inputCheckbox.find("input").eq(0).is(":checked") == true){
-				var input = inputCheckbox.find("input").eq(0).clone();
-				input.attr("name","ano");
+		
+		for(var i = 0; i<6; i++){
+			if(inputCheckbox.find("input").eq(i).is(":checked") == true){
+				var indexCheckBox = "check"+i + "no";
+				console.log("indexCheckBox:"+ indexCheckBox);
+				var input = inputCheckbox.find("input").eq(i).clone();
+				input.attr("name",indexCheckBox);
 				inputCheckForm.append(input);			
 			}
-			if(inputCheckbox.find("input").eq(1).is(":checked") == true){
-				var input = inputCheckbox.find("input").eq(1).clone();
-				input.attr("name","bno");
-				inputCheckForm.append(input);			
-			}
-			if(inputCheckbox.find("input").eq(2).is(":checked") == true){
-				var input = inputCheckbox.find("input").eq(2).clone();
-				input.attr("name","cno");
-				inputCheckForm.append(input);			
-			}
-			if(inputCheckbox.find("input").eq(3).is(":checked") == true){
-				var input = inputCheckbox.find("input").eq(3).clone();
-				input.attr("name","dno");
-				inputCheckForm.append(input);			
-			}
-			if(inputCheckbox.find("input").eq(4).is(":checked") == true){
-				var input = inputCheckbox.find("input").eq(4).clone();
-				input.attr("name","eno");
-				inputCheckForm.append(input);			
-			}
-			if(inputCheckbox.find("input").eq(5).is(":checked") == true){
-				var input = inputCheckbox.find("input").eq(5).clone();
-				input.attr("name","fno");
-				inputCheckForm.append(input);			
-			}
-			$("#frmData").submit();
-				
+		}
+		if((inputCheckbox.find("input").eq(0).is(":checked") == false)
+			&& (inputCheckbox.find("input").eq(1).is(":checked") == false)
+			&& (inputCheckbox.find("input").eq(2).is(":checked") == false)
+			&& (inputCheckbox.find("input").eq(3).is(":checked") == false)
+			&& (inputCheckbox.find("input").eq(4).is(":checked") == false)
+			&& (inputCheckbox.find("input").eq(5).is(":checked") == false)			
+			){
+			alert("체크항목 없음");	
+		}else{
+			
+		$("#frmData").submit();
+		}
+		
+						
 	});
+
+	$("#computersBack").click(function() {		
+		inputCheckForm.empty();		
+ 		for(var i = 0; i<6; i++){
+ 			var indexCheckBox = "check"+i + "no";
+ 			var input = backList.find("input").eq(i).clone();
+ 			var inputVal = backList.find("input").eq(i).val();
+ 			if(inputVal != null){
+ 			var nthNum = inputVal.length;
+ 			console.log("inputValLength:" + nthNum);	
+ 			var nthNumSubstring = inputVal.substring(0,nthNum-1);
+ 			console.log("input:" + input);
+ 			console.log("inputVal:" + inputVal);
+ 			console.log("inputValLengthSubstring:" + nthNumSubstring);
+ 			
+ 			input.attr("name",indexCheckBox);
+			
+ 			input.attr("value", nthNumSubstring);
+ 			inputCheckForm.append(input);
+ 			}
+ 		}
+ 		var inputConfirm = backList.find("input").eq(0).val();
+ 		if(inputConfirm != null){
+ 			var nth = inputConfirm.length;
+ 	 		if(nth == 3){
+ 	 				alert("뒤로 갈수  없음");	
+ 	 			}else{
+ 	 				$("#frmData").submit();
+ 	 			
+ 	 			}	
+ 		}
+ 		
+//  			
+	
+	});	
+	$("#detailSearch").click(function() {
+		searchInComputerInfo.empty();
+		var inputName = detailSearchFormFind.find("input").clone();
+		searchInComputerInfo.append(inputName);
+		for(var i = 0; i<6; i++){
+			var searchIndex = "search"+i + "no";
+ 			var input = backList.find("input").eq(i).clone();
+ 			console.log("searchIndex:" + searchIndex);
+ 			input.attr("name",searchIndex);
+ 			searchInComputerInfo.append(input);
+		}
+ 		$("#frmSearchData").submit();
+		});
 });
 </script>
-
+	<form class="backList">
+<c:forEach var="cate_no_list" items="${cate_no_confirm}">	
+	<input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
+</c:forEach>
+	</form>
+<form role="form" id="frmSearchData" action="/computerProduct/computersFormSearch" method="post">
+<div class="form-group searchInComputerInfo">
+</div>
+</form>
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -66,12 +116,15 @@ $(function() {
 <header class="header">
 <c:if test="${categoryInfo != null}">
 <label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
-<ul class="nav nav-tabs computerFormListMenuItem">
 
+&nbsp<button id="computersBack" class="btn btn-warning btn-xs">뒤로</button>
+
+<ul class="nav nav-tabs computerFormListMenuItem">
 <c:forEach var="CategoryVo" items="${categoryInfo}">
 <li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
 &nbsp<input type="checkbox" name="${CategoryVo.cate_no}" value="${CategoryVo.cate_no}"/>
 </li>
+
 </c:forEach>
 </ul>
 
@@ -82,6 +135,8 @@ $(function() {
 	</div>
 </form>
 
+
+
 </header>
 <aside class="asideUp">
 <a href="http://www.auction.co.kr/" target="_blank" title="제휴사이트입니다.">
@@ -90,12 +145,12 @@ $(function() {
 <nav class="navLeft">
 <br>
 <form role="form">
-<div class="form-group searchInComputer">					 
+<div class="form-group detailSearchFormFind">					 
 <label>
 결과내 검색
 </label>
-<input type="text" class="form-control" placeholder="검색어를 입력하시오"/>
-<button type="submit" class="btn btn-xs btn-warning">
+<input type="text" id="c_com_name" class="form-control" placeholder="검색어를 입력하시오" name="c_com_name"/>
+<button type="button" id="detailSearch" class="btn btn-xs btn-warning">
 검색
 </button>
 </div>				
