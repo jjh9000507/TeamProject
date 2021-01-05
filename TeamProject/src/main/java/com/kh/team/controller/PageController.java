@@ -36,7 +36,7 @@ public class PageController {
 	public String search(String searchName, Model model) throws Exception {
 		System.out.println("searchName : " + searchName);
 		List<ProductVo> list = pageService.search(searchName);
-		System.out.println("list : " + list);
+//		System.out.println("list : " + list);
 		model.addAttribute("list" , list);
 		return "/searchForm";
 	}
@@ -49,6 +49,9 @@ public class PageController {
 		return "/map";
 	}
 	
-	
+	@RequestMapping(value="/test" , method=RequestMethod.GET)
+	public String test() throws Exception {
+		return "/include/header_mainCatagories2";
+	}
 	
 } // main class
