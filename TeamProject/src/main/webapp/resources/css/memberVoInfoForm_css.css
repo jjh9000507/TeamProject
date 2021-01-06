@@ -64,6 +64,8 @@
     background: #dcdcdc;
     height: 30px;
     line-height: 30px !important;
+    position: relative;
+    left: 1%;
 }
 
 #joinForm{width: 460px;margin: 0 auto;}

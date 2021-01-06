@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
+<%@ include file="include/header.jsp"%>
 <script>
 $(function(){
 	$(".divMore").click(function(e){		
@@ -34,7 +34,7 @@ $(function(){
 }); // main function
 
 </script>
-<%@ include file="include/header.jsp"%>
+
 
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
 <div class="container-fluid">
@@ -45,13 +45,13 @@ $(function(){
 	
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 			<div id="divSearch_text">
-				<span>'배터리' 로 상품을 검색한 결과 입니다</span>
+				<span>'<strong style="color:red;">${searchName}'</strong>상품을 검색한 결과 입니다</span>
 			</div>
 	
 <!----------------------------------------- 검색한 상품 리스트 ------------------------------------->	
-		<div class="productList" style="position:relative;top: -3%;left: 15%;">
+		<div class="productList" style="position:relative; left: 7%; top:-3%;">
 					
-				<div >
+				
 					
 					<!-- 히든(복사) 데이터 -->
 					<ul class="nav nav-pills list" style="display:none;">
@@ -69,10 +69,9 @@ $(function(){
 						</ul>
 					</c:forEach>
 					
-				</div>
+				
 		</div>
 		</div>
-
 <!----------------------------------------- 검색한 상품 리스트 ------------------------------------->	
 
 		<div class="col-md-2"></div>
