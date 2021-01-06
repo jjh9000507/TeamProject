@@ -19,7 +19,7 @@
 			<div>
 				<ul class="nowMenu">
 					<li><a href="/">홈 </a>></li>
-					<li><a style="color:red;" href="/clothes/feMaleClothes">여성의류</a></li>
+					<li><a style="color:red;" href="/clothes/102">여성의류</a></li>
 				</ul>
 			</div>
 			
@@ -29,7 +29,7 @@
 
 
 		<div style="padding-top: 150px;">
-			<div class="row listMain">
+			<div class="row listMain" style="position:relative;top:-330px;left:15%;">
 
 				<div class="col-md-8 productList">
 				

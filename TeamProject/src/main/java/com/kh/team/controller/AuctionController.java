@@ -114,26 +114,16 @@ public class AuctionController implements AuctionS3Key {
 		return "auction/auctionResisterList";
 	}
 	
-//	@RequestMapping(value="/auctionResister", method=RequestMethod.GET)
-//	public String auctionResister() throws Exception{
-//		return "auction/auctionResister";
-//	}
+	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
+	public String auctionSelected(int p_no) throws Exception{
+		System.out.println("p_no:"+p_no);
+		return "redirect:auction/auctionSelected";
+	}
 	
 	@RequestMapping(value="/auctionResister", method=RequestMethod.GET)
 	public String auctionResisterRun(int nextPNO, AuctionVo auctionVo, 
 			AuctionAddressVo auctionAddressVo, AuctionImgVo auctionImgVo, 
 			AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo, HttpSession session) throws Exception{
-		/*
-		System.out.println("auctionResister Controller nextPNO:"+nextPNO);
-		System.out.println("auctionResister Controller auctionVo:"+auctionVo);
-		System.out.println("auctionResister Controller auctionAddressVo:"+auctionAddressVo);
-		System.out.println("auctionResister Controller auctionImgVo:"+auctionImgVo);
-		System.out.println("auctionResister Controller auctionEDateVo:"+auctionEDateVo);
-		*/
-		/*
-		이미지는 
-		 */
-		System.out.println("auctionResister Controller auctionMainImgVo:"+auctionMainImgVo);
 		
 		auctionAddressVo.setP_no(nextPNO);
 		auctionImgVo.setP_no(nextPNO);
@@ -153,14 +143,7 @@ public class AuctionController implements AuctionS3Key {
 		int[] nowTimeArrayInt = stringArrayTointArray(nowTimeArray);
 				
 		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nowDataArrayInt[0], nowDataArrayInt[1], nowDataArrayInt[2], nowTimeArrayInt[0], nowTimeArrayInt[1], nextPNO);
-		/*
-		System.out.println("auctionResister Controller nextPNO:"+nextPNO);
-		System.out.println("auctionResister Controller auctionVo:"+auctionVo);
-		System.out.println("auctionResister Controller auctionAddressVo:"+auctionAddressVo);
-		System.out.println("auctionResister Controller auctionImgVo:"+auctionImgVo);
-		System.out.println("auctionResister Controller auctionEDateVo:"+auctionEDateVo);
-		System.out.println("auctionResister Controller auctionRDateVo:"+auctionRDateVo);
-		*/
+		
 		//auctionVo -> auctionAddressVo -> auctionRDateVo -> auctionEDateVo -> auctionMainImgVo -> auctionImgVo
 		//seller에 가입자 대신 임의로 user03입력
 		
@@ -187,4 +170,5 @@ public class AuctionController implements AuctionS3Key {
 		
 		return intArry;
 	}
+	
 }

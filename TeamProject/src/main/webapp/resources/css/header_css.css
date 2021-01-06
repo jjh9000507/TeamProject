@@ -7,6 +7,7 @@
 .header_body {
 	background-color : white;
 	padding-bottom: 60px;
+	border-bottom: 1px solid black;
 }
 
 body {
@@ -15,12 +16,12 @@ body {
 
 /* -------------------------------------------- ------메인 메뉴 css --------------------------------------- */
 
-.mainNav {
+#mainNav {
   width: 100%;
   display: flex;
-  justify-content: center;
   position: relative;
-}
+  padding-top: 1%;
+}	
 
 #allCategory {
     position: relative;
@@ -42,6 +43,7 @@ ul, li {
 #main-menu > li{
   float: left;
   position: relative;
+  z-index:2;
   
 }
 
@@ -142,6 +144,7 @@ ul, li {
 	position: absolute;
     left: 40%;
     top: 25%;
+    z-index:2;
     
 }
 
@@ -163,9 +166,7 @@ ul, li {
 
 .borderAllCategory {
 	padding-left : 340px;
-	border-top: 1px solid;
     height: 50;
-    padding-top: 10px;
 }
 	
 #lblAllCategory {
@@ -493,7 +494,7 @@ ul, li {
 #divSearch_text {
 	position: absolute;
     top: 2%;
-    right: 62%;
+    right: 70%;
 }
 
 </style>

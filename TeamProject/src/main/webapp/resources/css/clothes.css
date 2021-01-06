@@ -4,8 +4,8 @@
 <style>
 
 .nowMenu {
-    position: absolute;
-    top: 70px;
+    position: relative;
+    top: -285px;
 }
 
 .nowMenu li {

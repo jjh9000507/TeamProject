@@ -43,6 +43,7 @@ $(function(){
 		alert("로그아웃 되었습니다.");
 	}
 	
+	// 검색 버튼
 	$("#btnSearch").click(function(){
 		var searchName = $("#txtSearch").val();
 			console.log(searchName);
@@ -52,8 +53,6 @@ $(function(){
 	});
 	
 	// 내 주변 매물 찾기 버튼
-	
-	
 	$("#selectAddr").click(function() {
 		var roadAddress = $("#sample4_roadAddress").val();
 		var detailAddress = $("#sample4_detailAddress").val();

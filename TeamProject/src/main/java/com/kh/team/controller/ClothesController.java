@@ -11,7 +11,7 @@ public class ClothesController {
 	@RequestMapping(value="/101" , method=RequestMethod.GET)
 	public String maleClothes() throws Exception {
 		System.out.println("ok");
-		return "/clothes/manClothes";
+		return "/clothes/maleClothes";
 	}
 	
 	@RequestMapping(value="/102" , method=RequestMethod.GET)
