@@ -16,5 +16,5 @@ public interface CartDao {
 	public void cartOutput(int cart_no) throws Exception;
 	
 	//장바구니 넣기 전 장바구니에 상품 있는지 확인
-	public List<CartVo> searchCart(int p_no, String m_id) throws Exception;
+	public CartVo searchCart(int p_no, String m_id) throws Exception;
 }

@@ -49,9 +49,10 @@ public class CartContoller {
 	public String cartInput(int p_no, HttpSession session) throws Exception {
 		CartVo cartVo = new CartVo();
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		String msg = null;
 		String m_id = memberVo.getM_id();
-		String msg;
-		List<CartVo> searchCart = cartService.searchCart(p_no, m_id);
+		
+		CartVo searchCart = cartService.searchCart(p_no, m_id);;
 		if(searchCart == null) {
 			cartVo.setM_id(m_id);
 			cartVo.setP_no(p_no);
@@ -60,7 +61,6 @@ public class CartContoller {
 		} else {
 			msg = "fail";
 		}
-		
 		
 		return msg;
 	}

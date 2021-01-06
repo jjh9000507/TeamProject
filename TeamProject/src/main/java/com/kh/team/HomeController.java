@@ -32,8 +32,7 @@ public class HomeController {
 		List<CategoryVo> firstCategory = adminService.firstCategoryList();
 		List<CategoryVo> AllCategory = adminService.getCategoryList();
 		
-		System.out.println(AllCategory);
-		System.out.println(firstCategory);
+		
 		session.setAttribute("firstCategory", firstCategory);
 		session.setAttribute("AllCategory", AllCategory);
 		return "/main";

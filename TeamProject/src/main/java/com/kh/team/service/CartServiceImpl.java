@@ -39,8 +39,8 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public List<CartVo> searchCart(int p_no, String m_id) throws Exception {
-		List<CartVo> searchCart = cartDao.searchCart(p_no, m_id);
+	public CartVo searchCart(int p_no, String m_id) throws Exception {
+		CartVo searchCart = cartDao.searchCart(p_no, m_id);
 		return searchCart;
 	}
 

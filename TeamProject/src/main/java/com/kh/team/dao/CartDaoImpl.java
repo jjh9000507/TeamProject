@@ -43,12 +43,12 @@ public class CartDaoImpl implements CartDao {
 	}
 
 	@Override
-	public List<CartVo> searchCart(int p_no, String m_id) throws Exception {
+	public CartVo searchCart(int p_no, String m_id) throws Exception {
 		Map<String, Object> map = new HashMap<>();
 		map.put("p_no", p_no);
 		map.put("m_id", m_id);
 		
-		List<CartVo> searchCart = sqlSession.selectList(NAMESPACE + "searchCart", map);
+		CartVo searchCart = sqlSession.selectOne(NAMESPACE + "searchCart", map);
 		return searchCart;
 	}
 
