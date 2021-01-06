@@ -365,7 +365,14 @@ function makeTwoDigit(num){
 
 					<!-- 세부 이미지랑 설명 tr 시작 -->
 					<tr class="table-success">
-						<td>이미지랑 설명</td>
+						<td>
+							<c:forEach var="image" items="${selectedImg}">
+								<div>
+								<img src="/furniture/displayImage?imageName=${image.img_name}" class="img-class" style="height: 200px; width: 200px;">
+								</div>
+								<br>
+							</c:forEach>
+						</td>
 					</tr>
 					<!-- 세부 이미지랑 설명 tr 끝 -->
 				</tbody>
