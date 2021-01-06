@@ -10,7 +10,7 @@ import com.amazonaws.util.IOUtils;
 
 public class FurnitureFileUtil {
 
-	private static String uploadFileDirectory = "C:/Temp/tpImage";
+	private static String uploadFileDirectory = "C:/Temp/auctionImg";
 	
 	public static String uploadFile(MultipartFile file, String categoryName) throws Exception {
 		//카테고리에 해당하는 디렉토리를 만든다
@@ -39,13 +39,13 @@ public class FurnitureFileUtil {
 	
 	private static String makeFileName(String originalName) {
 		
-		System.out.println("originalName:"+originalName);
+		//System.out.println("FurnitureFileUpload originalName:"+originalName);
 		int length = originalName.length();
 		int dot = originalName.lastIndexOf(".");
 		
 		//파일 이름 앞부분 가져오기
 		String firstName = originalName.substring(0,dot);
-		System.out.println("firstName:"+firstName);
+		//System.out.println("FurnitureFileUpload firstName:"+firstName);
 		
 		//파일 앞부분에 날짜와 UUID추가
 		String uuidFileName = addFileName(firstName);
@@ -61,5 +61,30 @@ public class FurnitureFileUtil {
 		UUID uuid = UUID.randomUUID();
 		String uuidFileName = firstName + "_" + uuid;
 		return uuidFileName;
+	}
+	
+	public static boolean checkImage(String fileName) {
+		
+		int length = fileName.length();
+		int lastLen = fileName.lastIndexOf(".");
+		String expandName = fileName.substring(lastLen+1, length);
+		
+		String upperExpandName = expandName.toUpperCase();
+		//System.out.println("FurnitureFileUpload upperExpandName:"+upperExpandName);
+		
+		boolean result = false;
+		if(upperExpandName.equals("JPG") || upperExpandName.equals("GIF") || upperExpandName.equals("PNG")) {
+			result = true;
+		}
+		return result;
+	}
+	
+	public static boolean deleteImage(String fileName) {
+		File f = new File(fileName);
+		if(f.exists()) {
+			f.delete();
+		}
+		
+		return true;
 	}
 }
