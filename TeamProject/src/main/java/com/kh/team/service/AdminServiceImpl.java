@@ -111,4 +111,10 @@ public class AdminServiceImpl implements AdminService{
 		return imgNameSearch;
 	}
 
+	@Override
+	public List<CategoryVo> otherCategoryList(String cate_ref) throws Exception {
+		List<CategoryVo> otherCategoryList = adminDao.otherCategoryList(cate_ref);
+		return otherCategoryList;
+	}
+
 }
