@@ -44,46 +44,38 @@ $(function(){
 			<span style="color:red; font-weight:bold;">내 주변 매물 찾기</span>
 		</a>
 	</li>
-  
-    <li><a href="#">패션의류</a>
-    	<ul id="sub-menu">
-    		<c:forEach var="mainCategories_1" items="${sessionScope.mainCategories_1}">
-				<li><a href="/clothes/${mainCategories_1.cate_no }" class="submenuLink">${mainCategories_1.cate_name}</a></li>
-			</c:forEach>
-    	</ul>
-    </li>
-    
-  <!-- 가구생활 -->
-    <li><a href="#">가구생활</a>
+   <c:forEach var="CategoryVo" items="${sessionScope.firstCategory}">
+   <li><a href="#">${CategoryVo.cate_name}</a>
       <ul id="sub-menu">
-     	 <c:forEach var="mainCategories_2" items="${sessionScope.mainCategories_2}">
-			<li><a href="/furniture/${mainCategories_2.cate_no}" class="submenuLink">${mainCategories_2.cate_name}</a></li>
-	     </c:forEach>	
-      </ul>
-    </li>
-    
-   <!-- 컴퓨터 --> 
-    <li ><a href="#">컴퓨터</a>
-      <ul id="sub-menu">
-     	 <c:forEach var="mainCategories_5" items="${sessionScope.mainCategories_5}">
-			<li style="padding: 16px 25px;"><a href="/computerProduct/computersForm/${mainCategories_5.cate_no}" class="submenuLink">${mainCategories_5.cate_name}</a></li>
+     	 <c:forEach var="subCategoryVo" items="${sessionScope.AllCategory}">
+			<c:if test="${subCategoryVo.cate_ref == CategoryVo.cate_no}">
+				<li style="padding: 16px 25px;"><a href=
+					<c:choose>
+						<c:when test="${CategoryVo.cate_no == 10}">
+						"/clothes/${subCategoryVo.cate_no}"
+						</c:when>
+						
+						
+						<c:when test="${CategoryVo.cate_no == 20}">
+						"/furniture/${subCategoryVo.cate_no}"
+						</c:when>
+						
+						<c:when test="${CategoryVo.cate_no == 30}">
+						"/whitegoods/whitegoodsPage/${subCategoryVo.cate_no}"
+						</c:when>
+						
+						<c:when test="${CategoryVo.cate_no == 50}">
+						"/computerProduct/computersForm/${subCategoryVo.cate_no}"
+						</c:when>
+						<c:otherwise>
+						"#"
+						</c:otherwise>
+					</c:choose>
+				 class="submenuLink">${subCategoryVo.cate_name}</a></li>
+			</c:if>
 		 </c:forEach>
       </ul>
     </li>
-    
-    <!-- 가전 전자제품 -->
-    <li><a href="#">가전·전자 제품</a>
-      <ul id="sub-menu">
-      	<c:forEach var="mainCategories_3" items="${sessionScope.mainCategories_3}">
-			<li style="padding: 16px 51px;"><a href="/whitegoods/whitegoodsPage/${mainCategories_3.cate_no}" class="submenuLink">${mainCategories_3.cate_name}</a></li>
-		</c:forEach>
-      </ul>
-    </li>
-    
-    <li><a href="#">기타등등</a>
-    
-    </li>
-    
-   
+    </c:forEach>
   </ul>
 </nav>
