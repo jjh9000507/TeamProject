@@ -364,9 +364,9 @@ $(function() {
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="row">
-						<div class="col-md-2"></div>
+<!-- 						<div class="col-md-2"></div> -->
 						<%@ include file="../include/header_mainCatagories.jsp"%>
-						<div class="col-md-8">
+						<div class="col-md-12">
 							
 							<!--------------------------------------- 탭 시작 ------------------------------------------------------>
 							
@@ -388,8 +388,8 @@ $(function() {
 				
 											<c:forEach var="auctionSellVo" items="${sellList}" >
 											<div class="col-md-3">
-												<div class="card">
-														<img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class">
+												<div class="card" style="height: 451px">
+														<img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class" style="height:200px;">
 													<div class="card-block">
 														<h5 class="card-title">상품:${auctionSellVo.p_title}</h5>
 														<p class="card-text">현재가:${auctionSellVo.present_price}</p>
@@ -420,8 +420,8 @@ $(function() {
 				
 											<c:forEach var="auctionSoldVo" items="${soldList}" >
 											<div class="col-md-3">
-												<div class="card">
-														<img src="/furniture/displayImage?imageName=${auctionSoldVo.main_img_name}" class="img-class">
+												<div class="card" style="height: 451px">
+														<img src="/furniture/displayImage?imageName=${auctionSoldVo.main_img_name}" class="img-class" style="height:200px;">
 													<div class="card-block">
 														<h5 class="card-title">상품:${auctionSoldVo.p_title}</h5>
 														<p class="card-text">거래된가격:${auctionSoldVo.sold_price}</p>
@@ -578,9 +578,8 @@ $(function() {
 								</div>
 							</div>
 							<!--------------------------------------- 탭 끝 ------------------------------------------------------>
-							
 						</div><!-- 안쪽 md8 -->
-						<div class="col-md-2"></div><!-- 안쪽m d2 -->
+<!-- 						<div class="col-md-2"></div>안쪽m d2 -->
 					</div><!-- row -->
 				</div><!-- col-md-8 -->
 				<div class="col-md-2"></div><!-- 바깥 md2 -->
