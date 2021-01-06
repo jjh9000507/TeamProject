@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -73,7 +74,7 @@ public class AuctionController implements AuctionS3Key {
 			
 			String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
 			String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-			System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+			//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
 			
 			//파일 다운로드
 			String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
@@ -97,7 +98,7 @@ public class AuctionController implements AuctionS3Key {
 			return "redirect:/auction/auctionMain";
 		}
 	
-		System.out.println("memberVo seller"+ memberVo.getM_id());
+		//System.out.println("memberVo seller"+ memberVo.getM_id());
 		String m_id = memberVo.getM_id();
 		
 		List<AuctionSellVo> sellList = auctionService.getAuctionUserMemberListSell(m_id);
@@ -114,10 +115,10 @@ public class AuctionController implements AuctionS3Key {
 		return "auction/auctionResisterList";
 	}
 	
-	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
-	public String auctionSelected(int p_no) throws Exception{
-		System.out.println("p_no:"+p_no);
-		return "redirect:auction/auctionSelected";
+	@RequestMapping(value="/auctionSelected/{pno}", method=RequestMethod.GET)
+	public String auctionSelected(@PathVariable("pno") int pno) throws Exception{
+		System.out.println("pno:"+pno);
+		return "auction/auctionSelected";
 	}
 	
 	@RequestMapping(value="/auctionResister", method=RequestMethod.GET)

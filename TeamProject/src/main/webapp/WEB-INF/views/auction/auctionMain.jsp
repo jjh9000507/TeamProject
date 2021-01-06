@@ -309,7 +309,7 @@ $(function(){
 		var pno = $(this).attr("data-pno");
 		//console.log($(this).attr("data-pno"));
 		
-		location.href=""
+		location.href="/auction/auctionSelected?pno="+pno;
 	});
 });//function
 

@@ -57,19 +57,18 @@ public class AuctionDaoImpl implements AuctionDao{
 
 	@Override
 	public void insertAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception {
-		System.out.println("DaoImpl auctionAddressVo:"+auctionAddressVo);
+		//System.out.println("DaoImpl auctionAddressVo:"+auctionAddressVo);
 		sqlSession.insert(NAMESPACE+"insertAuctionAddress", auctionAddressVo);
 	}
 
 	@Override
 	public void insertAuctionRegisterDate(AuctionRDateVo auctionRDateVo) throws Exception {
-		System.out.println("DaoImpl auctionRDateVo:"+auctionRDateVo);
 		sqlSession.insert(NAMESPACE+"insertAuctionRegisterDate", auctionRDateVo);
 	}
 
 	@Override
 	public void insertAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception {
-		System.out.println("DaoImpl auctionEDateVo:"+auctionEDateVo);
+		//System.out.println("DaoImpl auctionEDateVo:"+auctionEDateVo);
 		sqlSession.insert(NAMESPACE+"insertAuctionExpirationDate", auctionEDateVo);
 	}
 
