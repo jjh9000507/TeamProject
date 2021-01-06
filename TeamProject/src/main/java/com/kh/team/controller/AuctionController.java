@@ -115,10 +115,32 @@ public class AuctionController implements AuctionS3Key {
 		return "auction/auctionResisterList";
 	}
 	
-	@RequestMapping(value="/auctionSelected/{pno}", method=RequestMethod.GET)
-	public String auctionSelected(@PathVariable("pno") int pno) throws Exception{
-		System.out.println("pno:"+pno);
+//	@RequestMapping(value="/auctionSelected/{pno}", method=RequestMethod.GET)
+//	public String auctionSelected(@PathVariable("pno") String pno) throws Exception{
+//		System.out.println("pno:"+pno);
+//		return "auction/auctionSelected";
+//	}
+	
+	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
+	public String auctionSelected(String p_no, Model model) throws Exception{
+		System.out.println("pno:"+p_no);
+		
+		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(Integer.parseInt(p_no));
+		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(Integer.parseInt(p_no));
+		
+		System.out.println("selectedItem:"+selectedItem);
+		System.out.println("selectedImg:"+selectedImg);
+		
+		model.addAttribute("selectedItem", selectedItem);
+		model.addAttribute("selectedImg", selectedImg);
+		
+		
 		return "auction/auctionSelected";
+	}
+	
+	@RequestMapping(value="/excercise", method=RequestMethod.GET)
+	public String excercise(String pno) throws Exception{
+		return "auction/excercise";
 	}
 	
 	@RequestMapping(value="/auctionResister", method=RequestMethod.GET)

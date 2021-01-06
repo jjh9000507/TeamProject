@@ -134,4 +134,16 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		return list;
 	}
 
+	@Override
+	public AuctionSellVo getAuctionSelectedItem(int p_no) throws Exception {
+		AuctionSellVo list = auctionDao.getAuctionSelectedItem(p_no);
+		return list;
+	}
+
+	@Override
+	public List<AuctionImgVo> getAuctionSelectedImg(int p_no) throws Exception {
+		List<AuctionImgVo> list = auctionDao.getAuctionSelectedImg(p_no);
+		return list;
+	}
+
 }

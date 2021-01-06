@@ -30,6 +30,9 @@ public interface AuctionService {
 	//seq_auction_pno 현재값 받아서 상품 등록시 폴더명으로 사용
 	public int getNextSeqNumber() throws Exception;
 	
+	public AuctionSellVo getAuctionSelectedItem(int p_no) throws Exception;
+	public List<AuctionImgVo> getAuctionSelectedImg(int p_no) throws Exception;
+	
 	public void insertAuction(AuctionVo auctionVo) throws Exception;
 	public void insertAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception;
 	public void insertAuctionRegisterDate(AuctionRDateVo auctionRDateVo) throws Exception;

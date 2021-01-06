@@ -100,4 +100,16 @@ public class AuctionDaoImpl implements AuctionDao{
 		List<AuctionSoldVo> list = sqlSession.selectList(NAMESPACE+"getAuctionUserMemberListSold", m_id);
 		return list;
 	}
+
+	@Override
+	public AuctionSellVo getAuctionSelectedItem(int p_no) throws Exception {
+		AuctionSellVo list = sqlSession.selectOne(NAMESPACE+"getAuctionSelectedItem", p_no);
+		return list;
+	}
+
+	@Override
+	public List<AuctionImgVo> getAuctionSelectedImg(int p_no) throws Exception {
+		List<AuctionImgVo> list = sqlSession.selectList(NAMESPACE+"getAuctionSelectedImg", p_no);
+		return list;
+	}
 }

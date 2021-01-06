@@ -40,7 +40,7 @@ $(function(){
 			var nowMinute = today.getMinutes();  // 분
 			var nowSecond = today.getSeconds();  // 초
 			
-			var lastDate = new Date(nowYear, nowMonth-1, 0).getDate();
+			
 			var resultYear, resultMonth, resultDdate, resultHhour, resultMinute, resultSecond;
 			
 			//마감 날짜와 현재 날짜를 계산한다
@@ -52,6 +52,13 @@ $(function(){
 			resultSecond = e_second - nowSecond;
 
 			console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
+			
+			var addMonth = 12;
+			var addDate = new Date(nowYear, nowMonth-1, 0).getDate();
+			var addHour = 24;
+			var addMinute = 60;
+			var addSecond = 60;
+			
 			//-----------초 시작---------------------------------------------------------------------------------------//
 			if(resultSecond<0){//잡을 땐 < 일 때마다
 				if(resultMinute<=0){//값을 가져올 땐 <= 일 때마다
@@ -67,34 +74,34 @@ $(function(){
 									resultSecond = 0;
 								}else{//resultYear >= 0
 									resultYear--;
-									resultMonth += 12;
-									resultDate += lastDate;
-									resultHour += 59;
-									resultMinute += 59;
-									resultSecond += 60;
+									resultMonth += addMonth;
+									resultDate += addDate;
+									resultHour += addHour;
+									resultMinute += addMinute;
+									resultSecond += addSecond;
 								}
 							}else{//resultMonth >= 0
 								resultMonth--;
-								resultDate += lastDate;
-								resultHour += 59;
-								resultMinute += 59;
-								resultSecond += 60;
+								resultDate += addDate;
+								resultHour += addHour;
+								resultMinute += addMinute;
+								resultSecond += addSecond;
 							}
 						}else{//resultDate >= 0
 							resultDate--;
-							resultHour += 59;
+							resultHour += addHour;
 							console.log("resultHour:"+resultHour);
-							resultMinute += 59;
-							resultSecond += 60;
+							resultMinute += addMinute;
+							resultSecond += addSecond;
 						}
 					}else{//resultHour >= 0
 						resultHour--;
-						resultMinute += 59;
-						resultSecond += 60;
+						resultMinute += addMinute;
+						resultSecond += addSecond;
 					}
 				}else{
 					resultMinute--;
-					resultSecond += 60;
+					resultSecond += addSecond;
 				}
 			}
 			//-----------초 끝---------------------------------------------------------------------------------------//
@@ -112,29 +119,29 @@ $(function(){
 								resultSecond = 0;
 							}else{//resultYear >= 0
 								resultYear--;
-								resultMonth += 12;
-								resultDate += lastDate;
-								resultHour += 59;
-								resultMinute += 59;
+								resultMonth += addMonth;
+								resultDate += addDate;
+								resultHour += addHour;
+								resultMinute += addMinute;
 								//resultSecond += 60;
 							}
 						}else{//resultMonth >= 0
 							resultMonth--;
-							resultDate += lastDate;
-							resultHour += 59;
-							resultMinute += 59;
+							resultDate += addDate;
+							resultHour += addHour;
+							resultMinute += addMinute;
 							//resultSecond += 60;
 						}
 					}else{//resultDate >= 0
 						resultDate--;
-						resultHour += 59;
+						resultHour += addHour;
 						console.log("resultHour:"+resultHour);
-						resultMinute += 59;
+						resultMinute += addMinute;
 						//resultSecond += 60;
 					}
 				}else{//resultHour >= 0
 					resultHour--;
-					resultMinute += 59;
+					resultMinute += addMinute;
 					//resultSecond += 60;
 				}
 			}
@@ -152,22 +159,22 @@ $(function(){
 								resultSecond = 0;
 							}else{//resultYear >= 0
 								resultYear--;
-								resultMonth += 12;
-								resultDate += lastDate;
-								resultHour += 59;
+								resultMonth += addMonth;
+								resultDate += addDate;
+								resultHour += addHour;
 								//resultMinute += 59;
 								//resultSecond += 60;
 							}
 						}else{//resultMonth >= 0
 							resultMonth--;
-							resultDate += lastDate;
-							resultHour += 59;
+							resultDate += addDate;
+							resultHour += addHour;
 							//resultMinute += 59;
 							//resultSecond += 60;
 						}
 					}else{//resultDate >= 0
 						resultDate--;
-						resultHour += 59;
+						resultHour += addHour;
 						console.log("resultHour:"+resultHour);
 						//resultMinute += 59;
 						//resultSecond += 60;
@@ -186,15 +193,15 @@ $(function(){
 								resultSecond = 0;
 							}else{//resultYear >= 0
 								resultYear--;
-								resultMonth += 12;
-								resultDate += lastDate;
+								resultMonth += addMonth;
+								resultDate += addDate;
 								//resultHour += 59;
 								//resultMinute += 59;
 								//resultSecond += 60;
 							}
 						}else{//resultMonth >= 0
 							resultMonth--;
-							resultDate += lastDate;
+							resultDate += addDate;
 							//resultHour += 59;
 							//resultMinute += 59;
 							//resultSecond += 60;
@@ -212,7 +219,7 @@ $(function(){
 								resultSecond = 0;
 							}else{//resultYear >= 0
 								resultYear--;
-								resultMonth += 12;
+								resultMonth += addMonth;
 								//resultDate += lastDate;
 								//resultHour += 59;
 								//resultMinute += 59;
@@ -270,7 +277,7 @@ $(function(){
 						minute=0;
 					}
 				}
-				console.log("hour:"+hour+" ,minute:"+minute+" ,second:"+second);
+				console.log("index:"+index+"hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 				
 				var twoDigitHour = makeTwoDigit(hour);
 				var twoDigitMinute = makeTwoDigit(minute);
@@ -309,7 +316,8 @@ $(function(){
 		var pno = $(this).attr("data-pno");
 		//console.log($(this).attr("data-pno"));
 		
-		location.href="/auction/auctionSelected?pno="+pno;
+		location.href="/auction/auctionSelected?p_no="+pno;
+		//location.href="/auction/auctionSelected";
 	});
 });//function
 
@@ -351,8 +359,8 @@ function makeTwoDigit(num){
 			 				<table border=1>
 								<tr>
 									<td>
-										<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class">
-										<img alt="경매" src="http://pics.auction.co.kr/listing/used/2014/icon_auc.png"></a>
+										<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a>
+										<img alt="경매" src="http://pics.auction.co.kr/listing/used/2014/icon_auc.png">
 									</td>
 								</tr>
 								<tr>
