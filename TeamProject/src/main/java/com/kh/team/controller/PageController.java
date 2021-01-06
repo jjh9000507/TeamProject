@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.kh.team.domain.AuctionAddressVo;
+import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.service.PageService;
 
@@ -46,13 +48,12 @@ public class PageController {
 	@RequestMapping(value="/mapSearch" , method=RequestMethod.GET)
 	public String map(String roadAddress, Model model) throws Exception {
 		System.out.println("roadAddress : " + roadAddress);
+		List<AuctionAddressVo> list = pageService.addrList();
+//		System.out.println("addr_list : " + list);
 		model.addAttribute("roadAddress" , roadAddress);
+		model.addAttribute("addr_list" , list);
 		return "/map";
 	}
 	
-	@RequestMapping(value="/test" , method=RequestMethod.GET)
-	public String test() throws Exception {
-		return "/include/header_mainCatagories2";
-	}
 	
 } // main class

@@ -7,6 +7,8 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.PageDao;
+import com.kh.team.domain.AuctionAddressVo;
+import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
@@ -35,6 +37,13 @@ public class PageServiceImpl implements PageService {
 	@Override
 	public List<CategoryVo> mainCategories(int distinct_num) throws Exception {
 		List<CategoryVo> list = pageDao.mainCatagories(distinct_num);
+		return list;
+	}
+
+	// 등록한 상품 주소 받아오기
+	@Override
+	public List<AuctionAddressVo> addrList() throws Exception {
+		List<AuctionAddressVo> list = pageDao.addrList();
 		return list;
 	}
 
