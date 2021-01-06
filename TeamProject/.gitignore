@@ -15,11 +15,15 @@ local.properties
 .loadpath
 .recommenders
 Access.java
+AuctionS3Key.java
+JoinSMSKey.java
+PhoneSender.java
 
 ### Team Ignore ###
 Access.java
 AuctionS3Key.java
 JoinSMSKey.java
+PhoneSender.java
 
 # External tool builders
 .externalToolBuilders/

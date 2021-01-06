@@ -14,6 +14,11 @@
 		where p_no = #{p_no}
 		
 	</select>
+	<select id="buyCategoryInfoGet" resultType="CategoryVo">
+		select cate_ref, cate_name from category 
+		where cate_no = #{c_con_cate_no}
+		
+	</select>
 	<select id="getComptersProductListSearch" resultType="ComputerVo">
 		select * from computer_product 
 		where c_com_name like '%' || #{c_com_name} || '%'

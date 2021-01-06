@@ -207,13 +207,17 @@ public class ComputersController {
 	}
 	
 	//컴퓨터 구매하기 폼으로 가기
-	@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
-	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
-		ComputerVo computerVo = computersService.buyComputerProduct(p_no);
-		model.addAttribute("buyComputerVo", computerVo);
-		System.out.println("computerVo_Buy:" + computerVo);
-		return "/computerProduct/buyComputerProduct";
-	}
+		@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
+		public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model,HttpServletRequest request) throws Exception {
+			ComputerVo computerVo = computersService.buyComputerProduct(p_no);
+			String c_com_cate_no = computerVo.getC_com_cate_no();
+			System.out.println("buyFormUsed + c_com_cate_no:" + c_com_cate_no);
+			String[] indexName = computersService.buyCategoryInfoGet(c_com_cate_no);
+			model.addAttribute("buyComputerVo", computerVo);
+			request.setAttribute("indexName", indexName);
+			System.out.println("computerVo_Buy:" + computerVo);
+			return "/computerProduct/buyComputerProduct";
+		}
 	
 	
 }
