@@ -5,6 +5,7 @@ package com.kh.team.controller;
 import java.util.HashMap;
 
 
+
 import java.util.Random;
 
 import javax.inject.Inject;
@@ -24,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.kh.team.domain.MemberVo;
-import com.kh.team.domain.PhoneSenderVo;
+
 import com.kh.team.service.MemberService;
 
 import net.nurigo.java_sdk.api.Message;
@@ -34,7 +35,7 @@ import net.nurigo.java_sdk.api.Message;
 
 @Controller
 @RequestMapping(value="/login")
-public class LoginController {
+public class LoginController implements PhoneSender{
 	
 	//필요한 상수값 만들기 	
 	private int CHANGE_PW_NUM = 1;
@@ -160,13 +161,11 @@ public class LoginController {
 	public String[] sendMessageForMemberInfoUpdate(String m_phonenumber_send) throws Exception{
 		
 		
-		PhoneSenderVo phoneSenderVo = new PhoneSenderVo();
+		
 		System.out.println("m_phonenumber_send:" + m_phonenumber_send);
 		
 		//sms보내기 위하여 coolsms사이트에서 api키와 api비밀번호 받아와서 저장
-		String api_key = phoneSenderVo.getApi_key();
-	    String api_secret = phoneSenderVo.getApi_secret();
-	    Message coolsms = new Message(api_key, api_secret);    
+		Message coolsms = new Message(api_key, api_secret);    
 		
 	    //랜덤기능을 이용하여 인증 코드 구현
 	    Random rd = new Random();
@@ -181,7 +180,7 @@ public class LoginController {
         System.out.println("문자로 보낸 인증코드 확인:" + secretCodeNumber);
         HashMap<String, String> set = new HashMap<String, String>();
     	set.put("to", m_phonenumber_send); // 수신번호
-    	set.put("from", phoneSenderVo.getSender_phone_num()); // 발신번호
+    	set.put("from", sender_phone_num); // 발신번호
     	set.put("text", "안녕하세요 중고동네입니다. 인증번호는 [" + secretCodeNumber + "] 입니다."); // 문자내용
     	set.put("type", "sms"); // 문자 타입
     	   	

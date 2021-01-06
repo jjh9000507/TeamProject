@@ -17,11 +17,16 @@ local.properties
 Access.java
 AuctionS3Key.java
 JoinSMSKey.java
+<<<<<<< HEAD
+PhoneSender.java
+=======
+>>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 
 ### Team Ignore ###
 Access.java
 AuctionS3Key.java
 JoinSMSKey.java
+PhoneSender.java
 
 # External tool builders
 .externalToolBuilders/

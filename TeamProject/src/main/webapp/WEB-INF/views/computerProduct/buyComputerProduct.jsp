@@ -4,6 +4,48 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/buyComputerProduct_css.css" %>
 <%@ include file="../include/header.jsp"%>
+<script>
+$(function(){
+	var price = "${buyComputerVo.c_com_price}";
+	var priceFinal = "";
+	$("#confirmPrice").click(function() {
+		var productNumber = $("#productNumber").val();
+		console.log("productNumber:" + productNumber);
+		priceFinal = price * productNumber;
+		console.log("priceFinal:" + priceFinal);
+		$("#finalPrice").text(priceFinal + "원");
+		
+	});
+	$("#detailProductExpain").click(function() {
+		$("#commentTable").hide();
+		$("#productExplain").text("${buyComputerVo.c_com_content}");
+		$("#productExplain").show();
+	});
+	$("#buyAfter").click(function() {
+		
+		$("#commentTable > tbody").empty();
+		var tr = $("#trTable").find("tr").clone();
+		tr.find("td").eq(0).text("제발");
+		tr.find("td").eq(1).text("되라");
+		tr.find("td").eq(2).text("쫌");
+		tr.find("td").eq(3).text("부자");
+		if("${buyComputerVo.c_com_seller}" != null){
+			
+			tr.find("td").eq(4).find("button");
+			tr.find("td").eq(5).find("button");
+			}else{
+				tr.find("td").eq(4).empty();
+				tr.find("td").eq(5).empty();
+			}
+		$("#commentTable").append(tr);	
+		$("#commentTable").show();
+	});
+	$("#inquireProduct").click(function() {
+		
+	});
+});
+</script>
+
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -25,13 +67,13 @@
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item">
-						<a href="#">Home</a>
+						${indexName[2]}
 					</li>
 					<li class="breadcrumb-item">
-						<a href="#">Library</a>
+						${indexName[1]}
 					</li>
-					<li class="breadcrumb-item active">
-						Data
+					<li class="breadcrumb-item">
+						${indexName[0]}
 					</li>
 				</ol>
 			</nav>
@@ -41,6 +83,22 @@
 <aside class="buyrightupaside">
 </aside>
 <nav class="buyleftnav">
+<table style="display: none;" id="trTable">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td>
+					<button type="button"
+							class="btn btn-xs btn-warning btnCommentModify">수정</button>
+					</td>
+					<td>
+					<button type="button"
+							class="btn btn-xs btn-danger btnCommentDelete">삭제</button>
+					</td>
+				</tr>
+			</table>
 </nav>
 <nav class="buynav">
 <c:choose>
@@ -80,13 +138,14 @@
 					</tr>					
 					<tr>
 						<td>
-							상품수량선택:&nbsp<input type="number" min="0" max="100" step="1"/>
-							<button>결정</button>
+							상품수량선택:&nbsp
+							<input id="productNumber" type="number" min="0" max="100" step="1"/>
+							<button type="button" id="confirmPrice">결정</button>
 						</td>						
 					</tr>
 					<tr>
 						<td>
-							총 상품금액:
+							총 상품금액:<span id="finalPrice"></span>
 						</td>						
 					</tr>
 					<tr>
@@ -120,10 +179,35 @@
 </nav>
 <footer class="buyfooter">
 <ul class="nav nav-tabs breadcrumb">
-<li class="nav-item">상세설명</li>&nbsp&nbsp&nbsp
-<li class="nav-item">구매후기<span>(n)</span></li>&nbsp&nbsp&nbsp
-<li class="nav-item">상품문의<span>(n)</span></li>
+<li class="nav-item"><button id="detailProductExpain">상세설명</button></li>&nbsp&nbsp&nbsp
+<li class="nav-item"><button id="buyAfter">구매후기<span>(n)</span></button></li>&nbsp&nbsp&nbsp
+<li class="nav-item"><button id="inquireProduct">상품문의<span>(n)</span></button></li>
 </ul>
+<div class="row">
+		<div class="col-md-12">
+			<p style="display: none;" id="productExplain">
+				
+			</p>
+		</div>
+	</div>
+<div class="row">
+		<div class="col-md-12">			
+			<table class="table" id="commentTable" style="display: none;">
+				<thead>
+					<tr>
+						<th>댓글번호</th>
+						<th>댓글내용</th>
+						<th>작성자</th>
+						<th>날짜</th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody id="tableTbody">
+				</tbody>
+			</table>
+		</div>
+	</div>
 </footer>
 <aside class="buyrightdownaside">
 </aside>

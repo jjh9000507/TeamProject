@@ -18,7 +18,8 @@ public interface ComputersService {
 		public List<CategoryVo> categoryInfo(String cate_no) throws Exception;
 		//카테고리 정보
 		public List<CategoryVo> categoryInfoArray(String[] checkList) throws Exception;
-		
+		//구매하기 폼에 카테고리 정보 구현
+		public String[] buyCategoryInfoGet(String c_com_cate_no) throws Exception;
 		//컴퓨터 제품 상세정보
 		public ComputerVo detailComputerInfo(int p_no) throws Exception;
 		//컴퓨터 제품 구매 폼
