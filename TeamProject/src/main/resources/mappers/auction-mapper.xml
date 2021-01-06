@@ -162,4 +162,7 @@
 		values(SEQ_SOLD_DATE.nextval,#{s_year},#{s_month},#{s_day},#{s_hour},#{s_minute},#{p_no})
 	</insert>
 	
+	<select id="AuctionLogin" resultType="MemberVo">
+		select * from member where m_id=#{m_id} and m_pass=#{m_pass}
+	</select>
 </mapper>

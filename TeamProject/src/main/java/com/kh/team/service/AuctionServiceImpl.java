@@ -25,6 +25,7 @@ import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
+import com.kh.team.domain.MemberVo;
 
 @Service
 public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
@@ -144,6 +145,12 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public List<AuctionImgVo> getAuctionSelectedImg(int p_no) throws Exception {
 		List<AuctionImgVo> list = auctionDao.getAuctionSelectedImg(p_no);
 		return list;
+	}
+
+	@Override
+	public MemberVo AuctionLogin(String m_id, String m_pass) throws Exception {
+		MemberVo memberVo = auctionDao.AuctionLogin(m_id, m_pass);
+		return memberVo;
 	}
 
 }

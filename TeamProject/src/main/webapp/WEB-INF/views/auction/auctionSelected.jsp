@@ -10,6 +10,21 @@ $(function(){
 	
 	$(document).ready(function() { 
 		$(".divCountDown").each(function(index){
+			
+			//상품 유저와 로그인 유저가 같으면 입찰과 장바구니 버튼을 감춘다
+			var urlUserCheck = "/auction/userCheck";
+			var seller = $("#seller").val();
+			var data = {
+					"seller" : seller
+			}
+			
+			$.get(urlUserCheck, data, function(e){
+				console.log("e:"+e);
+				if(e == "same"){
+					$(".divBidAndFavorite").hide();
+				}
+			});
+			
 			//마감 날짜와 시간을 가져온다
 			var e_year = $(this).next().val();
 			var e_month = $(this).next().next().val();
@@ -288,6 +303,84 @@ $(function(){
 		}
 	});//stopTimer
 	
+	
+	/*입찰하기 버튼을 눌렀을 때
+	1. 로그인이 안 되어있다
+	1-1. 제품 유저인 경우 - divBidAndFavorite 안보이 게 한다
+	1-2. 제품 유저가 아닌 경우 - 입찰하기와 좋아하기 가능
+	2. 로그인이 되어있다
+	2-1. 제품 유저인 경우 - divBidAndFavorite 안보이 게 한다
+	2-2. 제품 유저가 아닌 경우 - 입찰하기와 좋아하기 가능
+	*/
+	
+	$("#btnBid").click(function(){
+		var urlLoginCheck = "/auction/logInCheck";
+		
+		$.get(urlLoginCheck, function(data){
+			console.log(data);
+			if(data == "LogOut"){
+				//로그인 페이지로 모달 창
+				console.log("logout");
+				$("#modaLoginAuction").trigger("click");
+			}else{
+				console.log("login");
+				
+				//상품 유저와 로그인 유저가 같으면 입찰과 장바구니 버튼을 감춘다
+				var urlUserCheck = "/auction/userCheck";
+				var seller = $("#seller").val();
+				var data = {
+						"seller" : seller
+				}
+				
+				$.get(urlUserCheck, data, function(e){
+					console.log("e:"+e);
+					if(e == "same"){
+						$(".divBidAndFavorite").hide();
+					}else{
+						//입찰 하기 시작
+						alert("입찰하기 시작");
+					}
+				});
+			}
+		});
+	});//btnBid
+		
+	$("#btnLogin").click(function(){
+		var m_id = $("#txtId").val();
+		var m_pass = $("#txtPw").val();
+		
+		//alert("id:"+m_id+" ,pw:"+m_pass);
+		var url = "/auction/logIn";
+		var data = {
+				"m_id" : m_id,
+				"m_pass" : m_pass
+		};
+		
+		$.get(url, data, function(e){
+			console.log(e);
+			if(e == "loginFali"){
+				alert("로그인 실패");
+			}else{
+				//헤더부분 로그아웃 변경하기	
+				alert("로그인 성공");
+				$("#btnClose").trigger("click");
+				
+				//상품 유저와 로그인 유저가 같으면 입찰과 장바구니 버튼을 감춘다
+				var urlUserCheck = "/auction/userCheck";
+				var seller = $("#seller").val();
+				var data = {
+						"seller" : seller
+				}
+				
+				$.get(urlUserCheck, data, function(e){
+					console.log("e:"+e);
+					if(e == "same"){
+						$(".divBidAndFavorite").hide();
+					}
+				});
+			}
+		});
+	});
 });//function
 
 function makeTwoDigit(num){
@@ -299,6 +392,43 @@ function makeTwoDigit(num){
 	return num;
 }
 </script>
+
+
+<input type="hidden" id="seller" value="${selectedItem.seller}">
+
+<!-- 로그인 모달 창 시작-->
+<div class="col-md-12">
+	<a id="modaLoginAuction" href="#modal-container-525134" role="button"
+		class="btn" data-toggle="modal">로그인</a>
+
+	<div class="modal fade" id="modal-container-525134" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">로그인</h5>
+					<button type="button" class="close" data-dismiss="modal">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				
+				<div class="modal-body">
+					<div>아 이 디   <input type="text" id="txtId" style="border-style:groove;"></div>
+					<br>
+					<div>비밀번호  <input type="text" id="txtPw" style="border-style:groove;"></div>
+				</div>
+				
+				<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="btnLogin">로그인
+					</button>
+					<button type="button" id="btnClose" class="btn btn-secondary" data-dismiss="modal">취소</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 로그인 모달 창 끝 -->
 
 <div class="container-fluid">
 	<div class="row">
@@ -353,8 +483,8 @@ function makeTwoDigit(num){
 					<!-- 버튼 tr 시작 -->
 					<tr class="table-active">
 						<td>
-							<div class="col-md-12">
-								<button type="button" class="btn btn-outline-secondary">
+							<div class="col-md-12 divBidAndFavorite">
+								<button type="button" id="btnBid" class="btn btn-outline-secondary">
 									입찰하기</button>
 								<button type="button" class="btn btn-outline-info">
 									관심상품</button>
