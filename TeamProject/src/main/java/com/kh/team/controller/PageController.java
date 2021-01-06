@@ -38,6 +38,7 @@ public class PageController {
 		List<ProductVo> list = pageService.search(searchName);
 //		System.out.println("list : " + list);
 		model.addAttribute("list" , list);
+		model.addAttribute("searchName" , searchName);
 		return "/searchForm";
 	}
 	
