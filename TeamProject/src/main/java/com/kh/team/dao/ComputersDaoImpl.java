@@ -159,5 +159,30 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		return computerVo;
 	}
 
+	@Override
+	public String[] buyCategoryInfoGet(String c_com_cate_no) throws Exception {
+		CategoryVo categoryVoFirst = sqlSession.selectOne(NAMESPACE + "buyCategoryInfoGet", c_com_cate_no);
+		String cate_name_first = categoryVoFirst.getCate_name();
+		String cate_ref_first = categoryVoFirst.getCate_ref();
+		System.out.println("firstName:" + cate_name_first);
+		System.out.println("firstRef:" + cate_ref_first);
+		CategoryVo categoryVoSeccond = sqlSession.selectOne(NAMESPACE + "buyCategoryInfoGet", cate_ref_first);
+		String cate_name_seccond = categoryVoSeccond.getCate_name();
+		String cate_ref_seccond = categoryVoSeccond.getCate_ref();
+		System.out.println("seccondName:" + cate_name_seccond);
+		System.out.println("seccondRef:"+ cate_ref_seccond);
+		CategoryVo categoryVoThird = sqlSession.selectOne(NAMESPACE + "buyCategoryInfoGet", cate_ref_seccond);
+		String cate_name_third = categoryVoThird.getCate_name();
+		String cate_ref_third = categoryVoThird.getCate_ref();
+		System.out.println("thirdName:"+ cate_name_third);
+		System.out.println("thirdRef:" + cate_ref_third);
+		
+		String[] indexName = {cate_name_first,cate_name_seccond,cate_name_third};
+		return indexName;
+		
+	}
+
+	
+
 	
 }

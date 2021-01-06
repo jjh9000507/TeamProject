@@ -28,7 +28,6 @@ public class FurnitureController {
 	//인테리어
 	@RequestMapping(value = "/202", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) throws Exception{	
-		
 		List<FurnitureInteriorVo> list = furnitureService.getFurnitureInteriorList();
 		model.addAttribute("list", list);
 		return "furnitureCategory/interior";
@@ -36,7 +35,6 @@ public class FurnitureController {
 	//생활
 	@RequestMapping(value = "/201", method = RequestMethod.GET)
 	public String joinForm() {	
-		//return "/joinForm";
 		return "furnitureCategory/life";
 	}	
 	
@@ -54,12 +52,7 @@ public class FurnitureController {
 		String returnFileResult = "false";
 		
 		if(result) {
-		//System.out.println("Controller uploadAjax fileName:"+fileName);
-		//System.out.println("Controller uploadAjax num:"+num);
-		//System.out.println("Controller uploadAjax file:"+file);
-		
 		String filePathAndName = FurnitureFileUtil.uploadFile(file, String.valueOf(num));
-		//System.out.println(filePathAndName);
 		returnFileResult = filePathAndName;
 		}
 		
@@ -69,8 +62,6 @@ public class FurnitureController {
 	@RequestMapping(value="/deleteAjax", method=RequestMethod.GET)
 	@ResponseBody
 	public String deleteAjax(String fileName) throws Exception{
-		
-		System.out.println("deleteAjax fileName:"+fileName);
 		
 		String result = "false";
 		
@@ -91,13 +82,11 @@ public class FurnitureController {
 			FileInputStream fis = new FileInputStream(imageName);
 			bytes = IOUtils.toByteArray(fis);
 		}
-		System.out.println("displayImage bytes:"+bytes);
 		return bytes;
 	}
 	
 	@RequestMapping(value = "/jusoPopup", method = RequestMethod.POST)
 	public String jusoPopup() {	
-		System.out.println("jusoPopup");
 		return "furnitureCategory/jusoPopup";
 	}
 	
@@ -106,9 +95,6 @@ public class FurnitureController {
 	public List<FurnitureInteriorVo> getFurnitureInteriorAddList(int num, Model model) throws Exception{
 		List<FurnitureInteriorVo> list = furnitureService.getFurnitureInteriorAddList(num);
 		model.addAttribute("list", list);
-		
-		//System.out.println("num:"+num+" ,list:"+list);
-		
 		return list;
 	}
 }

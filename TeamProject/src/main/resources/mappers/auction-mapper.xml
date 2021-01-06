@@ -110,6 +110,24 @@
 		where sequence_name = 'SEQ_AUCTION_PNO'
 	</select>
 	
+	<select id="getAuctionSelectedItem" resultType="AuctionSellVo">
+		select a.*, addr.*, rdate.*, edate.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_expiration_date edate
+		on rdate.p_no = edate.p_no
+		inner join auction_main_img img
+		on edate.p_no = img.p_no
+		where a.p_no = #{p_no}
+	</select>
+	
+	<select id="getAuctionSelectedImg" resultType="AuctionImgVo">
+		select * from auction_img where p_no = #{p_no}
+	</select>
+	
 	<insert id="insertAuction">
 		insert into AUCTION(p_no, seller, p_title, p_content, present_price, instant_price)
 		values(SEQ_AUCTION_PNO.nextval ,#{seller}, #{p_title}, #{p_content},#{present_price} ,#{instant_price})

@@ -35,18 +35,26 @@
 </style>
 <script>
 	$(function(){
+		var memberVo = "${sessionScope.memberVo.m_id}";
 		$("#btnCart").click(function(){
-			var url = "/cart/cartInput";
-			var sendData = {
-					"p_no": $("#btnCart").attr("data-pno")
-			}
-			$.get(url, sendData, function(data){
-				if(data.trim() == "success"){
-					alert("상품이 장바구니에 담겼습니다.");
-				} else if(data.trim() == "fail"){
-					alert("이미 존재하는 상품입니다.");
+			if(memberVo == ""){
+				alert("로그인이 필요한 작업입니다.");
+			} else {
+				var url = "/cart/cartInput";
+				var sendData = {
+						"p_no": $("#btnCart").attr("data-pno")
 				}
-			});
+				$.get(url, sendData, function(data){
+					console.log(data.trim());
+					if(data.trim() == "success"){
+						alert("상품이 장바구니에 담겼습니다.");
+					} else if(data.trim() == "fail"){
+						alert("이미 존재하는 상품입니다.");
+					} else if(data.trim() == "member"){
+						alert("로그인이 필요한 작업입니다.");
+					}
+				});
+			}
 		});
 	});
 </script>
@@ -83,5 +91,8 @@
 	</div>
 	<div class="col-md-2"></div>
 </div>
-
-<%@ include file="../include/footer.jsp"%>
+<br>
+<br>
+<br>
+<br>
+<br>

@@ -11,6 +11,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -73,7 +74,7 @@ public class AuctionController implements AuctionS3Key {
 			
 			String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
 			String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-			System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+			//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
 			
 			//파일 다운로드
 			String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
@@ -97,7 +98,7 @@ public class AuctionController implements AuctionS3Key {
 			return "redirect:/auction/auctionMain";
 		}
 	
-		System.out.println("memberVo seller"+ memberVo.getM_id());
+		//System.out.println("memberVo seller"+ memberVo.getM_id());
 		String m_id = memberVo.getM_id();
 		
 		List<AuctionSellVo> sellList = auctionService.getAuctionUserMemberListSell(m_id);
@@ -114,26 +115,38 @@ public class AuctionController implements AuctionS3Key {
 		return "auction/auctionResisterList";
 	}
 	
-//	@RequestMapping(value="/auctionResister", method=RequestMethod.GET)
-//	public String auctionResister() throws Exception{
-//		return "auction/auctionResister";
+//	@RequestMapping(value="/auctionSelected/{pno}", method=RequestMethod.GET)
+//	public String auctionSelected(@PathVariable("pno") String pno) throws Exception{
+//		System.out.println("pno:"+pno);
+//		return "auction/auctionSelected";
 //	}
+	
+	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
+	public String auctionSelected(String p_no, Model model) throws Exception{
+		System.out.println("pno:"+p_no);
+		
+		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(Integer.parseInt(p_no));
+		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(Integer.parseInt(p_no));
+		
+		System.out.println("selectedItem:"+selectedItem);
+		System.out.println("selectedImg:"+selectedImg);
+		
+		model.addAttribute("selectedItem", selectedItem);
+		model.addAttribute("selectedImg", selectedImg);
+		
+		
+		return "auction/auctionSelected";
+	}
+	
+	@RequestMapping(value="/excercise", method=RequestMethod.GET)
+	public String excercise(String pno) throws Exception{
+		return "auction/excercise";
+	}
 	
 	@RequestMapping(value="/auctionResister", method=RequestMethod.GET)
 	public String auctionResisterRun(int nextPNO, AuctionVo auctionVo, 
 			AuctionAddressVo auctionAddressVo, AuctionImgVo auctionImgVo, 
 			AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo, HttpSession session) throws Exception{
-		/*
-		System.out.println("auctionResister Controller nextPNO:"+nextPNO);
-		System.out.println("auctionResister Controller auctionVo:"+auctionVo);
-		System.out.println("auctionResister Controller auctionAddressVo:"+auctionAddressVo);
-		System.out.println("auctionResister Controller auctionImgVo:"+auctionImgVo);
-		System.out.println("auctionResister Controller auctionEDateVo:"+auctionEDateVo);
-		*/
-		/*
-		이미지는 
-		 */
-		System.out.println("auctionResister Controller auctionMainImgVo:"+auctionMainImgVo);
 		
 		auctionAddressVo.setP_no(nextPNO);
 		auctionImgVo.setP_no(nextPNO);
@@ -153,14 +166,7 @@ public class AuctionController implements AuctionS3Key {
 		int[] nowTimeArrayInt = stringArrayTointArray(nowTimeArray);
 				
 		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nowDataArrayInt[0], nowDataArrayInt[1], nowDataArrayInt[2], nowTimeArrayInt[0], nowTimeArrayInt[1], nextPNO);
-		/*
-		System.out.println("auctionResister Controller nextPNO:"+nextPNO);
-		System.out.println("auctionResister Controller auctionVo:"+auctionVo);
-		System.out.println("auctionResister Controller auctionAddressVo:"+auctionAddressVo);
-		System.out.println("auctionResister Controller auctionImgVo:"+auctionImgVo);
-		System.out.println("auctionResister Controller auctionEDateVo:"+auctionEDateVo);
-		System.out.println("auctionResister Controller auctionRDateVo:"+auctionRDateVo);
-		*/
+		
 		//auctionVo -> auctionAddressVo -> auctionRDateVo -> auctionEDateVo -> auctionMainImgVo -> auctionImgVo
 		//seller에 가입자 대신 임의로 user03입력
 		
@@ -187,4 +193,5 @@ public class AuctionController implements AuctionS3Key {
 		
 		return intArry;
 	}
+	
 }

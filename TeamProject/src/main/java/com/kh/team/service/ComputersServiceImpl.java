@@ -22,8 +22,6 @@ public class ComputersServiceImpl implements ComputersService {
 		return list;
 	}
 
-	
-
 	@Override
 	public ComputerVo detailComputerInfo(int p_no) throws Exception {
 		ComputerVo categoryVo = computersDao.detailComputerInfo(p_no);
@@ -48,15 +46,11 @@ public class ComputersServiceImpl implements ComputersService {
 		return categoryList;
 	}
 
-
-
 	@Override
 	public List<ComputerVo> listSearch(String c_com_name, String[] confirmList) throws Exception {
 		List<ComputerVo> computerList = computersDao.listSearch(c_com_name, confirmList);
 		return computerList;
 	}
-
-
 
 	@Override
 	public List<ComputerVo> listSearchPrice(int firstPrice, int lastPrice, String[] confirmList)
@@ -65,11 +59,16 @@ public class ComputersServiceImpl implements ComputersService {
 		return computerList;
 	}
 
-
-
 	@Override
 	public ComputerVo buyComputerProduct(int p_no) throws Exception {
 		ComputerVo computerVo = computersDao.buyComputerProduct(p_no);
 		return computerVo;
 	}
+
+	@Override
+	public String[] buyCategoryInfoGet(String c_com_cate_no) throws Exception {
+		String[] indexName = computersDao.buyCategoryInfoGet(c_com_cate_no);
+		 return indexName;
+	}
+	
 }

@@ -20,12 +20,15 @@ public class TeamInterceptor extends HandlerInterceptorAdapter{
 				HttpSession session = request.getSession();
 				MemberVo memberVo =  (MemberVo) session.getAttribute("memberVo");
 				String nonBuyer = (String) session.getAttribute("nonBuyer");
-				System.out.println("TeamProject_nonBuyer:" + nonBuyer);
+//				System.out.println("TeamProject_nonBuyer:" + nonBuyer);
 				
 				if(nonBuyer != null && memberVo == null) {
-				System.out.println("비회원 로그인");	
+//				System.out.println("비회원 로그인");	
 				response.sendRedirect("/");
 				return false;
+				} else if(nonBuyer == null && memberVo == null) {
+					response.sendRedirect("/login/loginForm");
+					return false;
 				}
 		        return true;
 	}

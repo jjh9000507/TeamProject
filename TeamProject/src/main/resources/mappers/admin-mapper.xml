@@ -98,19 +98,20 @@
 	</delete>
 	<!-- 여기까지 카테고리 삭제 -->
 	
-	<!-- 카테고리 목록 가져오기 -->
+	<!-- 카테고리 삭제에 필요한 카테고리 목록 가져오기 -->
 	<select id="getCategoryList" resultType="CategoryVo">
 		select * from category
 		order by cate_no
 	</select>
 	
-	<!-- 카테고리 선택시 목록 가져오기 -->
+	<!-- 카테고리 삭제에 필요한 카테고리 선택시 목록 가져오기 -->
 	<select id="CategoryDeleteList" resultType="CategoryVo">
 		select * from category
 		where cate_no like '' || #{cate_no} || '%'
 		order by cate_no
 	</select>
 	
+	<!-- 게시물 삭제에 필요한 카테고리 별 게시물 리스트 가져오기 -->
 	<select id="productCateList" resultType="ProductVo">
 		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2 from (
 																								select a.*
@@ -150,22 +151,23 @@
 	order by p_no2 desc
 	</select>
 	
+	<!-- 판매자권한 삭제에 필요한 판매자 리스트 가져오기 -->
 	<select id="sellerList" resultType="MemberVo">
 		select * from member
 		where m_selling = 1
 		and ADMIN_CHECK != 1
 	</select>
 	
-	<!-- 카테고리 추가 시 대분류 -->
+	<!-- 카테고리 추가에서 사용할 대분류 가져오기 -->
 	<select id="firstCategoryList" resultType="CategoryVo">
 		select * from category
 		where cate_ref is null
 	</select>
 	
-	<!-- 카테고리 추가 시 하위 분류 -->
+	<!-- 카테고리 추가에서 사용할 하위 분류 가져오기 -->
 	<select id="otherCategoryList" resultType="CategoryVo">
 		select * from category
-		where cate_ref = ${cate_ref}
+		where cate_ref = #{cate_ref}
 	</select>
 	
 	<select id="imgNameSearch" resultType="string">

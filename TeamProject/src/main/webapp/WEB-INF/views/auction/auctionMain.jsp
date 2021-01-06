@@ -20,8 +20,6 @@ $(function(){
 	
 	$(document).ready(function() { 
 		$(".divCountDown").each(function(index){
-			//${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
-			
 			//마감 날짜와 시간을 가져온다
 			var e_year = $(this).next().val();
 			var e_month = $(this).next().next().val();
@@ -32,21 +30,216 @@ $(function(){
 			//console.log("e_year:"+e_year+" ,e_month:"+e_month+" ,e_day:"+e_day+" ,e_hour:"+e_hour+" e_minute:"+e_minute);
 			//console.log("second:"+second);
 			
-			//마감 날짜와 현재 날짜를 계산한다
+			//현재 날짜를 얻어온다
 			var today = new Date();
 			var nowYear = today.getFullYear(); // 년도 	
 			var nowMonth = today.getMonth() + 1;  // 월
 			var nowDate = today.getDate();  // 날짜
-			var nowDay = today.getDay();  // 요일
-			var nowHhours = today.getHours(); // 시
-			var nowMinutes = today.getMinutes();  // 분
-			var nowseconds = today.getSeconds();  // 초
-			var seconds = today.getMilliseconds(); 
-			console.log("nowYear:"+nowYear+" ,nowMonth:"+nowMonth+" ,nowDate:"+nowDate+" ,e_hour:"+e_hour+" e_minute:"+e_minute);
+			//var nowDay = today.getDay();  // 요일
+			var nowHour = today.getHours(); // 시
+			var nowMinute = today.getMinutes();  // 분
+			var nowSecond = today.getSeconds();  // 초
+			
+			
+			var resultYear, resultMonth, resultDdate, resultHhour, resultMinute, resultSecond;
+			
+			//마감 날짜와 현재 날짜를 계산한다
+			resultYear = e_year - nowYear;
+			resultMonth = e_month - nowMonth;
+			resultDate = e_day - nowDate;
+			resultHour = e_hour - nowHour;
+			resultMinute = e_minute - nowMinute;
+			resultSecond = e_second - nowSecond;
+
+			console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
+			
+			var addMonth = 12;
+			var addDate = new Date(nowYear, nowMonth-1, 0).getDate();
+			var addHour = 24;
+			var addMinute = 60;
+			var addSecond = 60;
+			
+			//-----------초 시작---------------------------------------------------------------------------------------//
+			if(resultSecond<0){//잡을 땐 < 일 때마다
+				if(resultMinute<=0){//값을 가져올 땐 <= 일 때마다
+					if(resultHour<=0){
+						if(resultDate<=0){
+							if(resultMonth<=0){
+								if(resultYear<=0){
+									resultYear = 0;
+									resultMonth = 0;
+									resultDate = 0;
+									resultHour = 0;
+									resultMinute = 0;
+									resultSecond = 0;
+								}else{//resultYear >= 0
+									resultYear--;
+									resultMonth += addMonth;
+									resultDate += addDate;
+									resultHour += addHour;
+									resultMinute += addMinute;
+									resultSecond += addSecond;
+								}
+							}else{//resultMonth >= 0
+								resultMonth--;
+								resultDate += addDate;
+								resultHour += addHour;
+								resultMinute += addMinute;
+								resultSecond += addSecond;
+							}
+						}else{//resultDate >= 0
+							resultDate--;
+							resultHour += addHour;
+							console.log("resultHour:"+resultHour);
+							resultMinute += addMinute;
+							resultSecond += addSecond;
+						}
+					}else{//resultHour >= 0
+						resultHour--;
+						resultMinute += addMinute;
+						resultSecond += addSecond;
+					}
+				}else{
+					resultMinute--;
+					resultSecond += addSecond;
+				}
+			}
+			//-----------초 끝---------------------------------------------------------------------------------------//
+			//-----------분 시작---------------------------------------------------------------------------------------//
+			if(resultMinute<0){
+				if(resultHour<=0){
+					if(resultDate<=0){
+						if(resultMonth<=0){
+							if(resultYear<=0){
+								resultYear = 0;
+								resultMonth = 0;
+								resultDate = 0;
+								resultHour = 0;
+								resultMinute = 0;
+								resultSecond = 0;
+							}else{//resultYear >= 0
+								resultYear--;
+								resultMonth += addMonth;
+								resultDate += addDate;
+								resultHour += addHour;
+								resultMinute += addMinute;
+								//resultSecond += 60;
+							}
+						}else{//resultMonth >= 0
+							resultMonth--;
+							resultDate += addDate;
+							resultHour += addHour;
+							resultMinute += addMinute;
+							//resultSecond += 60;
+						}
+					}else{//resultDate >= 0
+						resultDate--;
+						resultHour += addHour;
+						console.log("resultHour:"+resultHour);
+						resultMinute += addMinute;
+						//resultSecond += 60;
+					}
+				}else{//resultHour >= 0
+					resultHour--;
+					resultMinute += addMinute;
+					//resultSecond += 60;
+				}
+			}
+			//-----------분 끝---------------------------------------------------------------------------------------//
+			//-----------시간 시작---------------------------------------------------------------------------------------//
+				if(resultHour<0){
+					if(resultDate<=0){
+						if(resultMonth<=0){
+							if(resultYear<=0){
+								resultYear = 0;
+								resultMonth = 0;
+								resultDate = 0;
+								resultHour = 0;
+								resultMinute = 0;
+								resultSecond = 0;
+							}else{//resultYear >= 0
+								resultYear--;
+								resultMonth += addMonth;
+								resultDate += addDate;
+								resultHour += addHour;
+								//resultMinute += 59;
+								//resultSecond += 60;
+							}
+						}else{//resultMonth >= 0
+							resultMonth--;
+							resultDate += addDate;
+							resultHour += addHour;
+							//resultMinute += 59;
+							//resultSecond += 60;
+						}
+					}else{//resultDate >= 0
+						resultDate--;
+						resultHour += addHour;
+						console.log("resultHour:"+resultHour);
+						//resultMinute += 59;
+						//resultSecond += 60;
+					}
+				}
+			//-----------시간 끝---------------------------------------------------------------------------------------//
+			//-----------일 시작---------------------------------------------------------------------------------------//
+					if(resultDate<0){
+						if(resultMonth<=0){
+							if(resultYear<=0){
+								resultYear = 0;
+								resultMonth = 0;
+								resultDate = 0;
+								resultHour = 0;
+								resultMinute = 0;
+								resultSecond = 0;
+							}else{//resultYear >= 0
+								resultYear--;
+								resultMonth += addMonth;
+								resultDate += addDate;
+								//resultHour += 59;
+								//resultMinute += 59;
+								//resultSecond += 60;
+							}
+						}else{//resultMonth >= 0
+							resultMonth--;
+							resultDate += addDate;
+							//resultHour += 59;
+							//resultMinute += 59;
+							//resultSecond += 60;
+						}
+					}
+			//-----------일 끝---------------------------------------------------------------------------------------//
+			//-----------월 시작---------------------------------------------------------------------------------------//
+						if(resultMonth<0){
+							if(resultYear<=0){
+								resultYear = 0;
+								resultMonth = 0;
+								resultDate = 0;
+								resultHour = 0;
+								resultMinute = 0;
+								resultSecond = 0;
+							}else{//resultYear >= 0
+								resultYear--;
+								resultMonth += addMonth;
+								//resultDate += lastDate;
+								//resultHour += 59;
+								//resultMinute += 59;
+								//resultSecond += 60;
+							}
+						}
+			//-----------월 끝---------------------------------------------------------------------------------------//
+			//-----------년 끝---------------------------------------------------------------------------------------//
+							if(resultYear<0){
+								resultYear = 0;
+								resultMonth = 0;
+								resultDate = 0;
+								resultHour = 0;
+								resultMinute = 0;
+								resultSecond = 0;
+							}
+			//-----------년 끝---------------------------------------------------------------------------------------//
 			
 			//마감 날짜와 현재 시간을 뺀 값을 this값에 넣는다 
-			$(this).text("월:일:시간:분:초")
-			
+			$(this).text(resultHour+":"+resultMinute+":"+resultSecond);
 			
 			//입력된 텀 시간을 불러와서 카운드 다운한다
 			var that = $(this);
@@ -84,7 +277,7 @@ $(function(){
 						minute=0;
 					}
 				}
-				console.log("hour:"+hour+" ,minute:"+minute+" ,second:"+second);
+				console.log("index:"+index+"hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 				
 				var twoDigitHour = makeTwoDigit(hour);
 				var twoDigitMinute = makeTwoDigit(minute);
@@ -92,8 +285,6 @@ $(function(){
 				console.log("twoDigitSecond:"+twoDigitSecond);
 				
 				that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
-				
-				//console.log(twoDigitMinute);
 			},1000);
 		});	
 		
@@ -105,11 +296,9 @@ $(function(){
 		for(var i=0 ; i<len ; i++){
 			clearInterval(countDown[i]);			
 		}
-		clearInterval(count2);
 	});
-	
-	var count2;
-	var aa=100;
+
+	/*요소값을 배열로 받아온다
 	var objCount=[];
 	$("#startTimer").click(function(){
 		var divCount = $(".divCountDown").toArray();
@@ -120,6 +309,15 @@ $(function(){
 		}
 		
 		console.log(objCount[0]);
+	});*/
+	
+	$(".auctionSelect").click(function(e){
+		e.preventDefault();
+		var pno = $(this).attr("data-pno");
+		//console.log($(this).attr("data-pno"));
+		
+		location.href="/auction/auctionSelected?p_no="+pno;
+		//location.href="/auction/auctionSelected";
 	});
 });//function
 
@@ -145,7 +343,6 @@ function makeTwoDigit(num){
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 	
 		<div class="col-md-2">
-		<button type="button" id="startTimer">요소값을 배열로</button>
 		<button type="button" id="stopTimer">타이머종료</button>	
 		</div>
 
@@ -161,7 +358,10 @@ function makeTwoDigit(num){
 
 			 				<table border=1>
 								<tr>
-									<td><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></td>
+									<td>
+										<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a>
+										<img alt="경매" src="http://pics.auction.co.kr/listing/used/2014/icon_auc.png">
+									</td>
 								</tr>
 								<tr>
 									<td>${auctionSellVo.p_content}</td>

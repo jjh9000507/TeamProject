@@ -14,6 +14,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.kh.team.controller.AuctionS3Key;
 import com.kh.team.dao.AuctionDao;
 import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.AuctionSellVo;
@@ -26,7 +27,7 @@ import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
 
 @Service
-public class AuctionServiceImpl implements AuctionService {
+public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 
 	@Inject
 	private AuctionDao auctionDao;
@@ -72,48 +73,12 @@ public class AuctionServiceImpl implements AuctionService {
 
 	@Override
 	public void insertAuctionMainImg(AuctionMainImgVo auctionMainImgVo) throws Exception {
-		/*
-		//s3시작
-		String accesskey = "AKIAU25L6TN2RP3O5CLB";
-		String secretkey = " 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";
-		
-		//credential과 client객체 생성
-		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
-		AmazonS3 s3Client = AmazonS3ClientBuilder
-				.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(credential))
-				.withRegion(Regions.AP_NORTHEAST_2)
-				.build();
-		//버킷 생성
-		//s3Client.createBucket("sdk-new-bucket");
-		
-		//파일 업로드
-		String folderName = Integer.toString(auctionMainImgVo.getP_no());
-		
-		//getMain_img_name()에는 경로가 포함되어있으니깐 이름만 추출한다
-		String fileNamePath = auctionMainImgVo.getMain_img_name();
-		int length = fileNamePath.length();
-		int lastSlash = fileNamePath.lastIndexOf("/");
-		String fileName = fileNamePath.substring(lastSlash+1, length);
-		//System.out.println("Service insertAuctionMainImg fileName:"+fileName);
-		String filePath = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//저장할 파일 위치
-		//System.out.println("Service insertAuctionMainImg filePath:"+filePath);
-		String bucketName = "sdk-new-bucket"; //버킷 이름
-		String bucketKey = folderName+"/"+fileName; //버킷에 폴더에 파일 이름, 아마존에 저장 할 땐 main폴더에
-		//System.out.println("Service insertAuctionMainImg bucketKey:"+bucketKey);
-		
-		s3Client.putObject(bucketName,bucketKey,new File(filePath));
-		*/
 		auctionDao.insertAuctionMainImg(auctionMainImgVo);
 	}
 	
 	@Override
 	@Transactional
 	public void insertAuctionImg(AuctionImgVo auctionImgVo) throws Exception {
-		
-		//s3시작
-		String accesskey = "AKIAU25L6TN2RP3O5CLB";
-		String secretkey = " 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";
 		
 		//credential과 client객체 생성
 		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
@@ -137,7 +102,7 @@ public class AuctionServiceImpl implements AuctionService {
 			
 			String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
 			String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-			System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+			//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
 			s3Client.putObject(bucketName,bucketKey,new File(filePath));
 		
 			auctionImgVo.setImg_name(images[i]);
@@ -166,6 +131,18 @@ public class AuctionServiceImpl implements AuctionService {
 	@Override
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception {
 		List<AuctionSoldVo> list = auctionDao.getAuctionUserMemberListSold(m_id);
+		return list;
+	}
+
+	@Override
+	public AuctionSellVo getAuctionSelectedItem(int p_no) throws Exception {
+		AuctionSellVo list = auctionDao.getAuctionSelectedItem(p_no);
+		return list;
+	}
+
+	@Override
+	public List<AuctionImgVo> getAuctionSelectedImg(int p_no) throws Exception {
+		List<AuctionImgVo> list = auctionDao.getAuctionSelectedImg(p_no);
 		return list;
 	}
 
