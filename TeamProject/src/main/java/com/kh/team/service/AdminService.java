@@ -32,6 +32,8 @@ public interface AdminService {
 		public List<CategoryVo> getCategoryList() throws Exception;
 		//대분류 카테고리 가져오기
 		public List<CategoryVo> firstCategoryList() throws Exception;
+		//하위분류 카테고리 가져오기
+		public List<CategoryVo> otherCategoryList(String cate_ref) throws Exception;
 		//상품 목록 가져오기
 		public List<ProductVo> productCateList(String cate_no) throws Exception;
 		//선택 카테고리 목록 가져오기

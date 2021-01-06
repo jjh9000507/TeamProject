@@ -163,19 +163,12 @@ public class AdminController {
 		return "success";
 	}
 	
-	//카테고리 추가
+	//카테고리 추가 페이지로 이동
 	@RequestMapping(value="/adminCategoryInput", method=RequestMethod.GET)
 	public String adminCategoryInput(Model model) throws Exception {
 		List<CategoryVo> firstCategoryList = adminService.firstCategoryList();
 		model.addAttribute("firstCategoryList", firstCategoryList);
 		return "/admin/a_c_input";
-	}
-	
-	//하위카테고리
-	@RequestMapping(value="/adminOtherCategoryList/{cate_no}", method=RequestMethod.GET)
-	@ResponseBody
-	public String adminOtherCategoryList(@PathVariable("cate_no") String cate_no) throws Exception {
-		return "";
 	}
 	
 	//카테고리 삭제 페이지로 이동
@@ -199,5 +192,41 @@ public class AdminController {
 		List<CategoryVo> categoryList = adminService.categoryDeleteList(cate_no);
 		model.addAttribute("categoryList", categoryList);
 		return "/admin/a_c_delete";
+	}
+	
+	
+	//카테고리 선택 시 하위 분류 가져오기
+	@RequestMapping(value="/getCategoryList", method=RequestMethod.GET)
+	@ResponseBody
+	public List<CategoryVo> getCategoryList(String cate_ref) throws Exception {
+		List<CategoryVo> otherCategoryList = adminService.otherCategoryList(cate_ref);
+		return otherCategoryList;
+	}
+	
+	//카테고리 추가
+	@RequestMapping(value="/categoryInsert", method=RequestMethod.GET)
+	public String categoryInsert(String cate_name, String cate_ref) throws Exception {
+		System.out.println("cate_name: " + cate_name);
+		System.out.println("cate_ref: " + cate_ref);
+		String cate_no = null;
+		if(cate_ref.equals("")) {
+			List<CategoryVo> firstCategoryList = adminService.firstCategoryList();
+			int categoryLength = firstCategoryList.size();
+			int cate_num = categoryLength + 1;
+			String num = Integer.toString(cate_num);
+			cate_no = num + "0";
+		} else if(!cate_ref.equals("")) {
+			List<CategoryVo> otherCategoryList = adminService.otherCategoryList(cate_ref);
+			int categoryLength = otherCategoryList.size();
+			int catenum = categoryLength + 1;
+			String num = Integer.toString(catenum);
+			cate_no = cate_ref + num;
+		}
+		CategoryVo categoryVo = new CategoryVo();
+		categoryVo.setCate_no(cate_no);
+		categoryVo.setCate_name(cate_name);
+		categoryVo.setCate_ref(cate_ref);
+		adminService.adminCategoryInput(categoryVo);
+		return "redirect:/admin/adminCategoryInput";
 	}
 }

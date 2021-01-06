@@ -121,10 +121,17 @@ public class AdminDaoImpl implements AdminDao{
 		return firstCategoryList;
 	}
 
+	//게시물 삭제 시 상품 이미지 AWS S3에서 삭제하기위해 이름 가져오기
 	@Override
 	public String imgNameSearch(int p_no2) throws Exception {
 		String imgNameSearch = sqlSession.selectOne(NAMESPACE + "imgNameSearch", p_no2);
 		return imgNameSearch;
+	}
+
+	@Override
+	public List<CategoryVo> otherCategoryList(String cate_ref) throws Exception {
+		List<CategoryVo> otherCategoryList = sqlSession.selectList(NAMESPACE + "otherCategoryList", cate_ref);
+		return otherCategoryList;
 	}
 
 }
