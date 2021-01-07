@@ -9,16 +9,22 @@
 		where c_com_cate_no like #{c_com_cate_no} || '%'
 		order by p_no asc
 	</select>
+	
+	<select id="getSearchById" resultType="String">
+		select count(c_com_seller) from computer_product 
+		where c_com_seller = #{c_com_seller}		
+	</select>
+	
 	<select id="buyComputerProduct" resultType="ComputerVo">
 		select * from computer_product 
-		where p_no = #{p_no}
-		
+		where p_no = #{p_no}		
 	</select>
+	
 	<select id="buyCategoryInfoGet" resultType="CategoryVo">
 		select cate_ref, cate_name from category 
-		where cate_no = #{c_con_cate_no}
-		
+		where cate_no = #{c_com_cate_no}		
 	</select>
+	
 	<select id="getComptersProductListSearch" resultType="ComputerVo">
 		select * from computer_product 
 		where c_com_name like '%' || #{c_com_name} || '%'
@@ -29,9 +35,9 @@
 				or c_com_cate_no like #{cate_no3} || '%'
 				or c_com_cate_no like #{cate_no4} || '%'
 				or c_com_cate_no like #{cate_no5} || '%')
-				order by p_no asc
-				 
+				order by p_no asc				 
 	</select>
+	
 	<select id="getComptersProductListPrice" resultType="ComputerVo">
 		select * from computer_product 
 		where c_com_price between to_number(#{firstPrice}) and to_number(#{lastPrice}) 
@@ -42,9 +48,22 @@
 				or c_com_cate_no like #{cate_no3} || '%'
 				or c_com_cate_no like #{cate_no4} || '%'
 				or c_com_cate_no like #{cate_no5} || '%')
-				order by p_no asc
-				 
+				order by p_no asc				 
 	</select>
+	
+	<select id="getComptersProductListById" resultType="ComputerVo">
+		select * from computer_product 
+		where c_com_seller = #{c_com_seller} 
+				and
+				(c_com_cate_no like #{cate_no0} || '%'
+				or c_com_cate_no like #{cate_no1} || '%'
+				or c_com_cate_no like #{cate_no2} || '%'
+				or c_com_cate_no like #{cate_no3} || '%'
+				or c_com_cate_no like #{cate_no4} || '%'
+				or c_com_cate_no like #{cate_no5} || '%')
+				order by p_no asc				 
+	</select>
+	
 	<select id="getComptersProductListArray" resultType="ComputerVo">
 		select * from computer_product where 
 						c_com_cate_no like 
@@ -59,15 +78,14 @@
 					#{cate_no4} || '%'
 						or c_com_cate_no like 
 					#{cate_no5} || '%'
-						order by p_no asc
-
-		
+						order by p_no asc		
 	</select>
 	
 	<select id="getCategoryInfo" resultType="CategoryVo">
 		select * from category
 		where cate_ref = #{cate_ref}
 	</select>
+	
 	<select id="getCategoryInfoArray" resultType="CategoryVo">
 		select * from category where cate_ref = 
 						#{cate_no0}
@@ -86,7 +104,6 @@
 	<select id="detailComputerInfo" resultType="ComputerVo">
 		select * from computer_product
 		where p_no = #{p_no}
-	</select>
-	
+	</select>	
 	
 </mapper>
