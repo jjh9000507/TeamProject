@@ -23,11 +23,6 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 	}
 
 	@Override
-	public void insertWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
-		whitegoodsDao.insertWhitegoods(whitegoodsVo);
-	}
-
-	@Override
 	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
 		whitegoodsDao.updateWhitegoods(whitegoodsVo);
 	}

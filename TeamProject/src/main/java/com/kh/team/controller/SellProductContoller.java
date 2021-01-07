@@ -2,7 +2,6 @@ package com.kh.team.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -16,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ClothesVo;
@@ -51,9 +51,7 @@ public class SellProductContoller {
 	
 	@Inject
 	private SanctionService sanctionService;
-	
-	@Inject
-	private WhitegoodsService whitegoodsService;
+
 	
 	//판매하기 화면 이동
 	@RequestMapping(value="/sellproductMain", method=RequestMethod.GET)
@@ -79,14 +77,13 @@ public class SellProductContoller {
 	
 	//가전제품 등록
 	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
-	public String whitegoodsUpload(MultipartFile file, ProductVo productVo, ProductImgVo productImgVo, HttpSession session) throws Exception {
+	public String whitegoodsUpload(MultipartFile file, ProductVo productVo, ProductImgVo productImgVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
 		String upload = null;
 		if(isImage) {
 			File isFile = new File(file.getOriginalFilename());
 			file.transferTo(isFile);
-			
 			String fileNames = UploadFileUtils.upload(isFile, fileName);
 			upload = fileNames;
 		} else {

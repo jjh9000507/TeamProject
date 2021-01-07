@@ -27,11 +27,6 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 	}
 
 	@Override
-	public void insertWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
-		sqlSession.insert(NAMESPACE + "insertWhitegoods", whitegoodsVo);
-	}
-
-	@Override
 	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
 		sqlSession.update(NAMESPACE + "updateWhitegoods", whitegoodsVo);
 	}

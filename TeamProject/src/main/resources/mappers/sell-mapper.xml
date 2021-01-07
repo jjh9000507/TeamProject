@@ -24,7 +24,7 @@
 	<!-- 가전제품 등록 -->
 	<insert id="insertWhitegoods">
 		insert into whitegoods(w_no, w_name, w_seller, w_price, cate_no, w_content, w_thumbimg, p_no)
-		values (seq_whitegoods_no.nextval, #{w_name}, #{w_seller}, #{w_price}, #{cate_no}, #{w_content}, #{w_thumbimg}, seq_product_no.nextval)
+		values (seq_whitegoods_no.nextval, #{w_name}, #{w_seller}, #{w_price}, #{cate_no}, #{w_content}, #{w_thumbimg}, #{p_no})
 	</insert>
 
 	<!-- 컴퓨터 입력 -->
