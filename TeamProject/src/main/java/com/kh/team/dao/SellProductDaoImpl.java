@@ -1,6 +1,8 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -11,6 +13,7 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.WhitegoodsVo;
 
 @Repository
 public class SellProductDaoImpl implements SellProductDao {
@@ -64,14 +67,38 @@ public class SellProductDaoImpl implements SellProductDao {
 	}
 
 	@Override
-	public void productImage(ProductImgVo productImgVo) throws Exception {
-		sqlSession.insert(NAMESPACE + "productImage", productImgVo);
+	public void productImage(String img_name, int p_no) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("img_name", img_name);
+		map.put("p_no", p_no);
+		sqlSession.insert(NAMESPACE + "productImage", map);
 	}
 
 	@Override
 	public List<CategoryVo> firstCategoryList() throws Exception {
 		List<CategoryVo> firstCategoryList = sqlSession.selectList(NAMESPACE + "firstCategoryList");
 		return firstCategoryList;
+	}
+
+	@Override
+	public int getPnoNextval() {
+		int p_no = sqlSession.selectOne(NAMESPACE + "getPnoNextVal");
+		return p_no;
+	}
+
+	@Override
+	public String[] getFileNames(int p_no) {
+		List<String> filenames = sqlSession.selectList(NAMESPACE + "getFileNames", p_no);
+		String arr[] = new String[filenames.size()];
+		for(int i = 0; i < arr.length; i++) {
+			arr[i] = filenames.get(i);
+		}
+		return arr;
+	}
+
+	@Override
+	public void whitegoodsInsert(WhitegoodsVo whitegoodsVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "insertWhitegoods", whitegoodsVo);
 	}
 
 }

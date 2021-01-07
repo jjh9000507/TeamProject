@@ -2,6 +2,7 @@ package com.kh.team.controller;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ClothesVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.ProductImgVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.SanctionVo;
 import com.kh.team.domain.WhitegoodsVo;
@@ -77,7 +79,7 @@ public class SellProductContoller {
 	
 	//가전제품 등록
 	@RequestMapping(value="/whitegoodsUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
-	public String whitegoodsUpload(MultipartFile file, ProductVo productVo, HttpSession session) throws Exception {
+	public String whitegoodsUpload(MultipartFile file, ProductVo productVo, ProductImgVo productImgVo, HttpSession session) throws Exception {
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
 		String upload = null;
@@ -99,9 +101,8 @@ public class SellProductContoller {
 		whitegoodsVo.setCate_no(productVo.getCate_no());
 		whitegoodsVo.setW_content(productVo.getP_content());
 		whitegoodsVo.setW_thumbimg(upload);
-		
-		System.out.println("whitegoodsVo: " + whitegoodsVo);
-		whitegoodsService.insertWhitegoods(whitegoodsVo);
+
+		sellProductService.whitegoodsInsert(whitegoodsVo, productImgVo);
 		
 		return "redirect:/";
 	}
@@ -221,7 +222,7 @@ public class SellProductContoller {
 	@RequestMapping(value="/uploadedFile", method=RequestMethod.POST, produces="application/test;charset=utf-8")
 	@ResponseBody
 	public String uploadedFile(MultipartFile file, String str, HttpSession session, HttpServletRequest request, Model model) throws Exception {
-		System.out.println("file: " + file.getOriginalFilename());
+//		System.out.println("file: " + file.getOriginalFilename());
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
 		String upload;
@@ -235,5 +236,12 @@ public class SellProductContoller {
 			upload = "fail";
 		}
 		return upload;
+	}
+	
+	@RequestMapping(value="/deleteAjax", method=RequestMethod.POST, produces="application/test;charset=utf-8")
+	@ResponseBody
+	public String deleteAjax(String filename) throws Exception {
+		UploadFileUtils.delete(filename);
+		return "success";
 	}
 }
