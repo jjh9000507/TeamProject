@@ -25,33 +25,50 @@ $(function(){
 		$("#productExplain").hide();
 		$("#productExplainTable").hide();
 		$("#commentTable > tbody").empty();
-		var tr = $("#trTable").find("tr").clone();
-		tr.find("td").eq(0).text("0");
-		tr.find("td").eq(1).text("1");
-		tr.find("td").eq(2).text("${buyComputerVo.c_com_seller}");
-		tr.find("td").eq(3).text("3");
-		if("${buyComputerVo.c_com_seller}" != null){			
-			tr.find("td").eq(4).find("button");
-			tr.find("td").eq(5).find("button");			
-			}else{
-				tr.find("td").eq(4).empty();
-				tr.find("td").eq(5).empty();				
-			}
-		$("#commentTable").append(tr);	
+		
+		var url = "/computerProduct/commentShow";
+		var p_no = "${buyComputerVo.p_no}";
+		var sendData = {
+				"p_no" : p_no
+			};
+		
+		$.post(url,sendData, function(data) {
+			$.each(data, function() {
+				var tr = $("#trTable").find("tr").clone();
+				tr.find("td").eq(0).text(this.c_com_comment_no);
+				tr.find("td").eq(1).text(this.c_com_comment_content);
+				tr.find("td").eq(2).text(this.c_com_comment_writer);
+				tr.find("td").eq(3).text(this.c_com_comment_regdate);
+				if("${sessionScope.memberVo.m_id}" == this.c_com_comment_writer){			
+					tr.find("td").eq(4).find("button");
+					tr.find("td").eq(5).find("button");			
+					}else{
+						tr.find("td").eq(4).empty();
+						tr.find("td").eq(5).empty();				
+					}
+				$("#commentTable").append(tr);
+			});			
+		});
 		$("#commentTable").show();
 	});
 	$("#inquireProduct").click(function() {
 		$("#commentTable").hide();
 		$("#productExplain").hide();
 		$("#productExplainTable > tbody").empty();
-		var tr = $("#productExplainTrTable").find("tr").clone();
-		tr.find("td").eq(0).text("0");
-		tr.find("td").eq(1).text("1");
-		tr.find("td").eq(2).text("2");
-		tr.find("td").eq(3).text("3");
-		tr.find("td").eq(4).text("4");
-		tr.find("td").eq(5).text("5");
-		$("#productExplainTable").append(tr);	
+		var url = "/computerProduct/inquireShow/${buyComputerVo.p_no}";
+		$.get(url, function(data) {
+			$.each(data, function() {
+				var tr = $("#productExplainTrTable").find("tr").clone();
+				tr.find("td").eq(0).text(this.p_e_no);
+				tr.find("td").eq(1).text(this.p_e_answer_status);
+				tr.find("td").eq(2).text(this.p_e_inquiry_status);
+				tr.find("td").eq(3).text(this.p_e_title);
+				tr.find("td").eq(4).text(this.p_e_id);
+				tr.find("td").eq(5).text(this.p_e_regdate);
+				$("#productExplainTable").append(tr);
+			});
+		});
+			
 		$("#productExplainTable").show();
 	});
 	$("#commentTable").on("click", ".btnCommentModify", function(){
@@ -163,10 +180,10 @@ $(function(){
 <nav class="buynav">
 <c:choose>
 <c:when test="${buyComputerVo.c_com_pic == null}">
-<img src="/resources/computerImage/default.png" width=100% height=70%/>
+<img src="/resources/computerImage/default.png" width="400px" height="300px"/>
 </c:when>
 <c:otherwise>
-<img src="/resources/image/main_logo2.png" width=100% height=70%/>
+<img src="/resources/image/main_logo2.png" width="400px" height="300px"/>
 </c:otherwise>
 </c:choose>
 </nav>
@@ -243,14 +260,20 @@ $(function(){
 <li class="nav-item"><button id="buyAfter">구매후기<span>(n)</span></button></li>&nbsp&nbsp&nbsp
 <li class="nav-item"><button id="inquireProduct">상품문의<span>(n)</span></button></li>
 </ul>
+</footer>
+<aside class="buyrightdownaside">
+</aside>
+<nav class="buyleftbeneathdownnav">
+</nav>
+<footer class="buybeneathfooter">
 <div class="row">
-		<div class="col-md-12">
+	<div class="col-md-12">
 			<p style="display: none;" id="productExplain">				
 			</p>
-		</div>
+		</div>	
 	</div>
-<div class="row">
-		<div class="col-md-12">			
+	<div class="row">
+	<div class="col-md-12">
 			<table class="table" id="commentTable" style="display: none;">
 				<thead>
 					<tr>
@@ -264,9 +287,9 @@ $(function(){
 				</thead>
 				<tbody id="tableTbody">
 				</tbody>
-			</table>
-		</div>
+			</table>		
 	</div>
+</div>
 <div class="row">
 		<div class="col-md-12">			
 			<table class="table" id="productExplainTable" style="display: none;">
@@ -277,16 +300,16 @@ $(function(){
 						<th>문의유형</th>
 						<th>문의제목</th>
 						<th>작성자</th>
-						<th>작성일자</th>						
+						<th>작성일자</th>												
 					</tr>
 				</thead>
 				<tbody id="productExplainTbody">
 				</tbody>
 			</table>
-		</div>
-	</div>
+		</div>	
+</div>
 </footer>
-<aside class="buyrightdownaside">
+<aside class="buyrightbeneathdownaside">
 </aside>
 </div>
 </div>

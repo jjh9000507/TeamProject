@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.kh.team.computerscomment">
+	<select id="getComptersCommentList" resultType="ComputerCommentVo">
+		select * from c_com_comment_table 
+		where c_com_product = (select c_com_name from computer_product
+			where p_no = #{p_no})
+		order by c_com_comment_no asc
+	</select>
+	
+	<select id="getInquireList" resultType="ProductExplainVo">
+		select * from product_explain_table 
+		where p_e_product = (select c_com_name from computer_product
+			where p_no = #{p_no})
+		order by p_e_no asc
+	</select>
+	
+</mapper>
