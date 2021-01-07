@@ -36,6 +36,7 @@ import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.service.AuctionService;
+import com.kh.team.util.FurnitureFileUtil;
 
 @Controller
 @RequestMapping(value="/auction")
@@ -73,17 +74,20 @@ public class AuctionController implements AuctionS3Key {
 			String fileName = fileNamePath.substring(lastSlash+1, length);
 			String folderName = Integer.toString(auctionImgVo.getP_no());
 			
-			String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
-			String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-			//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
-			
-			//파일 다운로드
-			String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
-
-			S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
-			S3ObjectInputStream inputStream = s3Object.getObjectContent();
-			
-			FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));	
+			if(FurnitureFileUtil.chkDirecotry(folderName)) {//폴더가 존재하지 않으면 s3접속 파일을 가지고 온다
+				System.out.println("----------------------- s3 접속 --------------------------------------");
+				String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
+				String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
+				//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+				
+				//파일 다운로드
+				String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
+	
+				S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
+				S3ObjectInputStream inputStream = s3Object.getObjectContent();
+				
+				FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));
+			}
 			//s3끝
 		}
 		
