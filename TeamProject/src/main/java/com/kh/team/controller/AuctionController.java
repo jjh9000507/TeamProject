@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -115,12 +116,6 @@ public class AuctionController implements AuctionS3Key {
 		return "auction/auctionResisterList";
 	}
 	
-//	@RequestMapping(value="/auctionSelected/{pno}", method=RequestMethod.GET)
-//	public String auctionSelected(@PathVariable("pno") String pno) throws Exception{
-//		System.out.println("pno:"+pno);
-//		return "auction/auctionSelected";
-//	}
-	
 	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
 	public String auctionSelected(String p_no, Model model) throws Exception{
 		System.out.println("pno:"+p_no);
@@ -192,6 +187,54 @@ public class AuctionController implements AuctionS3Key {
 		}
 		
 		return intArry;
+	}
+	
+	@RequestMapping(value="/logInCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public String logInCheck(HttpSession session) throws Exception{
+		
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		//System.out.println("memberVo:"+memberVo);
+		
+		String result = "LogOut";
+		//로그인 체크 
+		if(memberVo != null) {
+			result = "LogIn";
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/userCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public String userCheck(String seller, HttpSession session) throws Exception{
+		//System.out.println("seller:"+seller);
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		
+		String result = "different";
+		
+		if(memberVo != null) {
+			if(seller.equals(memberVo.getM_id())){
+				result = "same";
+			}
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/logIn", method=RequestMethod.GET)
+	@ResponseBody
+	public String logIn(String m_id,String m_pass, HttpSession session) throws Exception{
+		//System.out.println("seller:"+seller);
+		
+		MemberVo memberVo = auctionService.AuctionLogin(m_id, m_pass);
+		
+		String result = "loginFali";
+		if(memberVo != null) {
+			session.setAttribute("memberVo", memberVo);
+			result = "loginSuccess";
+		}
+		
+		return result;
 	}
 	
 }

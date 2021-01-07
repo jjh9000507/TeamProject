@@ -1,5 +1,6 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -17,6 +18,8 @@ import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
+import com.kh.team.domain.MemberVo;
+import com.thoughtworks.qdox.model.Member;
 
 @Repository
 public class AuctionDaoImpl implements AuctionDao{
@@ -111,5 +114,17 @@ public class AuctionDaoImpl implements AuctionDao{
 	public List<AuctionImgVo> getAuctionSelectedImg(int p_no) throws Exception {
 		List<AuctionImgVo> list = sqlSession.selectList(NAMESPACE+"getAuctionSelectedImg", p_no);
 		return list;
+	}
+
+	@Override
+	public MemberVo AuctionLogin(String m_id, String m_pass) throws Exception {
+
+		Map<String, String> member = new HashMap<>();
+		member.put("m_id", m_id);
+		member.put("m_pass", m_pass);
+		
+		MemberVo memberVo = sqlSession.selectOne(NAMESPACE + "AuctionLogin", member);
+		
+		return memberVo;
 	}
 }

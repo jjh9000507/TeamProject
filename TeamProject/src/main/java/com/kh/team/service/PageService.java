@@ -2,6 +2,7 @@ package com.kh.team.service;
 
 import java.util.List;
 
+import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
@@ -14,4 +15,7 @@ public interface PageService {
 	
 	// 메인 카테고리 뿌려주기
 	public List<CategoryVo> mainCategories(int distinct_num) throws Exception; 
+	
+	// 등록한 상품 주소 받아오기
+	public List<AuctionAddressVo> addrList() throws Exception;
 }

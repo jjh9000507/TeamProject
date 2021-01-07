@@ -11,6 +11,7 @@ import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
+import com.kh.team.domain.MemberVo;
 
 public interface AuctionDao {
 
@@ -41,4 +42,5 @@ public interface AuctionDao {
 	public void insertAuctionMainImg(AuctionMainImgVo auctionMainImgVo) throws Exception;
 	public void insertAuctionImg(AuctionImgVo auctionImgVo) throws Exception;
 	
+	public MemberVo AuctionLogin(String m_id, String m_pass) throws Exception;
 }
