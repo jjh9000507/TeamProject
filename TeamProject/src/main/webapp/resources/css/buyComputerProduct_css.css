@@ -10,62 +10,87 @@
 }
 .buyheader{
 	display:inline-block;
-	width:70%;
-	height:15%;		
+	height:100px;
+	width:70%;		
 	float:left;
 }
 .buynav{
 	display:inline-block;
-	height:100%;
+	height:450px;
 	width:35%;
 	float:left;
 }
 .buyaside{
 	display:inline-block;
-	height:100%;
+	height:450px;
 	width:35%;	
 	float:left;		
 }
 .buyleftnav{
 	display:inline-block;
-	height:100%;
+	height:450px;
 	width:15%;
 	float:left;
 }
 .buyleftupnav{
 	display:inline-block;
-	height:15%;
+	height:100px;
 	width:15%;
 	float:left;
 }
-.buyleftdownnav{
-	display:inline-block;
-	height:15%;
-	width:15%;
-	float:left;
-}
+
 .buyrightaside{
 	display:inline-block;
-	height:100%;
+	height:450px;
 	width:15%;	
 	float:left;		
 }
 .buyrightupaside{
 	display:inline-block;
-	height:15%;
+	height:100px;
 	width:15%;	
 	float:left;		
 }
+.buyleftdownnav{
+	display:inline-block;
+	height:100px;
+	width:15%;
+	float:left;
+}
 .buyrightdownaside{
 	display:inline-block;
-	height:15%;
+	height:100px;
 	width:15%;	
 	float:left;		
 }
 .buyfooter{
 	display:inline-block;
 	width:70%;
-	height:15%;
+	height:100px;
+	float:left;	
+}
+.buycomputersFormDivBeneath{
+	display:inline-block;
+	width:100%;	
+}
+.buyleftbeneathdownnav{
+	display:inline-block;
+	width:15%;
+	height:300px;
 	float:left;
 }
+.buyrightbeneathdownaside{
+	display:inline-block;
+	width:15%;
+	height:300px;	
+	float:left;		
+}
+.buybeneathfooter{
+	display:inline-block;
+	width:70%;
+	height:300px;
+	float:left;
+	overflow:scroll;
+}
+
 </style>

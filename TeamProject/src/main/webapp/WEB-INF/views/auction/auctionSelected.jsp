@@ -392,7 +392,7 @@ function makeTwoDigit(num){
 }
 </script>
 
-
+${sessionScope.memberVo}
 <input type="hidden" id="seller" value="${selectedItem.seller}">
 
 <!-- 로그인 모달 창 시작-->
@@ -446,7 +446,7 @@ function makeTwoDigit(num){
 										<tbody>
 											<tr>
 												<td rowspan=5><img src="/furniture/displayImage?imageName=${selectedItem.main_img_name}" class="img-class" style="height: 300px; width: 300px;"></td>
-												<td colspan=2>${selectedItem.p_content}</td>
+												<td colspan=2>${selectedItem.p_title}</td>
 											</tr>
 											<tr class="table-active">
 												<td>현재가:${selectedItem.present_price}</td>
@@ -501,6 +501,7 @@ function makeTwoDigit(num){
 								</div>
 								<br>
 							</c:forEach>
+							${selectedItem.p_content}
 						</td>
 					</tr>
 					<!-- 세부 이미지랑 설명 tr 끝 -->

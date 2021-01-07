@@ -43,4 +43,15 @@ public interface AuctionDao {
 	public void insertAuctionImg(AuctionImgVo auctionImgVo) throws Exception;
 	
 	public MemberVo AuctionLogin(String m_id, String m_pass) throws Exception;
+	
+	public void deleteAuction_bid_date(int p_no) throws Exception;
+	public void deleteAuction_bid(int p_no) throws Exception;
+	public void deleteAuction_address(int p_no) throws Exception;
+	public void deleteAuction_expration_date(int p_no) throws Exception;
+	public void deleteAuction_img(int p_no) throws Exception;
+	public void deleteAuction_main_img(int p_no) throws Exception;
+	public void deleteAuction_register_date(int p_no) throws Exception;
+	public void deleteAuction_sold_date(int p_no) throws Exception;
+	public void deleteAuction(int p_no) throws Exception;
+	
 }
