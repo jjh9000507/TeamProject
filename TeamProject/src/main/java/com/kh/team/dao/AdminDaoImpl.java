@@ -19,6 +19,83 @@ public class AdminDaoImpl implements AdminDao{
 	@Inject
 	private SqlSession sqlSession;
 	
+	
+	//회원 삭제 페이지에서 사용할 회원 목록 가져오기
+	@Override
+	public List<MemberVo> adminMemberSearch() throws Exception {
+		List<MemberVo> memberList = sqlSession.selectList(NAMESPACE + "adminMemberSearch");
+		return memberList;
+	}
+	
+	//여기서부터 해당 회원이 등록한 상품 목록 삭제
+	//의류
+	@Override
+	public void adminMemberClothesDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberClothesDelete", m_id);
+		
+	}
+
+	//컴퓨터
+	@Override
+	public void adminMemberComputerDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberComputerDelete", m_id);
+		
+	}
+
+	//가전제품
+	@Override
+	public void adminMemberWhitegoodsDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberWhitegoodsDelete", m_id);
+		
+	}
+
+	//침구
+	@Override
+	public void adminMemberFBedDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberFBedDelete", m_id);
+		
+	}
+
+	//인테리어
+	@Override
+	public void adminMemberFInteriorDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberFInteriorDelete", m_id);
+		
+	}
+
+	//주방
+	@Override
+	public void adminMemberFKitchenDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberFKitchenDelete", m_id);
+		
+	}
+
+	//생활
+	@Override
+	public void adminMemberFLifeDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberFLifeDelete", m_id);
+		
+	}
+	//여기까지 해당 회원이 등록한 상품 목록 삭제
+
+	//판매자 권한 박탈 경험 인원 삭제
+	@Override
+	public void adminSanctionDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminDeleteSanctions", m_id);
+	}
+	
+	//카트에 상품 담은 회원 카트 데이터 삭제
+	@Override
+	public void adminCartDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminDeleteCart", m_id);
+	}
+	
+	//회원 삭제
+	@Override
+	public void adminMemberDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberDelete", m_id);
+	}
+
 	//상품 전체 가져오기
 	@Override
 	public List<ProductVo> allProductList() throws Exception {
@@ -128,10 +205,35 @@ public class AdminDaoImpl implements AdminDao{
 		return imgNameSearch;
 	}
 
+	//카테고리 선택 시 하위 카테고리 보기
 	@Override
 	public List<CategoryVo> otherCategoryList(String cate_ref) throws Exception {
 		List<CategoryVo> otherCategoryList = sqlSession.selectList(NAMESPACE + "otherCategoryList", cate_ref);
 		return otherCategoryList;
 	}
+	
+	//상품 등록한 이미지들 삭제위한 이름들 가져오기
+	@Override
+	public String[] getFileName(int p_no) {
+		List<String> filenames = sqlSession.selectList(NAMESPACE + "productImgList", p_no);
+		String arr[] = new String[filenames.size()];
+		for(int i = 0; i<arr.length; i++) {
+			arr[i] = filenames.get(i);
+		}
+		return arr;
+	}
+
+	//이미지 테이블 데이터 삭제
+	@Override
+	public void productImgDelete(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "productImgDelete", p_no);
+	}
+
+	
+
+	
+
+
+	
 
 }

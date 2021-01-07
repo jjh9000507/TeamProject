@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.WhitegoodsVo;
 import com.kh.team.service.WhitegoodsService;
+import com.kh.team.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/whitegoods")
@@ -38,7 +39,10 @@ public class WhitegoodsController {
 	@RequestMapping(value="/detailWhitegoods/{w_no}", method=RequestMethod.GET)
 	public String detailWhitegoods(@PathVariable("w_no") int w_no, Model model) throws Exception {
 		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
+		int p_no = whitegoodsVo.getP_no();
+		List<String> productImgList = whitegoodsService.productImgList(p_no);
 		model.addAttribute("whitegoodsVo", whitegoodsVo);
+		model.addAttribute("productImgList", productImgList);
 		return "/whitegoods/detailwhitegoods";
 	}
 
@@ -61,9 +65,22 @@ public class WhitegoodsController {
 	}
 	
 	//삭제하기
-	@RequestMapping(value="/whitegoodsDelete/{w_no}/{w_seller}", method=RequestMethod.GET)
-	public String whitegoodsDelete() throws Exception {
+	@RequestMapping(value="/whitegoodsDelete/{w_no}", method=RequestMethod.GET)
+	public String whitegoodsDelete(@PathVariable("w_no") int w_no) throws Exception {
+		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
+		//p_no2는 상품 설명 이미지 저장된 테이블에 있는 이름들 가져와서 파일을 S3에서 지우기 위함.
+		int p_no2 = whitegoodsVo.getP_no();
+		List<String> files = whitegoodsService.productImgList(p_no2);
+		for(int i = 0; i<files.size(); i++) {
+			String file = files.get(i);
+			UploadFileUtils.delete(file);
+		}
+		whitegoodsService.productImgDelete(p_no2);
+		//상품 대표이미지 S3에서 삭제하기 위해 이름 가져와야함.
+		String thumbnail = whitegoodsVo.getW_thumbimg();
+		UploadFileUtils.delete(thumbnail);
 		
+		whitegoodsService.deleteWhitegoods(w_no);
 		return "redirect:/";
 	}
 }

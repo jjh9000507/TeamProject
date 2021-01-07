@@ -80,7 +80,7 @@ public class AuctionController implements AuctionS3Key {
 					String folderName = Integer.toString(auctionImgVo.getP_no());
 					
 					if(localFolderName.equals(folderName)) {//폴더가 존재하지 않으면 s3접속 파일을 가지고 온다
-						System.out.println("----------------------- s3 접속 --------------------------------------");
+						System.out.println("-----------------------controller에서 s3 접속 --------------------------------------");
 						String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
 						String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
 						//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
@@ -128,13 +128,13 @@ public class AuctionController implements AuctionS3Key {
 	
 	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
 	public String auctionSelected(String p_no, Model model) throws Exception{
-		System.out.println("pno:"+p_no);
+		//System.out.println("pno:"+p_no);
 		
 		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(Integer.parseInt(p_no));
 		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(Integer.parseInt(p_no));
 		
-		System.out.println("selectedItem:"+selectedItem);
-		System.out.println("selectedImg:"+selectedImg);
+		//System.out.println("selectedItem:"+selectedItem);
+		//System.out.println("selectedImg:"+selectedImg);
 		
 		model.addAttribute("selectedItem", selectedItem);
 		model.addAttribute("selectedImg", selectedImg);

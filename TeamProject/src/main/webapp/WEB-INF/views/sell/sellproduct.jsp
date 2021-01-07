@@ -15,6 +15,10 @@
 	width:150px;
 	float: left;
 }
+
+#divSellProduct{
+	clear:both;
+}
 </style>
 <script src="/resources/js/imageScript.js"></script>
 <script>
@@ -147,7 +151,7 @@ $(function(){
 			"url" : url,
 			"data":formData,
 			"success":function(data){
-				console.log(data);
+// 				console.log(data);
 				var underbarIndex = data.lastIndexOf("_");
 				var front = data.substring(0, underbarIndex + 1);
 				var rear = data.substring(underbarIndex + 1);
@@ -221,21 +225,27 @@ $(function(){
 	
 	
 	//첨부파일 삭제(x) 클릭
-	$("#uploadedList").on("click", "a_times", function(e){
+	$("#uploadedList").on("click", ".a_times", function(e){
 		e.preventDefault();
 		var filename = $(this).parent().attr("data-filename");
 		var url = "/sellproduct/deleteAjax";
-		var sendData = {
-				"":filename
-		}
 		var that = $(this);
-		$.get(url, sendData, function(data){
-			console.log(data);
-			if(data.trim()=="success"){
-				that.parent().remove();
+		var formData = new FormData();
+		formData.append("filename",filename);
+		
+		$.ajax({
+			"processData":false,
+			"contentType":false,
+			"method" : "post",
+			"url" : url,
+			"data":formData,
+			"success":function(data){
+// 				console.log(data);
+				if(data == "success"){
+					that.parent().remove();
+				}
 			}
 		});
-		
 	});
 });
 </script>
@@ -334,7 +344,9 @@ $(function(){
 				
 				</div>
 				<input type="hidden" name="p_thumbimg">
-				<button type="button" id="btnSellProduct">상품 등록</button>
+				<div id="divSellProduct">
+					<button type="button" id="btnSellProduct">상품 등록</button>
+				</div>
 			</form>
 		</div>
 		<div class="col-md-2"></div>
