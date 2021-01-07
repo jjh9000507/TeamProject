@@ -25,6 +25,7 @@ import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
+import com.kh.team.domain.MemberVo;
 
 @Service
 public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
@@ -146,4 +147,63 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		return list;
 	}
 
+	@Override
+	public MemberVo AuctionLogin(String m_id, String m_pass) throws Exception {
+		MemberVo memberVo = auctionDao.AuctionLogin(m_id, m_pass);
+		return memberVo;
+	}
+	
+	//-------------- delete --------------------------------------//	
+	@Override
+	public void deleteAuction_bid_date(int p_no) throws Exception {
+		auctionDao.deleteAuction_bid_date(p_no);
+	}
+	@Override
+	public void deleteAuction_bid(int p_no) throws Exception {
+		auctionDao.deleteAuction_bid(p_no);
+		
+	}
+	@Override
+	public void deleteAuction_address(int p_no) throws Exception {
+		auctionDao.deleteAuction_address(p_no);
+	}
+	@Override
+	public void deleteAuction_expration_date(int p_no) throws Exception {
+		auctionDao.deleteAuction_expration_date(p_no);
+	}
+	@Override
+	public void deleteAuction_img(int p_no) throws Exception {
+		auctionDao.deleteAuction_img(p_no);
+	}
+	@Override
+	public void deleteAuction_main_img(int p_no) throws Exception {
+		auctionDao.deleteAuction_main_img(p_no);
+	}
+	@Override
+	public void deleteAuction_register_date(int p_no) throws Exception {
+		auctionDao.deleteAuction_register_date(p_no);
+	}
+	@Override
+	public void deleteAuction_sold_date(int p_no) throws Exception {
+		auctionDao.deleteAuction_sold_date(p_no);
+	}
+	@Override
+	public void deleteAuction(int p_no) throws Exception {
+		auctionDao.deleteAuction(p_no);
+	}
+	//----------------------- delete --------------------------------------//
+
+	@Override
+	@Transactional
+	public void deleteAcutionAll(int p_no) throws Exception {
+		auctionDao.deleteAuction_bid_date(p_no);
+		auctionDao.deleteAuction_bid(p_no);
+		auctionDao.deleteAuction_address(p_no);
+		auctionDao.deleteAuction_expration_date(p_no);
+		auctionDao.deleteAuction_register_date(p_no);
+		auctionDao.deleteAuction_sold_date(p_no);
+		auctionDao.deleteAuction_img(p_no);
+		auctionDao.deleteAuction_main_img(p_no);
+		auctionDao.deleteAuction(p_no);
+	}
 }

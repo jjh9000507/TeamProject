@@ -11,6 +11,7 @@ import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
+import com.kh.team.domain.MemberVo;
 
 public interface AuctionService {
 
@@ -41,4 +42,17 @@ public interface AuctionService {
 	public void insertAuctionMainImg(AuctionMainImgVo auctionMainImgVo) throws Exception;
 	public void insertAuctionImg(AuctionImgVo auctionImgVo) throws Exception;
 	
+	public MemberVo AuctionLogin(String m_id, String m_pass) throws Exception;
+	
+	public void deleteAcutionAll(int p_no) throws Exception;
+	
+	public void deleteAuction_bid_date(int p_no) throws Exception;
+	public void deleteAuction_bid(int p_no) throws Exception;
+	public void deleteAuction_address(int p_no) throws Exception;
+	public void deleteAuction_expration_date(int p_no) throws Exception;
+	public void deleteAuction_img(int p_no) throws Exception;
+	public void deleteAuction_main_img(int p_no) throws Exception;
+	public void deleteAuction_register_date(int p_no) throws Exception;
+	public void deleteAuction_sold_date(int p_no) throws Exception;
+	public void deleteAuction(int p_no) throws Exception;
 }

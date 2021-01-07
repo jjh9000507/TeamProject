@@ -15,7 +15,7 @@ public class FurnitureFileUtil {
 	public static String uploadFile(MultipartFile file, String categoryName) throws Exception {
 		//카테고리에 해당하는 디렉토리를 만든다
 		String directoryPath = uploadFileDirectory + "/" +  categoryName;
-		directoryCheck(directoryPath);
+		mkDirectory(directoryPath);
 		//기존 파일 이름 xxx.jpg
 		String originalName = file.getOriginalFilename();
 		//새로만들 파일 이름
@@ -28,13 +28,26 @@ public class FurnitureFileUtil {
 		return directoryPath+"/"+saveFileName;
 	}
 	
-	private static void directoryCheck(String directoryPath) {
+	private static void mkDirectory(String directoryPath) {
 		
 		File file = new File(directoryPath);
 		//uploadFileDirectory 에 furniture 디렉토리를 만든다
 		if(!file.exists()) {
 			file.mkdirs();
 		}
+	}
+	
+	public static boolean chkDirecotry(String folderName) { // 폴더 이름을 받아서
+		String directoryPath = uploadFileDirectory + "/" +  folderName; //폴더 경로를 붙인다
+		System.out.println("FurnitureFileUtil chkDirecotry:"+ directoryPath);
+		File file = new File(directoryPath);
+		
+		boolean result = false;
+		if(!file.exists()) {
+			result = true;
+		}
+		
+		return result;
 	}
 	
 	private static String makeFileName(String originalName) {
@@ -81,6 +94,16 @@ public class FurnitureFileUtil {
 	
 	public static boolean deleteImage(String fileName) {
 		File f = new File(fileName);
+		if(f.exists()) {
+			f.delete();
+		}
+		
+		return true;
+	}
+	
+	public static boolean deleteFolder(String folderName) {
+		String folderPath = uploadFileDirectory + "/" +  folderName;
+		File f = new File(folderPath);
 		if(f.exists()) {
 			f.delete();
 		}

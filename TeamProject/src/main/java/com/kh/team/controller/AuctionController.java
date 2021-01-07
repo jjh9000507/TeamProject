@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -35,6 +36,7 @@ import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.service.AuctionService;
+import com.kh.team.util.FurnitureFileUtil;
 
 @Controller
 @RequestMapping(value="/auction")
@@ -64,28 +66,37 @@ public class AuctionController implements AuctionS3Key {
 		//버킷 생성
 		//s3Client.createBucket("sdk-new-bucket");
 		
-		for(AuctionImgVo auctionImgVo : imgList) {
+		for(AuctionImgVo localAuctionImgVo : imgList) {//로컬에 없는 폴더를 먼저 고른다
+			String localFolderName = Integer.toString(localAuctionImgVo.getP_no());
 			
-			String fileNamePath =auctionImgVo.getImg_name();
-			int length = fileNamePath.length();
-			int lastSlash = fileNamePath.lastIndexOf("/");
-			String fileName = fileNamePath.substring(lastSlash+1, length);
-			String folderName = Integer.toString(auctionImgVo.getP_no());
+			if(FurnitureFileUtil.chkDirecotry(localFolderName)) {//폴더가 없으면
+				
+				for(AuctionImgVo auctionImgVo : imgList) {
+					
+					String fileNamePath =auctionImgVo.getImg_name();
+					int length = fileNamePath.length();
+					int lastSlash = fileNamePath.lastIndexOf("/");
+					String fileName = fileNamePath.substring(lastSlash+1, length);
+					String folderName = Integer.toString(auctionImgVo.getP_no());
+					
+					if(localFolderName.equals(folderName)) {//폴더가 존재하지 않으면 s3접속 파일을 가지고 온다
+						System.out.println("----------------------- s3 접속 --------------------------------------");
+						String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
+						String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
+						//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+						
+						//파일 다운로드
+						String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
 			
-			String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
-			String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-			//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
-			
-			//파일 다운로드
-			String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
-
-			S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
-			S3ObjectInputStream inputStream = s3Object.getObjectContent();
-			
-			FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));	
-			//s3끝
+						S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
+						S3ObjectInputStream inputStream = s3Object.getObjectContent();
+						
+						FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));
+					}
+					//s3끝
+				}
+			} 
 		}
-		
 		return "auction/auctionMain";
 	}
 	
@@ -114,12 +125,6 @@ public class AuctionController implements AuctionS3Key {
 
 		return "auction/auctionResisterList";
 	}
-	
-//	@RequestMapping(value="/auctionSelected/{pno}", method=RequestMethod.GET)
-//	public String auctionSelected(@PathVariable("pno") String pno) throws Exception{
-//		System.out.println("pno:"+pno);
-//		return "auction/auctionSelected";
-//	}
 	
 	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
 	public String auctionSelected(String p_no, Model model) throws Exception{
@@ -192,6 +197,66 @@ public class AuctionController implements AuctionS3Key {
 		}
 		
 		return intArry;
+	}
+	
+	@RequestMapping(value="/logInCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public String logInCheck(HttpSession session) throws Exception{
+		
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		//System.out.println("memberVo:"+memberVo);
+		
+		String result = "LogOut";
+		//로그인 체크 
+		if(memberVo != null) {
+			result = "LogIn";
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/userCheck", method=RequestMethod.GET)
+	@ResponseBody
+	public String userCheck(String seller, HttpSession session) throws Exception{
+		//System.out.println("seller:"+seller);
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		
+		String result = "different";
+		
+		if(memberVo != null) {
+			if(seller.equals(memberVo.getM_id())){
+				result = "same";
+			}
+		}
+		return result;
+	}
+	
+	@RequestMapping(value="/logIn", method=RequestMethod.GET)
+	@ResponseBody
+	public String logIn(String m_id,String m_pass, HttpSession session) throws Exception{
+		//System.out.println("seller:"+seller);
+		
+		MemberVo memberVo = auctionService.AuctionLogin(m_id, m_pass);
+		
+		String result = "loginFali";
+		if(memberVo != null) {
+			session.setAttribute("memberVo", memberVo);
+			result = "loginSuccess";
+		}
+		
+		return result;
+	}
+	
+	@RequestMapping(value="/auctionDelete", method=RequestMethod.GET)
+	public String auctionDelete(int p_no) throws Exception{
+		//System.out.println("seller:"+seller);
+		
+		auctionService.deleteAcutionAll(p_no);
+		
+		String folderName = Integer.toString(p_no);
+		FurnitureFileUtil.deleteImage(folderName);
+		
+		return "redirect:/auction/auctionResisterList";
 	}
 	
 }

@@ -364,7 +364,7 @@ function makeTwoDigit(num){
 									</td>
 								</tr>
 								<tr>
-									<td>${auctionSellVo.p_content}</td>
+									<td>${auctionSellVo.p_title}</td>
 								</tr>			 				
 								<tr>
 									<td>${auctionSellVo.present_price}</td>
