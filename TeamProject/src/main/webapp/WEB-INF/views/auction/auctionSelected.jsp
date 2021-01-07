@@ -313,15 +313,14 @@ $(function(){
 	2-2. 제품 유저가 아닌 경우 - 입찰하기와 좋아하기 가능
 	*/
 	
-	$("#btnBid").click(function(){
+	$("#btnBid").click(function(){//입찰 버튼을 눌렀을 때
 		var urlLoginCheck = "/auction/logInCheck";
 		
 		$.get(urlLoginCheck, function(data){
 			console.log(data);
-			if(data == "LogOut"){
-				//로그인 페이지로 모달 창
+			if(data == "LogOut"){//로그인 되어있지 않으면
 				console.log("logout");
-				$("#modaLoginAuction").trigger("click");
+				$("#modaLoginAuction").trigger("click");//로그인 페이지로 모달 창
 			}else{
 				console.log("login");
 				
@@ -332,12 +331,12 @@ $(function(){
 						"seller" : seller
 				}
 				
-				$.get(urlUserCheck, data, function(e){
+				$.get(urlUserCheck, data, function(e){//로그인 상태면 로그인 유저와 상품 유저를 비교
 					console.log("e:"+e);
 					if(e == "same"){
-						$(".divBidAndFavorite").hide();
-					}else{
-						//입찰 하기 시작
+						$(".divBidAndFavorite").hide();//같으면 입찰 버튼 감추기
+					}else{//다르면 입찰 하기 시작
+						
 						alert("입찰하기 시작");
 					}
 				});
@@ -345,7 +344,7 @@ $(function(){
 		});
 	});//btnBid
 		
-	$("#btnLogin").click(function(){
+	$("#btnLogin").click(function(){//모달에서 로그인 버튼
 		var m_id = $("#txtId").val();
 		var m_pass = $("#txtPw").val();
 		
