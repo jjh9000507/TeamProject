@@ -47,4 +47,10 @@ public interface AdminDao {
 	
 	//관리자가 게시물 삭제 시 이미지 aws에서 지워야 할 때 파일 이름 가져오기
 	public String imgNameSearch(int p_no2) throws Exception;
+	
+	//이미지 테이블에서 게시물에 올라간 이미지 데이터 지우기
+	public void productImgDelete(int p_no) throws Exception;
+	
+	//첨부파일 명 읽기
+	public String[] getFileName(int p_no);
 }

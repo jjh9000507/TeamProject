@@ -38,7 +38,10 @@ public class WhitegoodsController {
 	@RequestMapping(value="/detailWhitegoods/{w_no}", method=RequestMethod.GET)
 	public String detailWhitegoods(@PathVariable("w_no") int w_no, Model model) throws Exception {
 		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
+		int p_no = whitegoodsVo.getP_no();
+		List<String> productImgList = whitegoodsService.productImgList(p_no);
 		model.addAttribute("whitegoodsVo", whitegoodsVo);
+		model.addAttribute("productImgList", productImgList);
 		return "/whitegoods/detailwhitegoods";
 	}
 

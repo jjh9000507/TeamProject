@@ -12,4 +12,5 @@ public interface WhitegoodsDao {
 	public List<CategoryVo> getCategoryList(String cate_ref) throws Exception;
 	public WhitegoodsVo detailWhitegoods(int w_no) throws Exception;
 	public void userPAlldelete(String m_id) throws Exception;
+	public List<String> productImgList(int p_no) throws Exception;
 }

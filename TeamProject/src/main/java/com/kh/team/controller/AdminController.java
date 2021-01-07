@@ -158,7 +158,13 @@ public class AdminController {
 			}
 		} else if(cate_sub.equals("30")) {
 			//가전제품
-			adminService.adminWhitegoodsDelete(p_no);
+			String[] filenames = adminService.productImgList(p_no2);
+			for(int i = 0; i<filenames.length;i++) {
+				String img_name = filenames[i];
+				UploadFileUtils.delete(img_name);
+			}
+
+			adminService.adminWhitegoodsDelete(p_no, p_no2);
 		}
 		return "success";
 	}

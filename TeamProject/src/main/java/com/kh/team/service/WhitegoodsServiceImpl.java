@@ -49,4 +49,10 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 		whitegoodsDao.userPAlldelete(m_id);
 	}
 
+	@Override
+	public List<String> productImgList(int p_no) throws Exception {
+		List<String> productImgList =whitegoodsDao.productImgList(p_no);
+		return productImgList;
+	}
+
 }

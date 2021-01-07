@@ -57,4 +57,10 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 		
 	}
 
+	@Override
+	public List<String> productImgList(int p_no) throws Exception {
+		List<String> productImgList = sqlSession.selectList(NAMESPACE + "productImgList", p_no);
+		return productImgList;
+	}
+
 }

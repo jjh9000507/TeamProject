@@ -93,8 +93,12 @@ div{
 		<div class="content">
 			${whitegoodsVo.w_content}
 		</div>
-		<div><label>이미지</label></div>
 		
+		<c:forEach var="productImgVo" items="${productImgList}">
+			<div>
+				<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
+			</div>
+		</c:forEach>
 	</div>
 	<div class="col-md-2"></div>
 </div>

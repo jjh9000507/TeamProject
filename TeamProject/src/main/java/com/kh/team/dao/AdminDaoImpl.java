@@ -128,10 +128,28 @@ public class AdminDaoImpl implements AdminDao{
 		return imgNameSearch;
 	}
 
+	//카테고리 선택 시 하위 카테고리 보기
 	@Override
 	public List<CategoryVo> otherCategoryList(String cate_ref) throws Exception {
 		List<CategoryVo> otherCategoryList = sqlSession.selectList(NAMESPACE + "otherCategoryList", cate_ref);
 		return otherCategoryList;
+	}
+	
+	//상품 등록한 이미지들 삭제위한 이름들 가져오기
+	@Override
+	public String[] getFileName(int p_no) {
+		List<String> filenames = sqlSession.selectList(NAMESPACE + "productImgList", p_no);
+		String arr[] = new String[filenames.size()];
+		for(int i = 0; i<arr.length; i++) {
+			arr[i] = filenames.get(i);
+		}
+		return arr;
+	}
+
+	//이미지 테이블 데이터 삭제
+	@Override
+	public void productImgDelete(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "productImgDelete", p_no);
 	}
 
 }
