@@ -11,6 +11,7 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.WhitegoodsVo;
 
 @Service
 public class SellProductServiceImpl implements SellProductService {
@@ -62,15 +63,24 @@ public class SellProductServiceImpl implements SellProductService {
 	}
 
 	@Override
-	public void productImage(ProductImgVo productImgVo) throws Exception {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public List<CategoryVo> firstCategoryList() throws Exception {
 		List<CategoryVo> firstCategoryList = sellProductDao.firstCategoryList();
 		return firstCategoryList;
+	}
+
+	//가전제품 등록
+	@Override
+	public void whitegoodsInsert(WhitegoodsVo whitegoodsVo, ProductImgVo productImgVo) throws Exception {
+		String[] files = productImgVo.getImg_name();
+		int p_no = sellProductDao.getPnoNextval();
+		whitegoodsVo.setP_no(p_no);
+		sellProductDao.whitegoodsInsert(whitegoodsVo);
+		productImgVo.setP_no(p_no);
+		if(files != null && files.length > 0) {
+			for(String img_name : files) {
+				sellProductDao.productImage(img_name, p_no);
+			}
+		}
 	}
 
 

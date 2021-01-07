@@ -13,43 +13,90 @@ $(function(){
 		console.log("productNumber:" + productNumber);
 		priceFinal = price * productNumber;
 		console.log("priceFinal:" + priceFinal);
-		$("#finalPrice").text(priceFinal + "원");
-		
+		$("#finalPrice").text(priceFinal + "원");		
 	});
 	$("#detailProductExpain").click(function() {
 		$("#commentTable").hide();
-		$("#productExplain").text("${buyComputerVo.c_com_content}");
+		$("#productExplainTable").hide();
+		$("#productExplain").text("상품내용:" + "${buyComputerVo.c_com_content}");
 		$("#productExplain").show();
 	});
 	$("#buyAfter").click(function() {
-		
+		$("#productExplain").hide();
+		$("#productExplainTable").hide();
 		$("#commentTable > tbody").empty();
 		var tr = $("#trTable").find("tr").clone();
-		tr.find("td").eq(0).text("제발");
-		tr.find("td").eq(1).text("되라");
-		tr.find("td").eq(2).text("쫌");
-		tr.find("td").eq(3).text("부자");
-		if("${buyComputerVo.c_com_seller}" != null){
-			
+		tr.find("td").eq(0).text("0");
+		tr.find("td").eq(1).text("1");
+		tr.find("td").eq(2).text("${buyComputerVo.c_com_seller}");
+		tr.find("td").eq(3).text("3");
+		if("${buyComputerVo.c_com_seller}" != null){			
 			tr.find("td").eq(4).find("button");
-			tr.find("td").eq(5).find("button");
+			tr.find("td").eq(5).find("button");			
 			}else{
 				tr.find("td").eq(4).empty();
-				tr.find("td").eq(5).empty();
+				tr.find("td").eq(5).empty();				
 			}
 		$("#commentTable").append(tr);	
 		$("#commentTable").show();
 	});
 	$("#inquireProduct").click(function() {
-		
+		$("#commentTable").hide();
+		$("#productExplain").hide();
+		$("#productExplainTable > tbody").empty();
+		var tr = $("#productExplainTrTable").find("tr").clone();
+		tr.find("td").eq(0).text("0");
+		tr.find("td").eq(1).text("1");
+		tr.find("td").eq(2).text("2");
+		tr.find("td").eq(3).text("3");
+		tr.find("td").eq(4).text("4");
+		tr.find("td").eq(5).text("5");
+		$("#productExplainTable").append(tr);	
+		$("#productExplainTable").show();
 	});
+	$("#commentTable").on("click", ".btnCommentModify", function(){
+		$("#modal-modify").trigger("click");
+	});
+	$("#commentTable").on("click", ".btnCommentDelete", function(){
+		alert("구매후기 삭제");
+	});
+	
 });
 </script>
-
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
 <%@ include file="../include/header_mainCatagories.jsp"%>
+<div class="row">
+		<div class="col-md-12">
+			 <a id="modal-modify" href="#modal-container-modify" role="button" style="display: none;" class="btn" data-toggle="modal">Launch demo modal</a>
+			<div class="modal fade" id="modal-container-modify" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">
+								구매후기 수정 폼
+							</h5> 
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							...
+						</div>
+						<div class="modal-footer">							 
+							<button type="button" class="btn btn-primary">
+								변경
+							</button> 
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								닫기
+							</button>
+						</div>
+					</div>					
+				</div>				
+			</div>			
+		</div>
+	</div>
 <br>
 	</div>
 	<div class="col-md-2"></div>
@@ -66,6 +113,9 @@ $(function(){
 		<div class="col-md-12">
 			<nav>
 				<ol class="breadcrumb">
+					<li class="breadcrumb-item">
+						컴퓨터
+					</li>
 					<li class="breadcrumb-item">
 						${indexName[2]}
 					</li>
@@ -91,22 +141,32 @@ $(function(){
 					<td></td>
 					<td>
 					<button type="button"
-							class="btn btn-xs btn-warning btnCommentModify">수정</button>
+							class="btn btn-xs btn-primary btnCommentModify">수정</button>
 					</td>
 					<td>
 					<button type="button"
-							class="btn btn-xs btn-danger btnCommentDelete">삭제</button>
-					</td>
+							class="btn btn-xs btn-warning btnCommentDelete">삭제</button>
+					</td>					
+				</tr>
+			</table>
+<table style="display: none;" id="productExplainTrTable">
+				<tr>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>
+					<td></td>					
 				</tr>
 			</table>
 </nav>
 <nav class="buynav">
 <c:choose>
 <c:when test="${buyComputerVo.c_com_pic == null}">
-<img src="/resources/computerImage/default.png"/>
+<img src="/resources/computerImage/default.png" width=100% height=70%/>
 </c:when>
 <c:otherwise>
-<img src="/resources/image/main_logo2.png"/>
+<img src="/resources/image/main_logo2.png" width=100% height=70%/>
 </c:otherwise>
 </c:choose>
 </nav>
@@ -164,8 +224,8 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							<button>장바구니</button>
-							<button>구매하기</button>
+							<button id="putBasket">장바구니</button>
+							<button id="buyProduct">구매하기</button>
 						</td>						
 					</tr>
 				</tbody>
@@ -185,8 +245,7 @@ $(function(){
 </ul>
 <div class="row">
 		<div class="col-md-12">
-			<p style="display: none;" id="productExplain">
-				
+			<p style="display: none;" id="productExplain">				
 			</p>
 		</div>
 	</div>
@@ -200,10 +259,28 @@ $(function(){
 						<th>작성자</th>
 						<th>날짜</th>
 						<th></th>
-						<th></th>
+						<th></th>						
 					</tr>
 				</thead>
 				<tbody id="tableTbody">
+				</tbody>
+			</table>
+		</div>
+	</div>
+<div class="row">
+		<div class="col-md-12">			
+			<table class="table" id="productExplainTable" style="display: none;">
+				<thead>
+					<tr>
+						<th>번호</th>
+						<th>답변상태</th>
+						<th>문의유형</th>
+						<th>문의제목</th>
+						<th>작성자</th>
+						<th>작성일자</th>						
+					</tr>
+				</thead>
+				<tbody id="productExplainTbody">
 				</tbody>
 			</table>
 		</div>

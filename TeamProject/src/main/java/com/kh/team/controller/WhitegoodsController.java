@@ -51,4 +51,19 @@ public class WhitegoodsController {
 		System.out.println(cate_list);
 		return cate_list;
 	}
+	
+	//수정하기 버튼
+	@RequestMapping(value="/whitegoodsUpdate/{w_no}", method=RequestMethod.GET)
+	public String whitegoodsUpdate(@PathVariable("w_no") int w_no, Model model) throws Exception {
+		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
+		model.addAttribute("whitegoodsVo", whitegoodsVo);
+		return "/whitegoods/whitegoodsUpdate";
+	}
+	
+	//삭제하기
+	@RequestMapping(value="/whitegoodsDelete/{w_no}/{w_seller}", method=RequestMethod.GET)
+	public String whitegoodsDelete() throws Exception {
+		
+		return "redirect:/";
+	}
 }

@@ -142,8 +142,8 @@ public class ComputersController {
 		
 		//컴퓨터제품 정보 불러와서 모델에 저장
 		List<ComputerVo> computerList = computersService.listSearchPrice(firstPrice, lastPrice, confirmList);
-		System.out.println("computerList_price:" + computerList);
 		model.addAttribute("computerList", computerList);
+		System.out.println("computerList_price:" + computerList);
 		
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", confirmList);
@@ -189,13 +189,13 @@ public class ComputersController {
 		
 		//컴퓨터제품 정보 불러와서 모델에 저장
 		List<ComputerVo> computerList = computersService.listArray(checkList);
-        System.out.println("computerList_check:" + computerList);
 		model.addAttribute("computerList", computerList);
+        System.out.println("computerList_check:" + computerList);
 		
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", checkList);
 		return "/computerProduct/computersForm";
-	}		
+	}
 	
 	//선택한 컴퓨터 상품정보 보기
 	@RequestMapping(value="/detailComputerForm/{p_no}", method=RequestMethod.GET)
@@ -207,17 +207,15 @@ public class ComputersController {
 	}
 	
 	//컴퓨터 구매하기 폼으로 가기
-		@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
-		public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model,HttpServletRequest request) throws Exception {
-			ComputerVo computerVo = computersService.buyComputerProduct(p_no);
-			String c_com_cate_no = computerVo.getC_com_cate_no();
-			System.out.println("buyFormUsed + c_com_cate_no:" + c_com_cate_no);
-			String[] indexName = computersService.buyCategoryInfoGet(c_com_cate_no);
-			model.addAttribute("buyComputerVo", computerVo);
-			request.setAttribute("indexName", indexName);
-			System.out.println("computerVo_Buy:" + computerVo);
-			return "/computerProduct/buyComputerProduct";
-		}
-	
-	
+	@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
+	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model,HttpServletRequest request) throws Exception {
+		ComputerVo computerVo = computersService.buyComputerProduct(p_no);
+		String c_com_cate_no = computerVo.getC_com_cate_no();
+		System.out.println("buyFormUsed + c_com_cate_no:" + c_com_cate_no);
+		String[] indexName = computersService.buyCategoryInfoGet(c_com_cate_no);
+		model.addAttribute("buyComputerVo", computerVo);
+		request.setAttribute("indexName", indexName);
+		System.out.println("computerVo_Buy:" + computerVo);
+		return "/computerProduct/buyComputerProduct";
+	}	
 }

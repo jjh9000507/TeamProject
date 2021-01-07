@@ -4,6 +4,9 @@
 
 <%@ include file="../include/header.jsp"%>
 <style>
+div{
+	text-align: center;
+}
 .content{
 	text-align: center;
 	font-size: 25px;
@@ -75,7 +78,10 @@
 		<li><button type="button" class="btn btndetail sell" id="btnSell">구매하기</button></li>
 	</ul>
 </div>
-
+<c:if test="${sessionScope.memberVo.m_id == whitegoodsVo.w_seller}">
+	<div><a href="/whitegoods/whitegoodsUpdate/${whitegoodsVo.w_no}">수정하기</a></div>
+	<div><a href="/whitegoods/whitegoodsDelete/${whitegoodsVo.w_no}/${whitegoods.w_seller}">삭제하기</a></div>
+</c:if>
 	</div>
 	<div class="col-md-2"></div>
 </div>
@@ -87,6 +93,7 @@
 		<div class="content">
 			${whitegoodsVo.w_content}
 		</div>
+		<div><label>이미지</label></div>
 		
 	</div>
 	<div class="col-md-2"></div>
