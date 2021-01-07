@@ -128,6 +128,20 @@
 		select * from auction_img where p_no = #{p_no}
 	</select>
 	
+	<!-- 입찰 시작 -->
+	<select id="getAuctionTempBid" resultType="AuctionTempBidVo">
+		select * from auction_temp_bid where p_no = #{p_no}
+	</select>
+	
+	<select id="getAuctionBid" resultType="AuctionBidVo">
+		select * from auction_bid where p_no = #{p_no}
+	</select>
+	
+	<select id="getAuctoinTempBidMaxPrice" resultType="String">
+		select max(temp_bid_price) from auction_temp_bid where p_no = #{p_no}
+	</select>
+	<!-- 입찰 끝 -->
+	
 	<insert id="insertAuction">
 		insert into AUCTION(p_no, seller, p_title, p_content, present_price, instant_price)
 		values(SEQ_AUCTION_PNO.nextval ,#{seller}, #{p_title}, #{p_content},#{present_price} ,#{instant_price})
@@ -167,11 +181,11 @@
 	</select>
 	
 	<!-- delete 시작 -->
-	<delete id="deleteAuction_bid_date">
-		delete from auction_bid_date where bid_no = (select bid_no from auction_bid where p_no=#{p_no})
-	</delete>
 	<delete id="deleteAuction_bid">
-		delete from auction_bid where p_no=#{p_no}
+		select * from auction_bid where p_no =#{p_no}
+	</delete>
+	<delete id="deleteAuction_temp_bid">
+		delete from auction_temp_bid where p_no=#{p_no}
 	</delete>
 	<delete id="deleteAuction_address">
 		delete from auction_address where p_no=#{p_no}
