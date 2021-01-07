@@ -10,11 +10,6 @@
 		order by w_no desc
 	</select>
 	
-	<insert id="insertWhitegoods">
-		insert into whitegoods(w_no, w_name, w_seller, w_price, cate_no, w_content, w_thumbimg, p_no)
-		values (seq_whitegoods_no.nextval, #{w_name}, #{w_seller}, #{w_price}, #{cate_no}, #{w_content}, #{w_thumbimg}, seq_product_no.nextval)
-	</insert>
-	
 	<update id="updateWhitegoods">
 		update whitegoods set
 			w_name = #{w_name},

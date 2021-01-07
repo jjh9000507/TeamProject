@@ -100,4 +100,14 @@ public class FurnitureFileUtil {
 		
 		return true;
 	}
+	
+	public static boolean deleteFolder(String folderName) {
+		String folderPath = uploadFileDirectory + "/" +  folderName;
+		File f = new File(folderPath);
+		if(f.exists()) {
+			f.delete();
+		}
+		
+		return true;
+	}
 }

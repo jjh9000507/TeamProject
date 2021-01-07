@@ -165,4 +165,36 @@
 	<select id="AuctionLogin" resultType="MemberVo">
 		select * from member where m_id=#{m_id} and m_pass=#{m_pass}
 	</select>
+	
+	<!-- delete 시작 -->
+	<delete id="deleteAuction_bid_date">
+		delete from auction_bid_date where bid_no = (select bid_no from auction_bid where p_no=#{p_no})
+	</delete>
+	<delete id="deleteAuction_bid">
+		delete from auction_bid where p_no=#{p_no}
+	</delete>
+	<delete id="deleteAuction_address">
+		delete from auction_address where p_no=#{p_no}
+	</delete>
+	<delete id="deleteAuction_expration_date">
+		delete from auction_expiration_date where p_no=#{p_no}
+	</delete>
+	<delete id="deleteAuction_img">
+		delete from auction_img where p_no=#{p_no}
+	</delete>
+	<delete id="deleteAuction_main_img">
+		delete from auction_main_img where p_no=#{p_no}
+	</delete>
+	<delete id="deleteAuction_register_date">
+		delete from auction_register_date where p_no=#{p_no}
+	</delete>
+	<delete id="deleteAuction_sold_date">
+		delete from auction_sold_date where p_no=#{p_no}
+	</delete>
+	<delete id="deleteAuction">
+		delete from auction where p_no=#{p_no}
+	</delete>
+	
+	
+	
 </mapper>
