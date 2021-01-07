@@ -77,7 +77,7 @@ $(function(){
 
 
 		<div style="padding-top: 150px;">
-			<div class="row listMain" style="position:relative;top:-330px;left:15%;">
+			<div class="row listMain" style="position:relative;left:15%;">
 
 				<div class="col-md-8 productList">
 					
