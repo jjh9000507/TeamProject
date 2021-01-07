@@ -7,6 +7,30 @@ import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 
 public interface AdminDao {
+	
+	//관리자페이지 전체 회원정보 가져오기
+	public List<MemberVo> adminMemberSearch() throws Exception;
+	//관리자페이지 회원정보 삭제
+	public void adminMemberDelete(String m_id) throws Exception;
+	//판매자 권한 박탈 데이터 삭제
+	public void adminSanctionDelete(String m_id) throws Exception;
+	//카트에 상품담은 회원 삭제
+	public void adminCartDelete(String m_id) throws Exception;
+	//해당 회원 의류상품 삭제
+	public void adminMemberClothesDelete(String m_id) throws Exception;
+	//해당 회원 컴퓨터상품 삭제
+	public void adminMemberComputerDelete(String m_id) throws Exception;
+	//해당 회원 가전제품상품 삭제
+	public void adminMemberWhitegoodsDelete(String m_id) throws Exception;
+	//해당 회원 가구(침구) 상품 삭제
+	public void adminMemberFBedDelete(String m_id) throws Exception;
+	//해당 회원 가구(인테리어) 상품 삭제
+	public void adminMemberFInteriorDelete(String m_id) throws Exception;
+	//해당 회원 가구(주방) 상품 삭제
+	public void adminMemberFKitchenDelete(String m_id) throws Exception;
+	//해당 회원 가구(생활) 상품 삭제
+	public void adminMemberFLifeDelete(String m_id) throws Exception;
+	
 	//상품 목록 전체 가져오기
 	public List<ProductVo> allProductList() throws Exception;
 	//의류 상품 삭제

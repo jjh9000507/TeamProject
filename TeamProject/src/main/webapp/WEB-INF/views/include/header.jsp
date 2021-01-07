@@ -157,7 +157,7 @@ $(function(){
 						
 					</c:choose>						
 					<a href="/cart/cartPage" class="btn btn-link topHeader-button">장바구니</a>
-					<a type="button" class="btn btn-link topHeader-button">고객 센터</a>
+					<a href="/service/serviceMain" class="btn btn-link topHeader-button">고객 센터</a>
 	
 					<c:if test="${sessionScope.memberVo.admin_check == 1}">
 						<a href="/admin/adminForm" class="btn btn-link topHeader-button">관리자 페이지</a>

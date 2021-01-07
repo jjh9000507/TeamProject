@@ -16,7 +16,6 @@ import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.SanctionVo;
 import com.kh.team.service.AdminService;
-import com.kh.team.service.MemberService;
 import com.kh.team.service.SanctionService;
 import com.kh.team.service.WhitegoodsService;
 import com.kh.team.util.UploadFileUtils;
@@ -27,9 +26,6 @@ public class AdminController {
 	
 	@Inject
 	private SanctionService sanctionService;
-	
-	@Inject
-	private MemberService memberService;
 	
 	@Inject
 	private WhitegoodsService whitegoodsService;
@@ -68,7 +64,7 @@ public class AdminController {
 	//관리자 회원관리-회원관리 페이지
 	@RequestMapping(value="/adminMemberCon", method=RequestMethod.GET)
 	public String adminMemberCon(Model model) throws Exception {
-		List<MemberVo> memberList = memberService.adminMemberSearch();
+		List<MemberVo> memberList = adminService.adminMemberSearch();
 		model.addAttribute("memberList", memberList);
 		return "/admin/a_m_con";
 	}
@@ -103,8 +99,8 @@ public class AdminController {
 	@RequestMapping(value="/adminMemberDelete/{m_id}", method=RequestMethod.GET)
 	public String adminMemberDelete(@PathVariable("m_id") String m_id, Model model) throws Exception{
 		whitegoodsService.userPAlldelete(m_id);
-		memberService.adminMemberDelete(m_id);
-		List<MemberVo> memberList = memberService.adminMemberSearch();
+		adminService.adminMemberDelete(m_id);
+		List<MemberVo> memberList = adminService.adminMemberSearch();
 		model.addAttribute("memberList", memberList);
 		return "/admin/a_m_con";
 	}

@@ -1,7 +1,4 @@
 package com.kh.team.service;
-
-import java.util.List;
-
 import com.kh.team.domain.MemberVo;
 
 
@@ -21,9 +18,6 @@ public interface MemberService {
 	// 회원정보 변경하기(문자이용)
 	public int memberVoInfoChange(MemberVo memberVo) throws Exception;
 	
-	//관리자페이지 전체 회원정보 가져오기
-	public List<MemberVo> adminMemberSearch() throws Exception;
-	//관리자페이지 회원정보 삭제
-	public void adminMemberDelete(String m_id) throws Exception;
+	
 	
 }

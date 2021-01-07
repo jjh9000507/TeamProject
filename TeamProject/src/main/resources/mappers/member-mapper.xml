@@ -40,14 +40,6 @@
 		where m_id = #{m_id}				
 	</update>
 	
-	<select id="adminMemberSearch" resultType="MemberVo">
-		select * from member
-		where ADMIN_CHECK != 1
-	</select>
 	
-	<delete id="adminMemberDelete">
-		delete from member
-		where m_id = #{m_id}
-	</delete>
 	
 </mapper>

@@ -17,6 +17,30 @@ public class AdminServiceImpl implements AdminService{
 	@Inject
 	private AdminDao adminDao;
 	
+	
+	//회원 삭제 페이지에 필요한 회원 목록
+	@Override
+	public List<MemberVo> adminMemberSearch() throws Exception {
+		List<MemberVo> memberList = adminDao.adminMemberSearch();
+		return memberList;
+	}
+
+	//회원 삭제
+	@Override
+	public void adminMemberDelete(String m_id) throws Exception {
+		adminDao.adminMemberClothesDelete(m_id);
+		adminDao.adminMemberComputerDelete(m_id);
+		adminDao.adminMemberWhitegoodsDelete(m_id);
+		adminDao.adminMemberFBedDelete(m_id);
+		adminDao.adminMemberFInteriorDelete(m_id);
+		adminDao.adminMemberFKitchenDelete(m_id);
+		adminDao.adminMemberFLifeDelete(m_id);
+		adminDao.adminCartDelete(m_id);
+		adminDao.adminSanctionDelete(m_id);
+		adminDao.adminMemberDelete(m_id);
+	}	
+	
+	
 	//게시물 삭제 페이지 들어갔을 때 모든 게시물 보기
 	@Override
 	public List<ProductVo> allProductList() throws Exception {
