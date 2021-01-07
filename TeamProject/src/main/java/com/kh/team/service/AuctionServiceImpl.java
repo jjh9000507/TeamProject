@@ -92,22 +92,25 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		String folderName = Integer.toString(auctionImgVo.getP_no());
 		
 		String[] images = auctionImgVo.getImages();
-		for(int i=0 ; i<images.length ; i++) {
-
-			//images[i]에는 경로가 포함되어있으니깐 이름만 추출한다
-			String fileNamePath = images[i];
-			int length = fileNamePath.length();
-			int lastSlash = fileNamePath.lastIndexOf("/");
-			String fileName = fileNamePath.substring(lastSlash+1, length);
-			String filePath = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//저장할 파일 위치
+		if(images != null) {
+			System.out.println("-----------------------AuctionServiceImpl s3 접속 --------------------------------------");
+			for(int i=0 ; i<images.length ; i++) {
+	
+				//images[i]에는 경로가 포함되어있으니깐 이름만 추출한다
+				String fileNamePath = images[i];
+				int length = fileNamePath.length();
+				int lastSlash = fileNamePath.lastIndexOf("/");
+				String fileName = fileNamePath.substring(lastSlash+1, length);
+				String filePath = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//저장할 파일 위치
+				
+				String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
+				String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
+				//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+				s3Client.putObject(bucketName,bucketKey,new File(filePath));
 			
-			String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
-			String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-			//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
-			s3Client.putObject(bucketName,bucketKey,new File(filePath));
-		
-			auctionImgVo.setImg_name(images[i]);
-			auctionDao.insertAuctionImg(auctionImgVo);
+				auctionImgVo.setImg_name(images[i]);
+				auctionDao.insertAuctionImg(auctionImgVo);
+			}
 		}
 	}
 

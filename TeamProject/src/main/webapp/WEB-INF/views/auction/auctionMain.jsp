@@ -51,7 +51,7 @@ $(function(){
 			resultMinute = e_minute - nowMinute;
 			resultSecond = e_second - nowSecond;
 
-			console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
+			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
 			
 			var addMonth = 12;
 			var addDate = new Date(nowYear, nowMonth-1, 0).getDate();
@@ -240,43 +240,50 @@ $(function(){
 			
 			//마감 날짜와 현재 시간을 뺀 값을 this값에 넣는다 
 			$(this).text(resultHour+":"+resultMinute+":"+resultSecond);
+			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate);
+			//console.log("resultHour:resultMinute:resultSecond:"+resultHour+":"+resultMinute+":"+resultSecond);
+			$(this).attr("resultYear",resultYear);
+			$(this).attr("resultMonth",resultMonth);
+			$(this).attr("resultDate",resultDate);
 			
 			//입력된 텀 시간을 불러와서 카운드 다운한다
+			
 			var that = $(this);
 			countDown[index] = setInterval(function(){
+				
+				var resultCountYear = that.attr("resultYear");
+				var resultCountMonth = that.attr("resultMonth");
+				var resultCountDate = that.attr("resultDate");
+				//console.log("resultCountYear:"+resultCountYear+" ,resultCountMonth:"+resultCountMonth+" ,resultDate:"+resultDate);
+	
 				var timeValue = that.text();
 				//console.log("timeValue:"+timeValue);
 				var timeArray = timeValue.split(":");
 				//console.log(timeArray[0]+" ,"+ timeArray[1]);
-				var hour = timeArray[0];
-				var minute = timeArray[1];
-				var second = timeArray[2];
+				var hour = timeArray[0].trim();
+				var minute = timeArray[1].trim();
+				var second = timeArray[2].trim();
+				console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 				
-				if(hour>0){
+				if(second <= 0){
 					if(minute>0){
-						if(second==0){
-							second=60;
-							minute--;
+						minute--;
+						second += 60;
+					}else{
+						if(hour>0){
+							hour--;
+							minute += 59;
+							second += 60;
 						}else{
-							second--;
+							hour = 0;
+							minute = 0;
+							second = 0;
 						}
-					}else if(minute<=0){
-						hour--;
-						minute=60;
 					}
-				}else if(hour<=0){
-					if(minute>0){
-						if(second==0){
-							second=60;
-							minute--;
-						}else{
-							second--;
-						}	
-					}else if(minute<=0){
-						hour=0;
-						minute=0;
-					}
+				}else{
+					second--;
 				}
+				
 				console.log("index:"+index+"hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 				
 				var twoDigitHour = makeTwoDigit(hour);
@@ -286,13 +293,14 @@ $(function(){
 				
 				that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
 			},1000);
+			
 		});	
 		
 	});//document.ready
 	
 	$("#stopTimer").click(function(){
 		var len = $(".divCountDown").length;
-		console.log("len:"+len);
+		//console.log("len:"+len);
 		for(var i=0 ; i<len ; i++){
 			clearInterval(countDown[i]);			
 		}
@@ -322,7 +330,8 @@ $(function(){
 });//function
 
 function makeTwoDigit(num){
-	var len = num.length;
+	console.log("makeTwoDigit num:"+num);
+	var len = num.toString().length;
 	console.log("makeTwoDigit len:"+len);
 	if(len < 2){
 		num = "0"+num;
@@ -331,7 +340,7 @@ function makeTwoDigit(num){
 }
 
 </script>
-
+<input type="hidden" id="hiddenDate">
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
 <div class="container-fluid">
 <div class="row">
