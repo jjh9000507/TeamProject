@@ -89,7 +89,7 @@ public class AuctionDaoImpl implements AuctionDao{
 	@Override
 	public void insertAuctionImg(AuctionImgVo auctionImgVo) throws Exception {
 		System.out.println("DaoImpl auctionImgVo:"+auctionImgVo);
-		sqlSession.insert(NAMESPACE+"insertAuctionImg", auctionImgVo);
+		//sqlSession.insert(NAMESPACE+"insertAuctionImg", auctionImgVo);
 	}
 
 	@Override

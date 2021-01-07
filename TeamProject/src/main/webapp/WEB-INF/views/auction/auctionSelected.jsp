@@ -5,12 +5,14 @@
 <%@ include file="../include/header.jsp"%>
 
 <script>
+
+var countDown=[];
+
 $(function(){
-	var countDown=[];
+	
 	
 	$(document).ready(function() { 
 		$(".divCountDown").each(function(index){
-			
 			//상품 유저와 로그인 유저가 같으면 입찰과 장바구니 버튼을 감춘다
 			var urlUserCheck = "/auction/userCheck";
 			var seller = $("#seller").val();
@@ -249,6 +251,8 @@ $(function(){
 			//입력된 텀 시간을 불러와서 카운드 다운한다
 			var that = $(this);
 			countDown[index] = setInterval(function(){
+				
+				var indexCatch = index;//임버터를 멈추게 하기 위해서 index를 따로 저장
 				var timeValue = that.text();
 				//console.log("timeValue:"+timeValue);
 				var timeArray = timeValue.split(":");
@@ -257,32 +261,26 @@ $(function(){
 				var minute = timeArray[1];
 				var second = timeArray[2];
 				
-				if(hour>0){
+				if(second <= 0){
 					if(minute>0){
-						if(second==0){
-							second=60;
-							minute--;
+						minute--;
+						second += 60;
+					}else{
+						if(hour>0){
+							hour--;
+							minute += 59;
+							second += 60;
 						}else{
-							second--;
+							hour = 0;
+							minute = 0;
+							second = 0;
 						}
-					}else if(minute<=0){
-						hour--;
-						minute=60;
 					}
-				}else if(hour<=0){
-					if(minute>0){
-						if(second==0){
-							second=60;
-							minute--;
-						}else{
-							second--;
-						}	
-					}else if(minute<=0){
-						hour=0;
-						minute=0;
-					}
+				}else{
+					second--;
 				}
-				console.log("index:"+index+"hour:"+hour+" ,minute:"+minute+" ,second:"+second);
+				
+				console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 				
 				var twoDigitHour = makeTwoDigit(hour);
 				var twoDigitMinute = makeTwoDigit(minute);
@@ -290,6 +288,15 @@ $(function(){
 				console.log("twoDigitSecond:"+twoDigitSecond);
 				
 				that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
+				
+				if(hour=='00' && minute=='00' && second=='00'){
+					//$("#stopTimer").trigger("click");
+					//alert("전부 00");
+					$(".divBidAndFavorite").hide();
+					$(".divBidEnd").show();
+					stopCountIndex(index);
+				}
+				
 			},1000);
 		});	
 		
@@ -383,18 +390,22 @@ $(function(){
 });//function
 
 function makeTwoDigit(num){
-	var len = num.length;
+	var len = num.toString().length;
 	console.log("makeTwoDigit len:"+len);
 	if(len < 2){
 		num = "0"+num;
 	}
 	return num;
 }
+
+function stopCountIndex(indexCatch){
+	clearInterval(countDown[indexCatch]);
+}
 </script>
 
 ${sessionScope.memberVo}
 <input type="hidden" id="seller" value="${selectedItem.seller}">
-
+<a href="/auction/excercise">연습하기</a>
 <!-- 로그인 모달 창 시작-->
 <div class="col-md-12">
 	<a id="modaLoginAuction" href="#modal-container-525134" role="button"
@@ -482,6 +493,9 @@ ${sessionScope.memberVo}
 					<!-- 버튼 tr 시작 -->
 					<tr class="table-active">
 						<td>
+							<div class="divBidEnd" style="display:none">
+								<h1>입찰 기간이 종료 되었습니다</h1>
+							</div>
 							<div class="col-md-12 divBidAndFavorite">
 								<button type="button" id="btnBid" class="btn btn-outline-secondary">
 									입찰하기</button>
