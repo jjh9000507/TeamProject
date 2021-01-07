@@ -292,6 +292,16 @@ $(function() {
 			
 			$("#btnModalCloseAuction").trigger("click");
 		});
+		
+		$(".btnDelAuction").click(function(e){
+			e.preventDefault();
+			var p_no = $(this).attr("data-pno");
+			
+			alert(p_no);
+			
+			location.href="/auction/auctionDelete?p_no="+p_no;
+			
+		});
 });//function	
 
 	//--- 엔터키 ---//
@@ -398,7 +408,7 @@ $(function() {
 														<p class="card-text">마감일:${auctionSellVo.e_year}/${auctionSellVo.e_month}/${auctionSellVo.e_day}</p>
 														<p>
 															<a class="btn btn-outline-primary" href="#">수정</a> 
-															<a class="btn btn-outline-danger" href="#">삭제</a>
+															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${auctionSellVo.p_no}">삭제</a>
 														</p>
 													</div>
 												</div>
@@ -429,10 +439,10 @@ $(function() {
 														<p class="card-text">구매자:${auctionSoldVo.purchaser}</p>
 														<p class="card-text">등록일:${auctionSoldVo.r_year}/${auctionSoldVo.r_month}/${auctionSoldVo.r_day}</p>
 														<p class="card-text">판매된날짜:${auctionSoldVo.s_year}/${auctionSoldVo.s_month}/${auctionSoldVo.s_day}</p>
-														<p>
-															<a class="btn btn-outline-primary" href="#">수정</a> 
-															<a class="btn btn-outline-danger" href="#">삭제</a>
-														</p>
+<!-- 														<p> -->
+<!-- 															<a class="btn btn-outline-primary" href="#">수정</a>  -->
+<!-- 															<a class="btn btn-outline-danger" href="#">삭제</a> -->
+<!-- 														</p> -->
 													</div>
 												</div>
 											</div>

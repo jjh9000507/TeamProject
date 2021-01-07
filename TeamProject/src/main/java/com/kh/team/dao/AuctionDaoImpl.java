@@ -127,4 +127,49 @@ public class AuctionDaoImpl implements AuctionDao{
 		
 		return memberVo;
 	}
+
+	@Override
+	public void deleteAuction_bid_date(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_bid_date", p_no);
+	}
+
+	@Override
+	public void deleteAuction_bid(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_bid", p_no);
+	}
+
+	@Override
+	public void deleteAuction_address(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_address", p_no);
+	}
+
+	@Override
+	public void deleteAuction_expration_date(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_expration_date", p_no);
+	}
+
+	@Override
+	public void deleteAuction_img(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_img", p_no);
+	}
+
+	@Override
+	public void deleteAuction_main_img(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_main_img", p_no);
+	}
+
+	@Override
+	public void deleteAuction_register_date(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_register_date", p_no);
+	}
+
+	@Override
+	public void deleteAuction_sold_date(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_sold_date", p_no);
+	}
+
+	@Override
+	public void deleteAuction(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction", p_no);
+	}
 }

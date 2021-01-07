@@ -66,31 +66,37 @@ public class AuctionController implements AuctionS3Key {
 		//버킷 생성
 		//s3Client.createBucket("sdk-new-bucket");
 		
-		for(AuctionImgVo auctionImgVo : imgList) {
+		for(AuctionImgVo localAuctionImgVo : imgList) {//로컬에 없는 폴더를 먼저 고른다
+			String localFolderName = Integer.toString(localAuctionImgVo.getP_no());
 			
-			String fileNamePath =auctionImgVo.getImg_name();
-			int length = fileNamePath.length();
-			int lastSlash = fileNamePath.lastIndexOf("/");
-			String fileName = fileNamePath.substring(lastSlash+1, length);
-			String folderName = Integer.toString(auctionImgVo.getP_no());
+			if(FurnitureFileUtil.chkDirecotry(localFolderName)) {//폴더가 없으면
+				
+				for(AuctionImgVo auctionImgVo : imgList) {
+					
+					String fileNamePath =auctionImgVo.getImg_name();
+					int length = fileNamePath.length();
+					int lastSlash = fileNamePath.lastIndexOf("/");
+					String fileName = fileNamePath.substring(lastSlash+1, length);
+					String folderName = Integer.toString(auctionImgVo.getP_no());
+					
+					if(localFolderName.equals(folderName)) {//폴더가 존재하지 않으면 s3접속 파일을 가지고 온다
+						System.out.println("----------------------- s3 접속 --------------------------------------");
+						String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
+						String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
+						//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+						
+						//파일 다운로드
+						String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
 			
-			if(FurnitureFileUtil.chkDirecotry(folderName)) {//폴더가 존재하지 않으면 s3접속 파일을 가지고 온다
-				System.out.println("----------------------- s3 접속 --------------------------------------");
-				String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
-				String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-				//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
-				
-				//파일 다운로드
-				String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
-	
-				S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
-				S3ObjectInputStream inputStream = s3Object.getObjectContent();
-				
-				FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));
-			}
-			//s3끝
+						S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
+						S3ObjectInputStream inputStream = s3Object.getObjectContent();
+						
+						FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));
+					}
+					//s3끝
+				}
+			} 
 		}
-		
 		return "auction/auctionMain";
 	}
 	
@@ -239,6 +245,18 @@ public class AuctionController implements AuctionS3Key {
 		}
 		
 		return result;
+	}
+	
+	@RequestMapping(value="/auctionDelete", method=RequestMethod.GET)
+	public String auctionDelete(int p_no) throws Exception{
+		//System.out.println("seller:"+seller);
+		
+		auctionService.deleteAcutionAll(p_no);
+		
+		String folderName = Integer.toString(p_no);
+		FurnitureFileUtil.deleteImage(folderName);
+		
+		return "redirect:/auction/auctionResisterList";
 	}
 	
 }
