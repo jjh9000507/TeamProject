@@ -4,9 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/computersForm_css.css" %>
 <%@ include file="../include/header.jsp"%>
-
 <script>
-
 $(function() {
 	var inputCheckbox = $(".checkB");
 	var inputCheckForm = $("#divData");
@@ -120,21 +118,17 @@ $(function() {
 		}
 		});
 });
-</script>
-	
+</script>	
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
 <%@ include file="../include/header_mainCatagories.jsp"%>
 <br>
-
 	</div>
 	<div class="col-md-2"></div>
-</div>		
-		
+</div>			
 		<br>
-		<br>
-		
+		<br>		
 <form class="backList" style="display: none;">
 <c:forEach var="cate_no_list" items="${cate_no_confirm}">	
 <input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
@@ -149,13 +143,10 @@ $(function() {
 </div>
 </form>
 <div class="computersFormDiv">
-
 <header class="header">
 <c:if test="${categoryInfo != null}">
 <label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
-
 &nbsp<button id="computersBack" class="btn btn-warning btn-xs">뒤로</button>
-
 <ul class="nav nav-tabs computerFormListMenuItem">
 <c:forEach var="CategoryVo" items="${categoryInfo}">
 <li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
@@ -163,16 +154,11 @@ $(function() {
 </li>
 </c:forEach>
 </ul>
-
 </c:if>
 <form id="frmData" action="/computerProduct/computersFormCheck" method="post">
-	<div id="divData" style="display:none;">
-		
+	<div id="divData" style="display:none;">		
 	</div>
 </form>
-
-
-
 </header>
 <aside class="asideUp">
 <a href="http://www.auction.co.kr/" target="_blank" title="제휴사이트입니다.">
@@ -205,14 +191,11 @@ $(function() {
 					검색
 					</button>
 				</div>				
-			</form>			
-
-
+			</form>	
 </nav>
 <section class="section">
 <div class="col-md-12">
-	<c:forEach var="ComputerVo" items="${computerList}">
-	
+	<c:forEach var="ComputerVo" items="${computerList}">	
 						<table class="computerTable">
 							<thead class="computerThead">
 								<tr>
@@ -260,8 +243,7 @@ $(function() {
 										<a href="/computerProduct/buyComputerProduct/${ComputerVo.p_no}">상품구매하기</a>
 									</td>
 								</tr>
-							</tbody>
-			
+							</tbody>			
 						</table>
 						<hr>
 					</c:forEach>
@@ -296,6 +278,3 @@ $(function() {
 </a>
 </aside>
 </div>
-
-
-
