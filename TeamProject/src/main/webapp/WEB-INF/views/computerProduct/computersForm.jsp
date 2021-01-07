@@ -129,7 +129,7 @@ $(function() {
 </div>			
 		<br>
 		<br>		
-<form class="backList" style="display: none;">
+<form class="backList"  style="display: none;">
 <c:forEach var="cate_no_list" items="${cate_no_confirm}">	
 <input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
 </c:forEach>

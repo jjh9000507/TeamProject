@@ -33,6 +33,23 @@ $(function(){
 // 		startNum = startNum + 1;
 	});
 	
+	// 메인 카테고리 스크롤 이동 시에 따라오기
+	$(window).scroll(function() {
+		var position = $(window).scrollTop(); // 현재 스크롤 위치
+		
+		if(position >= 200) {
+			$(".borderAllCategory").css("position" , "fixed");	
+			$(".borderAllCategory").css("top" , "0");	
+			$(".borderAllCategory").css("z-index" , "2");	
+			$(".borderAllCategory").css("background" , "white");	
+		} else if (position <= 200) {
+			$(".borderAllCategory").css("position" , "");	
+			$(".borderAllCategory").css("top" , "");	
+			$(".borderAllCategory").css("z-index" , "");	
+			$(".borderAllCategory").css("background" , "");
+		}
+	});
+	
 }); // main function
 
 
@@ -113,7 +130,7 @@ $(function(){
 			<div class="row listMain">
 					
 			</div>
-				<div class="col-md-8 productList">
+				<div class="col-md-8 productList" style="left: 25%;">
 					
 					<!-- 히든(복사) 데이터 -->
 					<ul class="nav nav-pills list" style="display:none;">

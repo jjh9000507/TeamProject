@@ -7,7 +7,7 @@
 	<select id="getComptersProductList" resultType="ComputerVo">
 		select * from computer_product 
 		where c_com_cate_no like #{c_com_cate_no} || '%'
-		order by p_no desc
+		order by p_no asc
 	</select>
 	<select id="buyComputerProduct" resultType="ComputerVo">
 		select * from computer_product 
@@ -29,6 +29,7 @@
 				or c_com_cate_no like #{cate_no3} || '%'
 				or c_com_cate_no like #{cate_no4} || '%'
 				or c_com_cate_no like #{cate_no5} || '%')
+				order by p_no asc
 				 
 	</select>
 	<select id="getComptersProductListPrice" resultType="ComputerVo">
@@ -41,6 +42,7 @@
 				or c_com_cate_no like #{cate_no3} || '%'
 				or c_com_cate_no like #{cate_no4} || '%'
 				or c_com_cate_no like #{cate_no5} || '%')
+				order by p_no asc
 				 
 	</select>
 	<select id="getComptersProductListArray" resultType="ComputerVo">
@@ -57,7 +59,7 @@
 					#{cate_no4} || '%'
 						or c_com_cate_no like 
 					#{cate_no5} || '%'
-						order by p_no desc
+						order by p_no asc
 
 		
 	</select>
