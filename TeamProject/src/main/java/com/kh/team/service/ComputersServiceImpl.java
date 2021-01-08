@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.ComputersDao;
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
+import com.kh.team.domain.ProductExplainVo;
 
 @Service
 public class ComputersServiceImpl implements ComputersService {
@@ -80,6 +82,18 @@ public class ComputersServiceImpl implements ComputersService {
 	@Override
 	public int getSearchById(String c_com_seller) throws Exception {
 		int count = computersDao.getSearchById(c_com_seller);
+		return count;
+	}
+
+	@Override
+	public int buyComputerComment(String c_com_product) throws Exception {
+		int count = computersDao.buyComputerComment(c_com_product);
+		return count;
+	}
+
+	@Override
+	public int buyComputerExplain(String c_com_product) throws Exception {
+		int count = computersDao.buyComputerExplain(c_com_product);
 		return count;
 	}
 	
