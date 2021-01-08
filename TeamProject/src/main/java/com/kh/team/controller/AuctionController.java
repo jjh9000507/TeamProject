@@ -29,6 +29,7 @@ import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
+import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
@@ -68,9 +69,9 @@ public class AuctionController implements AuctionS3Key {
 		
 		for(AuctionImgVo localAuctionImgVo : imgList) {//로컬에 없는 폴더를 먼저 고른다
 			String localFolderName = Integer.toString(localAuctionImgVo.getP_no());
-			
+			//System.out.println("Controller 밖에 localFolderName:"+localFolderName);
 			if(FurnitureFileUtil.chkDirecotry(localFolderName)) {//폴더가 없으면
-				
+				//System.out.println("Controller 안에 localFolderName-------:"+localFolderName);
 				for(AuctionImgVo auctionImgVo : imgList) {
 					
 					String fileNamePath =auctionImgVo.getImg_name();
@@ -80,7 +81,7 @@ public class AuctionController implements AuctionS3Key {
 					String folderName = Integer.toString(auctionImgVo.getP_no());
 					
 					if(localFolderName.equals(folderName)) {//폴더가 존재하지 않으면 s3접속 파일을 가지고 온다
-						System.out.println("----------------------- s3 접속 --------------------------------------");
+						System.out.println("-----------------------controller에서 s3 접속 --------------------------------------");
 						String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
 						String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
 						//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
@@ -127,17 +128,25 @@ public class AuctionController implements AuctionS3Key {
 	}
 	
 	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
-	public String auctionSelected(String p_no, Model model) throws Exception{
-		System.out.println("pno:"+p_no);
+	public String auctionSelected(int p_no, Model model) throws Exception{
+		//System.out.println("pno:"+p_no);
 		
-		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(Integer.parseInt(p_no));
-		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(Integer.parseInt(p_no));
+		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
+		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
+		List<AuctionTempBidVo> tempBidList = auctionService.getAuctionTempBid(p_no);
 		
-		System.out.println("selectedItem:"+selectedItem);
-		System.out.println("selectedImg:"+selectedImg);
+		int tempBidMaxPrice = auctionService.getAuctionTempBidMaxPrice(p_no);
+		int presentPrice = selectedItem.getPresent_price();
+		
+		if(presentPrice>tempBidMaxPrice) {
+			model.addAttribute("maxPrice", presentPrice);
+		}else {
+			model.addAttribute("maxPrice", tempBidMaxPrice);
+		}
 		
 		model.addAttribute("selectedItem", selectedItem);
 		model.addAttribute("selectedImg", selectedImg);
+		model.addAttribute("tempBidList", tempBidList);
 		
 		
 		return "auction/auctionSelected";
@@ -259,4 +268,10 @@ public class AuctionController implements AuctionS3Key {
 		return "redirect:/auction/auctionResisterList";
 	}
 	
+	@RequestMapping(value="/insertAuctionTempBid", method=RequestMethod.GET)
+	public String insertAcutionTempBid(int p_no, String seller) throws Exception{
+		System.out.println("p_no:"+p_no+" ,seller:"+seller);
+		
+		return "redirect:/auction/auctionSelected?p_no="+p_no;
+	}
 }

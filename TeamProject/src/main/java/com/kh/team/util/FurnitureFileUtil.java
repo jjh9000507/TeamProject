@@ -39,7 +39,7 @@ public class FurnitureFileUtil {
 	
 	public static boolean chkDirecotry(String folderName) { // 폴더 이름을 받아서
 		String directoryPath = uploadFileDirectory + "/" +  folderName; //폴더 경로를 붙인다
-		System.out.println("FurnitureFileUtil chkDirecotry:"+ directoryPath);
+		//System.out.println("FurnitureFileUtil chkDirecotry:"+ directoryPath);
 		File file = new File(directoryPath);
 		
 		boolean result = false;

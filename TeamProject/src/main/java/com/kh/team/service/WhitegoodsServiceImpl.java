@@ -23,18 +23,13 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 	}
 
 	@Override
-	public void insertWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
-		whitegoodsDao.insertWhitegoods(whitegoodsVo);
-	}
-
-	@Override
 	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
 		whitegoodsDao.updateWhitegoods(whitegoodsVo);
 	}
 
 	@Override
-	public void deleteWhitegoods(int w_no, String w_seller) throws Exception {
-		whitegoodsDao.deleteWhitegoods(w_no, w_seller);
+	public void deleteWhitegoods(int w_no) throws Exception {
+		whitegoodsDao.deleteWhitegoods(w_no);
 	}
 
 	@Override
@@ -52,6 +47,17 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 	@Override
 	public void userPAlldelete(String m_id) throws Exception {
 		whitegoodsDao.userPAlldelete(m_id);
+	}
+
+	@Override
+	public List<String> productImgList(int p_no) throws Exception {
+		List<String> productImgList =whitegoodsDao.productImgList(p_no);
+		return productImgList;
+	}
+
+	@Override
+	public void productImgDelete(int p_no) throws Exception {
+		whitegoodsDao.productImgDelete(p_no);
 	}
 
 }

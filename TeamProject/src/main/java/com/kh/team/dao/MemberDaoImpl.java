@@ -1,7 +1,6 @@
 package com.kh.team.dao;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.inject.Inject;
@@ -77,15 +76,6 @@ private final String NAMESPACE = "com.kh.team.member.";
 	}
 
 	
-	@Override
-	public List<MemberVo> adminMemberSearch() throws Exception {
-		List<MemberVo> memberList = sqlSession.selectList(NAMESPACE + "adminMemberSearch");
-		return memberList;
-	}
-
-	@Override
-	public void adminMemberDelete(String m_id) throws Exception {
-		sqlSession.delete(NAMESPACE + "adminMemberDelete", m_id);
-	}
+	
 	
 }

@@ -17,8 +17,10 @@ import com.amazonaws.services.s3.AmazonS3ClientBuilder;
 import com.kh.team.controller.AuctionS3Key;
 import com.kh.team.dao.AuctionDao;
 import com.kh.team.domain.AuctionAddressVo;
+import com.kh.team.domain.AuctionBidVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
+import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
@@ -92,22 +94,25 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		String folderName = Integer.toString(auctionImgVo.getP_no());
 		
 		String[] images = auctionImgVo.getImages();
-		for(int i=0 ; i<images.length ; i++) {
-
-			//images[i]에는 경로가 포함되어있으니깐 이름만 추출한다
-			String fileNamePath = images[i];
-			int length = fileNamePath.length();
-			int lastSlash = fileNamePath.lastIndexOf("/");
-			String fileName = fileNamePath.substring(lastSlash+1, length);
-			String filePath = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//저장할 파일 위치
+		if(images != null) {
+			System.out.println("-----------------------AuctionServiceImpl에서 s3 접속 --------------------------------------");
+			for(int i=0 ; i<images.length ; i++) {
+	
+				//images[i]에는 경로가 포함되어있으니깐 이름만 추출한다
+				String fileNamePath = images[i];
+				int length = fileNamePath.length();
+				int lastSlash = fileNamePath.lastIndexOf("/");
+				String fileName = fileNamePath.substring(lastSlash+1, length);
+				String filePath = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//저장할 파일 위치
+				
+				String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
+				String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
+				//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
+				s3Client.putObject(bucketName,bucketKey,new File(filePath));
 			
-			String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
-			String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-			//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
-			s3Client.putObject(bucketName,bucketKey,new File(filePath));
-		
-			auctionImgVo.setImg_name(images[i]);
-			auctionDao.insertAuctionImg(auctionImgVo);
+				auctionImgVo.setImg_name(images[i]);
+				auctionDao.insertAuctionImg(auctionImgVo);
+			}
 		}
 	}
 
@@ -154,13 +159,15 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	}
 	
 	//-------------- delete --------------------------------------//	
-	@Override
-	public void deleteAuction_bid_date(int p_no) throws Exception {
-		auctionDao.deleteAuction_bid_date(p_no);
-	}
+	
 	@Override
 	public void deleteAuction_bid(int p_no) throws Exception {
 		auctionDao.deleteAuction_bid(p_no);
+		
+	}
+	@Override
+	public void deleteAuction_temp_bid(int p_no) throws Exception {
+		auctionDao.deleteAuction_temp_bid(p_no);
 		
 	}
 	@Override
@@ -196,7 +203,7 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	@Override
 	@Transactional
 	public void deleteAcutionAll(int p_no) throws Exception {
-		auctionDao.deleteAuction_bid_date(p_no);
+		auctionDao.deleteAuction_temp_bid(p_no);
 		auctionDao.deleteAuction_bid(p_no);
 		auctionDao.deleteAuction_address(p_no);
 		auctionDao.deleteAuction_expration_date(p_no);
@@ -205,5 +212,23 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		auctionDao.deleteAuction_img(p_no);
 		auctionDao.deleteAuction_main_img(p_no);
 		auctionDao.deleteAuction(p_no);
+	}
+
+	@Override
+	public List<AuctionTempBidVo> getAuctionTempBid(int p_no) throws Exception {
+		List<AuctionTempBidVo> auctionTempBidVo = auctionDao.getAuctionTempBid(p_no);
+		return auctionTempBidVo;
+	}
+
+	@Override
+	public AuctionBidVo getAuctionBid(int p_no) throws Exception {
+		AuctionBidVo auctionBidVo = auctionDao.getAuctionBid(p_no);
+		return auctionBidVo;
+	}
+
+	@Override
+	public int getAuctionTempBidMaxPrice(int p_no) throws Exception {
+		int tempBidMax = auctionDao.getAuctionTempBidMaxPrice(p_no);
+		return tempBidMax;
 	}
 }

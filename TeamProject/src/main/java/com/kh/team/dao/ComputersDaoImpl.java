@@ -81,8 +81,7 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		System.out.println("category_cate_no:" + newMap[i]);
 		map.put("cate_no" + i, newMap[i]);
 		}
-		System.out.println("checkList.length:" + checkList.length);
-		
+		System.out.println("checkList.length:" + checkList.length);		
 		
 		List<CategoryVo> categorylist = sqlSession.selectList(NAMESPACE + "getCategoryInfoArray", map);
 		return categorylist;
@@ -119,8 +118,7 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		
 		
 		List<ComputerVo> list = sqlSession.selectList(NAMESPACE + "getComptersProductListSearch", map);
-		return list;
-		
+		return list;		
 	}
 
 	//해당 카테고리내의 가격대 검색기능
@@ -158,7 +156,8 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		ComputerVo computerVo = sqlSession.selectOne(NAMESPACE + "buyComputerProduct", p_no);
 		return computerVo;
 	}
-
+	
+	//구매하기 폼으로 선택된 제품정보경로보내기
 	@Override
 	public String[] buyCategoryInfoGet(String c_com_cate_no) throws Exception {
 		CategoryVo categoryVoFirst = sqlSession.selectOne(NAMESPACE + "buyCategoryInfoGet", c_com_cate_no);
@@ -178,11 +177,44 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		System.out.println("thirdRef:" + cate_ref_third);
 		
 		String[] indexName = {cate_name_first,cate_name_seccond,cate_name_third};
-		return indexName;
+		return indexName;		
+	}
+	
+	//판매자 아이디를 통한 제품 검색
+	@Override
+	public List<ComputerVo> listSearchById(String c_com_seller, String[] confirmList) throws Exception {
+				
+		String[] newMap = {CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR,CONSTNAT_CHAR};
+		Map<String, Object> map = new HashMap<>();
+				
+		map.put("c_com_seller", c_com_seller);		
 		
+		for(int i=0; i<confirmList.length; i++) {
+			newMap[i] = confirmList[i];
+			if(confirmList[i] == null || confirmList[i].equals("")) {
+				newMap[i] = CONSTNAT_CHAR;
+			}
+			
+			System.out.println("searchById_dao:" + confirmList[i]);
+			System.out.println("newMap_dao_searchById:" + newMap[i]);			
+		}		
+		
+		for(int i=0; i<6; i++) {
+		System.out.println("searchById_cate_no:" + newMap[i]);
+		map.put("cate_no" + i, newMap[i]);
+		}
+		
+		System.out.println("confirmList.length:" + confirmList.length);
+		List<ComputerVo> list = sqlSession.selectList(NAMESPACE + "getComptersProductListById", map);
+		return list;
 	}
 
-	
-
+	@Override
+	public int getSearchById(String c_com_seller) throws Exception {
+		System.out.println("c_com_seller:" + c_com_seller);
+		int count = sqlSession.selectOne(NAMESPACE + "getSearchById", c_com_seller);
+		System.out.println("count:" + count);
+		return count;
+	}
 	
 }

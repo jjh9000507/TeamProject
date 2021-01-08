@@ -80,7 +80,7 @@ div{
 </div>
 <c:if test="${sessionScope.memberVo.m_id == whitegoodsVo.w_seller}">
 	<div><a href="/whitegoods/whitegoodsUpdate/${whitegoodsVo.w_no}">수정하기</a></div>
-	<div><a href="/whitegoods/whitegoodsDelete/${whitegoodsVo.w_no}/${whitegoods.w_seller}">삭제하기</a></div>
+	<div><a href="/whitegoods/whitegoodsDelete/${whitegoodsVo.w_no}">삭제하기</a></div>
 </c:if>
 	</div>
 	<div class="col-md-2"></div>
@@ -93,8 +93,12 @@ div{
 		<div class="content">
 			${whitegoodsVo.w_content}
 		</div>
-		<div><label>이미지</label></div>
 		
+		<c:forEach var="productImgVo" items="${productImgList}">
+			<div>
+				<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
+			</div>
+		</c:forEach>
 	</div>
 	<div class="col-md-2"></div>
 </div>

@@ -70,5 +70,17 @@ public class ComputersServiceImpl implements ComputersService {
 		String[] indexName = computersDao.buyCategoryInfoGet(c_com_cate_no);
 		 return indexName;
 	}
+
+	@Override
+	public List<ComputerVo> listSearchById(String c_com_seller, String[] confirmList) throws Exception {
+		List<ComputerVo> list = computersDao.listSearchById(c_com_seller, confirmList);
+		return list;
+	}
+
+	@Override
+	public int getSearchById(String c_com_seller) throws Exception {
+		int count = computersDao.getSearchById(c_com_seller);
+		return count;
+	}
 	
 }

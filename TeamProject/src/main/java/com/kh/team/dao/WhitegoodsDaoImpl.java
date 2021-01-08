@@ -1,8 +1,6 @@
 package com.kh.team.dao;
 
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -27,21 +25,13 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 	}
 
 	@Override
-	public void insertWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
-		sqlSession.insert(NAMESPACE + "insertWhitegoods", whitegoodsVo);
-	}
-
-	@Override
 	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception {
 		sqlSession.update(NAMESPACE + "updateWhitegoods", whitegoodsVo);
 	}
 
 	@Override
-	public void deleteWhitegoods(int w_no, String w_seller) throws Exception {
-		Map<String, Object> map = new HashMap<>();
-		map.put("w_no", w_no);
-		map.put("w_seller", w_seller);
-		sqlSession.delete(NAMESPACE + "deleteWhitegoods", map);
+	public void deleteWhitegoods(int w_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "deleteWhitegoods", w_no);
 	}
 
 	@Override
@@ -60,6 +50,17 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 	public void userPAlldelete(String m_id) throws Exception {
 		sqlSession.delete(NAMESPACE + "userPAlldelete", m_id);
 		
+	}
+
+	@Override
+	public List<String> productImgList(int p_no) throws Exception {
+		List<String> productImgList = sqlSession.selectList(NAMESPACE + "productImgList", p_no);
+		return productImgList;
+	}
+
+	@Override
+	public void productImgDelete(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "productImgDelete", p_no);
 	}
 
 }

@@ -41,6 +41,8 @@ $(function(){
 		alert("비회원으로 입장 하셨습니다.");
 	}else if (msg == "logoutSuccess"){
 		alert("로그아웃 되었습니다.");
+	}else if (msg == "idIsNull"){
+		alert("해당 아이디는 존재하지 않는 아이디 입니다.");
 	}
 	
 	// 검색 버튼
@@ -157,7 +159,7 @@ $(function(){
 						
 					</c:choose>						
 					<a href="/cart/cartPage" class="btn btn-link topHeader-button">장바구니</a>
-					<a type="button" class="btn btn-link topHeader-button">고객 센터</a>
+					<a href="/service/serviceMain" class="btn btn-link topHeader-button">고객 센터</a>
 	
 					<c:if test="${sessionScope.memberVo.admin_check == 1}">
 						<a href="/admin/adminForm" class="btn btn-link topHeader-button">관리자 페이지</a>

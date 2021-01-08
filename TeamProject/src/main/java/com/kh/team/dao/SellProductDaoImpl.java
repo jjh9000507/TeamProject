@@ -12,7 +12,6 @@ import org.springframework.stereotype.Repository;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
-import com.kh.team.domain.ProductImgVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 @Repository

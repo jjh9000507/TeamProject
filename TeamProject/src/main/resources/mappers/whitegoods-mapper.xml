@@ -24,7 +24,6 @@
 	<delete id="deleteWhitegoods">
 		delete from whitegoods
 		where w_no = #{w_no}
-		and w_seller = #{w_seller}
 	</delete>
 	
 	<select id="getCategoryList" resultType="CategoryVo">
@@ -40,5 +39,16 @@
 	<delete id="userPAlldelete">
 		delete from whitegoods
 		where w_seller = #{w_seller}
+	</delete>
+	
+	<select id="productImgList" resultType="String">
+		select img_name from product_images
+		where p_no = #{p_no}
+		order by img_no desc
+	</select>
+	
+	<delete id="productImgDelete">
+		delete from product_images
+		where p_no = #{p_no}
 	</delete>
 </mapper>

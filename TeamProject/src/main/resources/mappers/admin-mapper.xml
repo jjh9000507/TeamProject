@@ -70,14 +70,17 @@
 		delete from furniture_life
 		where life_no =  #{life_no}
 	</delete>
+	
 	<delete id="adminDeleteClothes">
 		delete from clothes_product
 		where p_no =  #{p_no}
 	</delete>
+	
 	<delete id="adminDeleteComputer">
 		delete from computer_product
 		where c_com_no =  #{c_com_no}
 	</delete>
+	
 	<delete id="adminDeleteWhitegoods">
 		delete from whitegoods
 		where w_no =  #{w_no}
@@ -207,4 +210,74 @@
 		)
 	where p_no2 = #{p_no2}
 	</select>
+	
+	<!-- 상품게시물에 대한 이미지 삭제 -->
+	<delete id="productImgDelete">
+		delete from product_images
+		where p_no = #{p_no}
+	</delete>
+	<!-- 상품게시물에 대해 삭제할 이미지 이름 가져오기 -->
+	<select id="productImgList" resultType="String">
+		select img_name from product_images
+		where p_no = #{p_no}
+	</select>
+	
+	<!-- 회원삭제에 필요한 회원 목록 -->
+	<select id="adminMemberSearch" resultType="MemberVo">
+		select * from member
+		where ADMIN_CHECK != 1
+	</select>
+	
+	<!-- 회원 삭제 -->
+	<delete id="adminMemberDelete">
+		delete from member
+		where m_id = #{m_id}
+	</delete>
+	
+	<!-- 회원 판매자권한 박탈 경력 삭제 -->
+	<delete id="adminDeleteSanctions">
+		delete from sanctions
+		where m_id = #{m_id}
+	</delete>
+	
+	<!-- 카트에 상품 담은 회원 삭제 -->
+	<delete id="adminDeleteCart">
+		delete from cart
+		where m_id = #{m_id}
+	</delete>
+	
+	<delete id="adminMemberClothesDelete">
+		delete from clothes_product
+		where m_id = #{m_id}
+	</delete>
+	
+	<delete id="adminMemberComputerDelete">
+		delete from computer product
+		where m_id = #{m_id}
+	</delete>
+	
+	<delete id="adminMemberWhitegoodsDelete">
+		delete from whitegoods
+		where m_id = #{m_id}
+	</delete>
+	
+	<delete id="adminMemberFBedDelete">
+		delete from furniture_bed
+		where m_id = #{m_id}
+	</delete>
+	
+	<delete id="adminMemberFInteriorDelete">
+		delete from furniture_interior
+		where m_id = #{m_id}
+	</delete>
+	
+	<delete id="adminMemberFKitchenDelete">
+		delete from furniture_Kitchen
+		where m_id = #{m_id}
+	</delete>
+	
+	<delete id="adminMemberFLifeDelete">
+		delete from furniture_life
+		where m_id = #{m_id}
+	</delete>
 </mapper>

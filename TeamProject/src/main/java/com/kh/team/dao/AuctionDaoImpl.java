@@ -10,8 +10,10 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.AuctionAddressVo;
+import com.kh.team.domain.AuctionBidVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
+import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
@@ -89,7 +91,7 @@ public class AuctionDaoImpl implements AuctionDao{
 	@Override
 	public void insertAuctionImg(AuctionImgVo auctionImgVo) throws Exception {
 		System.out.println("DaoImpl auctionImgVo:"+auctionImgVo);
-		sqlSession.insert(NAMESPACE+"insertAuctionImg", auctionImgVo);
+		//sqlSession.insert(NAMESPACE+"insertAuctionImg", auctionImgVo);
 	}
 
 	@Override
@@ -129,8 +131,8 @@ public class AuctionDaoImpl implements AuctionDao{
 	}
 
 	@Override
-	public void deleteAuction_bid_date(int p_no) throws Exception {
-		sqlSession.delete(NAMESPACE+"deleteAuction_bid_date", p_no);
+	public void deleteAuction_temp_bid(int p_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"deleteAuction_temp_bid", p_no);
 	}
 
 	@Override
@@ -172,4 +174,29 @@ public class AuctionDaoImpl implements AuctionDao{
 	public void deleteAuction(int p_no) throws Exception {
 		sqlSession.delete(NAMESPACE+"deleteAuction", p_no);
 	}
+
+	@Override
+	public List<AuctionTempBidVo> getAuctionTempBid(int p_no) throws Exception {
+		List<AuctionTempBidVo> auctionTempBidVo = sqlSession.selectList(NAMESPACE + "getAuctionTempBid", p_no);
+		return auctionTempBidVo;
+	}
+
+	@Override
+	public AuctionBidVo getAuctionBid(int p_no) throws Exception {
+		AuctionBidVo auctionBidVo = sqlSession.selectOne(NAMESPACE + "getAuctionBid", p_no);
+		return auctionBidVo;
+	}
+
+	@Override 
+	public int getAuctionTempBidMaxPrice(int p_no) throws Exception {
+		String tempBidMaxPrice = sqlSession.selectOne(NAMESPACE + "getAuctoinTempBidMaxPrice", p_no);
+		
+		int max=0;
+		if(tempBidMaxPrice != null) {
+			max = Integer.parseInt(tempBidMaxPrice);
+		}
+			
+		return max;
+	}
+
 }
