@@ -5,13 +5,13 @@
   
 <mapper namespace="com.kh.team.admin">
 	<select id="allProductList" resultType="ProductVo">
-		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2 from (
+		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2, p_readcount from (
 																								select a.*
 																								from clothes_product a
 																							
 																								union all 
 																							
-																								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no
+																								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no, b.p_readcount
 																								from computer_product b 
 																							
 																								union all 
@@ -116,13 +116,13 @@
 	
 	<!-- 게시물 삭제에 필요한 카테고리 별 게시물 리스트 가져오기 -->
 	<select id="productCateList" resultType="ProductVo">
-		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2 from (
+		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2, p_readcount from (
 																								select a.*
 																								from clothes_product a
 																							
 																								union all 
 																							
-																								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no
+																								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no, b.p_readcount
 																								from computer_product b 
 																							
 																								union all 
@@ -181,7 +181,7 @@
 
 								union all 
 																							
-								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no
+								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no, b.p_readcount
 								from computer_product b 
 								
 								union all 

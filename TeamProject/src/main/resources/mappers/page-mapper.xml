@@ -9,7 +9,7 @@
 	<select id="morePage" resultType="ProductVo">
 		select * from (
 		select rownum rnum , p_no , p_name , cate_no , p_price , p_content ,
-		p_seller , p_thumbimg , p_regdate from (
+		p_seller , p_thumbimg , p_regdate, p_readcount from (
 
 		select a.*
 		from clothes_product a
@@ -18,7 +18,7 @@
 
 		select b.c_com_no , b.c_com_name , b.c_com_cate_no , b.c_com_price ,
 		b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate ,
-		b.p_no
+		b.p_no, b.p_readcount
 		from computer_product b
 
 		union all
@@ -50,7 +50,7 @@
 
 	<!-- 검색 -->
 	<select id="search" resultType="ProductVo">
-		select p_no , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2
+		select p_no , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2, p_readcount
 		
 		from (
 
@@ -60,7 +60,7 @@
 		union all
 
 		select b.c_com_no ,
-		b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no 
+		b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no, b.p_readcount
 		from computer_product b
 
 		union all
@@ -102,7 +102,7 @@
 	<select id="selectAll_List" resultType="ProductVo">
 		select * from (
 		select rownum rnum , p_no , p_name , cate_no , p_price , p_content ,
-		p_seller , p_thumbimg , p_regdate from (
+		p_seller , p_thumbimg , p_regdate, p_readcount from (
 
 		select a.*
 		from clothes_product a
@@ -111,7 +111,7 @@
 
 		select b.c_com_no , b.c_com_name , b.c_com_cate_no , b.c_com_price ,
 		b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate ,
-		b.p_no
+		b.p_no, b.p_readcount
 		from computer_product b
 
 		union all
