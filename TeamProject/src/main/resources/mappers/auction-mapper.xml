@@ -140,6 +140,18 @@
 	<select id="getAuctoinTempBidMaxPrice" resultType="String">
 		select max(temp_bid_price) from auction_temp_bid where p_no = #{p_no}
 	</select>
+	
+	<select id="getAuctionCountBid" resultType="int">
+		select count(*) from auction_temp_bid where p_no=#{p_no}
+	</select>
+	
+	<select id="getAuctionExpirationDate" resultType="AuctionEDateVo">
+		select * from auction_expiration_date where p_no=#{p_no}
+	</select>
+	
+	<insert id="insertAuctionTempBid">
+		insert into auction_temp_bid(temp_bid_no, temp_purchaser_id, temp_seller_id, temp_bid_price, p_no) values(seq_temp_bid_no.nextval, #{purchaser}, #{seller}, #{bidPrice}, #{p_no})
+	</insert>
 	<!-- 입찰 끝 -->
 	
 	<insert id="insertAuction">

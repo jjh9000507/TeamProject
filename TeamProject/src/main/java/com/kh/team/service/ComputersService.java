@@ -3,7 +3,9 @@ package com.kh.team.service;
 import java.util.List;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
+import com.kh.team.domain.ProductExplainVo;
 
 public interface ComputersService {
 		//컴퓨터 제품 리스트
@@ -28,4 +30,8 @@ public interface ComputersService {
 		public ComputerVo buyComputerProduct(int p_no) throws Exception;
 		//컴퓨터 결과내 판매자 아이디를 통한 검색을 할때 아이디가 있는지 확인
 		public int getSearchById(String c_com_seller) throws Exception;
+		//컴퓨터 제품 구매 폼 구매후기 갯수 보여주기
+		public int buyComputerComment(String c_com_product) throws Exception;
+		//컴퓨터 제품 구매 폼 상품문의 갯수 보여주기
+		public int buyComputerExplain(String c_com_product) throws Exception;
 }

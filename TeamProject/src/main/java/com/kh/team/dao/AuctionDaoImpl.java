@@ -199,4 +199,28 @@ public class AuctionDaoImpl implements AuctionDao{
 		return max;
 	}
 
+	@Override
+	public int getAuctionCountBid(int p_no) throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + "getAuctionCountBid", p_no);
+		return count;
+	}
+
+	@Override
+	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception {
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("purchaser", purchaser);
+		map.put("seller", seller);
+		map.put("bidPrice", bidPrice);
+		map.put("p_no", p_no);
+		
+		sqlSession.insert(NAMESPACE + "insertAuctionTempBid", map);
+	}
+
+	@Override
+	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception {
+		AuctionEDateVo auctionEDateVo = sqlSession.selectOne(NAMESPACE + "getAuctionExpirationDate", p_no);
+		return auctionEDateVo;
+	}
+
+
 }

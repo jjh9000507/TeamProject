@@ -3,9 +3,10 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
+<script src="/resources/js/AuctionScript.js"></script>
 
 <script>
-
 var countDown=[];
 
 $(function(){
@@ -23,7 +24,7 @@ $(function(){
 			$.get(urlUserCheck, data, function(e){
 				console.log("e:"+e);
 				if(e == "same"){
-					$(".divBidAndFavorite").hide();
+					$(".collaspsePrice").hide();
 				}
 			});
 			
@@ -252,7 +253,8 @@ $(function(){
 			if(resultHour==0 && resultMinute==0 && resultSecond==0){
 				//$("#stopTimer").trigger("click");
 				//alert("전부 00");
-				$(".divBidAndFavorite").hide();
+				//$(".collaspsePrice").hide();
+				$(".collaspsePrice").hide();
 				$(".divBidEnd").show();
 				stopCountIndex(index);
 			}
@@ -262,13 +264,13 @@ $(function(){
 			countDown[index] = setInterval(function(){
 				
 				var indexCatch = index;//임버터를 멈추게 하기 위해서 index를 따로 저장
-				var timeValue = that.text();
-				//console.log("timeValue:"+timeValue);
-				var timeArray = timeValue.split(":");
-				//console.log(timeArray[0]+" ,"+ timeArray[1]);
-				var hour = timeArray[0];
-				var minute = timeArray[1];
-				var second = timeArray[2];
+				var time = timeMakeArray(that.text());
+				//console.log("time:"+time);
+ 				//var time = timeMakeArray(timeValue);
+// 				//console.log(timeArray[0]+" ,"+ timeArray[1]);
+ 				var hour = parseInt(time[0]);
+ 				var minute = parseInt(time[1]);
+ 				var second = parseInt(time[2]);
 				
 				if(second <= 0){
 					if(minute>0){
@@ -290,22 +292,40 @@ $(function(){
 				}
 				
 				console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
+
+				//goBid인 입찰버튼을 눌렀을 때 쿠키에 남은 시간을 저장한 걸 가지고온다-------------------쿠키에서 값 가져오기------------------------------ 
+				var p_no = $("#p_no").val();
+				
+				/*
+				var cookieValue = $.cookie(p_no);
+				if(cookieValue != null){
+					var cookieSplit = cookieValue.split(":");
+					var cookieMinute = cookieSplit[0];
+					var check = cookieSplit[1];
+					console.log("cookieMinute:"+cookieMinute+" ,check:"+check);
+					
+					if(check == "add" && check != null){
+						alert("minute 첫번째:"+cookieMinute);
+						minute = cookieMinute;
+						$.cookie(p_no,"null");
+					}
+				}
+				//쿠키 2번 연장 끝
+				*/
 				
 				var twoDigitHour = makeTwoDigit(hour);
 				var twoDigitMinute = makeTwoDigit(minute);
 				var twoDigitSecond = makeTwoDigit(second);
-				console.log("twoDigitSecond:"+twoDigitSecond);
 				
 				that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
 				
-				if(hour=='00' && minute=='00' && second=='00'){
+				if(twoDigitHour==0 && twoDigitMinute==0 && twoDigitSecond==0){
 					//$("#stopTimer").trigger("click");
 					//alert("전부 00");
-					$(".divBidAndFavorite").hide();
+					$(".collaspsePrice").hide();
 					$(".divBidEnd").show();
 					stopCountIndex(index);
 				}
-				
 			},1000);
 		});	
 		
@@ -322,10 +342,10 @@ $(function(){
 	
 	/*입찰하기 버튼을 눌렀을 때
 	1. 로그인이 안 되어있다
-	1-1. 제품 유저인 경우 - divBidAndFavorite 안보이 게 한다
+	1-1. 제품 유저인 경우 - collaspsePrice 안보이 게 한다
 	1-2. 제품 유저가 아닌 경우 - 입찰하기와 좋아하기 가능
 	2. 로그인이 되어있다
-	2-1. 제품 유저인 경우 - divBidAndFavorite 안보이 게 한다
+	2-1. 제품 유저인 경우 - collaspsePrice 안보이 게 한다
 	2-2. 제품 유저가 아닌 경우 - 입찰하기와 좋아하기 가능
 	*/
 	
@@ -350,9 +370,9 @@ $(function(){
 				}
 				
 				$.get(urlUserCheck, data, function(e){//로그인 상태면 로그인 유저와 상품 유저를 비교
-					console.log("e:"+e);
+					//console.log("e:"+e);
 					if(e == "same"){
-						$(".divBidAndFavorite").hide();//같으면 토글이 안되고
+						$(".collaspsePrice").hide();//같으면 토글이 안되고
 					}else{//다르면 토글이 가능하게 한다
 						//$("#insertBidForm").submit();
 						that.attr("href","#bidCollapse");
@@ -393,7 +413,7 @@ $(function(){
 				$.get(urlUserCheck, data, function(e){
 					console.log("e:"+e);
 					if(e == "same"){
-						$(".divBidAndFavorite").hide();
+						$(".collaspsePrice").hide();
 					}
 				});
 			}
@@ -401,30 +421,57 @@ $(function(){
 	});
 	
 	$("#goBid").click(function(){
+
+		var bidPrice = $("#txtBidPrice").val().trim();
+		var maxPrice = "${maxPrice}";
+		console.log("bidPrice:"+bidPrice+" ,maxPrice:"+maxPrice);
 		
-		var url="/auction/insertAuctionTempBid";
-		var seller = $("#seller").val();
-		var p_no = $("#p_no").val();
-		
-		var data = {
+		if(maxPrice >= bidPrice){		
+			alert("가격은 "+maxPrice+" 이상");
+		}else{
+			$("#bidPrice").val(bidPrice);
+			
+			//2분 이내이면 더하기 2분을 한다
+			var timeValue = $(".divCountDown").text();
+			var time = timeMakeArray(timeValue);//시간 차이를 배열로 자른 후 분을 가지고 온다
+			$("#remindMinute").val(time[1]);
+			
+			/*redirect로 입찰controller에서 넘기기 때문에 쿠키에 연장 값을 가지고 있다고해도
+			최초 db expiration테이블에서 서버값을 가져오기 때문에 쿠키를 쓰려면
+			계속 값을 저장해야 한다
+			if(time[1] <= 5){//분이 2보다 작으면 실행
+				var value = (time[1]+5)+":add";
+				var p_no = $("#p_no").val();
+				console.log("goBid time[1]:"+time[1]+" ,value:"+value+" ,p_no:"+p_no);
+				$.cookie(p_no, value);//add를 추가해서 리다이렉트시 null값을 넣고 한번만 읽게한다				
+			}*/
+
+			/*
+			var url="/auction/insertAuctionTempBid";
+			var seller = $("#seller").val();
+			var p_no = $("#p_no").val();
+			var data = {
 				"seller" : seller,
 				"p_no" : p_no
-		};
-		
-		$.get(url, data, function(e){
+			};
 			
-		});
+			$.get(url, data, function(e){
+				
+			});
+			*/
+			$("#insertBidForm").submit();
+		}
 	});
 });//function
 
-function makeTwoDigit(num){
-	var len = num.toString().length;
-	console.log("makeTwoDigit len:"+len);
-	if(len < 2){
-		num = "0"+num;
-	}
-	return num;
-}
+// function makeTwoDigit(num){
+// 	var len = num.toString().length;
+// 	console.log("makeTwoDigit len:"+len);
+// 	if(len < 2){
+// 		num = "0"+num;
+// 	}
+// 	return num;
+// }
 
 function stopCountIndex(indexCatch){
 	clearInterval(countDown[indexCatch]);
@@ -434,6 +481,9 @@ function stopCountIndex(indexCatch){
 <form id="insertBidForm" action="/auction/insertAuctionTempBid" method="get">
 <input type="hidden" id="seller" name="seller" value="${selectedItem.seller}">
 <input type="hidden" id="p_no" name="p_no" value="${selectedItem.p_no}">
+<input type="hidden" id="bidPrice" name="bidPrice">
+<input type="hidden" id="remindMinute" name="remindMinute">
+
 </form>
 
 <a href="/auction/excercise">연습하기</a>
@@ -500,8 +550,8 @@ function stopCountIndex(indexCatch){
 												<td>즉구가:${selectedItem.instant_price}</td>
 											</tr>
 											<tr class="table-success">
-												<td>입찰수</td>
-												<td>입찰가격:</td>
+												<td>입찰수:${bidCount}</td>
+												<td>입찰가격: ${maxPrice}</td>
 											</tr>
 											<tr class="table-warning">
 												<td>남은시간</td>
@@ -532,41 +582,58 @@ function stopCountIndex(indexCatch){
 							<div class="divBidEnd" style="display:none">
 								<h1>입찰 기간이 종료 되었습니다</h1>
 							</div>
-				<!-------------------------------------- 입찰하기, 관심상품 버튼 시작 -------------------------------------------->
-							<div class="col-md-12 divBidAndFavorite">
-<!-- 								<button type="button" id="btnBid" class="btn btn-outline-secondary"> -->
-<!-- 									입찰하기</button> -->
-								<button type="button" class="btn btn-sm btn-outline-danger">
-									관심상품</button>
-							</div>
-				<!-------------------------------------- 입찰하기, 관심상품 버튼 끝 -------------------------------------------->
-				
 				<!-------------------------------------- 입찰하기 collapse group 시작 -------------------------------------------->
-										<div class="col-md-12">
-												<div id="card-385137">
-													<div class="card">
-														<div class="card-header">
-															 <a class="card-link" data-toggle="collapse" data-parent="#card-385137" id="btnBid" href="#">입찰하기</a>
-														</div>
-														<div id="bidCollapse" class="collapse hide">
-															<div class="card-body">
-															가격은  ${maxPrice} 이상 : <input type="text">
-																<button type="button" id="goBid">입찰</button>
-															</div>
-														</div>
-													</div>
-													<div class="card">
-														<div class="card-header">
-															 <a class="card-link" data-toggle="collapse" data-parent="#card-385137" href="#bidListCollapse">입찰현황</a>
-														</div>
-														<div id="bidListCollapse" class="collapse hide">
-															<div class="card-body">
-																Anim pariatur cliche...
-															</div>
-														</div>
+								<div class="col-md-12 divBidCollapse">
+										<div id="card-385137">
+											<div class="card collaspsePrice">
+												<button type="button" class="btn btn-sm btn-outline-danger">관심상품</button>
+												<div class="card-header">
+													 <a class="card-link" data-toggle="collapse" data-parent="#card-385137" id="btnBid" href="#">입찰하기</a>
+												</div>
+												<div id="bidCollapse" class="collapse hide">
+													<div class="card-body">
+													가격은  ${maxPrice} 이상 : <input type="text" id="txtBidPrice">
+														<button type="button" id="goBid">입찰</button>
 													</div>
 												</div>
 											</div>
+											<div class="card">
+												<div class="card-header">
+													 <a class="card-link" data-toggle="collapse" data-parent="#card-385137" href="#bidListCollapse">입찰현황</a>
+												</div>
+												<div id="bidListCollapse" class="collapse hide">
+													<div class="card-body">
+													<!-- ---------------------------- 입찰 현황 테이블 시작-------------------------------- -->
+												<div class="row">
+													<div class="col-md-12">
+														<table class="table">
+															<thead>
+																<tr>
+																	<th>구매자</th>
+																	<th>판매자</th>
+																	<th>입찰 가격</th>
+																	<th>입찰일</th>
+																</tr>
+															</thead>
+															<tbody>
+															<c:forEach var="bidList" items="${tempBidList}">
+																<tr>
+																	<td>${bidList.temp_purchaser_id}</td>
+																	<td>${bidList.temp_seller_id}</td>
+																	<td>${bidList.temp_bid_price}</td>
+																	<td>${bidList.temp_bid_date}</td>
+																</tr>
+															</c:forEach>
+															</tbody>
+														</table>
+													</div>
+												</div>
+												<!-- ---------------------------- 입찰 현황 테이블 끝-------------------------------- -->
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
 				<!-------------------------------------- 입찰하기 collapse group 끝 -------------------------------------------->
 						</td>
 					</tr>
