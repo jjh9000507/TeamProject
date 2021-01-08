@@ -3,8 +3,10 @@ package com.kh.team.dao;
 import java.util.List;
 
 import com.kh.team.domain.AuctionAddressVo;
+import com.kh.team.domain.AuctionBidVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
+import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
@@ -34,6 +36,13 @@ public interface AuctionDao {
 	public AuctionSellVo getAuctionSelectedItem(int p_no) throws Exception;
 	public List<AuctionImgVo> getAuctionSelectedImg(int p_no) throws Exception;
 	
+	//임시 입찰 가져오기
+	public List<AuctionTempBidVo> getAuctionTempBid(int p_no) throws Exception;
+	//입찰 가져오기
+	public AuctionBidVo getAuctionBid(int p_no) throws Exception;
+	//임시 입찰에서 제일 큰수
+	public int getAuctionTempBidMaxPrice(int p_no) throws Exception;
+	
 	public void insertAuction(AuctionVo auctionVo) throws Exception;
 	public void insertAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception;
 	public void insertAuctionRegisterDate(AuctionRDateVo auctionRDateVo) throws Exception;
@@ -44,7 +53,7 @@ public interface AuctionDao {
 	
 	public MemberVo AuctionLogin(String m_id, String m_pass) throws Exception;
 	
-	public void deleteAuction_bid_date(int p_no) throws Exception;
+	public void deleteAuction_temp_bid(int p_no) throws Exception;
 	public void deleteAuction_bid(int p_no) throws Exception;
 	public void deleteAuction_address(int p_no) throws Exception;
 	public void deleteAuction_expration_date(int p_no) throws Exception;
