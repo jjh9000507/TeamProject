@@ -11,6 +11,10 @@
 
 <script>
 	$(function() {
+		var msg = "${msg}";
+		if(msg == "inquiryFail"){
+			alert("로그인이 필요한 기능입니다.");
+		}
 		var secretNum = "";
 		// 	아이디 찾기 모달창 클릭
 		$("#findID").click(function() {
