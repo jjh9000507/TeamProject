@@ -8,7 +8,6 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.PageDao;
 import com.kh.team.domain.AuctionAddressVo;
-import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 
@@ -44,6 +43,12 @@ public class PageServiceImpl implements PageService {
 	@Override
 	public List<AuctionAddressVo> addrList() throws Exception {
 		List<AuctionAddressVo> list = pageDao.addrList();
+		return list;
+	}
+
+	@Override
+	public List<ProductVo> selectAll_List() throws Exception {
+		List<ProductVo> list = pageDao.selectAll_List();
 		return list;
 	}
 

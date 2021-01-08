@@ -6,6 +6,8 @@
 
 <script>
 $(function(){
+	
+	//더 보기 버튼
 	$(".divMore").click(function(e){		
 		e.preventDefault();
 	var startNum = $(".list").length;
@@ -28,9 +30,9 @@ $(function(){
 // 				 $(".productList > ul:eq(0)").remove();
 					$(".productList").append(ul);
 			});
+// 			startNum = startNum + 3;
 		});
 		
-// 		startNum = startNum + 1;
 	});
 	
 	// 메인 카테고리 스크롤 이동 시에 따라오기
@@ -42,11 +44,13 @@ $(function(){
 			$(".borderAllCategory").css("top" , "0");	
 			$(".borderAllCategory").css("z-index" , "2");	
 			$(".borderAllCategory").css("background" , "white");	
+			$(".borderAllCategory").css("border-bottom" , "1px solid black");	
 		} else if (position <= 200) {
 			$(".borderAllCategory").css("position" , "");	
 			$(".borderAllCategory").css("top" , "");	
 			$(".borderAllCategory").css("z-index" , "");	
 			$(".borderAllCategory").css("background" , "");
+			$(".borderAllCategory").css("border-bottom" , "");	
 		}
 	});
 	
@@ -124,7 +128,8 @@ $(function(){
 					
 					<!------------------------------------------ 상품 리스트 ---------------------------------------->
 					
-	<div class="col-md-2"></div>
+	<div class="col-md-2">
+	</div>
 					
 		<div style="padding-top: 40px;">
 			<div class="row listMain">
@@ -138,6 +143,16 @@ $(function(){
 						<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
 						<li class="nav-item"><a class="nav-link seller">판매자</a></li>
 					</ul>
+					
+					<!-- 전체 상품 목록(7개만) -->
+				<c:forEach var="all_list" items="${selectAll_List}">
+					<ul class="nav nav-pills list">
+							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
+							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="#">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
+							<li class="nav-item"><a class="nav-link seller">${all_list.p_seller}</a></li>
+					</ul>
+				</c:forEach>
+					
 					
 				</div>
 				<div class="col-md-2"></div>

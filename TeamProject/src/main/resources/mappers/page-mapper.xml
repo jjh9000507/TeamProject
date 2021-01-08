@@ -45,7 +45,7 @@
 
 		select d.* from whitegoods d
 
-		)) where rnum between #{startNum} and #{startNum + 1}
+		)) where rnum between #{startNum} and #{startNum} + 6
 	</select>
 
 	<!-- 검색 -->
@@ -92,8 +92,52 @@
 
 	</select>
 	
+	<!-- 서브 카테고리 분류 -->
 	<select id="distinct_num" resultType="CategoryVo">
 		select * from category
 		where distinct_num = #{distinct_num}
+	</select>
+	
+	<!-- 원하는 갯수 만큼  전체 상품목록 받아오기 -->
+	<select id="selectAll_List" resultType="ProductVo">
+		select * from (
+		select rownum rnum , p_no , p_name , cate_no , p_price , p_content ,
+		p_seller , p_thumbimg , p_regdate from (
+
+		select a.*
+		from clothes_product a
+
+		union
+
+		select b.c_com_no , b.c_com_name , b.c_com_cate_no , b.c_com_price ,
+		b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate ,
+		b.p_no
+		from computer_product b
+
+		union all
+
+		select c1.*
+		from furniture_bed c1
+
+		union all
+
+		select c2.*
+		from furniture_interior c2
+
+		union all
+
+		select c3.*
+		from furniture_kitchen c3
+
+		union all
+
+		select c4.*
+		from furniture_life c4
+
+		union all
+
+		select d.* from whitegoods d
+
+		)) where rnum between 1 and 7
 	</select>
 </mapper>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ProductVo;
 import com.kh.team.service.AdminService;
 import com.kh.team.service.PageService;
 
@@ -32,9 +33,13 @@ public class HomeController {
 		List<CategoryVo> firstCategory = adminService.firstCategoryList();
 		List<CategoryVo> AllCategory = adminService.getCategoryList();
 		
+		// 전체 상품 리스트
+		List<ProductVo> selectAll_List = pageService.selectAll_List();
 		
 		session.setAttribute("firstCategory", firstCategory);
 		session.setAttribute("AllCategory", AllCategory);
+		
+		session.setAttribute("selectAll_List", selectAll_List);
 		return "/main";
 		
 	}

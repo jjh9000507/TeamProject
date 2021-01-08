@@ -55,5 +55,4 @@ public class PageController {
 		return "/map";
 	}
 	
-	
 } // main class

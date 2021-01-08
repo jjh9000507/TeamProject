@@ -18,4 +18,7 @@ public interface PageService {
 	
 	// 등록한 상품 주소 받아오기
 	public List<AuctionAddressVo> addrList() throws Exception;
+	
+	// 전체 상품 리스트
+	public List<ProductVo> selectAll_List() throws Exception;
 }
