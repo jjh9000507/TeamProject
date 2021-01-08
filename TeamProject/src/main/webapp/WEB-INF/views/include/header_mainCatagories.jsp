@@ -104,5 +104,7 @@ $(function(){
      	  </ul>
     	</li>
    	 </c:forEach>
+   	 
+   	 
   	</ul>
 </nav>

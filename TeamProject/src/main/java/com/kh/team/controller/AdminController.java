@@ -231,4 +231,40 @@ public class AdminController {
 		adminService.adminCategoryInput(categoryVo);
 		return "redirect:/admin/adminCategoryInput";
 	}
+	
+	//고객센터 페이지
+	@RequestMapping(value="/adminService", method=RequestMethod.GET)
+	public String adminService() throws Exception{
+		return "/admin/admin_service";
+	}
+	
+	//Q&A 페이지
+	@RequestMapping(value="/adminQandAMain", method=RequestMethod.GET)
+	public String adminQandAMain() throws Exception {
+		return "/admin/a_q_main";
+	}
+	
+	//Q&A 추가 페이지
+	@RequestMapping(value="/adminQandAInput", method=RequestMethod.GET)
+	public String adminQandAInput() throws Exception {
+		return "/admin/a_q_input";
+	}
+	
+	//Q&A 수정/삭제 페이지
+	@RequestMapping(value="/adminQandADelete", method=RequestMethod.GET)
+	public String adminQandADelete() throws Exception {
+		return "/admin/a_q_delete";
+	}
+	
+	//1:1문의 접수 페이지
+	@RequestMapping(value="/adminInquiry", method=RequestMethod.GET)
+	public String adminInquiry() throws Exception {
+		return "/admin/a_inq";
+	}
+	
+	//공지사항 페이지
+	@RequestMapping(value="/adminNotice", method=RequestMethod.GET)
+	public String adminNotice() throws Exception {
+		return "/admin/a_notice";
+	}
 }
