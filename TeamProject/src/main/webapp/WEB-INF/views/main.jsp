@@ -38,7 +38,7 @@ $(function(){
 	// 메인 카테고리 스크롤 이동 시에 따라오기
 	$(window).scroll(function() {
 		var position = $(window).scrollTop(); // 현재 스크롤 위치
-// 		console.log(position);
+		console.log(position);
 		
 		// 현재 스크롤 위치가 200이 넘어가면
 		if(position >= 200) {
@@ -66,11 +66,15 @@ $(function(){
 			
 		}
 		
-		if (position > 1000) {
+		// 스크롤 값 1000 넘어가면
+		if (position >= 900) {
+			
+			// 배너 클래스 제거 및 추가
 			$("#divBanner").removeClass("divBanner");
+			
 			$("#divBanner").addClass("divBanner_scroll");
 			
-		} else if (position <= 1000) {
+		} else if (position <= 900) {
 			$("#divBanner").removeClass("divBanner_scroll");
 			$("#divBanner").addClass("divBanner");
 			
@@ -157,12 +161,12 @@ $(function(){
 					
 	<div class="col-md-2">
 	
-		<!-- 배너 -->
+		<!-- 배너1 -->
 			<div class="divBanner" id="divBanner"> 
 				<div class="banner_contents">
 					<img src="resources/image/banner.PNG"/>
 				</div> 
-			</div>
+			</div>	
 	</div>
 					
 		<div style="padding-top: 40px;">
@@ -189,7 +193,9 @@ $(function(){
 					
 					
 				</div>
-				<div class="col-md-2"></div>
+				
+				<div class="col-md-2">
+					
 		</div>
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
 					

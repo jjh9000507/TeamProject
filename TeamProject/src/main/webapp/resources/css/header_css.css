@@ -17,7 +17,7 @@ body {
 /* -------------------------------------------- ------메인 메뉴 css --------------------------------------- */
 
 #mainNav {
-  width: 130%;
+  width: 150%;
   display: flex;
   position: relative;
   padding-top: 1%;
@@ -551,7 +551,7 @@ ul, li {
 	z-index : 2;	
 	background : white;	
 	border-bottom : 1px solid black;
-	padding-left: 340px;
+	padding-left: 200px;
 }
 
 .divBanner {

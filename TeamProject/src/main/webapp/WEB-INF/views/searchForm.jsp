@@ -49,7 +49,7 @@ $(function(){
 			</div>
 	
 <!----------------------------------------- 검색한 상품 리스트 ------------------------------------->	
-		<div class="productList" style="position:relative; left: 7%; top:-3%;">
+		<div class="productList" style="position:relative; left: 7%;">
 					
 				
 					
