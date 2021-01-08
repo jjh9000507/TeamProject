@@ -215,7 +215,6 @@
 								name="m_id" placeholder="아이디를 입력하시오" required="required" /> 
 							<input type="email" class="form-control" id="toRe" name="to"
 								placeholder="등록된 e-mail를 입력하시오" required="required" />
-
 						</div>
 						<div class="modal-footer">
 

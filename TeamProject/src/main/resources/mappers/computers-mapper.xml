@@ -10,7 +10,7 @@
 		order by p_no asc
 	</select>
 	
-	<select id="getSearchById" resultType="String">
+	<select id="getSearchById" resultType="int">
 		select count(c_com_seller) from computer_product 
 		where c_com_seller = #{c_com_seller}		
 	</select>
