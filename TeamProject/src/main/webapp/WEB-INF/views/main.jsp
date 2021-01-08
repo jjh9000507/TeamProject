@@ -38,20 +38,46 @@ $(function(){
 	// 메인 카테고리 스크롤 이동 시에 따라오기
 	$(window).scroll(function() {
 		var position = $(window).scrollTop(); // 현재 스크롤 위치
+// 		console.log(position);
 		
+		// 현재 스크롤 위치가 200이 넘어가면
 		if(position >= 200) {
-			$(".borderAllCategory").css("position" , "fixed");	
-			$(".borderAllCategory").css("top" , "0");	
-			$(".borderAllCategory").css("z-index" , "2");	
-			$(".borderAllCategory").css("background" , "white");	
-			$(".borderAllCategory").css("border-bottom" , "1px solid black");	
+			// 기존 클래스 제거 
+			$("#borderAllCategory").removeClass("borderAllCategory");
+			
+			// 새 클래스 추가
+			$("#borderAllCategory").addClass("borderAllCategory_scroll");
+			
+			// 검색 창 생성
+			$("#divSearch_Form").show();
+			$("#main-menu").append($("#li_ScrollSearch"));
+			
 		} else if (position <= 200) {
-			$(".borderAllCategory").css("position" , "");	
-			$(".borderAllCategory").css("top" , "");	
-			$(".borderAllCategory").css("z-index" , "");	
-			$(".borderAllCategory").css("background" , "");
-			$(".borderAllCategory").css("border-bottom" , "");	
+			
+			// 새 클래스 제거
+			$("#borderAllCategory").removeClass("borderAllCategory_scroll");
+			
+			// 기존 클래스 추가
+			$("#borderAllCategory").addClass("borderAllCategory");
+			
+			// 검색 창 제거
+			$("#divSearch_Form").hide();
+			$("#main-menu").remove($("#li_ScrollSearch"));
+			
 		}
+		
+		if (position > 1000) {
+			$("#divBanner").removeClass("divBanner");
+			$("#divBanner").addClass("divBanner_scroll");
+			
+		} else if (position <= 1000) {
+			$("#divBanner").removeClass("divBanner_scroll");
+			$("#divBanner").addClass("divBanner");
+			
+		}
+ 		
+		
+		
 	});
 	
 }); // main function
@@ -63,7 +89,7 @@ $(function(){
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
 	
 <div class="row">
-<div class="col-md-12 borderAllCategory" >
+<div class="col-md-12 borderAllCategory" id="borderAllCategory">
 	<div class="col-md-2"></div>
 		<div class="col-md-8" >
 <%@ include file="include/header_mainCatagories.jsp"%>
@@ -74,7 +100,8 @@ $(function(){
 
 	</div>
 </div>
-		<div class="col-md-2"></div>
+		<div class="col-md-2">
+		</div>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -129,6 +156,13 @@ $(function(){
 					<!------------------------------------------ 상품 리스트 ---------------------------------------->
 					
 	<div class="col-md-2">
+	
+		<!-- 배너 -->
+			<div class="divBanner" id="divBanner"> 
+				<div class="banner_contents">
+					<img src="resources/image/banner.PNG"/>
+				</div> 
+			</div>
 	</div>
 					
 		<div style="padding-top: 40px;">
@@ -174,5 +208,16 @@ $(function(){
 
 	</div>
 </div>
+<!--------------------------------------- 더보기 버튼 END---------------------------------------->
+
+
+	<!-- 스크롤 내리면 생기는 검색 창 -->		
+<li id="li_ScrollSearch">
+	<div id="divSearch_Form">
+		<input type="text" id="scroll_txtsearch" name="txtSearch" class="scroll_txtsearch" placeholder="검색어" onkeypress="if(event.keyCode==13){goSearch()}"/>
+		<button type="button" id="btnSearch"><i class="fas fa-search"></i></button>
+	</div>
+</li>
+
 
 
