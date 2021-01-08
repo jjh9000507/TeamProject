@@ -211,7 +211,9 @@ private final String NAMESPACE = "com.kh.team.computers.";
 
 	@Override
 	public int getSearchById(String c_com_seller) throws Exception {
+		System.out.println("c_com_seller:" + c_com_seller);
 		int count = sqlSession.selectOne(NAMESPACE + "getSearchById", c_com_seller);
+		System.out.println("count:" + count);
 		return count;
 	}
 	

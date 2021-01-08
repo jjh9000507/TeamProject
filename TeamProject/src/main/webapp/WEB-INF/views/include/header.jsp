@@ -41,6 +41,8 @@ $(function(){
 		alert("비회원으로 입장 하셨습니다.");
 	}else if (msg == "logoutSuccess"){
 		alert("로그아웃 되었습니다.");
+	}else if (msg == "idIsNull"){
+		alert("해당 아이디는 존재하지 않는 아이디 입니다.");
 	}
 	
 	// 검색 버튼
