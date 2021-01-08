@@ -173,6 +173,7 @@
 		where cate_ref = #{cate_ref}
 	</select>
 	
+	<!-- 이미지 S3에서 삭제하기위한 이미지 이름 가져오기 -->
 	<select id="imgNameSearch" resultType="string">
 		select p_thumbimg from (
 								select a.*
@@ -216,6 +217,7 @@
 		delete from product_images
 		where p_no = #{p_no}
 	</delete>
+	
 	<!-- 상품게시물에 대해 삭제할 이미지 이름 가져오기 -->
 	<select id="productImgList" resultType="String">
 		select img_name from product_images
@@ -246,21 +248,25 @@
 		where m_id = #{m_id}
 	</delete>
 	
+	<!-- 회원 삭제 시 의류 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberClothesDelete">
 		delete from clothes_product
 		where m_id = #{m_id}
 	</delete>
 	
+	<!-- 회원 삭제 시 컴퓨터 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberComputerDelete">
 		delete from computer product
 		where m_id = #{m_id}
 	</delete>
 	
+	<!-- 회원 삭제 시 가전제품 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberWhitegoodsDelete">
 		delete from whitegoods
 		where m_id = #{m_id}
 	</delete>
 	
+	<!-- 여기부터 회원 삭제 시 가구 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberFBedDelete">
 		delete from furniture_bed
 		where m_id = #{m_id}
@@ -279,5 +285,30 @@
 	<delete id="adminMemberFLifeDelete">
 		delete from furniture_life
 		where m_id = #{m_id}
+	</delete>
+	<!-- 여기까지 회원 삭제 시 가구 상품등록 한 데이터 삭제 -->
+
+	<!-- Q&A 수정/삭제에 필요한 Q&A 리스트 가져오기 -->
+	<select id="QA_UDList" resultType="QandAVo">
+		select * from q_and_a
+	</select>
+	
+	<!-- Q&A 수정/삭제에 필요한 Q&A 카테고리 리스트 가져오기(이름 필요해서 대조해서 쓸 예정) -->
+	<select id="QACategory" resultType="QACateVo">
+		select * from qa_cate
+	</select> 
+	<!-- Q&A 수정 -->
+	<update id="QAUpdate">
+		update q_and_a set
+			qa_cate_no = #{qa_cate_no}
+			q_content = #{q_content}
+			a_content = #{a_content}
+		where qa_no = #{qa_no}
+	</update>
+	
+	<!-- Q&A 삭제 -->
+	<delete id="QADelete">
+		delete from q_and_a
+		where qa_no = #{qa_no}
 	</delete>
 </mapper>

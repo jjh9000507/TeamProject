@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
+import com.kh.team.domain.QACateVo;
+import com.kh.team.domain.QandAVo;
 import com.kh.team.domain.SanctionVo;
 import com.kh.team.service.AdminService;
 import com.kh.team.service.SanctionService;
@@ -252,7 +254,11 @@ public class AdminController {
 	
 	//Q&A 수정/삭제 페이지
 	@RequestMapping(value="/adminQandADelete", method=RequestMethod.GET)
-	public String adminQandADelete() throws Exception {
+	public String adminQandADelete(Model model) throws Exception {
+		List<QandAVo> QA_UDList = adminService.QA_UDList();
+		List<QACateVo> QACategory = adminService.QACategory();
+		model.addAttribute("QA_UDList", QA_UDList);
+		model.addAttribute("QACategory", QACategory);
 		return "/admin/a_q_delete";
 	}
 	
