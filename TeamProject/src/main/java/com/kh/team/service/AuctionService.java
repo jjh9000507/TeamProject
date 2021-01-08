@@ -42,6 +42,13 @@ public interface AuctionService {
 	public AuctionBidVo getAuctionBid(int p_no) throws Exception;
 	//임시 입찰에서 제일 큰수
 	public int getAuctionTempBidMaxPrice(int p_no) throws Exception;
+	//입찰자 수
+	public int getAuctionCountBid(int p_no) throws Exception;
+	//입찰 현황 입력
+	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception;
+	
+	//종료일 가져오기
+	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception;
 	
 	public void insertAuction(AuctionVo auctionVo) throws Exception;
 	public void insertAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception;

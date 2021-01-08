@@ -23,6 +23,7 @@ $(function(){
 	});
 	
 	$("#finish").click(function(){
+		
 		for(var i=0 ; i<arry.length ; i++){
 			clearInterval(arry[i]);
 		}
@@ -45,3 +46,4 @@ function stopIndex(indexCatch){
 3
 </div>
 <button type="button" id="finish">종료</button>
+<button type="button" id="btn">연습</button>

@@ -231,4 +231,22 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		int tempBidMax = auctionDao.getAuctionTempBidMaxPrice(p_no);
 		return tempBidMax;
 	}
+
+	@Override
+	public int getAuctionCountBid(int p_no) throws Exception {
+		int count = auctionDao.getAuctionCountBid(p_no);
+		return count;
+	}
+
+	@Override
+	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception {
+		auctionDao.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
+		
+	}
+
+	@Override
+	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception {
+		AuctionEDateVo auctionEdateVo = auctionDao.getAuctionExpirationDate(p_no);
+		return auctionEdateVo;
+	}
 }

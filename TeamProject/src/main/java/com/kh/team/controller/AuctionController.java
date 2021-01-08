@@ -2,6 +2,7 @@ package com.kh.team.controller;
 
 import java.io.File;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMethodMappingNamingStrategy;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.amazonaws.auth.AWSCredentials;
@@ -134,6 +136,7 @@ public class AuctionController implements AuctionS3Key {
 		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
 		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
 		List<AuctionTempBidVo> tempBidList = auctionService.getAuctionTempBid(p_no);
+		int bidCount = auctionService.getAuctionCountBid(p_no);
 		
 		int tempBidMaxPrice = auctionService.getAuctionTempBidMaxPrice(p_no);
 		int presentPrice = selectedItem.getPresent_price();
@@ -147,7 +150,7 @@ public class AuctionController implements AuctionS3Key {
 		model.addAttribute("selectedItem", selectedItem);
 		model.addAttribute("selectedImg", selectedImg);
 		model.addAttribute("tempBidList", tempBidList);
-		
+		model.addAttribute("bidCount", bidCount);
 		
 		return "auction/auctionSelected";
 	}
@@ -269,8 +272,54 @@ public class AuctionController implements AuctionS3Key {
 	}
 	
 	@RequestMapping(value="/insertAuctionTempBid", method=RequestMethod.GET)
-	public String insertAcutionTempBid(int p_no, String seller) throws Exception{
+	public String insertAcutionTempBid(int p_no, String seller, int bidPrice, int remindMinute, HttpSession session) throws Exception{
 		System.out.println("p_no:"+p_no+" ,seller:"+seller);
+		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+
+		//auctionService.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(2021,0,1); //0이면1월, 1이면 2월, ...
+		int monthEnd = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
+		
+		AuctionEDateVo auctionEDateVo = auctionService.getAuctionExpirationDate(p_no);
+		int year = auctionEDateVo.getE_year();
+		int month = auctionEDateVo.getE_month();
+		int day = auctionEDateVo.getE_day();
+		int hour = auctionEDateVo.getE_hour();
+		int minute = auctionEDateVo.getE_minute();
+		
+		if(remindMinute<=5) {
+			if(minute+5 < 60) {
+				minute = minute+5;
+			}else {
+				if(hour+1 <= 23) {
+					hour++;
+					minute = (minute+5)-60;
+				}else {
+					if(day+1 <= monthEnd) {
+						day++;
+						hour = 0;//시간은 23시 다음 바로 00시가 된다
+						minute = (minute+5)-60;
+					}else {
+						if(month+1 <= 12) {
+							month++;
+							day = 1;
+							hour = 0;
+							minute = (minute+5)-60;
+						}else {
+							year++;
+							month = 1;
+							day = 1;
+							hour = 0;
+							minute = (minute+5)-60;
+						}
+					}
+				}
+			}
+		}
+		
+		System.out.println("year:"+year+" ,month:"+month+" ,day:"+day+" ,hour:"+hour+" ,minute:"+minute);
 		
 		return "redirect:/auction/auctionSelected?p_no="+p_no;
 	}
