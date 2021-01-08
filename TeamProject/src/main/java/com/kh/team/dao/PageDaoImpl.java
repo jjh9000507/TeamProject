@@ -49,4 +49,11 @@ public class PageDaoImpl implements PageDao {
 		return list;
 	}
 
+	// 전체 상품 리스트
+	@Override
+	public List<ProductVo> selectAll_List() throws Exception {
+		List<ProductVo> list = sqlSession.selectList(NAMESPACE + "selectAll_List" );
+		return list;
+	}
+
 }
