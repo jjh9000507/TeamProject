@@ -19,6 +19,11 @@ public interface ComputersDao {
 	//컴퓨터 결과내 가격대 검색
 	public List<ComputerVo> listSearchPrice(int firstPrice,int lastPrice, String[] confirmList) throws Exception;
 	
+	//컴퓨터 결과내 판매자 아이디를 통한 검색
+	public List<ComputerVo> listSearchById(String c_com_seller, String[] confirmList) throws Exception;
+	//컴퓨터 결과내 판매자 아이디를 통한 검색을 할때 아이디가 있는지 확인
+	public int getSearchById(String c_com_seller) throws Exception;
+	
 	//구매하기 폼에 카테고리 정보 구현
 	public String[] buyCategoryInfoGet(String c_com_cate_no) throws Exception;
 	//카테고리 정보

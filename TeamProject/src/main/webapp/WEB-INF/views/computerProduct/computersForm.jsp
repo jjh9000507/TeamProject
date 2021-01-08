@@ -13,12 +13,14 @@ $(function() {
 	var searchInComputerInfo = $(".searchInComputerInfo");
 	var searchInComputerPriceSend = $(".searchInComputerPriceSend");
 	var searchInComputerPriceForm = $(".searchInComputerPriceForm");
+	var searchInComputerById = $(".searchInComputerById");
+	var findIdSearchFormFind = $(".findIdSearchFormFind");
 	
 	$("#checkboxSearch").click(function() {
 		inputCheckForm.empty();		
 		for(var i = 0; i<6; i++){
 			if(inputCheckbox.find("input").eq(i).is(":checked") == true){
-				var indexCheckBox = "check"+i + "no";
+				var indexCheckBox = "check"+ i + "no";
 				console.log("indexCheckBox:"+ indexCheckBox);
 				var input = inputCheckbox.find("input").eq(i).clone();
 				input.attr("name",indexCheckBox);
@@ -37,6 +39,7 @@ $(function() {
 		$("#frmData").submit();
 		}						
 	});
+	
 	$("#computersBack").click(function() {		
 		inputCheckForm.empty();		
  		for(var i = 0; i<6; i++){
@@ -66,7 +69,8 @@ $(function() {
  	 				$("#frmData").submit(); 	 			
  	 			}	
  		}	
-	});	
+	});
+	
 	$("#detailSearch").click(function() {
 		searchInComputerInfo.empty();
 		var inputName = detailSearchFormFind.find("input").clone();
@@ -88,6 +92,26 @@ $(function() {
 		}
 		});
 	
+	$("#findIdSearch").click(function() {
+		searchInComputerById.empty();
+		var ByIdFindInput = findIdSearchFormFind.find("input").clone();
+		var IdVal = findIdSearchFormFind.find("input").val();
+		console.log("IdVal:" + IdVal);
+		searchInComputerById.append(ByIdFindInput);
+		for(var i = 0; i<6; i++){
+			var byIdIndex = "byId" + i + "no";
+ 			var input = backList.find("input").eq(i).clone();
+ 			console.log("byIdIndex_name:" + byIdIndex);
+ 			input.attr("name",byIdIndex);
+ 			searchInComputerById.append(input);
+		}
+		if(IdVal == ""){
+			alert("판매자 아이디를 입력하시오.");
+		}else{
+			
+ 		$("#frmSearchById").submit();
+		}
+	});
 	
 	$("#detailPrice").click(function() {
 		searchInComputerPriceSend.empty();
@@ -142,6 +166,10 @@ $(function() {
 <div class="form-group searchInComputerPriceSend" style="display: none;">
 </div>
 </form>
+<form role="form" id="frmSearchById" action="/computerProduct/computersFormSearchById" method="post">
+<div class="form-group searchInComputerById" style="display: none;">
+</div>
+</form>
 <div class="computersFormDiv">
 <header class="header">
 <c:if test="${categoryInfo != null}">
@@ -179,19 +207,34 @@ $(function() {
 </form>			
 <br>
 <br>			
+<br>			
 <form role="form">
-				<div class="form-group searchInComputerPriceForm">					 
-					<label>
-						가격대
-					</label>
-					<input type="number" name="firstPrice" class="form-control" placeholder="시작 가격" required="required"/>
-					~
-					<input type="number" name="lastPrice" class="form-control" placeholder="나중 가격" required="required"/>
-					<button type="button" id="detailPrice" class="btn btn-xs btn-warning">
-					검색
-					</button>
-				</div>				
-			</form>	
+<div class="form-group searchInComputerPriceForm">					 
+<label>
+가격대
+</label>
+<input type="number" name="firstPrice" class="form-control" placeholder="시작 가격" required="required"/>
+~
+<input type="number" name="lastPrice" class="form-control" placeholder="나중 가격" required="required"/>
+<button type="button" id="detailPrice" class="btn btn-xs btn-warning">
+검색
+</button>
+</div>				
+</form>
+<br>	
+<br>	
+<br>
+<form role="form">
+<div class="form-group findIdSearchFormFind">					 
+<label>
+판매자를 통한 상품검색
+</label>
+<input type="text" id="c_com_seller" class="form-control" placeholder="판매자 아이디를 입력하시오" name="c_com_seller" required="required"/>
+<button type="button" id="findIdSearch" class="btn btn-xs btn-warning">
+검색
+</button>
+</div>				
+</form>		
 </nav>
 <section class="section">
 <div class="col-md-12">
