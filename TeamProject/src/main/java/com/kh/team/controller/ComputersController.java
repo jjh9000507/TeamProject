@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
-
+import com.kh.team.domain.ProductExplainVo;
 import com.kh.team.service.ComputersService;
 
 
@@ -213,10 +214,16 @@ public class ComputersController {
 	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model,HttpServletRequest request) throws Exception {
 		ComputerVo computerVo = computersService.buyComputerProduct(p_no);
 		String c_com_cate_no = computerVo.getC_com_cate_no();
+		String c_com_product = computerVo.getC_com_name();
 		System.out.println("buyFormUsed + c_com_cate_no:" + c_com_cate_no);
 		String[] indexName = computersService.buyCategoryInfoGet(c_com_cate_no);
+		int countComment = computersService.buyComputerComment(c_com_product);
+		int countExplain = computersService.buyComputerExplain(c_com_product);
 		model.addAttribute("buyComputerVo", computerVo);
 		request.setAttribute("indexName", indexName);
+		request.setAttribute("computerCommentCount", countComment);
+		request.setAttribute("productExplainCount", countExplain);
+		
 		System.out.println("computerVo_Buy:" + computerVo);
 		return "/computerProduct/buyComputerProduct";
 	}	

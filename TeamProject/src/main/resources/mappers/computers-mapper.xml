@@ -15,6 +15,18 @@
 		where c_com_seller = #{c_com_seller}		
 	</select>
 	
+	<select id="buyComputerComment" resultType="int">
+		select count(*) from c_com_comment_table 
+		where c_com_product = #{c_com_product}
+		order by c_com_comment_no asc		
+	</select>
+	
+	<select id="buyComputerExplain" resultType="int">
+		select count(*) from product_explain_table 
+		where p_e_product = #{c_com_product}
+		order by p_e_no asc		
+	</select>
+	
 	<select id="buyComputerProduct" resultType="ComputerVo">
 		select * from computer_product 
 		where p_no = #{p_no}		

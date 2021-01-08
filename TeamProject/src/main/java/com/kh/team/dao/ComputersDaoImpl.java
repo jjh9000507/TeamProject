@@ -10,7 +10,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
+import com.kh.team.domain.ProductExplainVo;
 
 @Repository
 public class ComputersDaoImpl implements ComputersDao {
@@ -214,6 +216,18 @@ private final String NAMESPACE = "com.kh.team.computers.";
 		System.out.println("c_com_seller:" + c_com_seller);
 		int count = sqlSession.selectOne(NAMESPACE + "getSearchById", c_com_seller);
 		System.out.println("count:" + count);
+		return count;
+	}
+
+	@Override
+	public int buyComputerComment(String c_com_product) throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + "buyComputerComment", c_com_product);
+		return count;
+	}
+
+	@Override
+	public int buyComputerExplain(String c_com_product) throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + "buyComputerExplain", c_com_product);
 		return count;
 	}
 	

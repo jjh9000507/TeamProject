@@ -18,12 +18,14 @@ $(function(){
 		$("#finalPrice").text(priceFinal + "원");		
 	});
 	$("#detailProductExpain").click(function() {
+		$("#inquireControll").hide();
 		$("#commentTable").hide();
 		$("#productExplainTable").hide();
 		$("#productExplain").text("상품내용:" + "${buyComputerVo.c_com_content}");
 		$("#productExplain").show();
 	});
 	$("#buyAfter").click(function() {
+		$("#inquireControll").hide();
 		$("#productExplain").hide();
 		$("#productExplainTable").hide();
 		$("#commentTable > tbody").empty();
@@ -56,6 +58,7 @@ $(function(){
 		$("#commentTable").show();
 	});
 	$("#inquireProduct").click(function() {
+		$("#inquireControll").show();
 		var indexInquire = 1;
 		$("#commentTable").hide();
 		$("#productExplain").hide();
@@ -118,7 +121,7 @@ $(function(){
 </script>
 <div class="row">
 		<div class="col-md-12">
-			 <a id="modal-modify" href="#modal-container-modify" role="button"  style="display: none;" class="btn" data-toggle="modal">Launch demo modal</a>
+			 <a id="modal-modify" href="#modal-container-modify" role="button" style="display: none;" class="btn" data-toggle="modal">Launch demo modal</a>
 			
 			<div class="modal fade" id="modal-container-modify" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog inputModifyModal" role="document">
@@ -302,8 +305,8 @@ $(function(){
 <footer class="buyfooter">
 <ul class="nav nav-tabs breadcrumb">
 <li class="nav-item"><button id="detailProductExpain">상세설명</button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="buyAfter">구매후기<span>(n)</span></button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="inquireProduct">상품문의<span>(n)</span></button></li>
+<li class="nav-item"><button id="buyAfter">구매후기(<span>${computerCommentCount}</span>)</button></li>&nbsp&nbsp&nbsp
+<li class="nav-item"><button id="inquireProduct">상품문의(<span>${productExplainCount}</span>)</button></li>
 </ul>
 </footer>
 <aside class="buyrightdownaside">
@@ -337,7 +340,34 @@ $(function(){
 	</div>
 </div>
 <div class="row">
-		<div class="col-md-12">			
+		<div class="col-md-12">
+		<div>
+		<ul class="nav nav-tabs breadcrumb" id="inquireControll" style="display: none;">
+		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquire" type="text"/><button id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
+		<li class="nav-item">
+		<div class="dropdown">				 
+				<button class="btn dropdown-toggle" type="button" id="dropdownInquireButton" data-toggle="dropdown">
+					문의 유형(전체)
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownInquireButton">
+					 <a class="dropdown-item" href="#">상품문의</a> 
+					 <a class="dropdown-item" href="#">배송</a> 
+					 <a class="dropdown-item" href="#">교환</a>
+					 <a class="dropdown-item" href="#">반품/취소/환불</a>
+					 <a class="dropdown-item" href="#">기타</a>
+				</div>
+			</div>
+			</li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<li class="nav-item"><button id="inquireProduct">상품문의</button></li>
+		</ul>
+		</div>	
 			<table class="table" id="productExplainTable" style="display: none;">
 				<thead>
 					<tr>
