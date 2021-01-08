@@ -28,6 +28,17 @@ public class ComputerCommentServiceImpl implements ComputerCommentService {
 		List<ProductExplainVo> list = computerCommentDao.getInquireList(p_no);
 		return list;
 	}
+
+	@Override
+	public int changeCommentContent(int c_com_comment_no, String c_com_comment_content) throws Exception {
+		int count =computerCommentDao.changeCommentContent(c_com_comment_no, c_com_comment_content);
+		return count;
+	}
+
+	@Override
+	public void deleteComment(int c_com_comment_no) throws Exception {
+		computerCommentDao.deleteComment(c_com_comment_no);		
+	}
 	
 
 }

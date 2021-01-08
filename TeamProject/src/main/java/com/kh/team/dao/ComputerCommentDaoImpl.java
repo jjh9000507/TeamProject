@@ -1,6 +1,8 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -30,6 +32,21 @@ public class ComputerCommentDaoImpl implements ComputerCommentDao {
 	public List<ProductExplainVo> getInquireList(int p_no) throws Exception {
 		List<ProductExplainVo> list = sqlSession.selectList(NAMESPACE + "getInquireList", p_no);
 		return list;
+	}
+
+	@Override
+	public int changeCommentContent(int c_com_comment_no,String c_com_comment_content) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("c_com_comment_no", c_com_comment_no);
+		map.put("c_com_comment_content", c_com_comment_content);
+		int count = sqlSession.update(NAMESPACE + "updateCommentContent", map);
+		
+		return count;
+	}
+
+	@Override
+	public void deleteComment(int c_com_comment_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "deleteComment", c_com_comment_no);		
 	}
 		
 	
