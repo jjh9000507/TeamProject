@@ -18,4 +18,14 @@
 		order by p_e_no asc
 	</select>
 	
+	<update id="updateCommentContent">
+		update c_com_comment_table set
+			c_com_comment_content = #{c_com_comment_content}
+		where c_com_comment_no = #{c_com_comment_no}
+	</update>
+	
+	<delete id="deleteComment">
+		delete from c_com_comment_table
+		where c_com_comment_no = #{c_com_comment_no}
+	</delete>	
 </mapper>

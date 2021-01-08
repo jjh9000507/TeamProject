@@ -92,5 +92,7 @@
 	float:left;
 	overflow:scroll;
 }
-
+.inputModifyModal{
+	width:300px;
+}
 </style>
