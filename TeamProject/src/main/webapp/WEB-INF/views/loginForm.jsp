@@ -11,6 +11,10 @@
 
 <script>
 	$(function() {
+		var msg = "${msg}";
+		if(msg == "inquiryFail"){
+			alert("로그인이 필요한 기능입니다.");
+		}
 		var secretNum = "";
 		// 	아이디 찾기 모달창 클릭
 		$("#findID").click(function() {
@@ -211,7 +215,6 @@
 								name="m_id" placeholder="아이디를 입력하시오" required="required" /> 
 							<input type="email" class="form-control" id="toRe" name="to"
 								placeholder="등록된 e-mail를 입력하시오" required="required" />
-
 						</div>
 						<div class="modal-footer">
 

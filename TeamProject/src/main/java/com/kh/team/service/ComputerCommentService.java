@@ -10,4 +10,8 @@ public interface ComputerCommentService {
 	public List<ComputerCommentVo> getCommentList(int p_no) throws Exception;
 	//상품설명 목록
 	public List<ProductExplainVo> getInquireList(int p_no) throws Exception;
+	//구매후기 내용 변경
+	public int changeCommentContent(int c_com_comment_no, String c_com_comment_content) throws Exception;
+	//구매후기 삭제
+	public void deleteComment(int c_com_comment_no) throws Exception;
 }

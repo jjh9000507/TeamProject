@@ -8,6 +8,8 @@
 $(function(){
 	var price = "${buyComputerVo.c_com_price}";
 	var priceFinal = "";
+	var index = "";
+	var comment_no = "";
 	$("#confirmPrice").click(function() {
 		var productNumber = $("#productNumber").val();
 		console.log("productNumber:" + productNumber);
@@ -16,26 +18,28 @@ $(function(){
 		$("#finalPrice").text(priceFinal + "원");		
 	});
 	$("#detailProductExpain").click(function() {
+		$("#inquireControll").hide();
 		$("#commentTable").hide();
 		$("#productExplainTable").hide();
 		$("#productExplain").text("상품내용:" + "${buyComputerVo.c_com_content}");
 		$("#productExplain").show();
 	});
 	$("#buyAfter").click(function() {
+		$("#inquireControll").hide();
 		$("#productExplain").hide();
 		$("#productExplainTable").hide();
 		$("#commentTable > tbody").empty();
-		
-		var url = "/computerProduct/commentShow";
+		var indexAfter = 1;
+		var url = "/computerProductComment/commentShow";
 		var p_no = "${buyComputerVo.p_no}";
 		var sendData = {
 				"p_no" : p_no
 			};
 		
 		$.post(url,sendData, function(data) {
-			$.each(data, function() {
+			$.each(data, function() {				
 				var tr = $("#trTable").find("tr").clone();
-				tr.find("td").eq(0).text(this.c_com_comment_no);
+				tr.find("td").eq(0).text(indexAfter);
 				tr.find("td").eq(1).text(this.c_com_comment_content);
 				tr.find("td").eq(2).text(this.c_com_comment_writer);
 				tr.find("td").eq(3).text(this.c_com_comment_regdate);
@@ -46,51 +50,83 @@ $(function(){
 						tr.find("td").eq(4).empty();
 						tr.find("td").eq(5).empty();				
 					}
+				tr.find("td").eq(6).text(this.c_com_comment_no);
 				$("#commentTable").append(tr);
+				indexAfter++;
 			});			
 		});
 		$("#commentTable").show();
 	});
 	$("#inquireProduct").click(function() {
+		$("#inquireControll").show();
+		var indexInquire = 1;
 		$("#commentTable").hide();
 		$("#productExplain").hide();
 		$("#productExplainTable > tbody").empty();
-		var url = "/computerProduct/inquireShow/${buyComputerVo.p_no}";
+		var url = "/computerProductComment/inquireShow/${buyComputerVo.p_no}";
 		$.get(url, function(data) {
 			$.each(data, function() {
+				
 				var tr = $("#productExplainTrTable").find("tr").clone();
-				tr.find("td").eq(0).text(this.p_e_no);
+				tr.find("td").eq(0).text(indexInquire);
 				tr.find("td").eq(1).text(this.p_e_answer_status);
 				tr.find("td").eq(2).text(this.p_e_inquiry_status);
 				tr.find("td").eq(3).text(this.p_e_title);
 				tr.find("td").eq(4).text(this.p_e_id);
 				tr.find("td").eq(5).text(this.p_e_regdate);
+				tr.find("td").eq(6).text(this.p_e_no);
 				$("#productExplainTable").append(tr);
+				indexInquire++;
 			});
 		});
 			
 		$("#productExplainTable").show();
 	});
-	$("#commentTable").on("click", ".btnCommentModify", function(){
-		$("#modal-modify").trigger("click");
+	$("#commentTable").on("click", ".btnCommentModify", function(){	
+		comment_no = $(this).parent().parent().find("td").eq(6).text();
+		console.log("comment_no:" + comment_no);
+		$("#modal-modify").trigger("click");		
+	});
+	$("#updateAfterBuyProduct").click(function(){		
+				
+		var updateInput = $("#updateInput").val();
+		console.log("c_com_comment_content:" + updateInput);
+		var url = "/computerProductComment/updateRefContent";
+		var sendData = {
+			"c_com_comment_content" : updateInput,			
+			"c_com_comment_no" : comment_no
+		};
+		$.post(url, sendData, function(data) {
+			if(data == "success"){
+				alert("후기 내용 변경 성공");
+			}
+		});
+		
 	});
 	$("#commentTable").on("click", ".btnCommentDelete", function(){
-		alert("구매후기 삭제");
+		comment_no = $(this).parent().parent().find("td").eq(6).text();
+		console.log("comment_no:" + comment_no);
+		var url = "/computerProductComment/deleteRef";
+		var sendData = {							
+				"c_com_comment_no" : comment_no
+			};
+			$.post(url, sendData, function(data) {
+				if(data == "success"){
+					alert("선택 후기 삭제 성공");
+				}
+			});
 	});
 	
 });
 </script>
 <div class="row">
-		<div class="col-md-2"></div>
-<div class="col-md-8" >
-<%@ include file="../include/header_mainCatagories.jsp"%>
-<div class="row">
 		<div class="col-md-12">
 			 <a id="modal-modify" href="#modal-container-modify" role="button" style="display: none;" class="btn" data-toggle="modal">Launch demo modal</a>
+			
 			<div class="modal fade" id="modal-container-modify" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
-						<div class="modal-header">
+				<div class="modal-dialog inputModifyModal" role="document">
+					<div class="modal-content inputModifyModal">
+						<div class="modal-header inputModifyModal">
 							<h5 class="modal-title" id="myModalLabel">
 								구매후기 수정 폼
 							</h5> 
@@ -98,22 +134,32 @@ $(function(){
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
-						<div class="modal-body">
-							...
+						<div class="modal-body inputModifyModal">
+							<label>구매후기 내용 수정</label>	
+						<input type="text" class="form-control" id="updateInput" name="c_com_comment_content" placeholder="구매후기 내용 수정사항"/>
+						<input type="text" style="display: none;" id="getId" value="${buyComputerVo.c_com_seller}"/>
 						</div>
-						<div class="modal-footer">							 
-							<button type="button" class="btn btn-primary">
+						<div class="modal-footer">
+							<button type="button" id="updateAfterBuyProduct" class="btn btn-primary">
 								변경
 							</button> 
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">
 								닫기
 							</button>
 						</div>
-					</div>					
-				</div>				
-			</div>			
+					</div>
+					
+				</div>
+				
+			</div>
+			
 		</div>
 	</div>
+<div class="row">
+		<div class="col-md-2"></div>
+<div class="col-md-8" >
+<%@ include file="../include/header_mainCatagories.jsp"%>
+
 <br>
 	</div>
 	<div class="col-md-2"></div>
@@ -163,7 +209,8 @@ $(function(){
 					<td>
 					<button type="button"
 							class="btn btn-xs btn-warning btnCommentDelete">삭제</button>
-					</td>					
+					</td>
+					<td style="display: none;"></td>					
 				</tr>
 			</table>
 <table style="display: none;" id="productExplainTrTable">
@@ -174,6 +221,7 @@ $(function(){
 					<td></td>
 					<td></td>
 					<td></td>					
+					<td style="display: none;"></td>					
 				</tr>
 			</table>
 </nav>
@@ -257,8 +305,8 @@ $(function(){
 <footer class="buyfooter">
 <ul class="nav nav-tabs breadcrumb">
 <li class="nav-item"><button id="detailProductExpain">상세설명</button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="buyAfter">구매후기<span>(n)</span></button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="inquireProduct">상품문의<span>(n)</span></button></li>
+<li class="nav-item"><button id="buyAfter">구매후기(<span>${computerCommentCount}</span>)</button></li>&nbsp&nbsp&nbsp
+<li class="nav-item"><button id="inquireProduct">상품문의(<span>${productExplainCount}</span>)</button></li>
 </ul>
 </footer>
 <aside class="buyrightdownaside">
@@ -283,6 +331,7 @@ $(function(){
 						<th>날짜</th>
 						<th></th>
 						<th></th>						
+						<th></th>						
 					</tr>
 				</thead>
 				<tbody id="tableTbody">
@@ -291,7 +340,34 @@ $(function(){
 	</div>
 </div>
 <div class="row">
-		<div class="col-md-12">			
+		<div class="col-md-12">
+		<div>
+		<ul class="nav nav-tabs breadcrumb" id="inquireControll" style="display: none;">
+		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquire" type="text"/><button id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
+		<li class="nav-item">
+		<div class="dropdown">				 
+				<button class="btn dropdown-toggle" type="button" id="dropdownInquireButton" data-toggle="dropdown">
+					문의 유형(전체)
+				</button>
+				<div class="dropdown-menu" aria-labelledby="dropdownInquireButton">
+					 <a class="dropdown-item" href="#">상품문의</a> 
+					 <a class="dropdown-item" href="#">배송</a> 
+					 <a class="dropdown-item" href="#">교환</a>
+					 <a class="dropdown-item" href="#">반품/취소/환불</a>
+					 <a class="dropdown-item" href="#">기타</a>
+				</div>
+			</div>
+			</li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+		<li class="nav-item"><button id="inquireProduct">상품문의</button></li>
+		</ul>
+		</div>	
 			<table class="table" id="productExplainTable" style="display: none;">
 				<thead>
 					<tr>
@@ -301,6 +377,7 @@ $(function(){
 						<th>문의제목</th>
 						<th>작성자</th>
 						<th>작성일자</th>												
+						<th></th>												
 					</tr>
 				</thead>
 				<tbody id="productExplainTbody">

@@ -4,4 +4,5 @@
 <a href="/admin/adminDetail">게시물 관리</a>
 <a href="/admin/adminCategory">카테고리 관리</a>
 <a href="/admin/adminMember">회원 관리</a>
+<a href="/admin/adminService">고객센터</a>
 <%@include file="../include/footer.jsp" %>

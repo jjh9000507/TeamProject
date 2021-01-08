@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
+import com.kh.team.domain.QACateVo;
+import com.kh.team.domain.QandAVo;
 import com.kh.team.domain.SanctionVo;
 import com.kh.team.service.AdminService;
 import com.kh.team.service.SanctionService;
@@ -230,5 +232,45 @@ public class AdminController {
 		categoryVo.setCate_ref(cate_ref);
 		adminService.adminCategoryInput(categoryVo);
 		return "redirect:/admin/adminCategoryInput";
+	}
+	
+	//고객센터 페이지
+	@RequestMapping(value="/adminService", method=RequestMethod.GET)
+	public String adminService() throws Exception{
+		return "/admin/admin_service";
+	}
+	
+	//Q&A 페이지
+	@RequestMapping(value="/adminQandAMain", method=RequestMethod.GET)
+	public String adminQandAMain() throws Exception {
+		return "/admin/a_q_main";
+	}
+	
+	//Q&A 추가 페이지
+	@RequestMapping(value="/adminQandAInput", method=RequestMethod.GET)
+	public String adminQandAInput() throws Exception {
+		return "/admin/a_q_input";
+	}
+	
+	//Q&A 수정/삭제 페이지
+	@RequestMapping(value="/adminQandADelete", method=RequestMethod.GET)
+	public String adminQandADelete(Model model) throws Exception {
+		List<QandAVo> QA_UDList = adminService.QA_UDList();
+		List<QACateVo> QACategory = adminService.QACategory();
+		model.addAttribute("QA_UDList", QA_UDList);
+		model.addAttribute("QACategory", QACategory);
+		return "/admin/a_q_delete";
+	}
+	
+	//1:1문의 접수 페이지
+	@RequestMapping(value="/adminInquiry", method=RequestMethod.GET)
+	public String adminInquiry() throws Exception {
+		return "/admin/a_inq";
+	}
+	
+	//공지사항 페이지
+	@RequestMapping(value="/adminNotice", method=RequestMethod.GET)
+	public String adminNotice() throws Exception {
+		return "/admin/a_notice";
 	}
 }

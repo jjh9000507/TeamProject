@@ -10,6 +10,8 @@ import org.springframework.stereotype.Repository;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
+import com.kh.team.domain.QACateVo;
+import com.kh.team.domain.QandAVo;
 
 @Repository
 public class AdminDaoImpl implements AdminDao{
@@ -227,6 +229,18 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void productImgDelete(int p_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "productImgDelete", p_no);
+	}
+
+	@Override
+	public List<QandAVo> QA_UDList() throws Exception {
+		List<QandAVo> QA_UDList = sqlSession.selectList(NAMESPACE + "QA_UDList");
+		return QA_UDList;
+	}
+
+	@Override
+	public List<QACateVo> QACategory() throws Exception {
+		List<QACateVo> QACategory = sqlSession.selectList(NAMESPACE + "QACategory");
+		return QACategory;
 	}
 
 	

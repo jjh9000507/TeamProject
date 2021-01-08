@@ -5,6 +5,8 @@ import java.util.List;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
+import com.kh.team.domain.QACateVo;
+import com.kh.team.domain.QandAVo;
 
 public interface AdminService {
 	
@@ -59,4 +61,9 @@ public interface AdminService {
 		
 	//관리자가 게시물 삭제 시 게시물 이미지 테이블에서 aws에 지워야할 파일 이름을 가져오기
 	public String[] productImgList(int p_no) throws Exception;
+	
+	//Q&A 수정/삭제 에 사용할 리스트 가져오기
+	public List<QandAVo> QA_UDList() throws Exception;
+	//Q&A 수정/삭제에 이름 띄우기위해 대조하는 Q&A 카테고리 리스트 가져오기
+	public List<QACateVo> QACategory() throws Exception;
 }

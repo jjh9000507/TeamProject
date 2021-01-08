@@ -15,8 +15,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
-
+import com.kh.team.domain.ProductExplainVo;
 import com.kh.team.service.ComputersService;
 
 
@@ -108,11 +109,13 @@ public class ComputersController {
 		System.out.println("firstPrice:" + firstPrice);		
 		System.out.println("lastPrice:" + lastPrice);		
 		
+		
 		//배열을 이용하여 컴퓨터제품 폼에서 불러온 값 저장하기
 		String[] confirmList = new String[6];
 		if(search0no != null) {
 			System.out.println("search0no:"+ search0no);
 			confirmList[0] = search0no;
+			
 		}
 		if(search1no != null) {
 			System.out.println("search1no:"+ search1no);
@@ -211,10 +214,16 @@ public class ComputersController {
 	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model,HttpServletRequest request) throws Exception {
 		ComputerVo computerVo = computersService.buyComputerProduct(p_no);
 		String c_com_cate_no = computerVo.getC_com_cate_no();
+		String c_com_product = computerVo.getC_com_name();
 		System.out.println("buyFormUsed + c_com_cate_no:" + c_com_cate_no);
 		String[] indexName = computersService.buyCategoryInfoGet(c_com_cate_no);
+		int countComment = computersService.buyComputerComment(c_com_product);
+		int countExplain = computersService.buyComputerExplain(c_com_product);
 		model.addAttribute("buyComputerVo", computerVo);
 		request.setAttribute("indexName", indexName);
+		request.setAttribute("computerCommentCount", countComment);
+		request.setAttribute("productExplainCount", countExplain);
+		
 		System.out.println("computerVo_Buy:" + computerVo);
 		return "/computerProduct/buyComputerProduct";
 	}	
@@ -223,12 +232,21 @@ public class ComputersController {
 	@RequestMapping(value="/computersFormSearchById", method=RequestMethod.POST)
 	public String computersFormSearchById(String c_com_seller, String byId0no, String byId1no, String byId2no, String byId3no, String byId4no, String byId5no, Model model, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		System.out.println("c_com_seller:" + c_com_seller);			
-		
+		String redirect_cate_no = "";
 		//배열을 이용하여 컴퓨터제품 폼에서 불러온 값 저장하기
 		String[] confirmList = new String[6];
 		if(byId0no != null) {
 			System.out.println("byId0no:"+ byId0no);
 			confirmList[0] = byId0no;
+			if(byId0no.length() > 3) {
+				String newCate_no = byId0no.substring(0, 4);
+				System.out.println("newCate_no:" + newCate_no);
+				redirect_cate_no = newCate_no;
+			}else {
+				String newCate_no = byId0no;
+				System.out.println("newCate_no:" + newCate_no);
+				redirect_cate_no = newCate_no;
+			}
 		}
 		if(byId1no != null) {
 			System.out.println("byId1no:"+ byId1no);
@@ -250,7 +268,7 @@ public class ComputersController {
 			System.out.println("byId5no:"+ byId5no);
 			confirmList[5] = byId5no;
 		}
-		
+		System.out.println("redirect_cate_no:" + redirect_cate_no);
 		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(confirmList);
 		
@@ -268,17 +286,14 @@ public class ComputersController {
 		String view = "";
 		
 		if(count == 0) {
-			view = "redirect:/computerProduct/computersForm";
-			rttr.addFlashAttribute("msgx", "IdIsNull");
+			rttr.addFlashAttribute("msg", "idIsNull");
+			view = "redirect:/computerProduct/computersForm/" + redirect_cate_no;
 		}else if(count > 0) {
 			model.addAttribute("categoryInfo", categoryInfo);
 			model.addAttribute("computerList", computerList);
 			request.setAttribute("cate_no_confirm", confirmList);
 			view = "/computerProduct/computersForm";
-		}
-		
-		
-		
+		}		
 		return view;
 	}
 

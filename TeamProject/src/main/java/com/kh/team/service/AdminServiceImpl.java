@@ -10,6 +10,8 @@ import com.kh.team.dao.AdminDao;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
+import com.kh.team.domain.QACateVo;
+import com.kh.team.domain.QandAVo;
 
 @Service
 public class AdminServiceImpl implements AdminService{
@@ -163,5 +165,18 @@ public class AdminServiceImpl implements AdminService{
 	public String[] productImgList(int p_no) throws Exception {
 		String[] productImgList = adminDao.getFileName(p_no);
 		return productImgList;
+	}
+
+	//Q&A 수정/삭제에 필요한 Q&A리스트 가져오기
+	@Override
+	public List<QandAVo> QA_UDList() throws Exception {
+		List<QandAVo> QA_UDList = adminDao.QA_UDList();
+		return QA_UDList;
+	}
+
+	@Override
+	public List<QACateVo> QACategory() throws Exception {
+		List<QACateVo> QACategory = adminDao.QACategory();
+		return QACategory;
 	}
 }

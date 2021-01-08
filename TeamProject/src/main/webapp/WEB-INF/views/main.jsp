@@ -6,6 +6,8 @@
 
 <script>
 $(function(){
+	
+	//더 보기 버튼
 	$(".divMore").click(function(e){		
 		e.preventDefault();
 	var startNum = $(".list").length;
@@ -28,26 +30,54 @@ $(function(){
 // 				 $(".productList > ul:eq(0)").remove();
 					$(".productList").append(ul);
 			});
+// 			startNum = startNum + 3;
 		});
 		
-// 		startNum = startNum + 1;
 	});
 	
 	// 메인 카테고리 스크롤 이동 시에 따라오기
 	$(window).scroll(function() {
 		var position = $(window).scrollTop(); // 현재 스크롤 위치
+// 		console.log(position);
 		
+		// 현재 스크롤 위치가 200이 넘어가면
 		if(position >= 200) {
-			$(".borderAllCategory").css("position" , "fixed");	
-			$(".borderAllCategory").css("top" , "0");	
-			$(".borderAllCategory").css("z-index" , "2");	
-			$(".borderAllCategory").css("background" , "white");	
+			// 기존 클래스 제거 
+			$("#borderAllCategory").removeClass("borderAllCategory");
+			
+			// 새 클래스 추가
+			$("#borderAllCategory").addClass("borderAllCategory_scroll");
+			
+			// 검색 창 생성
+			$("#divSearch_Form").show();
+			$("#main-menu").append($("#li_ScrollSearch"));
+			
 		} else if (position <= 200) {
-			$(".borderAllCategory").css("position" , "");	
-			$(".borderAllCategory").css("top" , "");	
-			$(".borderAllCategory").css("z-index" , "");	
-			$(".borderAllCategory").css("background" , "");
+			
+			// 새 클래스 제거
+			$("#borderAllCategory").removeClass("borderAllCategory_scroll");
+			
+			// 기존 클래스 추가
+			$("#borderAllCategory").addClass("borderAllCategory");
+			
+			// 검색 창 제거
+			$("#divSearch_Form").hide();
+			$("#main-menu").remove($("#li_ScrollSearch"));
+			
 		}
+		
+		if (position > 1000) {
+			$("#divBanner").removeClass("divBanner");
+			$("#divBanner").addClass("divBanner_scroll");
+			
+		} else if (position <= 1000) {
+			$("#divBanner").removeClass("divBanner_scroll");
+			$("#divBanner").addClass("divBanner");
+			
+		}
+ 		
+		
+		
 	});
 	
 }); // main function
@@ -59,7 +89,7 @@ $(function(){
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
 	
 <div class="row">
-<div class="col-md-12 borderAllCategory" >
+<div class="col-md-12 borderAllCategory" id="borderAllCategory">
 	<div class="col-md-2"></div>
 		<div class="col-md-8" >
 <%@ include file="include/header_mainCatagories.jsp"%>
@@ -70,7 +100,8 @@ $(function(){
 
 	</div>
 </div>
-		<div class="col-md-2"></div>
+		<div class="col-md-2">
+		</div>
 
 			<div class="row">
 				<div class="col-md-12">
@@ -124,7 +155,15 @@ $(function(){
 					
 					<!------------------------------------------ 상품 리스트 ---------------------------------------->
 					
-	<div class="col-md-2"></div>
+	<div class="col-md-2">
+	
+		<!-- 배너 -->
+			<div class="divBanner" id="divBanner"> 
+				<div class="banner_contents">
+					<img src="resources/image/banner.PNG"/>
+				</div> 
+			</div>
+	</div>
 					
 		<div style="padding-top: 40px;">
 			<div class="row listMain">
@@ -138,6 +177,16 @@ $(function(){
 						<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
 						<li class="nav-item"><a class="nav-link seller">판매자</a></li>
 					</ul>
+					
+					<!-- 전체 상품 목록(7개만) -->
+				<c:forEach var="all_list" items="${selectAll_List}">
+					<ul class="nav nav-pills list">
+							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
+							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="#">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
+							<li class="nav-item"><a class="nav-link seller">${all_list.p_seller}</a></li>
+					</ul>
+				</c:forEach>
+					
 					
 				</div>
 				<div class="col-md-2"></div>
@@ -159,5 +208,16 @@ $(function(){
 
 	</div>
 </div>
+<!--------------------------------------- 더보기 버튼 END---------------------------------------->
+
+
+	<!-- 스크롤 내리면 생기는 검색 창 -->		
+<li id="li_ScrollSearch">
+	<div id="divSearch_Form">
+		<input type="text" id="scroll_txtsearch" name="txtSearch" class="scroll_txtsearch" placeholder="검색어" onkeypress="if(event.keyCode==13){goSearch()}"/>
+		<button type="button" id="btnSearch"><i class="fas fa-search"></i></button>
+	</div>
+</li>
+
 
 
