@@ -11,13 +11,13 @@
 	</select>
 	
 	<select id="productList" resultType="ProductVo">
-		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2 from (
+		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2, p_readcount from (
 																								select a.*
 																								from clothes_product a
 																							
 																								union all 
 																							
-																								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no
+																								select b.c_com_no  , b.c_com_name , b.c_com_cate_no , b.c_com_price , b.c_com_content , b.c_com_seller , b.c_com_pic , b.c_com_regdate , b.p_no, b.p_readcount
 																								from computer_product b 
 																							
 																								union all 
