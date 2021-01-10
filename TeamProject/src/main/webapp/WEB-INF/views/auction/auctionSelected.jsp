@@ -8,6 +8,7 @@
 <script src="/resources/js/AuctionScript.js"></script>
 
 <script>
+
 var countDown=[];
 
 $(function(){
@@ -60,13 +61,13 @@ $(function(){
 			resultMinute = e_minute - nowMinute;
 			resultSecond = e_second - nowSecond;
 
-			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
-			
 			var addMonth = 12;
 			var addDate = new Date(nowYear, nowMonth-1, 0).getDate();
 			var addHour = 24;
 			var addMinute = 60;
 			var addSecond = 60;
+
+			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
 			
 			//-----------초 시작---------------------------------------------------------------------------------------//
 			if(resultSecond<0){//잡을 땐 < 일 때마다
@@ -249,6 +250,9 @@ $(function(){
 			
 			//마감 날짜와 현재 시간을 뺀 값을 this값에 넣는다 
 			$(this).text(resultHour+":"+resultMinute+":"+resultSecond);
+			$(this).next().val(resultYear);
+			$(this).next().next().val(resultMonth);
+			$(this).next().next().next().val(resultDate);
 			
 			//전부0이면 바로 입찰 종료를 보여준다
 			if(resultHour==0 && resultMinute==0 && resultSecond==0){
@@ -264,29 +268,65 @@ $(function(){
 			var that = $(this);
 			countDown[index] = setInterval(function(){
 				
+				var year = that.next().val();
+				var month = that.next().next().val();
+				var date = that.next().next().next().val();
+				
 				var indexCatch = index;//임버터를 멈추게 하기 위해서 index를 따로 저장
 				var timeValue = that.text().trim();
 				var timeArray = timeValue.split(":");
 				//console.log("time:"+time);
- 				//var time = timeMakeArray(timeValue);
-// 				//console.log(timeArray[0]+" ,"+ timeArray[1]);
  				var hour = parseInt(timeArray[0]);
  				var minute = parseInt(timeArray[1]);
  				var second = parseInt(timeArray[2]);
-				
-				if(second <= 0){
+
+
+				if(second<=0){
 					if(minute>0){
 						minute--;
-						second += 60;
+						second += addSecond;
 					}else{
 						if(hour>0){
 							hour--;
-							minute += 59;
-							second += 60;
+							minute += (addMinute-1);//second에 1을 넘겨줘야하기 때문에 -1 해준다(60이 아니라 59이다)
+							second += addSecond;
 						}else{
-							hour = 0;
-							minute = 0;
-							second = 0;
+							if(date>0){
+								date--;
+								that.next().next().next().val(date);
+								hour += (addHour-1);
+								minute += (addMinute-1);
+								second += addSecond;
+							}else{
+								if(month>0){
+									month--;
+									that.next().next().val(month);
+									date += (addDate-1);
+									that.next().next().next().val(date);
+									hour += (addHour-1);
+									minute += (addMinute-1);
+									second += addSecond;
+								}else{
+									if(year>0){
+										year--;
+										that.next().val(year);
+										month += (addMonth-1);
+										that.next().next().val(month);
+										date += (addDate-1);
+										that.next().next().next().val(date);
+										hour += (addHour-1);
+										minute += (addMinute-1);
+										second += addSecond;
+									}else{
+										year = 0;
+										month = 0;
+										date = 0;
+										hour = 0;
+										minute = 0;
+										second = 0;
+									}
+								}
+							}
 						}
 					}
 				}else{
@@ -337,7 +377,8 @@ $(function(){
 				    
 				   
 					setTimeout(function(){
-						location.href="/auction/timeOverAutoCommit";
+						var p_no = $("#p_no").val();
+						location.href="/auction/timeOverAutoCommit?p_no="+p_no;
 					},5000)
 				//-------------------------------- 종료되면 입찰 진행-------------------------------//			
 				}
@@ -529,10 +570,6 @@ function stopCountIndex(indexCatch){
 
 <a href="/auction/excercise">연습하기</a>
 
-<!-- 입찰 모달 창 시작 -->
-
-<!-- 입찰 모달 창 끝 -->
-
 <!-- 로그인 모달 창 시작-->
 <div class="col-md-12">
 	<a id="modaLoginAuction" href="#modal-container-525134" role="button"
@@ -598,9 +635,9 @@ function stopCountIndex(indexCatch){
 												<td>남은시간</td>
 												<td>
 													<div class="divCountDown" style="color:red"></div>
-														<input type="hidden" class="countDown_year" value="${selectedItem.e_year}">
-														<input type="hidden" class="countDown_month" value="${selectedItem.e_month}">
-														<input type="hidden" class="countDown_day" value="${selectedItem.e_day}">
+														<input type="hidden" class="resultYear" value="${selectedItem.e_year}">
+														<input type="hidden" class="resultMonth" value="${selectedItem.e_month}">
+														<input type="hidden" class="resultDate" value="${selectedItem.e_day}">
 														<input type="hidden" class="countDown_hour" value="${selectedItem.e_hour}">
 														<input type="hidden" class="countDown_minute" value="${selectedItem.e_minute}">
 														<input type="hidden" class="countDown_second" value="${selectedItem.e_second}">

@@ -101,9 +101,9 @@ public class AuctionDaoImpl implements AuctionDao{
 		Map<String, Object> map = new HashMap<>();
 		map.put("m_id", m_id);
 		map.put("dtVo", dtVo);
-		System.out.println("auctionDaoImpl m_id:"+m_id+" ,dtVo:"+dtVo.toString());
+		//System.out.println("auctionDaoImpl m_id:"+m_id+" ,dtVo:"+dtVo.toString());
 		List<AuctionSellVo> list = sqlSession.selectList(NAMESPACE+"getAuctionBidingList", map);
-		System.out.println("auctioinDaoImpl Bidinglist:"+list);
+		//System.out.println("auctioinDaoImpl Bidinglist:"+list);
 		return list;
 	}
 
@@ -114,7 +114,7 @@ public class AuctionDaoImpl implements AuctionDao{
 		map.put("m_id", m_id);
 		map.put("dtVo", dtVo);
 		List<AuctionSellVo> list = sqlSession.selectList(NAMESPACE+"getAuctionBidingFinishList", map);
-		System.out.println("auctioinDaoImpl BidingFinishlist:"+list);
+		//System.out.println("auctioinDaoImpl BidingFinishlist:"+list);
 		return list;
 	}
 	
@@ -248,14 +248,29 @@ public class AuctionDaoImpl implements AuctionDao{
 	}
 
 	@Override
-	public AuctionTempBidVo getMaxPriceFromTempBid(int p_no) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public AuctionTempBidVo getTempBidFromMaxPrice(int p_no) throws Exception {
+		AuctionTempBidVo auctionTempBidVo = sqlSession.selectOne(NAMESPACE + "getMaxPriceFromTempBid", p_no);
+		return auctionTempBidVo;
 	}
 
 	@Override
-	public void insertAuctionBid(AuctionBidVo auctionBidVo) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void insertAutoCommitBid(int p_no) throws Exception {
+		sqlSession.insert(NAMESPACE + "insertAutoCommitBid", p_no); 
+	}
+
+	@Override
+	public void updateAuctionAfterFinish(String purchaser, int sold_price, int p_no, String seller) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("purchaser", purchaser);
+		map.put("sold_price", sold_price);
+		map.put("p_no", p_no);
+		map.put("seller", seller);
+		sqlSession.update(NAMESPACE + "updateAuctionAfterFinish", map);
+	}
+
+	@Override
+	public List<AuctionVo> getAuctionPurchaserList(String m_id) throws Exception {
+		List<AuctionVo> list = sqlSession.selectList(NAMESPACE + "getAuctionPurchaserList", m_id);
+		return list;
 	}
 }

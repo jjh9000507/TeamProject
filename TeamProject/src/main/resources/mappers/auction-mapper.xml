@@ -79,6 +79,9 @@
 	</select>
 	
 	<!-- 내가 구매한 다른 사람 상품 -->
+	<select id="getAuctionPurchaserList" resultType="AuctionVo">
+		select * from auction where purchaser=#{m_id}
+	</select>
 	
 	<select id="getAuctionMainImg" resultType="AuctionMainImgVo">
 		select * from auction_main_img
@@ -149,7 +152,19 @@
 		FROM auction_temp_bid where p_no=#{p_no})
 	</select>
 	
+	<!-- 시간 종료시 가장 높은 값을 temp_bid에서 bid로 삽입 -->
+	<insert id="insertAutoCommitBid">
+		insert into auction_bid(bid_no, purchaser_id, seller_id, bid_price, bid_date, p_no)
+		select SEQ_BID_NO.nextval, temp_purchaser_id, temp_seller_id, temp_bid_price, temp_bid_date, p_no
+		from auction_temp_bid where temp_bid_no in (
+		SELECT MAX(temp_bid_no) KEEP(DENSE_RANK FIRST ORDER BY temp_bid_price DESC) as temp_bid_no
+		FROM auction_temp_bid where p_no=#{p_no})
+	</insert>
 	
+	<!-- auction 데이블에 purchaser와 sold_price 업데이트 -->
+	<update id="updateAuctionAfterFinish">
+		update auction set purchaser=#{purchaser}, sold_price=#{sold_price} where p_no=#{p_no} and seller=#{seller}
+	</update>
 	<!-- 입찰 끝 -->
 	
 	<insert id="insertAuction">

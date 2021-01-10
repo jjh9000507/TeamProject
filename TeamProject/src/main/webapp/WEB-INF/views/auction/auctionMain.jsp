@@ -41,7 +41,6 @@ $(function(){
 			var nowMinute = today.getMinutes();  // 분
 			var nowSecond = today.getSeconds();  // 초
 			
-			
 			var resultYear, resultMonth, resultDdate, resultHhour, resultMinute, resultSecond;
 			
 			//마감 날짜와 현재 날짜를 계산한다
@@ -52,8 +51,6 @@ $(function(){
 			resultMinute = e_minute - nowMinute;
 			resultSecond = e_second - nowSecond;
 
-			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
-			
 			var addMonth = 12;
 			var addDate = new Date(nowYear, nowMonth-1, 0).getDate();
 			var addHour = 24;
@@ -241,21 +238,19 @@ $(function(){
 			
 			//마감 날짜와 현재 시간을 뺀 값을 this값에 넣는다 
 			$(this).text(resultHour+":"+resultMinute+":"+resultSecond);
-			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate);
-			//console.log("resultHour:resultMinute:resultSecond:"+resultHour+":"+resultMinute+":"+resultSecond);
-			$(this).attr("resultYear",resultYear);
-			$(this).attr("resultMonth",resultMonth);
-			$(this).attr("resultDate",resultDate);
+			$(this).next().val(resultYear);
+			$(this).next().next().val(resultMonth);
+			$(this).next().next().next().val(resultDate);
 			
 			//입력된 텀 시간을 불러와서 카운드 다운한다
 			
 			var that = $(this);
 			countDown[index] = setInterval(function(){
 				
-				var resultCountYear = that.attr("resultYear");
-				var resultCountMonth = that.attr("resultMonth");
-				var resultCountDate = that.attr("resultDate");
-				//console.log("resultCountYear:"+resultCountYear+" ,resultCountMonth:"+resultCountMonth+" ,resultDate:"+resultDate);
+				var year = that.next().val();
+				var month = that.next().next().val();
+				var date = that.next().next().next().val();
+				//console.log("addDate:"+addDate+" ,year:"+year+" ,month:"+month+" ,day:"+date);
 	
 				var timeValue = that.text();
 				//console.log("timeValue:"+timeValue);
@@ -264,21 +259,55 @@ $(function(){
 				var hour = timeArray[0].trim();
 				var minute = timeArray[1].trim();
 				var second = timeArray[2].trim();
+ 				
 				console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 				
-				if(second <= 0){
+				if(second<=0){
 					if(minute>0){
 						minute--;
-						second += 60;
+						second += addSecond;
 					}else{
 						if(hour>0){
 							hour--;
-							minute += 59;
-							second += 60;
+							minute += (addMinute-1);//second에 1을 넘겨줘야하기 때문에 -1 해준다(60이 아니라 59이다)
+							second += addSecond;
 						}else{
-							hour = 0;
-							minute = 0;
-							second = 0;
+							if(date>0){
+								date--;
+								that.next().next().next().val(date);
+								hour += (addHour-1);
+								minute += (addMinute-1);
+								second += addSecond;
+							}else{
+								if(month>0){
+									month--;
+									that.next().next().val(month);
+									date += (addDate-1);
+									that.next().next().next().val(date);
+									hour += (addHour-1);
+									minute += (addMinute-1);
+									second += addSecond;
+								}else{
+									if(year>0){
+										year--;
+										that.next().val(year);
+										month += (addMonth-1);
+										that.next().next().val(month);
+										date += (addDate-1);
+										that.next().next().next().val(date);
+										hour += (addHour-1);
+										minute += (addMinute-1);
+										second += addSecond;
+									}else{
+										year = 0;
+										month = 0;
+										date = 0;
+										hour = 0;
+										minute = 0;
+										second = 0;
+									}
+								}
+							}
 						}
 					}
 				}else{
@@ -385,9 +414,9 @@ function makeTwoDigit(num){
 								<tr>
 									<td>
 										<div class="divCountDown" style="color:red"></div>
-										<input type="hidden" class="countDown_year" value="${auctionSellVo.e_year}">
-										<input type="hidden" class="countDown_month" value="${auctionSellVo.e_month}">
-										<input type="hidden" class="countDown_day" value="${auctionSellVo.e_day}">
+										<input type="hidden" class="resultYear" value="${auctionSellVo.e_year}">
+										<input type="hidden" class="resultMonth" value="${auctionSellVo.e_month}">
+										<input type="hidden" class="resultDate" value="${auctionSellVo.e_day}">
 										<input type="hidden" class="countDown_hour" value="${auctionSellVo.e_hour}">
 										<input type="hidden" class="countDown_minute" value="${auctionSellVo.e_minute}">
 										<input type="hidden" class="countDown_second" value="${auctionSellVo.e_second}">

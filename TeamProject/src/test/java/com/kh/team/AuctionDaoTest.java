@@ -17,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.kh.team.dao.AuctionDao;
 import com.kh.team.domain.AuctionSellVo;
+import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionImgVo;
 
@@ -30,6 +31,7 @@ public class AuctionDaoTest {
 	@Test
 	public void getAuctoionMainListTest() throws Exception {
 		List<AuctionSellVo> list = auctionDao.getAuctoionMainList();
+		System.out.println(list);
 	}
 	
 	@Test
@@ -92,5 +94,11 @@ public class AuctionDaoTest {
 		}
 		
 		return intArry;
+	}
+	
+	@Test
+	public void getAuctionPurchaserList() throws Exception {
+		List<AuctionVo> list = auctionDao.getAuctionPurchaserList("user02");
+		System.out.println("list:"+list);
 	}
 }

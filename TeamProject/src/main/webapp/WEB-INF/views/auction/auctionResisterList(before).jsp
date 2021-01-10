@@ -86,44 +86,22 @@ P_NO
 <script>
 $(function() {
 
-	$("#bidingItem").click(function() {//tab1클릭시
-		$("#bidingItemContent").show();
-		$("#bidingFinishItemContent").hide();
+	$("#listItem").click(function() {//tab1클릭시
+		$("#listItemContent").show();
 		$("#soldItemContent").hide();
-		$("#purchaseItemContent").hide()
 		$("#registerItemContent").hide();
-	});
-	
-	$("#bidingFinishItem").click(function() {//tab2클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").show();
-		$("#soldItemContent").hide();
-		$("#purchaseItemContent").hide()
-		$("#registerItemContent").hide();
+
 	});
 
-	$("#soldItem").click(function() {//tab3클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").hide();
+	$("#soldItem").click(function() {//tab2클릭시
+		$("#listItemContent").hide();
 		$("#soldItemContent").show();
-		$("#purchaseItemContent").hide()
-		$("#registerItemContent").hide();
-	});
-	
-	$("#purchaseItem").click(function() {//tab4클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").hide();
-		$("#soldItemContent").hide();
-		$("#purchaseItemContent").show()
 		$("#registerItemContent").hide();
 	})
 	
-	
 	$("#registerItem").click(function() {//tab3클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").hide();
+		$("#listItemContent").hide();
 		$("#soldItemContent").hide();
-		$("#purchaseItemContent").hide()
 		$("#registerItemContent").show();
 	})//registerItem
 	
@@ -372,7 +350,25 @@ $(function() {
 	}//changeMonth
 </script>
 
-${purchaserList}
+<!-- <div class="container-fluid"> -->
+<!-- 	<div class="row"> -->
+<!-- 		<div class="col-md-2"></div> -->
+		
+<!-- 		<div class="col-md-8"> -->
+<!-- 			<div class="col-md-2"></div> -->
+<!-- 			<div class="col-md-8"> -->
+			
+			
+			
+			
+<!-- 			</div> -->
+<!-- 			<div class="col-md-2"></div> -->
+<!-- 		</div>md-8 -->
+<!-- 		<div class="col-md-2"></div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+
+
 
 <div class="container-fluid">
 	<div class="row">
@@ -389,35 +385,33 @@ ${purchaserList}
 							
 							<div class="tabbable" id="tabs-778663">
 								<ul class="nav nav-tabs">
-								<li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab" id="bidingItem">입찰 중인 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab" id="bidingFinishItem">입찰 종료된 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab" id="soldItem">거래된 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab4" data-toggle="tab" id="purchaseItem">구매한 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab5" data-toggle="tab" id="registerItem">물품 등록</a></li>
+								<li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab" id="listItem">등록된 물품</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab" id="soldItem">거래된 물품</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab" id="registerItem">물품 등록</a></li>
 								</ul>
 				
 								<div class="tab-content">
 				
-									<div class="tab-pane active" id="bidingItemContent"><!-- tab1 -->
+									<div class="tab-pane active" id="listItemContent"><!-- tab1 -->
 										<!--------------------------------- tab1 div 시작 ------------------------------------>
 				
 										<div class="row">
 											<div class="col-md-12">
 											<div class="row">
 				
-											<c:forEach var="bidingList" items="${bidingList}" >
+											<c:forEach var="auctionSellVo" items="${sellList}" >
 											<div class="col-md-3">
 												<div class="card" style="height: 451px">
-														<img src="/furniture/displayImage?imageName=${bidingList.main_img_name}" class="img-class" style="height:200px;">
+														<img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class" style="height:200px;">
 													<div class="card-block">
-														<h5 class="card-title">상품:${bidingList.p_title}</h5>
-														<p class="card-text">현재가:${bidingList.present_price}</p>
-														<p class="card-text">즉구가:${bidingList.instant_price}</p>
-														<p class="card-text">등록일:${bidingList.r_year}/${bidingList.r_month}/${bidingList.r_day}</p>
-														<p class="card-text">마감일:${bidingList.e_year}/${bidingList.e_month}/${bidingList.e_day}</p>
+														<h5 class="card-title">상품:${auctionSellVo.p_title}</h5>
+														<p class="card-text">현재가:${auctionSellVo.present_price}</p>
+														<p class="card-text">즉구가:${auctionSellVo.instant_price}</p>
+														<p class="card-text">등록일:${auctionSellVo.r_year}/${auctionSellVo.r_month}/${auctionSellVo.r_day}</p>
+														<p class="card-text">마감일:${auctionSellVo.e_year}/${auctionSellVo.e_month}/${auctionSellVo.e_day}</p>
 														<p>
 															<a class="btn btn-outline-primary" href="#">수정</a> 
-															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${bidingList.p_no}">삭제</a>
+															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${auctionSellVo.p_no}">삭제</a>
 														</p>
 													</div>
 												</div>
@@ -430,39 +424,8 @@ ${purchaserList}
 										<!--------------------------------- tab1 div 끝 -------------------------------------->
 									</div><!-- tab1 -->
 									
-									<div class="tab-pane" id="bidingFinishItemContent">	<!-- tab2시작 -->
-										<!--------------------------------- tab2 div 시작 -------------------------------------->
-											<div class="row">
-											<div class="col-md-12">
-											<div class="row">
-				
-											<c:forEach var="bidingFinishList" items="${bidingFinishList}" >
-											<div class="col-md-3">
-												<div class="card" style="height: 451px">
-														<img src="/furniture/displayImage?imageName=${bidingFinishList.main_img_name}" class="img-class" style="height:200px;">
-													<div class="card-block">
-														<h5 class="card-title">상품:${bidingFinishList.p_title}</h5>
-														<p class="card-text">현재가:${bidingFinishList.present_price}</p>
-														<p class="card-text">즉구가:${bidingFinishList.instant_price}</p>
-														<p class="card-text">등록일:${bidingFinishList.r_year}/${bidingFinishList.r_month}/${bidingFinishList.r_day}</p>
-														<p class="card-text">마감일:${bidingFinishList.e_year}/${bidingFinishList.e_month}/${bidingFinishList.e_day}</p>
-														<p>
-															<a class="btn btn-outline-primary" href="#">수정</a> 
-															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${bidingFinishList.p_no}">삭제</a>
-														</p>
-													</div>
-												</div>
-											</div>
-											</c:forEach>
-				
-												</div>
-											</div>
-										</div>
-										<!--------------------------------- tab2 div 끝 -------------------------------------->
-									</div><!-- tab2끝 -->
-									
-									<div class="tab-pane" id="soldItemContent">	<!-- tab3 -->
-										<!--------------------------------- tab3 div 시작 ------------------------------------>
+									<div class="tab-pane" id="soldItemContent">	<!-- tab2 -->
+										<!--------------------------------- tab2 div 시작 ------------------------------------>
 					
 										<div class="row">
 											<div class="col-md-12">
@@ -492,16 +455,11 @@ ${purchaserList}
 											</div>
 										</div>					
 					
-										<!--------------------------------- tab3 div 끝 -------------------------------------->
-									</div><!-- tab3 -->
+										<!--------------------------------- tab2 div 끝 -------------------------------------->
+									</div><!-- tab2 -->
 									
-									<div class="tab-pane" id="purchaseItemContent"><!-- tab4 -->
-										내가 구매한 물품
-									</div>
-									
-									
-									<div class="tab-pane" id="registerItemContent"><!-- tab5 -->
-										<!--------------------------------- tab5 div 시작 ------------------------------------>
+									<div class="tab-pane" id="registerItemContent"><!-- tab3 -->
+										<!--------------------------------- tab3 div 시작 ------------------------------------>
 										
 										<div class="row">
 											<div class="col-md-12">
@@ -629,8 +587,8 @@ ${purchaserList}
 												</form>
 												</div>
 											</div>
-										</div><!-- tab5 -->
-										<!--------------------------------- tab5 div 끝 -------------------------------------->
+										</div><!-- tab3 -->
+										<!--------------------------------- tab3 div 끝 -------------------------------------->
 								</div>
 							</div>
 							<!--------------------------------------- 탭 끝 ------------------------------------------------------>

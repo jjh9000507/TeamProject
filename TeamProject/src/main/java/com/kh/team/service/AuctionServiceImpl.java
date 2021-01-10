@@ -249,7 +249,6 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	@Override
 	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception {
 		auctionDao.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
-		
 	}
 
 	@Override
@@ -261,18 +260,28 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	@Override
 	public void updateAuctionEDate(AuctionEDateVo auctionEDateVo) throws Exception {
 		auctionDao.updateAuctionEDate(auctionEDateVo);
+	}
+
+	@Override
+	public AuctionTempBidVo getTempBidFromMaxPrice(int p_no) throws Exception {
+		AuctionTempBidVo auctionTempBidVo = auctionDao.getTempBidFromMaxPrice(p_no);
+		return auctionTempBidVo;
+	}
+
+	@Override
+	public void insertAutoCommitBid(int p_no) throws Exception {
+		auctionDao.insertAutoCommitBid(p_no);
 		
 	}
 
 	@Override
-	public AuctionTempBidVo getMaxPriceFromTempBid(int p_no) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+	public void updateAuctionAfterFinish(String purchaser, int sold_price, int p_no, String seller) throws Exception {
+		auctionDao.updateAuctionAfterFinish(purchaser, sold_price, p_no, seller);
 	}
 
 	@Override
-	public void insertAuctionBid(AuctionBidVo auctionBidVo) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public List<AuctionVo> getAuctionPurchaserList(String m_id) throws Exception {
+		List<AuctionVo> list = auctionDao.getAuctionPurchaserList(m_id);
+		return list;
 	}
 }

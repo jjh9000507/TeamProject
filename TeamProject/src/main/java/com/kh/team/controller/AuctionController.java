@@ -54,7 +54,7 @@ public class AuctionController implements AuctionS3Key {
 		
 		//최근 날짜의 목록에 따라 메인 이미지만
 		List<AuctionSellVo> list = auctionService.getAuctoionMainList();
-		//System.out.println("auctionController getAuctionList list:"+list);
+		System.out.println("auctionController getAuctionList list:"+list);
 		model.addAttribute("list", list);
 		
 		/* 시작 할 때 s3에 있는 이미지를 다운 받는다 */
@@ -116,9 +116,6 @@ public class AuctionController implements AuctionS3Key {
 		
 		int[] nDate = getNowDate();
 		int[] nTime = getNowTime();
-//		for(int i=0 ; i<nDate.length ; i++) {
-//			System.out.println("nDate["+i+"]:"+nDate[i]+" ,nTime["+i+"]:"+nTime[i]);
-//		}
 		
 		AuctionDateAndTimeVo dtVo = new AuctionDateAndTimeVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2]);
 		//System.out.println("nDate:"+nDate.toString()+" ,nTime:"+nTime.toString());
@@ -126,18 +123,17 @@ public class AuctionController implements AuctionS3Key {
 		//입찰중
 		List<AuctionSellVo> bidingList = auctionService.getAuctionBidingList(m_id, dtVo);
 		model.addAttribute("bidingList",bidingList);
-		System.out.println("bidingList:"+bidingList);
+		//System.out.println("bidingList:"+bidingList);
 		//입찰 마감
 		List<AuctionSellVo> bidingFinishList = auctionService.getAuctionBidingFinishList(m_id, dtVo);
 		model.addAttribute("bidingFinishList",bidingFinishList);
-		System.out.println("bidingFinishList:"+bidingFinishList);
-		
+		//System.out.println("bidingFinishList:"+bidingFinishList);
 		//거래된
 		List<AuctionSoldVo> soldList = auctionService.getAuctionUserMemberListSold(m_id);
 		model.addAttribute("soldList",soldList);
-		
 		//내가 구매한 상품
-		
+		List<AuctionVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
+		model.addAttribute("purchaserList", purchaserList);
 		
 		//폴더 이름을 p_no로 만들고 이미지를 저장하기 위해서 다음 p_no를 가지고 온다
 		int nextSeq = auctionService.getNextSeqNumber();
@@ -174,11 +170,21 @@ public class AuctionController implements AuctionS3Key {
 	}
 	
 	@RequestMapping(value="/timeOverAutoCommit", method=RequestMethod.GET)
-	public String timeOverAutoCommit() throws Exception{
-		System.out.println("timeOverAutoCommit");
-		
-		
-		
+	public String timeOverAutoCommit(int p_no) throws Exception{
+	
+		//임시 입찰 테이블에 해당 p_no의 테이터가 있을 때만 실행
+		AuctionTempBidVo auctionTempBidVo = auctionService.getTempBidFromMaxPrice(p_no);
+		if(auctionTempBidVo != null) {
+			//temp_bid에서 bid로 insert
+			auctionService.insertAutoCommitBid(p_no);
+			
+			//구매자와 판매자 정보 업데이트 auction의 purchaser와 sold_price 업데이트
+			String purchaser = auctionTempBidVo.getTemp_purchaser_id();
+			String seller = auctionTempBidVo.getTemp_seller_id();
+			int sold_price = auctionTempBidVo.getTemp_bid_price();
+			
+			auctionService.updateAuctionAfterFinish(purchaser, sold_price, p_no, seller);
+		}
 		return "redirect:/auction/auctionMain";
 	}
 	
@@ -327,10 +333,13 @@ public class AuctionController implements AuctionS3Key {
 	
 	@RequestMapping(value="/insertAuctionTempBid", method=RequestMethod.GET)
 	public String insertAcutionTempBid(int p_no, String seller, int bidPrice, int remindMinute, HttpSession session) throws Exception{
-		System.out.println("p_no:"+p_no+" ,seller:"+seller);
+		//System.out.println("p_no:"+p_no+" ,seller:"+seller);
 		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 
-		//auctionService.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
+		//입찰한 가격 입력
+		auctionService.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
+		
+		//시간 2분 추가하기
 		Calendar cal = Calendar.getInstance();
 		cal.set(2021,0,1); //0이면1월, 1이면 2월, ...
 		int monthEnd = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
