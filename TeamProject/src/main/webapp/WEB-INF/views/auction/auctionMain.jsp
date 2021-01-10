@@ -26,7 +26,8 @@ $(function(){
 			var e_day = $(this).next().next().next().val();
 			var e_hour = $(this).next().next().next().next().val();
 			var e_minute = $(this).next().next().next().next().next().val();
-			var e_second = parseInt((Math.random() * 59)+1);
+			var e_second = $(this).next().next().next().next().next().next().val();
+			//var e_second = parseInt((Math.random() * 59)+1);
 			//console.log("e_year:"+e_year+" ,e_month:"+e_month+" ,e_day:"+e_day+" ,e_hour:"+e_hour+" e_minute:"+e_minute);
 			//console.log("second:"+second);
 			
@@ -389,6 +390,7 @@ function makeTwoDigit(num){
 										<input type="hidden" class="countDown_day" value="${auctionSellVo.e_day}">
 										<input type="hidden" class="countDown_hour" value="${auctionSellVo.e_hour}">
 										<input type="hidden" class="countDown_minute" value="${auctionSellVo.e_minute}">
+										<input type="hidden" class="countDown_second" value="${auctionSellVo.e_second}">
 									</td>
 								</tr>
 			 				</table>

@@ -7,10 +7,12 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
+import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.AuctionBidVo;
+import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
@@ -95,11 +97,28 @@ public class AuctionDaoImpl implements AuctionDao{
 	}
 
 	@Override
-	public List<AuctionSellVo> getAuctionUserMemberListSell(String m_id) throws Exception {
-		List<AuctionSellVo> list = sqlSession.selectList(NAMESPACE+"getAuctionUserMemberListSell", m_id);
+	public List<AuctionSellVo> getAuctionBidingList(String m_id, AuctionDateAndTimeVo dtVo) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("m_id", m_id);
+		map.put("dtVo", dtVo);
+		System.out.println("auctionDaoImpl m_id:"+m_id+" ,dtVo:"+dtVo.toString());
+		List<AuctionSellVo> list = sqlSession.selectList(NAMESPACE+"getAuctionBidingList", map);
+		System.out.println("auctioinDaoImpl Bidinglist:"+list);
 		return list;
 	}
 
+	@Override
+	public List<AuctionSellVo> getAuctionBidingFinishList(String m_id, AuctionDateAndTimeVo dtVo)
+			throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("m_id", m_id);
+		map.put("dtVo", dtVo);
+		List<AuctionSellVo> list = sqlSession.selectList(NAMESPACE+"getAuctionBidingFinishList", map);
+		System.out.println("auctioinDaoImpl BidingFinishlist:"+list);
+		return list;
+	}
+	
+	
 	@Override
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception {
 		List<AuctionSoldVo> list = sqlSession.selectList(NAMESPACE+"getAuctionUserMemberListSold", m_id);
@@ -222,5 +241,21 @@ public class AuctionDaoImpl implements AuctionDao{
 		return auctionEDateVo;
 	}
 
+	@Override
+	public void updateAuctionEDate(AuctionEDateVo auctionEDateVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateAuctionEDate", auctionEDateVo);
+		
+	}
 
+	@Override
+	public AuctionTempBidVo getMaxPriceFromTempBid(int p_no) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertAuctionBid(AuctionBidVo auctionBidVo) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
 }

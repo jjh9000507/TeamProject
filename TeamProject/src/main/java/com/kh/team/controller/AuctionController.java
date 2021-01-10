@@ -29,6 +29,7 @@ import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.kh.team.domain.AuctionAddressVo;
+import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
@@ -99,7 +100,7 @@ public class AuctionController implements AuctionS3Key {
 					//s3끝
 				}
 			} 
-		}
+		}		
 		return "auction/auctionMain";
 	}
 	
@@ -107,19 +108,36 @@ public class AuctionController implements AuctionS3Key {
 	public String auctionResisterList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
 		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
 		
-		if(memberVo == null || memberVo.equals("")) {
+		if(memberVo == null) {
 			rttr.addFlashAttribute("msg", "loginFail");
 			return "redirect:/auction/auctionMain";
 		}
-	
-		//System.out.println("memberVo seller"+ memberVo.getM_id());
 		String m_id = memberVo.getM_id();
 		
-		List<AuctionSellVo> sellList = auctionService.getAuctionUserMemberListSell(m_id);
-		model.addAttribute("sellList",sellList);
+		int[] nDate = getNowDate();
+		int[] nTime = getNowTime();
+//		for(int i=0 ; i<nDate.length ; i++) {
+//			System.out.println("nDate["+i+"]:"+nDate[i]+" ,nTime["+i+"]:"+nTime[i]);
+//		}
 		
+		AuctionDateAndTimeVo dtVo = new AuctionDateAndTimeVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2]);
+		//System.out.println("nDate:"+nDate.toString()+" ,nTime:"+nTime.toString());
+		
+		//입찰중
+		List<AuctionSellVo> bidingList = auctionService.getAuctionBidingList(m_id, dtVo);
+		model.addAttribute("bidingList",bidingList);
+		System.out.println("bidingList:"+bidingList);
+		//입찰 마감
+		List<AuctionSellVo> bidingFinishList = auctionService.getAuctionBidingFinishList(m_id, dtVo);
+		model.addAttribute("bidingFinishList",bidingFinishList);
+		System.out.println("bidingFinishList:"+bidingFinishList);
+		
+		//거래된
 		List<AuctionSoldVo> soldList = auctionService.getAuctionUserMemberListSold(m_id);
 		model.addAttribute("soldList",soldList);
+		
+		//내가 구매한 상품
+		
 		
 		//폴더 이름을 p_no로 만들고 이미지를 저장하기 위해서 다음 p_no를 가지고 온다
 		int nextSeq = auctionService.getNextSeqNumber();
@@ -155,6 +173,15 @@ public class AuctionController implements AuctionS3Key {
 		return "auction/auctionSelected";
 	}
 	
+	@RequestMapping(value="/timeOverAutoCommit", method=RequestMethod.GET)
+	public String timeOverAutoCommit() throws Exception{
+		System.out.println("timeOverAutoCommit");
+		
+		
+		
+		return "redirect:/auction/auctionMain";
+	}
+	
 	@RequestMapping(value="/excercise", method=RequestMethod.GET)
 	public String excercise(String pno) throws Exception{
 		return "auction/excercise";
@@ -170,19 +197,22 @@ public class AuctionController implements AuctionS3Key {
 		auctionEDateVo.setP_no(nextPNO);
 		auctionMainImgVo.setP_no(nextPNO);
 		
-		//오늘 날짜
-		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String nowDate = nowDateFormat.format(date);
-		String[] nowDateArray = nowDate.split("-");
-		int[] nowDataArrayInt = stringArrayTointArray(nowDateArray);
-		//오늘 시간
-		SimpleDateFormat nowTimeFormat = new SimpleDateFormat("HH:mm");
-		String nowTime = nowTimeFormat.format(date);
-		String[] nowTimeArray = nowTime.split(":");
-		int[] nowTimeArrayInt = stringArrayTointArray(nowTimeArray);
-				
-		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nowDataArrayInt[0], nowDataArrayInt[1], nowDataArrayInt[2], nowTimeArrayInt[0], nowTimeArrayInt[1], nextPNO);
+//		//오늘 날짜
+//		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+//		Date date = new Date();
+//		String nowDate = nowDateFormat.format(date);
+//		String[] nowDateArray = nowDate.split("-");
+//		int[] nowDataArrayInt = stringArrayTointArray(nowDateArray);
+//		//오늘 시간
+//		SimpleDateFormat nowTimeFormat = new SimpleDateFormat("HH:mm:ss");
+//		String nowTime = nowTimeFormat.format(date);
+//		String[] nowTimeArray = nowTime.split(":");
+//		
+//		int[] nowTimeArrayInt = stringArrayTointArray(nowTimeArray);
+		//int second = (int)((Math.random()*58)+1);
+		int[] nDate = getNowDate();
+		int[] nTime = getNowTime();
+		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2], nextPNO);
 		
 		//auctionVo -> auctionAddressVo -> auctionRDateVo -> auctionEDateVo -> auctionMainImgVo -> auctionImgVo
 		//seller에 가입자 대신 임의로 user03입력
@@ -199,6 +229,30 @@ public class AuctionController implements AuctionS3Key {
 		auctionService.insertAuctionImg(auctionImgVo);
 		
 		return "redirect:/auction/auctionMain";
+	}
+
+	//오늘 날짜
+	private int[] getNowDate() {
+		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String nowDate = nowDateFormat.format(date);
+		//System.out.println("nowDate:"+nowDate);
+		String[] nowDateArray = nowDate.split("-");
+		int[] nowDateArrayInt = stringArrayTointArray(nowDateArray);
+		
+		return nowDateArrayInt;
+	}
+
+	//오늘 시간
+	private int[] getNowTime() {
+		SimpleDateFormat nowTimeFormat = new SimpleDateFormat("HH:mm:ss");
+		Date date = new Date();
+		String nowTime = nowTimeFormat.format(date);
+		String[] nowTimeArray = nowTime.split(":");
+		//System.out.println("nowTime:"+nowTime);
+		int[] nowTimeArrayInt = stringArrayTointArray(nowTimeArray);
+		
+		return nowTimeArrayInt;
 	}
 	
 	private int[] stringArrayTointArray(String[] str) {
@@ -277,7 +331,6 @@ public class AuctionController implements AuctionS3Key {
 		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 
 		//auctionService.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
-		
 		Calendar cal = Calendar.getInstance();
 		cal.set(2021,0,1); //0이면1월, 1이면 2월, ...
 		int monthEnd = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
@@ -288,38 +341,46 @@ public class AuctionController implements AuctionS3Key {
 		int day = auctionEDateVo.getE_day();
 		int hour = auctionEDateVo.getE_hour();
 		int minute = auctionEDateVo.getE_minute();
-		
+
+		//남은시간이 5분 이하일 때 입찰하면 2분 추가
+		int period = 2;
 		if(remindMinute<=5) {
-			if(minute+5 < 60) {
-				minute = minute+5;
+			if(minute+period < 60) {
+				minute = minute+period;
 			}else {
 				if(hour+1 <= 23) {
 					hour++;
-					minute = (minute+5)-60;
+					minute = (minute+period)-60;
 				}else {
 					if(day+1 <= monthEnd) {
 						day++;
 						hour = 0;//시간은 23시 다음 바로 00시가 된다
-						minute = (minute+5)-60;
+						minute = (minute+period)-60;
 					}else {
 						if(month+1 <= 12) {
 							month++;
 							day = 1;
 							hour = 0;
-							minute = (minute+5)-60;
+							minute = (minute+period)-60;
 						}else {
 							year++;
 							month = 1;
 							day = 1;
 							hour = 0;
-							minute = (minute+5)-60;
+							minute = (minute+period)-60;
 						}
 					}
 				}
 			}
 		}
 		
-		System.out.println("year:"+year+" ,month:"+month+" ,day:"+day+" ,hour:"+hour+" ,minute:"+minute);
+		//System.out.println("year:"+year+" ,month:"+month+" ,day:"+day+" ,hour:"+hour+" ,minute:"+minute);
+		auctionEDateVo.setE_year(year);
+		auctionEDateVo.setE_month(month);
+		auctionEDateVo.setE_day(day);
+		auctionEDateVo.setE_hour(hour);
+		auctionEDateVo.setE_minute(minute);
+		auctionService.updateAuctionEDate(auctionEDateVo);
 		
 		return "redirect:/auction/auctionSelected?p_no="+p_no;
 	}

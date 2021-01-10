@@ -4,55 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.kh.team.auction">
-<!-- 
-	<resultMap type="com.kh.team.domain.AuctionVo" id="auctinoVoMap">
-		<id property="p_no" column="p_no" />
-		<id property="seller" column="seller" />
-		<id property="p_title" column="p_title" />
-		<id property="p_content" column="p_content" />
-		<id property="present_price" column="present_price" />
-		<id property="instant_price" column="instant_price" />
-		<id property="purchaser" column="purchaser" />
-		<id property="sold_price" column="sold_price" />
-		<id property="sell_status" column="sell_status" />
-	</resultMap>
-	<resultMap type="com.kh.team.domain.AuctionAddressVo" id="auctinoAddressVoMap">
-		<id property="address_no" column="address_no" />
-		<id property="zip" column="zip" />
-		<id property="road_address" column="road_address" />
-		<id property="jibun_address" column="jibun_address" />
-		<id property="detail_address" column="detail_address" />
-	</resultMap>
-	<resultMap type="com.kh.team.domain.AuctionRDateVo" id="auctionRDateVoMap">
-		<id property="r_no" column="r_no" />
-		<id property="r_year" column="r_year" />
-		<id property="r_month" column="r_month" />
-		<id property="r_day" column="r_day" />
-		<id property="r_hour" column="r_hour" />
-		<id property="r_minute" column="r_minute" />
-	</resultMap>
-	<resultMap type="com.kh.team.domain.AuctionEDateVo" id="auctionEDateVoMap">
-		<id property="e_no" column="e_no" />
-		<id property="e_year" column="e_year" />
-		<id property="e_month" column="e_month" />
-		<id property="e_day" column="e_day" />
-		<id property="e_hour" column="e_hour" />
-		<id property="e_minute" column="e_minute" />
-	</resultMap>
-	<resultMap type="com.kh.team.domain.AuctionMainImgVo" id="auctionMainImgVoMap">
-		<id property="main_img_no" column="main_img_no" />
-		<id property="main_img_name" column="main_img_name" />
-	</resultMap>
-	
-	<resultMap type="com.kh.team.domain.AuctionDBJoinVo" id="auctionDBJoinVoMap">
-		<collection property="auctionVo" resultMap="auctinoVoMap" />
-		<collection property="auctionAddressVo" resultMap="auctinoAddressVoMap" />
-		<collection property="auctionRDateVo" resultMap="auctionRDateVoMap" />
-		<collection property="auctionEDateVo" resultMap="auctionEDateVoMap" />
-		<collection property="auctionMainImgVo" resultMap="auctionMainImgVoMap" />
-	</resultMap>
- -->
- 	
+ 	<!-- 메인 리스트 -->
 	<select id="getAuctoionMainList" resultType="AuctionSellVo">
 		select a.*, addr.*, rdate.*, edate.*, img.*
 		from auction a 
@@ -64,11 +16,12 @@
 		on rdate.p_no = edate.p_no
 		inner join auction_main_img img
 		on edate.p_no = img.p_no
-		where a.p_no not in (select p_no from auction_sold_date)
+		where a.p_no not in (select p_no from auction_bid)
 		order by rdate.r_year desc , rdate.r_month desc, rdate.r_day desc, rdate.r_hour desc, rdate.r_minute desc
 	</select>
 
-	<select id="getAuctionUserMemberListSell" resultType="AuctionSellVo">
+	<!-- 입찰 중인 내상품 -->
+	<select id="getAuctionBidingList" parameterType="hashMap" resultType="AuctionSellVo">
 		select a.*, addr.*, rdate.*, edate.*, img.*
 		from auction a 
 		inner join auction_address addr
@@ -79,23 +32,53 @@
 		on rdate.p_no = edate.p_no
 		inner join auction_main_img img
 		on edate.p_no = img.p_no
-		where a.seller=#{seller} and a.p_no not in (select p_no from auction_sold_date)
+		where a.seller=#{m_id} and a.p_no not in (select p_no from auction_bid)
+		and (edate.e_year &gt; #{dtVo.n_year}
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month &gt; #{dtVo.n_month})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day &gt; #{dtVo.n_day})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day = #{dtVo.n_day} and edate.e_hour &gt; #{dtVo.n_hour})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day = #{dtVo.n_day} and edate.e_hour = #{dtVo.n_hour} and edate.e_minute &gt; #{dtVo.n_minute})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day = #{dtVo.n_day} and edate.e_hour = #{dtVo.n_hour} and edate.e_minute = #{dtVo.n_minute} and edate.e_second &gt; #{dtVo.n_second}))
 	</select>
-
-	<select id="getAuctionUserMemberListSold" resultType="AuctionSoldVo">
-		select a.*, addr.*, rdate.*, sdate.*, img.*
+	
+	<!-- 입찰 마감된 내 상품 -->
+	<select id="getAuctionBidingFinishList" resultType="AuctionSellVo">
+		select a.*, addr.*, rdate.*, edate.*, img.*
 		from auction a 
 		inner join auction_address addr
 		on a.p_no = addr.p_no
 		inner join auction_register_date rdate
 		on addr.p_no = rdate.p_no
-		inner join auction_sold_date sdate
-        on rdate.p_no = sdate.p_no
-        inner join auction_main_img img
-        on sdate.p_no = img.p_no
-		where a.p_no in (select p_no from auction_sold_date)
-		order by sdate.s_year desc , sdate.s_month desc, sdate.s_day desc, sdate.s_hour desc, sdate.s_minute desc
+		inner join auction_expiration_date edate
+		on rdate.p_no = edate.p_no
+		inner join auction_main_img img
+		on edate.p_no = img.p_no
+		where a.seller = #{m_id} and a.p_no not in (select p_no from auction_bid)
+		and (edate.e_year &lt; #{dtVo.n_year} 
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month &lt; #{dtVo.n_month})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day &lt; #{dtVo.n_day})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day = #{dtVo.n_day} and edate.e_hour &lt; #{dtVo.n_hour})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day = #{dtVo.n_day} and edate.e_hour = #{dtVo.n_hour} and edate.e_minute &lt; #{dtVo.n_minute})
+		or (edate.e_year = #{dtVo.n_year} and edate.e_month = #{dtVo.n_month} and edate.e_day = #{dtVo.n_day} and edate.e_hour = #{dtVo.n_hour} and edate.e_minute = #{dtVo.n_minute} and edate.e_second &lt; #{dtVo.n_second}))
 	</select>
+	
+	<!-- 거래된 내 상품 -->
+	<select id="getAuctionUserMemberListSold" resultType="AuctionSoldVo">
+		select a.*, addr.*, rdate.*, bid.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_bid bid
+		on rdate.p_no = bid.p_no
+		inner join auction_main_img img
+		on bid.p_no = img.p_no
+		where a.seller=#{m_id} and a.p_no in (select p_no from auction_bid where seller_id=#{m_id})
+		order by bid.bid_date desc
+	</select>
+	
+	<!-- 내가 구매한 다른 사람 상품 -->
 	
 	<select id="getAuctionMainImg" resultType="AuctionMainImgVo">
 		select * from auction_main_img
@@ -110,6 +93,7 @@
 		where sequence_name = 'SEQ_AUCTION_PNO'
 	</select>
 	
+	<!-- 메인에서 상품 클릭 했을 때 -->
 	<select id="getAuctionSelectedItem" resultType="AuctionSellVo">
 		select a.*, addr.*, rdate.*, edate.*, img.*
 		from auction a 
@@ -129,6 +113,7 @@
 	</select>
 	
 	<!-- 입찰 시작 -->
+	
 	<select id="getAuctionTempBid" resultType="AuctionTempBidVo">
 		select * from auction_temp_bid where p_no = #{p_no}
 	</select>
@@ -152,6 +137,19 @@
 	<insert id="insertAuctionTempBid">
 		insert into auction_temp_bid(temp_bid_no, temp_purchaser_id, temp_seller_id, temp_bid_price, p_no) values(seq_temp_bid_no.nextval, #{purchaser}, #{seller}, #{bidPrice}, #{p_no})
 	</insert>
+	
+	<update id="updateAuctionEDate">
+		update auction_expiration_date set e_year=#{e_year}, e_month=#{e_month}, e_day=#{e_day}, e_hour=#{e_hour}, e_minute=#{e_minute}, e_second=#{e_second} where p_no=#{p_no}
+	</update>
+	
+	<!-- 자동 입찰시 임시 bid에서 제일 큰 가격가져오기 -->
+	<select id="getMaxPriceFromTempBid" resultType="AuctionTempBidVo">
+		select * from auction_temp_bid where temp_bid_no in (
+		SELECT MAX(temp_bid_no) KEEP(DENSE_RANK FIRST ORDER BY temp_bid_price DESC) as temp_bid_no
+		FROM auction_temp_bid where p_no=#{p_no})
+	</select>
+	
+	
 	<!-- 입찰 끝 -->
 	
 	<insert id="insertAuction">
@@ -174,13 +172,13 @@
 	</insert>
 	
 	<insert id="insertAuctionRegisterDate">
-		insert into auction_register_date(r_no, r_year, r_month, r_day, r_hour, r_minute, p_no)
-		values(SEQ_REGISTER_DATE.nextval,#{r_year},#{r_month},#{r_day},#{r_hour},#{r_minute},#{p_no})
+		insert into auction_register_date(r_no, r_year, r_month, r_day, r_hour, r_minute, r_second p_no)
+		values(SEQ_REGISTER_DATE.nextval,#{r_year},#{r_month},#{r_day},#{r_hour},#{r_minute},#{r_second},#{p_no})
 	</insert>
 	
 	<insert id="insertAuctionExpirationDate">
-		insert into auction_expiration_date(e_no, e_year, e_month, e_day, e_hour, e_minute, p_no)
-		values(SEQ_EXPIRATION_DATE.nextval,#{e_year},#{e_month},#{e_day},#{e_hour},#{e_minute},#{p_no})
+		insert into auction_expiration_date(e_no, e_year, e_month, e_day, e_hour, e_minute, e_second, p_no)
+		values(SEQ_EXPIRATION_DATE.nextval,#{e_year},#{e_month},#{e_day},#{e_hour},#{e_minute},#{e_seond},#{p_no})
 	</insert>
 	
 	<insert id="insertAuctionSoldDate">

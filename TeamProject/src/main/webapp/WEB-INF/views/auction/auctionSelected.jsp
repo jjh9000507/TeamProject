@@ -3,6 +3,7 @@
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
+<%@ include file="/resources/css/auction_css.css" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script src="/resources/js/AuctionScript.js"></script>
 
@@ -11,10 +12,9 @@ var countDown=[];
 
 $(function(){
 	
-	
 	$(document).ready(function() { 
 		$(".divCountDown").each(function(index){
-			//상품 유저와 로그인 유저가 같으면 입찰과 장바구니 버튼을 감춘다
+			/* ---상품 유저와 로그인 유저가 같으면 입찰과 장바구니 버튼을 감춘다 --*/
 			var urlUserCheck = "/auction/userCheck";
 			var seller = $("#seller").val();
 			var data = {
@@ -27,6 +27,7 @@ $(function(){
 					$(".collaspsePrice").hide();
 				}
 			});
+			/* --------------- 끝 ------------------------ */
 			
 			//마감 날짜와 시간을 가져온다
 			var e_year = $(this).next().val();
@@ -34,7 +35,8 @@ $(function(){
 			var e_day = $(this).next().next().next().val();
 			var e_hour = $(this).next().next().next().next().val();
 			var e_minute = $(this).next().next().next().next().next().val();
-			var e_second = parseInt((Math.random() * 59)+1);
+			var e_second = $(this).next().next().next().next().next().next().val();
+			//var e_second = parseInt((Math.random() * 59)+1);
 			//console.log("e_year:"+e_year+" ,e_month:"+e_month+" ,e_day:"+e_day+" ,e_hour:"+e_hour+" e_minute:"+e_minute);
 			//console.log("second:"+second);
 			
@@ -48,7 +50,6 @@ $(function(){
 			var nowMinute = today.getMinutes();  // 분
 			var nowSecond = today.getSeconds();  // 초
 			
-			
 			var resultYear, resultMonth, resultDdate, resultHhour, resultMinute, resultSecond;
 			
 			//마감 날짜와 현재 날짜를 계산한다
@@ -59,7 +60,7 @@ $(function(){
 			resultMinute = e_minute - nowMinute;
 			resultSecond = e_second - nowSecond;
 
-			console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
+			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
 			
 			var addMonth = 12;
 			var addDate = new Date(nowYear, nowMonth-1, 0).getDate();
@@ -264,13 +265,14 @@ $(function(){
 			countDown[index] = setInterval(function(){
 				
 				var indexCatch = index;//임버터를 멈추게 하기 위해서 index를 따로 저장
-				var time = timeMakeArray(that.text());
+				var timeValue = that.text().trim();
+				var timeArray = timeValue.split(":");
 				//console.log("time:"+time);
  				//var time = timeMakeArray(timeValue);
 // 				//console.log(timeArray[0]+" ,"+ timeArray[1]);
- 				var hour = parseInt(time[0]);
- 				var minute = parseInt(time[1]);
- 				var second = parseInt(time[2]);
+ 				var hour = parseInt(timeArray[0]);
+ 				var minute = parseInt(timeArray[1]);
+ 				var second = parseInt(timeArray[2]);
 				
 				if(second <= 0){
 					if(minute>0){
@@ -296,23 +298,6 @@ $(function(){
 				//goBid인 입찰버튼을 눌렀을 때 쿠키에 남은 시간을 저장한 걸 가지고온다-------------------쿠키에서 값 가져오기------------------------------ 
 				var p_no = $("#p_no").val();
 				
-				/*
-				var cookieValue = $.cookie(p_no);
-				if(cookieValue != null){
-					var cookieSplit = cookieValue.split(":");
-					var cookieMinute = cookieSplit[0];
-					var check = cookieSplit[1];
-					console.log("cookieMinute:"+cookieMinute+" ,check:"+check);
-					
-					if(check == "add" && check != null){
-						alert("minute 첫번째:"+cookieMinute);
-						minute = cookieMinute;
-						$.cookie(p_no,"null");
-					}
-				}
-				//쿠키 2번 연장 끝
-				*/
-				
 				var twoDigitHour = makeTwoDigit(hour);
 				var twoDigitMinute = makeTwoDigit(minute);
 				var twoDigitSecond = makeTwoDigit(second);
@@ -320,11 +305,41 @@ $(function(){
 				that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
 				
 				if(twoDigitHour==0 && twoDigitMinute==0 && twoDigitSecond==0){
+				//-------------------------------- 종료되면 입찰 진행-------------------------------//
 					//$("#stopTimer").trigger("click");
 					//alert("전부 00");
 					$(".collaspsePrice").hide();
 					$(".divBidEnd").show();
-					stopCountIndex(index);
+					stopCountIndex(indexCatch);
+					
+					var width = $(window).width();
+					var height = $(window).height();
+					
+					//화면을 가리는 레이어의 사이즈 조정
+					$(".screenBlock").width(width);
+					$(".screenBlock").height(height);
+					
+					//화면을 가리는 레이어를 보여준다 (0.5초동안 30%의 농도의 투명도)
+					$(".screenBlock").fadeTo(500, 0.3);
+					
+					//팝업 레이어 보이게
+					var loadingDivObj = $("#screenDiv");
+				    loadingDivObj.css({
+				    	'position': 'fixed',
+				    	'left': '50%',
+				    	'top': '50%'
+				    	});
+				    loadingDivObj.css({
+				    	'margin-left': -loadingDivObj.outerWidth() / 2 + 'px',
+				    	'margin-top': -loadingDivObj.outerHeight() / 2 + 'px'
+				    	}); 
+				    loadingDivObj.fadeIn(500);
+				    
+				   
+					setTimeout(function(){
+						location.href="/auction/timeOverAutoCommit";
+					},5000)
+				//-------------------------------- 종료되면 입찰 진행-------------------------------//			
 				}
 			},1000);
 		});	
@@ -433,8 +448,9 @@ $(function(){
 			
 			//2분 이내이면 더하기 2분을 한다
 			var timeValue = $(".divCountDown").text();
-			var time = timeMakeArray(timeValue);//시간 차이를 배열로 자른 후 분을 가지고 온다
-			$("#remindMinute").val(time[1]);
+			//var time = timeMakeArray(timeValue);//시간 차이를 배열로 자른 후 분을 가지고 온다
+			var timeArray = timeValue.split(":");
+			$("#remindMinute").val(timeArray[1]);
 			
 			/*redirect로 입찰controller에서 넘기기 때문에 쿠키에 연장 값을 가지고 있다고해도
 			최초 db expiration테이블에서 서버값을 가져오기 때문에 쿠키를 쓰려면
@@ -445,33 +461,58 @@ $(function(){
 				console.log("goBid time[1]:"+time[1]+" ,value:"+value+" ,p_no:"+p_no);
 				$.cookie(p_no, value);//add를 추가해서 리다이렉트시 null값을 넣고 한번만 읽게한다				
 			}*/
-
-			/*
-			var url="/auction/insertAuctionTempBid";
-			var seller = $("#seller").val();
-			var p_no = $("#p_no").val();
-			var data = {
-				"seller" : seller,
-				"p_no" : p_no
-			};
 			
-			$.get(url, data, function(e){
-				
-			});
-			*/
 			$("#insertBidForm").submit();
 		}
+	});//goBid
+	
+	
+	$("#btnFavorite").click(function(){
+		/* ---------------------------------- */
+		var width = $(window).width();
+		var height = $(window).height();
+		
+		//화면을 가리는 레이어의 사이즈 조정
+		$(".screenBlock").width(width);
+		$(".screenBlock").height(height);
+		
+		//화면을 가리는 레이어를 보여준다 (0.5초동안 30%의 농도의 투명도)
+		$(".screenBlock").fadeTo(500, 0.3);
+		
+		//팝업 레이어 보이게
+		var loadingDivObj = $("#screenDiv");
+	       loadingDivObj.css("top", ($(document).height()/2)-75);
+	       loadingDivObj.css("left",($(document).width()/2)-150);
+	       loadingDivObj.fadeIn(500);
+		/* ---------------------------------- */
 	});
+	
+	 //esc키 누르면 화면 잠김 해제
+	  $(document).keydown(function(event){
+		if(event.which=='27'){
+			$("#screenDiv").fadeOut(300);
+			$(".screenBlock").fadeOut(1000);
+		}
+	  });
+	 
+	 //윈도우가 resize될때마다 screenBlock를 조정
+	 $(window).resize(function(){
+		var width = $(window).width();
+		var height = $(window).height();
+		$(".screenBlock").width(width).height(height);
+	});
+	
 });//function
 
-// function makeTwoDigit(num){
-// 	var len = num.toString().length;
-// 	console.log("makeTwoDigit len:"+len);
-// 	if(len < 2){
-// 		num = "0"+num;
-// 	}
-// 	return num;
-// }
+/*
+function makeTwoDigit(num){
+	var len = num.toString().length;
+	console.log("makeTwoDigit len:"+len);
+	if(len < 2){
+		num = "0"+num;
+	}
+	return num;
+}*/
 
 function stopCountIndex(indexCatch){
 	clearInterval(countDown[indexCatch]);
@@ -562,6 +603,7 @@ function stopCountIndex(indexCatch){
 														<input type="hidden" class="countDown_day" value="${selectedItem.e_day}">
 														<input type="hidden" class="countDown_hour" value="${selectedItem.e_hour}">
 														<input type="hidden" class="countDown_minute" value="${selectedItem.e_minute}">
+														<input type="hidden" class="countDown_second" value="${selectedItem.e_second}">
 												</td>
 											</tr>
 											<tr class="table-danger">
@@ -586,7 +628,7 @@ function stopCountIndex(indexCatch){
 								<div class="col-md-12 divBidCollapse">
 										<div id="card-385137">
 											<div class="card collaspsePrice">
-												<button type="button" class="btn btn-sm btn-outline-danger">관심상품</button>
+												<button type="button" class="btn btn-sm btn-outline-danger" id="btnFavorite">관심상품</button>
 												<div class="card-header">
 													 <a class="card-link" data-toggle="collapse" data-parent="#card-385137" id="btnBid" href="#">입찰하기</a>
 												</div>
@@ -662,6 +704,15 @@ function stopCountIndex(indexCatch){
 	<!-- 외부 row -->
 </div>
 <!-- 외부 container -->
-
+<!-- 로딩 이미지 시작 -->
+<div class='screenBlock'></div>
+<div id="screenDiv">
+	<span style="margin-bottom:40px">입찰 처리 중</span>
+	<div class="loadingBox">
+		
+  		<div class="loadingBar"></div>
+	</div>
+</div>
+<!-- 로딩 이미지 끝 -->
 
 <%-- <%@ include file="../include/footer.jsp"%> --%>

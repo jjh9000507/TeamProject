@@ -1,5 +1,7 @@
 package com.kh.team.domain;
 
+import java.sql.Timestamp;
+
 public class AuctionSoldVo {
 	private int p_no;
 	private String seller;
@@ -23,16 +25,23 @@ public class AuctionSoldVo {
 	private int r_day;
 	private int r_hour;
 	private int r_minute;
-	
+	private int r_second;
+	/*
 	private int s_no;
 	private int s_year;
 	private int s_month;
 	private int s_day;
 	private int s_hour;
 	private int s_minute;
-	
+	*/
 	private int main_img_no;
 	private String main_img_name;
+	
+	private int bid_no;
+	private String purchaser_id;
+	private String seller_id;
+	private int bid_price;
+	private Timestamp bid_date;
 	
 	public int getP_no() {
 		return p_no;
@@ -148,41 +157,11 @@ public class AuctionSoldVo {
 	public void setR_minute(int r_minute) {
 		this.r_minute = r_minute;
 	}
-	public int getS_no() {
-		return s_no;
+	public int getR_second() {
+		return r_second;
 	}
-	public void setS_no(int s_no) {
-		this.s_no = s_no;
-	}
-	public int getS_year() {
-		return s_year;
-	}
-	public void setS_year(int s_year) {
-		this.s_year = s_year;
-	}
-	public int getS_month() {
-		return s_month;
-	}
-	public void setS_month(int s_month) {
-		this.s_month = s_month;
-	}
-	public int getS_day() {
-		return s_day;
-	}
-	public void setS_day(int s_day) {
-		this.s_day = s_day;
-	}
-	public int getS_hour() {
-		return s_hour;
-	}
-	public void setS_hour(int s_hour) {
-		this.s_hour = s_hour;
-	}
-	public int getS_minute() {
-		return s_minute;
-	}
-	public void setS_minute(int s_minute) {
-		this.s_minute = s_minute;
+	public void setR_second(int r_second) {
+		this.r_second = r_second;
 	}
 	public int getMain_img_no() {
 		return main_img_no;
@@ -196,6 +175,36 @@ public class AuctionSoldVo {
 	public void setMain_img_name(String main_img_name) {
 		this.main_img_name = main_img_name;
 	}
+	public int getBid_no() {
+		return bid_no;
+	}
+	public void setBid_no(int bid_no) {
+		this.bid_no = bid_no;
+	}
+	public String getPurchaser_id() {
+		return purchaser_id;
+	}
+	public void setPurchaser_id(String purchaser_id) {
+		this.purchaser_id = purchaser_id;
+	}
+	public String getSeller_id() {
+		return seller_id;
+	}
+	public void setSeller_id(String seller_id) {
+		this.seller_id = seller_id;
+	}
+	public int getBid_price() {
+		return bid_price;
+	}
+	public void setBid_price(int bid_price) {
+		this.bid_price = bid_price;
+	}
+	public Timestamp getBid_date() {
+		return bid_date;
+	}
+	public void setBid_date(Timestamp bid_date) {
+		this.bid_date = bid_date;
+	}
 	@Override
 	public String toString() {
 		return "AuctionSoldVo [p_no=" + p_no + ", seller=" + seller + ", p_title=" + p_title + ", p_content="
@@ -203,8 +212,9 @@ public class AuctionSoldVo {
 				+ sold_price + ", sell_status=" + sell_status + ", address_no=" + address_no + ", zip=" + zip
 				+ ", road_address=" + road_address + ", jibun_address=" + jibun_address + ", detail_address="
 				+ detail_address + ", r_no=" + r_no + ", r_year=" + r_year + ", r_month=" + r_month + ", r_day=" + r_day
-				+ ", r_hour=" + r_hour + ", r_minute=" + r_minute + ", s_no=" + s_no + ", s_year=" + s_year
-				+ ", s_month=" + s_month + ", s_day=" + s_day + ", s_hour=" + s_hour + ", s_minute=" + s_minute
-				+ ", main_img_no=" + main_img_no + ", main_img_name=" + main_img_name + "]";
+				+ ", r_hour=" + r_hour + ", r_minute=" + r_minute + ", r_second=" + r_second + ", main_img_no="
+				+ main_img_no + ", main_img_name=" + main_img_name + ", bid_no=" + bid_no + ", purchaser_id="
+				+ purchaser_id + ", seller_id=" + seller_id + ", bid_price=" + bid_price + ", bid_date=" + bid_date
+				+ "]";
 	}
 }

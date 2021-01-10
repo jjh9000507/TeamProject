@@ -18,6 +18,7 @@ import com.kh.team.controller.AuctionS3Key;
 import com.kh.team.dao.AuctionDao;
 import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.AuctionBidVo;
+import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
@@ -129,11 +130,18 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	}
 
 	@Override
-	public List<AuctionSellVo> getAuctionUserMemberListSell(String m_id) throws Exception {
-		List<AuctionSellVo> list = auctionDao.getAuctionUserMemberListSell(m_id);
+	public List<AuctionSellVo> getAuctionBidingList(String m_id, AuctionDateAndTimeVo auctionDandTVo) throws Exception {
+		List<AuctionSellVo> list = auctionDao.getAuctionBidingList(m_id, auctionDandTVo);
 		return list;
 	}
 
+	@Override
+	public List<AuctionSellVo> getAuctionBidingFinishList(String m_id, AuctionDateAndTimeVo auctionDandTVo)
+			throws Exception {
+		List<AuctionSellVo> list = auctionDao.getAuctionBidingFinishList(m_id, auctionDandTVo);
+		return list;
+	}
+	
 	@Override
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception {
 		List<AuctionSoldVo> list = auctionDao.getAuctionUserMemberListSold(m_id);
@@ -248,5 +256,23 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception {
 		AuctionEDateVo auctionEdateVo = auctionDao.getAuctionExpirationDate(p_no);
 		return auctionEdateVo;
+	}
+
+	@Override
+	public void updateAuctionEDate(AuctionEDateVo auctionEDateVo) throws Exception {
+		auctionDao.updateAuctionEDate(auctionEDateVo);
+		
+	}
+
+	@Override
+	public AuctionTempBidVo getMaxPriceFromTempBid(int p_no) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void insertAuctionBid(AuctionBidVo auctionBidVo) throws Exception {
+		// TODO Auto-generated method stub
+		
 	}
 }

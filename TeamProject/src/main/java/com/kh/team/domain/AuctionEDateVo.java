@@ -7,6 +7,7 @@ public class AuctionEDateVo {
 	private int e_day;
 	private int e_hour;
 	private int e_minute;
+	private int e_second;
 	private int p_no;
 	
 	public int getE_no() {
@@ -45,6 +46,12 @@ public class AuctionEDateVo {
 	public void setE_minute(int e_minute) {
 		this.e_minute = e_minute;
 	}
+	public int getE_second() {
+		return e_second;
+	}
+	public void setE_second(int e_second) {
+		this.e_second = e_second;
+	}
 	public int getP_no() {
 		return p_no;
 	}
@@ -54,6 +61,6 @@ public class AuctionEDateVo {
 	@Override
 	public String toString() {
 		return "AuctionEDateVo [e_no=" + e_no + ", e_year=" + e_year + ", e_month=" + e_month + ", e_day=" + e_day
-				+ ", e_hour=" + e_hour + ", e_minute=" + e_minute + ", p_no=" + p_no + "]";
+				+ ", e_hour=" + e_hour + ", e_minute=" + e_minute + ", e_second=" + e_second + ", p_no=" + p_no + "]";
 	}
 }
