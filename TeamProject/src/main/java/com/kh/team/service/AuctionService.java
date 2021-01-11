@@ -29,6 +29,8 @@ public interface AuctionService {
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception;
 	//내가 구매한 상품
 	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception;
+	//수정할 상품 가져오기
+	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception;	
 	
 	//main이미지 가져오기
 	public List<AuctionMainImgVo> getAuctionMainImg() throws Exception;

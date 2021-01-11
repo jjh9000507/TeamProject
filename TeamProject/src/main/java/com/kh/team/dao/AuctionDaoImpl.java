@@ -278,4 +278,10 @@ public class AuctionDaoImpl implements AuctionDao{
 	public void updateAuctionExpriationDeadline(int p_no) throws Exception {
 		sqlSession.update(NAMESPACE + "updateAuctionExpriationDeadline", p_no);
 	}
+
+	@Override
+	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception {
+		AuctionSellVo auctionSellVo = sqlSession.selectOne(NAMESPACE + "getAuctionModifyList", p_no);
+		return auctionSellVo;
+	}
 }

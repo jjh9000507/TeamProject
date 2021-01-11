@@ -5,7 +5,6 @@
 
 <%@ include file="../include/header.jsp"%>
 
-
 <%
 	String inputYn = request.getParameter("inputYn");
 	String roadFullAddr = request.getParameter("roadFullAddr");
@@ -461,7 +460,7 @@ $(function() {
 														<p class="card-text">등록일:${bidingList.r_year}/${bidingList.r_month}/${bidingList.r_day}</p>
 														<p class="card-text">마감일:${bidingList.e_year}/${bidingList.e_month}/${bidingList.e_day}</p>
 														<p>
-															<a class="btn btn-outline-primary" href="#">수정</a> 
+															<a class="btn btn-outline-primary" href="/auction/auctionModify?p_no=${bidingList.p_no}">수정</a>
 															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${bidingList.p_no}">삭제</a>
 														</p>
 													</div>
@@ -492,7 +491,7 @@ $(function() {
 														<p class="card-text">등록일:${bidingFinishList.r_year}/${bidingFinishList.r_month}/${bidingFinishList.r_day}</p>
 														<p class="card-text">마감일:${bidingFinishList.e_year}/${bidingFinishList.e_month}/${bidingFinishList.e_day}</p>
 														<p>
-															<a class="btn btn-outline-primary" href="#">수정</a> 
+														<!-- 경매 종료는 수정 버튼이 필요없다 -->
 															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${bidingFinishList.p_no}">삭제</a>
 														</p>
 													</div>
@@ -548,7 +547,7 @@ $(function() {
 												<td>입찰 날짜:<span>${purchaserList.bid_date}</span></td>
 												<td rowspan='3'><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></td>
 												<td rowspan='2'>${purchaserList.p_title}</td>
-												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.present_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td>
+												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.sold_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td>
 												
 											</tr>
 											<tr>

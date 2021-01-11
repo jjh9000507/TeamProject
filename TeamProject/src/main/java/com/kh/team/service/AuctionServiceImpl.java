@@ -290,6 +290,11 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	@Override
 	public void updateAuctionExpriationDeadline(int p_no) throws Exception {
 		auctionDao.updateAuctionExpriationDeadline(p_no);
-		
+	}
+
+	@Override
+	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception {
+		AuctionSellVo auctionSellVo = auctionDao.getAuctionModifyList(p_no);
+		return auctionSellVo;
 	}
 }

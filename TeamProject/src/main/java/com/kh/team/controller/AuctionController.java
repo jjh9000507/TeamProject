@@ -390,4 +390,13 @@ public class AuctionController implements AuctionS3Key {
 		
 		return "auction/auctionPurchaseSelectecd";
 	}
+	
+	@RequestMapping(value="/auctionModify", method=RequestMethod.GET)
+	public String auctionModify(int p_no, Model model) throws Exception{
+		
+		AuctionSellVo auctionSellVo = auctionService.getAuctionModifyList(p_no);
+		model.addAttribute("auctionSellVo",auctionSellVo);
+		System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
+		return "auction/auctionModify";
+	}
 }

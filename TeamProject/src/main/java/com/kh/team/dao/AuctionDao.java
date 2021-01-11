@@ -34,6 +34,8 @@ public interface AuctionDao {
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception;
 	//내가 구매한 상품
 	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception;
+	//수정할 상품 가져오기
+	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception;
 	
 	//seq_auction_pno 현재값 받아서 상품 등록시 폴더명으로 사용
 	public int getNextSeqNumber() throws Exception;
