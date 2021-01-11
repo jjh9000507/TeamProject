@@ -28,7 +28,7 @@ public interface AuctionService {
 	//거래된 상품
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception;
 	//내가 구매한 상품
-	public List<AuctionVo> getAuctionPurchaserList(String m_id) throws Exception;
+	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception;
 	
 	//main이미지 가져오기
 	public List<AuctionMainImgVo> getAuctionMainImg() throws Exception;
@@ -54,6 +54,9 @@ public interface AuctionService {
 	
 	//종료일 가져오기
 	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception;
+	//마감일이 지나면 deadline를 Y롤
+	public void updateAuctionExpriationDeadline(int p_no) throws Exception;
+			
 	
 	//마감 기한 5분연장
 	public void updateAuctionEDate(AuctionEDateVo auctionEDateVo) throws Exception;

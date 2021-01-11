@@ -280,8 +280,14 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	}
 
 	@Override
-	public List<AuctionVo> getAuctionPurchaserList(String m_id) throws Exception {
-		List<AuctionVo> list = auctionDao.getAuctionPurchaserList(m_id);
+	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception {
+		List<AuctionSoldVo> list = auctionDao.getAuctionPurchaserList(m_id);
 		return list;
+	}
+
+	@Override
+	public void updateAuctionExpriationDeadline(int p_no) throws Exception {
+		auctionDao.updateAuctionExpriationDeadline(p_no);
+		
 	}
 }

@@ -54,7 +54,7 @@ public class AuctionController implements AuctionS3Key {
 		
 		//최근 날짜의 목록에 따라 메인 이미지만
 		List<AuctionSellVo> list = auctionService.getAuctoionMainList();
-		System.out.println("auctionController getAuctionList list:"+list);
+		//System.out.println("auctionController getAuctionList list:"+list);
 		model.addAttribute("list", list);
 		
 		/* 시작 할 때 s3에 있는 이미지를 다운 받는다 */
@@ -132,7 +132,7 @@ public class AuctionController implements AuctionS3Key {
 		List<AuctionSoldVo> soldList = auctionService.getAuctionUserMemberListSold(m_id);
 		model.addAttribute("soldList",soldList);
 		//내가 구매한 상품
-		List<AuctionVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
+		List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
 		model.addAttribute("purchaserList", purchaserList);
 		
 		//폴더 이름을 p_no로 만들고 이미지를 저장하기 위해서 다음 p_no를 가지고 온다
@@ -184,6 +184,9 @@ public class AuctionController implements AuctionS3Key {
 			int sold_price = auctionTempBidVo.getTemp_bid_price();
 			
 			auctionService.updateAuctionAfterFinish(purchaser, sold_price, p_no, seller);
+			
+			//expiration테이블에 마감기한 N로 업데이트
+			auctionService.updateAuctionExpriationDeadline(p_no);
 		}
 		return "redirect:/auction/auctionMain";
 	}
@@ -392,5 +395,29 @@ public class AuctionController implements AuctionS3Key {
 		auctionService.updateAuctionEDate(auctionEDateVo);
 		
 		return "redirect:/auction/auctionSelected?p_no="+p_no;
+	}
+	
+	@RequestMapping(value="/auctionPurchaseSelectecd", method=RequestMethod.GET)
+	public void auctionPurchaseSelectecd(int p_no, Model model) throws Exception{
+		/*
+		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
+		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
+		List<AuctionTempBidVo> tempBidList = auctionService.getAuctionTempBid(p_no);
+		int bidCount = auctionService.getAuctionCountBid(p_no);
+		
+		int tempBidMaxPrice = auctionService.getAuctionTempBidMaxPrice(p_no);
+		int presentPrice = selectedItem.getPresent_price();
+		
+		if(presentPrice>tempBidMaxPrice) {
+			model.addAttribute("maxPrice", presentPrice);
+		}else {
+			model.addAttribute("maxPrice", tempBidMaxPrice);
+		}
+		
+		model.addAttribute("selectedItem", selectedItem);
+		model.addAttribute("selectedImg", selectedImg);
+		model.addAttribute("tempBidList", tempBidList);
+		model.addAttribute("bidCount", bidCount);
+		*/
 	}
 }
