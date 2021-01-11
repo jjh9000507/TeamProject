@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.ServiceDao;
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
@@ -51,6 +52,11 @@ public class ServiceServiceImpl implements ServiceService{
 	public NoticeVo noticeDetail(int notice_no) throws Exception {
 		NoticeVo noticeDetail = serviceDao.noticeDetail(notice_no);
 		return noticeDetail;
+	}
+
+	@Override
+	public void inquiryQ(InquiryVo inquiryVo) throws Exception {
+		serviceDao.inquiryQ(inquiryVo);
 	}
 
 }

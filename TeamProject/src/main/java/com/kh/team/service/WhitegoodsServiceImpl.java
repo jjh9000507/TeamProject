@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.WhitegoodsDao;
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ProductImgVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 @Service
@@ -40,6 +41,7 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 
 	@Override
 	public WhitegoodsVo detailWhitegoods(int w_no) throws Exception {
+		whitegoodsDao.readUpdate(w_no);
 		WhitegoodsVo detailWhitegoods = whitegoodsDao.detailWhitegoods(w_no);
 		return detailWhitegoods;
 	}
@@ -58,6 +60,18 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 	@Override
 	public void productImgDelete(int p_no) throws Exception {
 		whitegoodsDao.productImgDelete(p_no);
+	}
+
+	@Override
+	public void imgInsert(WhitegoodsVo whitegoodsVo, ProductImgVo productImgVo) throws Exception {
+		String[] files = productImgVo.getImg_name();
+		int p_no = whitegoodsVo.getP_no();
+		whitegoodsDao.productImgDelete(p_no);
+		if(files != null && files.length > 0) {
+			for(String img_name : files) {
+				whitegoodsDao.imgInsert(p_no,img_name);
+			}
+		}
 	}
 
 }
