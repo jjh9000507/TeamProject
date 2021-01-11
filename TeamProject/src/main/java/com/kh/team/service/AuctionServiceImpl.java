@@ -86,6 +86,7 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		
 		//credential과 client객체 생성
 		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
+		
 		AmazonS3 s3Client = AmazonS3ClientBuilder
 				.standard()
 				.withCredentials(new AWSStaticCredentialsProvider(credential))
@@ -110,8 +111,9 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 				String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
 				//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
 				s3Client.putObject(bucketName,bucketKey,new File(filePath));
-			
+				
 				auctionImgVo.setImg_name(images[i]);
+				System.out.println("AuctionService images["+i+"]:"+images[i]);
 				auctionDao.insertAuctionImg(auctionImgVo);
 			}
 		}

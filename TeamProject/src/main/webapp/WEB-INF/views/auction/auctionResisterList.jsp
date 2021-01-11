@@ -5,11 +5,6 @@
 
 <%@ include file="../include/header.jsp"%>
 
-<!-- 달력추가 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
 
 <%
 	String inputYn = request.getParameter("inputYn");
@@ -21,7 +16,18 @@
 	String addrDetail = request.getParameter("addrDetail"); //사용자가 직접 입력
 %>
 
+<!-- 결제 시스템추가 -->
+<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
+<!-- <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script> -->
 
+<!-- 달력추가 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
+
+<html>
+<head>
 
 <style>
 #fileDrop {
@@ -37,6 +43,7 @@
     max-height: 300px;
 	}
 </style>
+
 <!-- 입력 값
 P_NO 시퀀스로 자동 증가
 SELLER 로그인 했을 때 가지고 온다
@@ -86,6 +93,11 @@ P_NO
 <script>
 $(function() {
 
+	/*
+	var IMP = window.IMP; 
+	IMP.init('imp18735883');
+	*/
+	
 	$("#bidingItem").click(function() {//tab1클릭시
 		$("#bidingItemContent").show();
 		$("#bidingFinishItemContent").hide();
@@ -228,15 +240,6 @@ $(function() {
 		var e_second = parseInt((Math.random() * 59)+1);
 		$("#e_second").val(e_second);
 		
-		//dates[1] month, dates[2] day dates[3] year
-		//var e_year = "<input type='hidden' name='e_year' value='"+dates[3]+"'>";
-		//var e_month = "<input type='hidden' name='e_month' value='"+month+"'>";
-		//var e_day = "<input type='hidden' name='e_day' value='"+dates[2]+"'>";
-		
-// 		$("#writeForm").prepend(e_year);
-// 		$("#writeForm").prepend(e_month);
-// 		$("#writeForm").prepend(e_day);
-		
 		//이미지 입력
 		var div = $("#uploadList > .divUploaded"); // > : 자식에서 찾아라
 		
@@ -321,12 +324,9 @@ $(function() {
 		$(".btnDelAuction").click(function(e){
 			e.preventDefault();
 			var p_no = $(this).attr("data-pno");
-			
-			alert(p_no);
-			
 			location.href="/auction/auctionDelete?p_no="+p_no;
-			
 		});
+		
 });//function	
 
 	//--- 엔터키 ---//
@@ -370,7 +370,54 @@ $(function() {
 		}
 
 	}//changeMonth
+	
+	function openPop(price){
+	    var popup = window.open('/auction/auctionPurchaseSelectecd?price='+price, '결제 팝업', 'width=920px,height=670px,scrollbars=yes,resizable=no,toolbar=no,menubar=no,status=no,titlebar=no');
+	}
 </script>
+</head>
+
+<body>
+<!--  주소 찾기 모달 시작 -->
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-12">
+			<a id="modalAddrAuction" href="#modalAddr-container-auction" role="button"
+				class="btn" data-toggle="modal" style="display:none">주소 찾기</a>
+			
+			<div class="modal fade" id="modalAddr-container-auction" role="dialog"
+				aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
+					
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">주소 헤더</h5>
+							<button type="button" id="btnModalCloseAuction" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						
+						<div class="modal-body"> 
+							<div>
+							<input type="text" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
+							<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
+							
+							</div>
+								<div id="list"></div>
+								<!-- 검색 결과 리스트 출력 영역 -->
+						</div>
+						
+						<div class="modal-footer">
+							<button type="button" class="btn btn-primary">주소선택</button>
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--  주소 찾기 모달 끝 -->
 
 <div class="container-fluid">
 	<div class="row">
@@ -495,32 +542,29 @@ $(function() {
 									
 									<div class="tab-pane" id="purchaseItemContent"><!-- tab4 -->
 										<!---------------------------------- tab4 div 시작 ------------------------------------>
-										<div class="row">
-											<div class="col-md-12">
-											<div class="row">
-				
-											<c:forEach var="purchaserList" items="${purchaserList}" >
-											<div class="col-md-3">
-												<div class="card" style="height: 451px">
-												<a href="/auction/auctionPurchaseSelectecd"><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></a>
-													<div class="card-block">
-														<h5 class="card-title">상품:${purchaserList.p_title}</h5>
-														<p class="card-text">거래된가격:${purchaserList.sold_price}</p>
-														<p class="card-text">처음가격:${purchaserList.present_price}</p>
-														<p class="card-text">판매자:${purchaserList.seller}</p>
-														<p class="card-text">구매한 날짜:${purchaserList.bid_date}</p>
-<!-- 														<p> -->
-<!-- 															<a class="btn btn-outline-primary" href="#">수정</a>  -->
-<!-- 															<a class="btn btn-outline-danger" href="#">삭제</a> -->
-<!-- 														</p> -->
-													</div>
-												</div>
-											</div>
-											</c:forEach>
-				
-												</div>
-											</div>
-										</div>	
+										<c:forEach var="purchaserList" items="${purchaserList}" >
+										<table border='1'>
+											<tr>
+												<td>입찰 날짜:<span>${purchaserList.bid_date}</span></td>
+												<td rowspan='3'><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></td>
+												<td rowspan='2'>${purchaserList.p_title}</td>
+												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.present_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td>
+												
+											</tr>
+											<tr>
+												<td>최초금액:<span>${purchaserList.present_price}</span></td>
+<!-- 												<td>이미지</td> -->
+<!-- 												<td>제목</td> -->
+<!-- 												<td>결제버튼</td> -->
+											</tr>
+											<tr>
+												<td>낙찰금액:<span>${purchaserList.sold_price}</span></td>
+<!-- 												<td>이미지</td> -->
+												<td>판매자:<span>${purchaserList.seller}</span></td>
+<!-- 												<td>결제버튼</td> -->
+											</tr>
+										</table>
+										</c:forEach>
 										<!---------------------------------- tab4 div 시작 ------------------------------------>
 									</div>
 									
@@ -601,51 +645,11 @@ $(function() {
 													<br>
 														
 													<!-- 주소 찾기 시작 -->
-													우편번호:<span id="spanZip"></span><a id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
+													우편번호:<span id="spanZip"></span><a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
 													<span id="spanRoadAddr"></span><br>
 													<span id="spanjibundAddr"></span><br>
 													<input type="text" placeholder="상세주소를 입력하세요" id="txtjibundAddrDetail" name="detail_address"/>
 													
-													<!--  주소 찾기 모달 시작 -->
-													<div class="container-fluid">
-														<div class="row">
-															<div class="col-md-12">
-																<a id="modalAddrAuction" href="#modalAddr-container-auction" role="button"
-																	class="btn" data-toggle="modal" style="display:none">주소 찾기</a>
-																
-																<div class="modal fade" id="modalAddr-container-auction" role="dialog"
-																	aria-labelledby="myModalLabel" aria-hidden="true">
-																	<div class="modal-dialog modal-lg" role="document">
-																		<div class="modal-content">
-																		
-																			<div class="modal-header">
-																				<h5 class="modal-title" id="myModalLabel">주소 헤더</h5>
-																				<button type="button" id="btnModalCloseAuction" class="close" data-dismiss="modal">
-																					<span aria-hidden="true">×</span>
-																				</button>
-																			</div>
-																			
-																			<div class="modal-body"> 
-																				<div>
-																				<input type="text" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
-																				<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
-																				
-																				</div>
-																					<div id="list"></div>
-																					<!-- 검색 결과 리스트 출력 영역 -->
-																			</div>
-																			
-																			<div class="modal-footer">
-																				<button type="button" class="btn btn-primary">주소선택</button>
-																				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-																			</div>
-																		</div>
-																	</div>
-																</div>
-															</div>
-														</div>
-													</div>
-													<!--  주소 찾기 모달 끝 -->
 													<!-- 주소 찾기 끝-->
 													</div>
 													
@@ -668,3 +672,5 @@ $(function() {
 		</div><!-- col-md-12 -->
 	</div><!-- row -->
 </div><!-- container-fluid -->
+</body>
+</html>

@@ -203,13 +203,13 @@
 	</insert>
 	
 	<insert id="insertAuctionRegisterDate">
-		insert into auction_register_date(r_no, r_year, r_month, r_day, r_hour, r_minute, r_second p_no)
+		insert into auction_register_date(r_no, r_year, r_month, r_day, r_hour, r_minute, r_second, p_no)
 		values(SEQ_REGISTER_DATE.nextval,#{r_year},#{r_month},#{r_day},#{r_hour},#{r_minute},#{r_second},#{p_no})
 	</insert>
 	
 	<insert id="insertAuctionExpirationDate">
 		insert into auction_expiration_date(e_no, e_year, e_month, e_day, e_hour, e_minute, e_second, p_no)
-		values(SEQ_EXPIRATION_DATE.nextval,#{e_year},#{e_month},#{e_day},#{e_hour},#{e_minute},#{e_seond},#{p_no})
+		values(SEQ_EXPIRATION_DATE.nextval,#{e_year},#{e_month},#{e_day},#{e_hour},#{e_minute},#{e_second},#{p_no})
 	</insert>
 	
 	<insert id="insertAuctionSoldDate">

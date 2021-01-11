@@ -206,26 +206,12 @@ public class AuctionController implements AuctionS3Key {
 		auctionEDateVo.setP_no(nextPNO);
 		auctionMainImgVo.setP_no(nextPNO);
 		
-//		//오늘 날짜
-//		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = new Date();
-//		String nowDate = nowDateFormat.format(date);
-//		String[] nowDateArray = nowDate.split("-");
-//		int[] nowDataArrayInt = stringArrayTointArray(nowDateArray);
-//		//오늘 시간
-//		SimpleDateFormat nowTimeFormat = new SimpleDateFormat("HH:mm:ss");
-//		String nowTime = nowTimeFormat.format(date);
-//		String[] nowTimeArray = nowTime.split(":");
-//		
-//		int[] nowTimeArrayInt = stringArrayTointArray(nowTimeArray);
 		//int second = (int)((Math.random()*58)+1);
 		int[] nDate = getNowDate();
 		int[] nTime = getNowTime();
 		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2], nextPNO);
 		
 		//auctionVo -> auctionAddressVo -> auctionRDateVo -> auctionEDateVo -> auctionMainImgVo -> auctionImgVo
-		//seller에 가입자 대신 임의로 user03입력
-		
 		String seller = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 		
 		auctionVo.setSeller(seller);
@@ -398,26 +384,10 @@ public class AuctionController implements AuctionS3Key {
 	}
 	
 	@RequestMapping(value="/auctionPurchaseSelectecd", method=RequestMethod.GET)
-	public void auctionPurchaseSelectecd(int p_no, Model model) throws Exception{
-		/*
-		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
-		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
-		List<AuctionTempBidVo> tempBidList = auctionService.getAuctionTempBid(p_no);
-		int bidCount = auctionService.getAuctionCountBid(p_no);
+	public String auctionPurchaseSelectecd(int price, Model model) throws Exception{
 		
-		int tempBidMaxPrice = auctionService.getAuctionTempBidMaxPrice(p_no);
-		int presentPrice = selectedItem.getPresent_price();
+		model.addAttribute("price", price);
 		
-		if(presentPrice>tempBidMaxPrice) {
-			model.addAttribute("maxPrice", presentPrice);
-		}else {
-			model.addAttribute("maxPrice", tempBidMaxPrice);
-		}
-		
-		model.addAttribute("selectedItem", selectedItem);
-		model.addAttribute("selectedImg", selectedImg);
-		model.addAttribute("tempBidList", tempBidList);
-		model.addAttribute("bidCount", bidCount);
-		*/
+		return "auction/auctionPurchaseSelectecd";
 	}
 }
