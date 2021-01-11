@@ -8,9 +8,7 @@
  .note-event{overflow:hidden;width:100%}
  .note-event .note-area{float:left;width:500px;margin-top: 30px;}
  .sell-note{float:none;width:100%}
-.title-more{overflow:hidden;height:35px;padding-top:33px}
  .title-more .sub-title{float:left;margin-top:0;font-size:20px;font-weight:normal}
- .title-more .more{float:right;margin-top:14px}
  .title-more .more .more-link{padding-right:6px;font-size:11px;font-family:Dotum,'돋움',sans-serif;color:#666}
 .title-more .more .more-link a{color:#666;text-decoration:underline}
 .title-more .more .inquiry-view{margin-right:20px;padding-right:15px;background:url(//pics.auction.co.kr/customer/bl_inquiry_view.png) no-repeat 100% 0;font-size:11px;font-family:Dotum,'돋움',sans-serif;color:#0048e6}

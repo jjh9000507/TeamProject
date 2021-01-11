@@ -7,6 +7,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
@@ -53,6 +54,11 @@ public class ServiceDaoImpl implements ServiceDao{
 	public NoticeVo noticeDetail(int notice_no) throws Exception {
 		NoticeVo noticeDetail = sqlSession.selectOne(NAMESPACE + "noticeDetail", notice_no);
 		return noticeDetail;
+	}
+
+	@Override
+	public void inquiryQ(InquiryVo inquiryVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "inquiryQ", inquiryVo);
 	}
 
 }

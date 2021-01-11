@@ -287,7 +287,23 @@
 		where m_id = #{m_id}
 	</delete>
 	<!-- 여기까지 회원 삭제 시 가구 상품등록 한 데이터 삭제 -->
-
+	<!-- Q&A 추가에 필요한 카테고리 리스트(대분류) 가져오기 -->
+	<select id="firstQACategory" resultType="QACateVo">
+		select * from qa_cate
+		where qa_cate_ref is null
+	</select>
+	<!-- Q&A 추가에 필요한 하위 카테고리 리스트 가져오기 -->
+	<select id="otherQACategory" resultType="QACateVo">
+		select * from qa_cate
+		where qa_cate_ref = #{qa_cate_ref}
+	</select>
+	
+	<!-- Q&A 추가하기 -->
+	<insert id="qaInsert">
+		insert into q_and_a(qa_no, qa_cate_no, q_content, a_content)
+		values(seq_qa_no.nextval, #{qa_cate_no}, #{q_content}, #{a_content})
+	</insert>
+	
 	<!-- Q&A 수정/삭제에 필요한 Q&A 리스트 가져오기 -->
 	<select id="QA_UDList" resultType="QandAVo">
 		select * from q_and_a
