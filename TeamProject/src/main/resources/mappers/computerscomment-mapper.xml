@@ -18,6 +18,11 @@
 		order by p_e_no asc
 	</select>
 	
+	<insert id="insetInquire">
+		insert into product_explain_table(p_e_no, p_e_answer_status, p_e_inquiry_status, p_e_title, p_e_id, p_e_regdate, p_e_product)
+		values (explain_table_cno.nextval,'답변예정',#{p_e_inquiry_status},#{p_e_title},#{p_e_id},sysdate,#{p_e_product})
+	</insert>
+	
 	<update id="updateCommentContent">
 		update c_com_comment_table set
 			c_com_comment_content = #{c_com_comment_content}
