@@ -56,4 +56,14 @@ public class ComputerProductCommnetController {
 		return list;
 	}
 
+	@RequestMapping(value="/insertInquireExpain", method=RequestMethod.POST)
+	public String insertInquireExpain(ProductExplainVo productExplainVo) throws Exception{
+		System.out.println("p_e_id:" + productExplainVo.getP_e_id());
+		System.out.println("p_e_title:" + productExplainVo.getP_e_title());
+		System.out.println("p_e_inquiry_status:" + productExplainVo.getP_e_inquiry_status());
+		System.out.println("p_e_product:" + productExplainVo.getP_e_product());
+		computerCommentService.insetInquire(productExplainVo);
+		
+		return "success";		
+	}
 }

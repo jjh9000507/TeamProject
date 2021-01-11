@@ -48,6 +48,11 @@ public class ComputerCommentDaoImpl implements ComputerCommentDao {
 	public void deleteComment(int c_com_comment_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "deleteComment", c_com_comment_no);		
 	}
+
+	@Override
+	public void insetInquire(ProductExplainVo productExplainVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "insetInquire", productExplainVo);		
+	}
 		
 	
 }

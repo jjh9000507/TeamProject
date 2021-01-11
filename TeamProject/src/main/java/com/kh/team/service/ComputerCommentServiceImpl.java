@@ -39,6 +39,12 @@ public class ComputerCommentServiceImpl implements ComputerCommentService {
 	public void deleteComment(int c_com_comment_no) throws Exception {
 		computerCommentDao.deleteComment(c_com_comment_no);		
 	}
+
+	@Override
+	public void insetInquire(ProductExplainVo productExplainVo) throws Exception {
+		computerCommentDao.insetInquire(productExplainVo);
+		
+	}
 	
 
 }
