@@ -28,7 +28,9 @@ public class ServicecenterContorller {
 	//고객센터 페이지
 	@RequestMapping(value="serviceMain", method=RequestMethod.GET)
 	public String serviceMain(HttpSession session, Model model) throws Exception{
+		List<NoticeVo> noticeList = serviceService.noticeList();
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("memberVo", memberVo);
 		return "/service/service_center";
 	}

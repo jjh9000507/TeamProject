@@ -343,7 +343,8 @@ $(function(){
 				<div id="uploadedList">
 				
 				</div>
-				<input type="hidden" name="p_thumbimg">
+				
+<!-- 				<input type="hidden" name="p_thumbimg"> -->
 				<div id="divSellProduct">
 					<button type="button" id="btnSellProduct">상품 등록</button>
 				</div>
