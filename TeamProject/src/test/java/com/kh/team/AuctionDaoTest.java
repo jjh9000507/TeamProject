@@ -95,10 +95,4 @@ public class AuctionDaoTest {
 		
 		return intArry;
 	}
-	
-	@Test
-	public void getAuctionPurchaserList() throws Exception {
-		List<AuctionVo> list = auctionDao.getAuctionPurchaserList("user02");
-		System.out.println("list:"+list);
-	}
 }

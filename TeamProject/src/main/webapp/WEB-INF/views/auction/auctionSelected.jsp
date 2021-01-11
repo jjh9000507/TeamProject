@@ -266,51 +266,42 @@ $(function(){
 			
 			//입력된 텀 시간을 불러와서 카운드 다운한다
 			var that = $(this);
-			countDown[index] = setInterval(function(){
-				
-				var year = that.next().val();
-				var month = that.next().next().val();
-				var date = that.next().next().next().val();
-				
-				var indexCatch = index;//임버터를 멈추게 하기 위해서 index를 따로 저장
-				var timeValue = that.text().trim();
-				var timeArray = timeValue.split(":");
-				//console.log("time:"+time);
- 				var hour = parseInt(timeArray[0]);
- 				var minute = parseInt(timeArray[1]);
- 				var second = parseInt(timeArray[2]);
-
-
-				if(second<=0){
-					if(minute>0){
-						minute--;
-						second += addSecond;
-					}else{
-						if(hour>0){
-							hour--;
-							minute += (addMinute-1);//second에 1을 넘겨줘야하기 때문에 -1 해준다(60이 아니라 59이다)
+			var deadline = $(this).next().next().next().next().next().next().next().val();
+			if(deadline == 'N'){
+				countDown[index] = setInterval(function(){
+					
+					var year = that.next().val();
+					var month = that.next().next().val();
+					var date = that.next().next().next().val();
+					
+					var indexCatch = index;//임버터를 멈추게 하기 위해서 index를 따로 저장
+					var timeValue = that.text().trim();
+					var timeArray = timeValue.split(":");
+					//console.log("time:"+time);
+	 				var hour = parseInt(timeArray[0]);
+	 				var minute = parseInt(timeArray[1]);
+	 				var second = parseInt(timeArray[2]);
+	
+	
+					if(second<=0){
+						if(minute>0){
+							minute--;
 							second += addSecond;
 						}else{
-							if(date>0){
-								date--;
-								that.next().next().next().val(date);
-								hour += (addHour-1);
-								minute += (addMinute-1);
+							if(hour>0){
+								hour--;
+								minute += (addMinute-1);//second에 1을 넘겨줘야하기 때문에 -1 해준다(60이 아니라 59이다)
 								second += addSecond;
 							}else{
-								if(month>0){
-									month--;
-									that.next().next().val(month);
-									date += (addDate-1);
+								if(date>0){
+									date--;
 									that.next().next().next().val(date);
 									hour += (addHour-1);
 									minute += (addMinute-1);
 									second += addSecond;
 								}else{
-									if(year>0){
-										year--;
-										that.next().val(year);
-										month += (addMonth-1);
+									if(month>0){
+										month--;
 										that.next().next().val(month);
 										date += (addDate-1);
 										that.next().next().next().val(date);
@@ -318,71 +309,85 @@ $(function(){
 										minute += (addMinute-1);
 										second += addSecond;
 									}else{
-										year = 0;
-										month = 0;
-										date = 0;
-										hour = 0;
-										minute = 0;
-										second = 0;
+										if(year>0){
+											year--;
+											that.next().val(year);
+											month += (addMonth-1);
+											that.next().next().val(month);
+											date += (addDate-1);
+											that.next().next().next().val(date);
+											hour += (addHour-1);
+											minute += (addMinute-1);
+											second += addSecond;
+										}else{
+											year = 0;
+											month = 0;
+											date = 0;
+											hour = 0;
+											minute = 0;
+											second = 0;
+										}
 									}
 								}
 							}
 						}
+					}else{
+						second--;
 					}
-				}else{
-					second--;
-				}
-				
-				console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
-
-				//goBid인 입찰버튼을 눌렀을 때 쿠키에 남은 시간을 저장한 걸 가지고온다-------------------쿠키에서 값 가져오기------------------------------ 
-				var p_no = $("#p_no").val();
-				
-				var twoDigitHour = makeTwoDigit(hour);
-				var twoDigitMinute = makeTwoDigit(minute);
-				var twoDigitSecond = makeTwoDigit(second);
-				
-				that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
-				
-				if(twoDigitHour==0 && twoDigitMinute==0 && twoDigitSecond==0){
-				//-------------------------------- 종료되면 입찰 진행-------------------------------//
-					//$("#stopTimer").trigger("click");
-					//alert("전부 00");
-					$(".collaspsePrice").hide();
-					$(".divBidEnd").show();
-					stopCountIndex(indexCatch);
 					
-					var width = $(window).width();
-					var height = $(window).height();
+					console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
+	
+					//goBid인 입찰버튼을 눌렀을 때 쿠키에 남은 시간을 저장한 걸 가지고온다-------------------쿠키에서 값 가져오기------------------------------ 
+					var p_no = $("#p_no").val();
 					
-					//화면을 가리는 레이어의 사이즈 조정
-					$(".screenBlock").width(width);
-					$(".screenBlock").height(height);
+					var twoDigitHour = makeTwoDigit(hour);
+					var twoDigitMinute = makeTwoDigit(minute);
+					var twoDigitSecond = makeTwoDigit(second);
 					
-					//화면을 가리는 레이어를 보여준다 (0.5초동안 30%의 농도의 투명도)
-					$(".screenBlock").fadeTo(500, 0.3);
+					that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
 					
-					//팝업 레이어 보이게
-					var loadingDivObj = $("#screenDiv");
-				    loadingDivObj.css({
-				    	'position': 'fixed',
-				    	'left': '50%',
-				    	'top': '50%'
-				    	});
-				    loadingDivObj.css({
-				    	'margin-left': -loadingDivObj.outerWidth() / 2 + 'px',
-				    	'margin-top': -loadingDivObj.outerHeight() / 2 + 'px'
-				    	}); 
-				    loadingDivObj.fadeIn(500);
-				    
-				   
-					setTimeout(function(){
-						var p_no = $("#p_no").val();
-						location.href="/auction/timeOverAutoCommit?p_no="+p_no;
-					},5000)
-				//-------------------------------- 종료되면 입찰 진행-------------------------------//			
-				}
-			},1000);
+					if(twoDigitHour==0 && twoDigitMinute==0 && twoDigitSecond==0){
+					//-------------------------------- 종료되면 입찰 진행-------------------------------//
+						//$("#stopTimer").trigger("click");
+						//alert("전부 00");
+						$(".collaspsePrice").hide();
+						$(".divBidEnd").show();
+						stopCountIndex(indexCatch);
+						
+						var width = $(window).width();
+						var height = $(window).height();
+						
+						//화면을 가리는 레이어의 사이즈 조정
+						$(".screenBlock").width(width);
+						$(".screenBlock").height(height);
+						
+						//화면을 가리는 레이어를 보여준다 (0.5초동안 30%의 농도의 투명도)
+						$(".screenBlock").fadeTo(500, 0.3);
+						
+						//팝업 레이어 보이게
+						var loadingDivObj = $("#screenDiv");
+					    loadingDivObj.css({
+					    	'position': 'fixed',
+					    	'left': '50%',
+					    	'top': '50%'
+					    	});
+					    loadingDivObj.css({
+					    	'margin-left': -loadingDivObj.outerWidth() / 2 + 'px',
+					    	'margin-top': -loadingDivObj.outerHeight() / 2 + 'px'
+					    	}); 
+					    loadingDivObj.fadeIn(500);
+					    
+					   
+						setTimeout(function(){
+							var p_no = $("#p_no").val();
+							location.href="/auction/timeOverAutoCommit?p_no="+p_no;
+						},5000)
+					//-------------------------------- 종료되면 입찰 진행-------------------------------//			
+					}
+				},1000);
+			}else{
+				that.text("00:00:00");
+			}
 		});	
 		
 	});//document.ready
@@ -641,6 +646,7 @@ function stopCountIndex(indexCatch){
 														<input type="hidden" class="countDown_hour" value="${selectedItem.e_hour}">
 														<input type="hidden" class="countDown_minute" value="${selectedItem.e_minute}">
 														<input type="hidden" class="countDown_second" value="${selectedItem.e_second}">
+														<input type="hidden" class="deadline" value="${selectedItem.deadline}">
 												</td>
 											</tr>
 											<tr class="table-danger">

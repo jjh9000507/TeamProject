@@ -372,8 +372,6 @@ $(function() {
 	}//changeMonth
 </script>
 
-${purchaserList}
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
@@ -496,7 +494,34 @@ ${purchaserList}
 									</div><!-- tab3 -->
 									
 									<div class="tab-pane" id="purchaseItemContent"><!-- tab4 -->
-										내가 구매한 물품
+										<!---------------------------------- tab4 div 시작 ------------------------------------>
+										<div class="row">
+											<div class="col-md-12">
+											<div class="row">
+				
+											<c:forEach var="purchaserList" items="${purchaserList}" >
+											<div class="col-md-3">
+												<div class="card" style="height: 451px">
+												<a href="/auction/auctionPurchaseSelectecd"><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></a>
+													<div class="card-block">
+														<h5 class="card-title">상품:${purchaserList.p_title}</h5>
+														<p class="card-text">거래된가격:${purchaserList.sold_price}</p>
+														<p class="card-text">처음가격:${purchaserList.present_price}</p>
+														<p class="card-text">판매자:${purchaserList.seller}</p>
+														<p class="card-text">구매한 날짜:${purchaserList.bid_date}</p>
+<!-- 														<p> -->
+<!-- 															<a class="btn btn-outline-primary" href="#">수정</a>  -->
+<!-- 															<a class="btn btn-outline-danger" href="#">삭제</a> -->
+<!-- 														</p> -->
+													</div>
+												</div>
+											</div>
+											</c:forEach>
+				
+												</div>
+											</div>
+										</div>	
+										<!---------------------------------- tab4 div 시작 ------------------------------------>
 									</div>
 									
 									

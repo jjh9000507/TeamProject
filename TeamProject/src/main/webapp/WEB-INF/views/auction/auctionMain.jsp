@@ -245,53 +245,45 @@ $(function(){
 			//입력된 텀 시간을 불러와서 카운드 다운한다
 			
 			var that = $(this);
-			countDown[index] = setInterval(function(){
-				
-				var year = that.next().val();
-				var month = that.next().next().val();
-				var date = that.next().next().next().val();
-				//console.log("addDate:"+addDate+" ,year:"+year+" ,month:"+month+" ,day:"+date);
-	
-				var timeValue = that.text();
-				//console.log("timeValue:"+timeValue);
-				var timeArray = timeValue.split(":");
-				//console.log(timeArray[0]+" ,"+ timeArray[1]);
-				var hour = timeArray[0].trim();
-				var minute = timeArray[1].trim();
-				var second = timeArray[2].trim();
- 				
-				console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
-				
-				if(second<=0){
-					if(minute>0){
-						minute--;
-						second += addSecond;
-					}else{
-						if(hour>0){
-							hour--;
-							minute += (addMinute-1);//second에 1을 넘겨줘야하기 때문에 -1 해준다(60이 아니라 59이다)
+			var deadline = $(this).next().next().next().next().next().next().next().val();
+			
+			if(deadline == 'N'){
+				countDown[index] = setInterval(function(){
+					
+					var year = that.next().val();
+					var month = that.next().next().val();
+					var date = that.next().next().next().val();
+					//console.log("addDate:"+addDate+" ,year:"+year+" ,month:"+month+" ,day:"+date);
+		
+					var timeValue = that.text();
+					//console.log("timeValue:"+timeValue);
+					var timeArray = timeValue.split(":");
+					//console.log(timeArray[0]+" ,"+ timeArray[1]);
+					var hour = timeArray[0].trim();
+					var minute = timeArray[1].trim();
+					var second = timeArray[2].trim();
+	 				
+					console.log("index:"+index+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
+					
+					if(second<=0){
+						if(minute>0){
+							minute--;
 							second += addSecond;
 						}else{
-							if(date>0){
-								date--;
-								that.next().next().next().val(date);
-								hour += (addHour-1);
-								minute += (addMinute-1);
+							if(hour>0){
+								hour--;
+								minute += (addMinute-1);//second에 1을 넘겨줘야하기 때문에 -1 해준다(60이 아니라 59이다)
 								second += addSecond;
 							}else{
-								if(month>0){
-									month--;
-									that.next().next().val(month);
-									date += (addDate-1);
+								if(date>0){
+									date--;
 									that.next().next().next().val(date);
 									hour += (addHour-1);
 									minute += (addMinute-1);
 									second += addSecond;
 								}else{
-									if(year>0){
-										year--;
-										that.next().val(year);
-										month += (addMonth-1);
+									if(month>0){
+										month--;
 										that.next().next().val(month);
 										date += (addDate-1);
 										that.next().next().next().val(date);
@@ -299,31 +291,44 @@ $(function(){
 										minute += (addMinute-1);
 										second += addSecond;
 									}else{
-										year = 0;
-										month = 0;
-										date = 0;
-										hour = 0;
-										minute = 0;
-										second = 0;
+										if(year>0){
+											year--;
+											that.next().val(year);
+											month += (addMonth-1);
+											that.next().next().val(month);
+											date += (addDate-1);
+											that.next().next().next().val(date);
+											hour += (addHour-1);
+											minute += (addMinute-1);
+											second += addSecond;
+										}else{
+											year = 0;
+											month = 0;
+											date = 0;
+											hour = 0;
+											minute = 0;
+											second = 0;
+										}
 									}
 								}
 							}
 						}
+					}else{
+						second--;
 					}
-				}else{
-					second--;
-				}
-				
-				console.log("index:"+index+"hour:"+hour+" ,minute:"+minute+" ,second:"+second);
-				
-				var twoDigitHour = makeTwoDigit(hour);
-				var twoDigitMinute = makeTwoDigit(minute);
-				var twoDigitSecond = makeTwoDigit(second);
-				console.log("twoDigitSecond:"+twoDigitSecond);
-				
-				that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
-			},1000);
-			
+					
+					console.log("index:"+index+"hour:"+hour+" ,minute:"+minute+" ,second:"+second);
+					
+					var twoDigitHour = makeTwoDigit(hour);
+					var twoDigitMinute = makeTwoDigit(minute);
+					var twoDigitSecond = makeTwoDigit(second);
+					console.log("twoDigitSecond:"+twoDigitSecond);
+					
+					that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
+				},1000);
+			}else{
+				that.text("00:00:00");
+			}
 		});	
 		
 	});//document.ready
@@ -420,6 +425,7 @@ function makeTwoDigit(num){
 										<input type="hidden" class="countDown_hour" value="${auctionSellVo.e_hour}">
 										<input type="hidden" class="countDown_minute" value="${auctionSellVo.e_minute}">
 										<input type="hidden" class="countDown_second" value="${auctionSellVo.e_second}">
+										<input type="hidden" class="deadline" value="${auctionSellVo.deadline}">											
 									</td>
 								</tr>
 			 				</table>

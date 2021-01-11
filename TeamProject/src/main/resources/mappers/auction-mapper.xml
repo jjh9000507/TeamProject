@@ -79,8 +79,19 @@
 	</select>
 	
 	<!-- 내가 구매한 다른 사람 상품 -->
-	<select id="getAuctionPurchaserList" resultType="AuctionVo">
-		select * from auction where purchaser=#{m_id}
+	<select id="getAuctionPurchaserList" resultType="AuctionSoldVo">
+		select a.*, addr.*, rdate.*, bid.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_bid bid
+		on rdate.p_no = bid.p_no
+		inner join auction_main_img img
+		on bid.p_no = img.p_no
+		where a.purchaser=#{m_id} and a.p_no in (select p_no from auction_bid where purchaser_id=#{m_id})
+		order by bid.bid_date desc
 	</select>
 	
 	<select id="getAuctionMainImg" resultType="AuctionMainImgVo">
@@ -146,7 +157,7 @@
 	</update>
 	
 	<!-- 자동 입찰시 임시 bid에서 제일 큰 가격가져오기 -->
-	<select id="getMaxPriceFromTempBid" resultType="AuctionTempBidVo">
+	<select id="getTempBidFromMaxPrice" resultType="AuctionTempBidVo">
 		select * from auction_temp_bid where temp_bid_no in (
 		SELECT MAX(temp_bid_no) KEEP(DENSE_RANK FIRST ORDER BY temp_bid_price DESC) as temp_bid_no
 		FROM auction_temp_bid where p_no=#{p_no})
@@ -160,6 +171,11 @@
 		SELECT MAX(temp_bid_no) KEEP(DENSE_RANK FIRST ORDER BY temp_bid_price DESC) as temp_bid_no
 		FROM auction_temp_bid where p_no=#{p_no})
 	</insert>
+	
+	<!-- 마감기한이 지나면 expiration테이블의 deadline 업데이트 -->
+	<update id="updateAuctionExpriationDeadline">
+		update auction_expiration_date set deadline='N' where p_no=#{p_no}
+	</update>
 	
 	<!-- auction 데이블에 purchaser와 sold_price 업데이트 -->
 	<update id="updateAuctionAfterFinish">

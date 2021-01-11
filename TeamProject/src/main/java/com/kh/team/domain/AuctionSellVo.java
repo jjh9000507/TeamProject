@@ -32,9 +32,11 @@ public class AuctionSellVo {
 	private int e_hour;
 	private int e_minute;
 	private int e_second;
+	private String deadline;
 	
 	private int main_img_no;
 	private String main_img_name;
+	
 	public int getP_no() {
 		return p_no;
 	}
@@ -191,6 +193,12 @@ public class AuctionSellVo {
 	public void setE_second(int e_second) {
 		this.e_second = e_second;
 	}
+	public String getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
+	}
 	public int getMain_img_no() {
 		return main_img_no;
 	}
@@ -212,6 +220,7 @@ public class AuctionSellVo {
 				+ ", r_year=" + r_year + ", r_month=" + r_month + ", r_day=" + r_day + ", r_hour=" + r_hour
 				+ ", r_minute=" + r_minute + ", r_second=" + r_second + ", e_no=" + e_no + ", e_year=" + e_year
 				+ ", e_month=" + e_month + ", e_day=" + e_day + ", e_hour=" + e_hour + ", e_minute=" + e_minute
-				+ ", e_second=" + e_second + ", main_img_no=" + main_img_no + ", main_img_name=" + main_img_name + "]";
+				+ ", e_second=" + e_second + ", deadline=" + deadline + ", main_img_no=" + main_img_no
+				+ ", main_img_name=" + main_img_name + "]";
 	}
 }

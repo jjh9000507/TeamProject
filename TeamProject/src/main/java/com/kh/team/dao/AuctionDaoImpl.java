@@ -249,7 +249,7 @@ public class AuctionDaoImpl implements AuctionDao{
 
 	@Override
 	public AuctionTempBidVo getTempBidFromMaxPrice(int p_no) throws Exception {
-		AuctionTempBidVo auctionTempBidVo = sqlSession.selectOne(NAMESPACE + "getMaxPriceFromTempBid", p_no);
+		AuctionTempBidVo auctionTempBidVo = sqlSession.selectOne(NAMESPACE + "getTempBidFromMaxPrice", p_no);
 		return auctionTempBidVo;
 	}
 
@@ -269,8 +269,13 @@ public class AuctionDaoImpl implements AuctionDao{
 	}
 
 	@Override
-	public List<AuctionVo> getAuctionPurchaserList(String m_id) throws Exception {
-		List<AuctionVo> list = sqlSession.selectList(NAMESPACE + "getAuctionPurchaserList", m_id);
+	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception {
+		List<AuctionSoldVo> list = sqlSession.selectList(NAMESPACE + "getAuctionPurchaserList", m_id);
 		return list;
+	}
+
+	@Override
+	public void updateAuctionExpriationDeadline(int p_no) throws Exception {
+		sqlSession.update(NAMESPACE + "updateAuctionExpriationDeadline", p_no);
 	}
 }
