@@ -116,6 +116,36 @@ $(function(){
 		$("#modal-inquireModal").trigger("click");
 					
 	});
+	$("#inquireControll").on("click", "#searchInquireButton", function(){
+		var indexInquire = 1;
+		var search = $("#searchInquireListSearch").val();
+		console.log("search:" + search);
+		var buySelectInquireListSearchOption = $("#buySelectInquireListSearchOption option:selected").val();
+		console.log("buySelectInquireListSearchOption:" + buySelectInquireListSearchOption);			
+		var c_com_name = "${buyComputerVo.c_com_name}";
+		var url = "/computerProductComment/searchInquireExplain";
+		var sendData = {
+			"p_e_title"	 : search,
+			"p_e_inquiry_status" : buySelectInquireListSearchOption,
+			"p_e_product"		: c_com_name
+		};
+		$("#productExplainTable > tbody").empty();
+		$.post(url,sendData,function(data){
+			$.each(data, function() {				
+				var tr = $("#productExplainTrTable").find("tr").clone();
+				tr.find("td").eq(0).text(indexInquire);
+				tr.find("td").eq(1).text(this.p_e_answer_status);
+				tr.find("td").eq(2).text(this.p_e_inquiry_status);
+				tr.find("td").eq(3).text(this.p_e_title);
+				tr.find("td").eq(4).text(this.p_e_id);
+				tr.find("td").eq(5).text(this.p_e_regdate);
+				tr.find("td").eq(6).text(this.p_e_no);
+				$("#productExplainTable").append(tr);
+				indexInquire++;
+			});	
+		});
+		$("#productExplainTable").show();
+	});
 	$("#buySelectModalConfirm").click(function(){
 		var p_e_contents = $("#p_e_contents").val();
 		console.log("p_e_contents:" + p_e_contents);
@@ -131,7 +161,7 @@ $(function(){
 				"p_e_id"	: inquireWriter,
 				"p_e_inquiry_status" : buySelectModalVal,
 				"p_e_product"        : getInquireProduct
-		}
+		};
 		$.post(url,sendData,function(data){
 			if(data == "success"){
 				alert("상품문의 사항 전달 성공");
@@ -193,11 +223,11 @@ $(function(){
 						</div>
 						<div class="modal-body">
 						<select id="buySelectModal">
-							<option value="ModalProductInquire" selected="selected">상품문의</option>
-							<option value="ModalProductConvey">배송</option>
-							<option value="ModalProductExchange">교환</option>
-							<option value="ModalProductRefundCancle">반품/취소/환불</option>
-							<option value="ModalProductEtc">기타</option>
+							<option value="상품문의" selected="selected">상품문의</option>
+							<option value="배송">배송</option>
+							<option value="교환">교환</option>
+							<option value="반품/취소/환불">반품/취소/환불</option>
+							<option value="기타">기타</option>
 						</select>								
 						<input type="text" class="form-control" name="p_e_contents" id="p_e_contents" placeholder="상품문의 사항 작성"/>
 						<input type="text" style="display: none;" id="getInquireId" value="${buyComputerVo.c_com_seller}"/>
@@ -398,14 +428,14 @@ $(function(){
 		<div class="col-md-12">
 		<div>
 		<ul class="nav nav-tabs breadcrumb" id="inquireControll" style="display: none;">
-		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquire" type="text"/><button id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
+		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquireListSearch" type="text"/><button type="button" id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
 		<li class="nav-item">						 
-				<select id="buySelectInquire">
-							<option value="" selected="selected">상품문의</option>
-							<option value="">배송</option>
-							<option value="">교환</option>
-							<option value="">반품/취소/환불</option>
-							<option value="">기타</option>
+				<select id="buySelectInquireListSearchOption">
+							<option value="상품문의" selected="selected">상품문의</option>
+							<option value="배송">배송</option>
+							<option value="교환">교환</option>
+							<option value="반품/취소/환불">반품/취소/환불</option>
+							<option value="기타">기타</option>
 						</select>			
 			</li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp

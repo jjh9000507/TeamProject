@@ -45,6 +45,12 @@ public class ComputerCommentServiceImpl implements ComputerCommentService {
 		computerCommentDao.insetInquire(productExplainVo);
 		
 	}
+
+	@Override
+	public List<ProductExplainVo> searchInquire(ProductExplainVo productExplainVo) throws Exception {
+		List<ProductExplainVo> list = computerCommentDao.searchInquire(productExplainVo);
+		return list;
+	}
 	
 
 }

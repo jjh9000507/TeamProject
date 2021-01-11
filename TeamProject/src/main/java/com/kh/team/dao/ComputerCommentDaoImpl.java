@@ -53,6 +53,12 @@ public class ComputerCommentDaoImpl implements ComputerCommentDao {
 	public void insetInquire(ProductExplainVo productExplainVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "insetInquire", productExplainVo);		
 	}
+
+	@Override
+	public List<ProductExplainVo> searchInquire(ProductExplainVo productExplainVo) throws Exception {
+		List<ProductExplainVo> list = sqlSession.selectList(NAMESPACE + "searchInquire", productExplainVo);
+		return list;
+	}
 		
 	
 }

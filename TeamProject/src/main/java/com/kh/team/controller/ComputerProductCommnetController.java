@@ -66,4 +66,12 @@ public class ComputerProductCommnetController {
 		
 		return "success";		
 	}
+	@RequestMapping(value="/searchInquireExplain", method=RequestMethod.POST)
+	public List<ProductExplainVo> searchInquireExplain(ProductExplainVo productExplainVo) throws Exception{
+		System.out.println("p_e_title:" + productExplainVo.getP_e_title());
+		System.out.println("p_e_inquiry_status:" + productExplainVo.getP_e_inquiry_status());
+		System.out.println("p_e_product:" + productExplainVo.getP_e_product());
+		List<ProductExplainVo> list = computerCommentService.searchInquire(productExplainVo);
+		return list;		
+	}
 }
