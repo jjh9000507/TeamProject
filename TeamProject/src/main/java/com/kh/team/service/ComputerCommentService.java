@@ -16,4 +16,6 @@ public interface ComputerCommentService {
 	public void deleteComment(int c_com_comment_no) throws Exception;
 	//상품문의 기입
 	public void insetInquire(ProductExplainVo productExplainVo) throws Exception;
+	//상품문의 검색
+	public List<ProductExplainVo> searchInquire(ProductExplainVo productExplainVo) throws Exception;
 }
