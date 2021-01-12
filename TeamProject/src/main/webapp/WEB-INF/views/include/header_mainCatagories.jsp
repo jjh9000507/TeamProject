@@ -61,7 +61,7 @@ $(function(){
   	
   	<!-- 베스트 아이템  -->	
   	<li>
-	  <a class="neon" href="/page/">HOT ITEM</a>
+	  <a class="neon" href="/page/best">HOT ITEM</a>
 	</li>
   
   <!-- 메인 카테고리 목록 -->
