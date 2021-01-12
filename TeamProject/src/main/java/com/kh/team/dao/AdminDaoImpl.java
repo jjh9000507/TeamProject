@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
@@ -258,6 +259,23 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void qaInsert(QandAVo qandAVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "qaInsert", qandAVo);
+	}
+
+	@Override
+	public List<InquiryVo> inquiryList() throws Exception {
+		List<InquiryVo> inquiryList = sqlSession.selectList(NAMESPACE + "inquiryList");
+		return inquiryList;
+	}
+
+	@Override
+	public InquiryVo detailInquiry(int inquiry_no) throws Exception {
+		InquiryVo detailInquiry = sqlSession.selectOne(NAMESPACE + "detailInquiry", inquiry_no);
+		return detailInquiry;
+	}
+
+	@Override
+	public void deleteInquiry(int inquiry_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "inquiryDelete", inquiry_no);
 	}
 
 }

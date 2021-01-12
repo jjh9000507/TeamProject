@@ -137,7 +137,7 @@ public class SellProductContoller {
 	public String furnitureUpload(MultipartFile file, ProductVo productVo) throws Exception {
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
-		String upload = null;
+		String upload;
 		if(isImage) {
 			File isFile = new File(file.getOriginalFilename());
 			file.transferTo(isFile);

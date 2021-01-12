@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/resources/css/bootstrap.jsp"%>
 <%@ include file="include/header.jsp"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,6 +15,10 @@
 <script>
 	$(function() {
 
+		$("#btnCoordinate").click(function() {
+			modalTrigger();
+		});
+		
 		var map = new naver.maps.Map('map');
 		//map.setMapTypeId(naver.maps.MapTypeId.HYBRID); //위성 지도 
 		map.setCursor('pointer');
@@ -140,8 +145,6 @@
 		}
 
 		// 좌표 값 가져오기
-// 		$("#btnCoordinate").click(function() {
-// 			var value = $("#txtAddress").val();
 			var data_Address = $("#address").attr("data-Address");
 			searchAddressToCoordinate(data_Address);
 			
@@ -151,31 +154,32 @@
 			console.log(data_addr);
 			sellProductToAddress(data_addr);
 			});
-
-// 		});
+		
 	});
 	/* ==================================== 네이버 지도 소스 코드 끝 ======================================= */
 </script>
 </head>
 <body>
-
-
+<div class="col-md-2"></div>
+<div class="col-md-8" style="padding-left: 20%;">
+<%@ include file="include/header_mainCatagories.jsp"%>
+</div>
+<div class="col-md-2"></div>
 
 	<div class="container-fluid">
 		<div class="row">
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-8">
-						<div id="map"
-							style="width: 40%; top: 25%; left: 56%; height: 460px;"></div>
+						<div style="position: absolute; left: 63%;">
+						검색한 주소 : <input type="text" id="txtAddress" name="txtAddress" value="${roadAddress}">
+						</div>
+						<div id="map" style="width: 40%; top: 25%; left: 56%; height: 460px;"></div>
 					</div>
 					<div class="col-md-4">
 						<br>
 						<br>
-						<br> 주소 입력:<input type="text" id="txtAddress"
-							name="txtAddress"><br>
-						<button type="button" id="btnCoordinate">검색한 주소로 이동</button>
-						<br> 좌표 : <span id="spandCoordinate"></span><br> <br>
+						<button type="button" id="btnCoordinate">주소 재검색하기</button>
 						<br>
 						<input type="hidden" id="address" data-address="${roadAddress}"/>
 						

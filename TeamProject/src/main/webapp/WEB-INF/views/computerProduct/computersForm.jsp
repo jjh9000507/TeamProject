@@ -193,6 +193,8 @@ $(function() {
 <img src="/resources/bannerImage/auction.png" alt="제휴사이트" class="asideUpBanner"/>
 </a></aside>
 <nav class="navLeft">
+<span>현재 상품 건수:</span>&nbsp&nbsp(<span>${listNumber}</span>)&nbsp<span>건</span>
+<br>
 <br>
 <form role="form">
 <div class="form-group detailSearchFormFind">					 
