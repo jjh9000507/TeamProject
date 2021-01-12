@@ -5,6 +5,12 @@
 
 <%@ include file="../include/header.jsp"%>
 
+<!-- 달력추가 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script> 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
+
 <%
 	String inputYn = request.getParameter("inputYn");
 	String roadFullAddr = request.getParameter("roadFullAddr");
@@ -15,18 +21,7 @@
 	String addrDetail = request.getParameter("addrDetail"); //사용자가 직접 입력
 %>
 
-<!-- 결제 시스템추가 -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
-<!-- <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script> -->
 
-<!-- 달력추가 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script> 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
-
-<html>
-<head>
 
 <style>
 #fileDrop {
@@ -42,7 +37,6 @@
     max-height: 300px;
 	}
 </style>
-
 <!-- 입력 값
 P_NO 시퀀스로 자동 증가
 SELLER 로그인 했을 때 가지고 온다
@@ -92,49 +86,22 @@ P_NO
 <script>
 $(function() {
 
-	/*
-	var IMP = window.IMP; 
-	IMP.init('imp18735883');
-	*/
-	
-	$("#bidingItem").click(function() {//tab1클릭시
-		$("#bidingItemContent").show();
-		$("#bidingFinishItemContent").hide();
+	$("#listItem").click(function() {//tab1클릭시
+		$("#listItemContent").show();
 		$("#soldItemContent").hide();
-		$("#purchaseItemContent").hide()
 		$("#registerItemContent").hide();
-	});
-	
-	$("#bidingFinishItem").click(function() {//tab2클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").show();
-		$("#soldItemContent").hide();
-		$("#purchaseItemContent").hide()
-		$("#registerItemContent").hide();
+
 	});
 
-	$("#soldItem").click(function() {//tab3클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").hide();
+	$("#soldItem").click(function() {//tab2클릭시
+		$("#listItemContent").hide();
 		$("#soldItemContent").show();
-		$("#purchaseItemContent").hide()
-		$("#registerItemContent").hide();
-	});
-	
-	$("#purchaseItem").click(function() {//tab4클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").hide();
-		$("#soldItemContent").hide();
-		$("#purchaseItemContent").show()
 		$("#registerItemContent").hide();
 	})
 	
-	
 	$("#registerItem").click(function() {//tab3클릭시
-		$("#bidingItemContent").hide();
-		$("#bidingFinishItemContent").hide();
+		$("#listItemContent").hide();
 		$("#soldItemContent").hide();
-		$("#purchaseItemContent").hide()
 		$("#registerItemContent").show();
 	})//registerItem
 	
@@ -239,6 +206,15 @@ $(function() {
 		var e_second = parseInt((Math.random() * 59)+1);
 		$("#e_second").val(e_second);
 		
+		//dates[1] month, dates[2] day dates[3] year
+		//var e_year = "<input type='hidden' name='e_year' value='"+dates[3]+"'>";
+		//var e_month = "<input type='hidden' name='e_month' value='"+month+"'>";
+		//var e_day = "<input type='hidden' name='e_day' value='"+dates[2]+"'>";
+		
+// 		$("#writeForm").prepend(e_year);
+// 		$("#writeForm").prepend(e_month);
+// 		$("#writeForm").prepend(e_day);
+		
 		//이미지 입력
 		var div = $("#uploadList > .divUploaded"); // > : 자식에서 찾아라
 		
@@ -323,9 +299,12 @@ $(function() {
 		$(".btnDelAuction").click(function(e){
 			e.preventDefault();
 			var p_no = $(this).attr("data-pno");
+			
+			alert(p_no);
+			
 			location.href="/auction/auctionDelete?p_no="+p_no;
+			
 		});
-		
 });//function	
 
 	//--- 엔터키 ---//
@@ -369,54 +348,27 @@ $(function() {
 		}
 
 	}//changeMonth
-	
-	function openPop(price){
-	    var popup = window.open('/auction/auctionPurchaseSelectecd?price='+price, '결제 팝업', 'width=920px,height=670px,scrollbars=yes,resizable=no,toolbar=no,menubar=no,status=no,titlebar=no');
-	}
 </script>
-</head>
 
-<body>
-<!--  주소 찾기 모달 시작 -->
-<div class="container-fluid">
-	<div class="row">
-		<div class="col-md-12">
-			<a id="modalAddrAuction" href="#modalAddr-container-auction" role="button"
-				class="btn" data-toggle="modal" style="display:none">주소 찾기</a>
+<!-- <div class="container-fluid"> -->
+<!-- 	<div class="row"> -->
+<!-- 		<div class="col-md-2"></div> -->
+		
+<!-- 		<div class="col-md-8"> -->
+<!-- 			<div class="col-md-2"></div> -->
+<!-- 			<div class="col-md-8"> -->
 			
-			<div class="modal fade" id="modalAddr-container-auction" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-lg" role="document">
-					<div class="modal-content">
-					
-						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">주소 헤더</h5>
-							<button type="button" id="btnModalCloseAuction" class="close" data-dismiss="modal">
-								<span aria-hidden="true">×</span>
-							</button>
-						</div>
-						
-						<div class="modal-body"> 
-							<div>
-							<input type="text" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
-							<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
-							
-							</div>
-								<div id="list"></div>
-								<!-- 검색 결과 리스트 출력 영역 -->
-						</div>
-						
-						<div class="modal-footer">
-							<button type="button" class="btn btn-primary">주소선택</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!--  주소 찾기 모달 끝 -->
+			
+			
+			
+<!-- 			</div> -->
+<!-- 			<div class="col-md-2"></div> -->
+<!-- 		</div>md-8 -->
+<!-- 		<div class="col-md-2"></div> -->
+<!-- 	</div> -->
+<!-- </div> -->
+
+
 
 <div class="container-fluid">
 	<div class="row">
@@ -433,35 +385,33 @@ $(function() {
 							
 							<div class="tabbable" id="tabs-778663">
 								<ul class="nav nav-tabs">
-								<li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab" id="bidingItem">입찰 중인 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab" id="bidingFinishItem">입찰 종료된 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab" id="soldItem">거래된 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab4" data-toggle="tab" id="purchaseItem">구매한 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab5" data-toggle="tab" id="registerItem">물품 등록</a></li>
+								<li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab" id="listItem">등록된 물품</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab" id="soldItem">거래된 물품</a></li>
+								<li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab" id="registerItem">물품 등록</a></li>
 								</ul>
 				
 								<div class="tab-content">
 				
-									<div class="tab-pane active" id="bidingItemContent"><!-- tab1 -->
+									<div class="tab-pane active" id="listItemContent"><!-- tab1 -->
 										<!--------------------------------- tab1 div 시작 ------------------------------------>
 				
 										<div class="row">
 											<div class="col-md-12">
 											<div class="row">
 				
-											<c:forEach var="bidingList" items="${bidingList}" >
+											<c:forEach var="auctionSellVo" items="${sellList}" >
 											<div class="col-md-3">
 												<div class="card" style="height: 451px">
-														<img src="/furniture/displayImage?imageName=${bidingList.main_img_name}" class="img-class" style="height:200px;">
+														<img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class" style="height:200px;">
 													<div class="card-block">
-														<h5 class="card-title">상품:${bidingList.p_title}</h5>
-														<p class="card-text">현재가:${bidingList.present_price}</p>
-														<p class="card-text">즉구가:${bidingList.instant_price}</p>
-														<p class="card-text">등록일:${bidingList.r_year}/${bidingList.r_month}/${bidingList.r_day}</p>
-														<p class="card-text">마감일:${bidingList.e_year}/${bidingList.e_month}/${bidingList.e_day}</p>
+														<h5 class="card-title">상품:${auctionSellVo.p_title}</h5>
+														<p class="card-text">현재가:${auctionSellVo.present_price}</p>
+														<p class="card-text">즉구가:${auctionSellVo.instant_price}</p>
+														<p class="card-text">등록일:${auctionSellVo.r_year}/${auctionSellVo.r_month}/${auctionSellVo.r_day}</p>
+														<p class="card-text">마감일:${auctionSellVo.e_year}/${auctionSellVo.e_month}/${auctionSellVo.e_day}</p>
 														<p>
-															<a class="btn btn-outline-primary" href="/auction/auctionModify?p_no=${bidingList.p_no}">수정</a>
-															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${bidingList.p_no}">삭제</a>
+															<a class="btn btn-outline-primary" href="#">수정</a> 
+															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${auctionSellVo.p_no}">삭제</a>
 														</p>
 													</div>
 												</div>
@@ -474,39 +424,8 @@ $(function() {
 										<!--------------------------------- tab1 div 끝 -------------------------------------->
 									</div><!-- tab1 -->
 									
-									<div class="tab-pane" id="bidingFinishItemContent">	<!-- tab2시작 -->
-										<!--------------------------------- tab2 div 시작 -------------------------------------->
-											<div class="row">
-											<div class="col-md-12">
-											<div class="row">
-				
-											<c:forEach var="bidingFinishList" items="${bidingFinishList}" >
-											<div class="col-md-3">
-												<div class="card" style="height: 451px">
-														<img src="/furniture/displayImage?imageName=${bidingFinishList.main_img_name}" class="img-class" style="height:200px;">
-													<div class="card-block">
-														<h5 class="card-title">상품:${bidingFinishList.p_title}</h5>
-														<p class="card-text">현재가:${bidingFinishList.present_price}</p>
-														<p class="card-text">즉구가:${bidingFinishList.instant_price}</p>
-														<p class="card-text">등록일:${bidingFinishList.r_year}/${bidingFinishList.r_month}/${bidingFinishList.r_day}</p>
-														<p class="card-text">마감일:${bidingFinishList.e_year}/${bidingFinishList.e_month}/${bidingFinishList.e_day}</p>
-														<p>
-														<!-- 경매 종료는 수정 버튼이 필요없다 -->
-															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${bidingFinishList.p_no}">삭제</a>
-														</p>
-													</div>
-												</div>
-											</div>
-											</c:forEach>
-				
-												</div>
-											</div>
-										</div>
-										<!--------------------------------- tab2 div 끝 -------------------------------------->
-									</div><!-- tab2끝 -->
-									
-									<div class="tab-pane" id="soldItemContent">	<!-- tab3 -->
-										<!--------------------------------- tab3 div 시작 ------------------------------------>
+									<div class="tab-pane" id="soldItemContent">	<!-- tab2 -->
+										<!--------------------------------- tab2 div 시작 ------------------------------------>
 					
 										<div class="row">
 											<div class="col-md-12">
@@ -536,40 +455,11 @@ $(function() {
 											</div>
 										</div>					
 					
-										<!--------------------------------- tab3 div 끝 -------------------------------------->
-									</div><!-- tab3 -->
+										<!--------------------------------- tab2 div 끝 -------------------------------------->
+									</div><!-- tab2 -->
 									
-									<div class="tab-pane" id="purchaseItemContent"><!-- tab4 -->
-										<!---------------------------------- tab4 div 시작 ------------------------------------>
-										<c:forEach var="purchaserList" items="${purchaserList}" >
-										<table border='1'>
-											<tr>
-												<td>입찰 날짜:<span>${purchaserList.bid_date}</span></td>
-												<td rowspan='3'><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></td>
-												<td rowspan='2'>${purchaserList.p_title}</td>
-												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.sold_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td>
-												
-											</tr>
-											<tr>
-												<td>최초금액:<span>${purchaserList.present_price}</span></td>
-<!-- 												<td>이미지</td> -->
-<!-- 												<td>제목</td> -->
-<!-- 												<td>결제버튼</td> -->
-											</tr>
-											<tr>
-												<td>낙찰금액:<span>${purchaserList.sold_price}</span></td>
-<!-- 												<td>이미지</td> -->
-												<td>판매자:<span>${purchaserList.seller}</span></td>
-<!-- 												<td>결제버튼</td> -->
-											</tr>
-										</table>
-										</c:forEach>
-										<!---------------------------------- tab4 div 시작 ------------------------------------>
-									</div>
-									
-									
-									<div class="tab-pane" id="registerItemContent"><!-- tab5 -->
-										<!--------------------------------- tab5 div 시작 ------------------------------------>
+									<div class="tab-pane" id="registerItemContent"><!-- tab3 -->
+										<!--------------------------------- tab3 div 시작 ------------------------------------>
 										
 										<div class="row">
 											<div class="col-md-12">
@@ -644,11 +534,51 @@ $(function() {
 													<br>
 														
 													<!-- 주소 찾기 시작 -->
-													우편번호:<span id="spanZip"></span><a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
+													우편번호:<span id="spanZip"></span><a id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
 													<span id="spanRoadAddr"></span><br>
 													<span id="spanjibundAddr"></span><br>
 													<input type="text" placeholder="상세주소를 입력하세요" id="txtjibundAddrDetail" name="detail_address"/>
 													
+													<!--  주소 찾기 모달 시작 -->
+													<div class="container-fluid">
+														<div class="row">
+															<div class="col-md-12">
+																<a id="modalAddrAuction" href="#modalAddr-container-auction" role="button"
+																	class="btn" data-toggle="modal" style="display:none">주소 찾기</a>
+																
+																<div class="modal fade" id="modalAddr-container-auction" role="dialog"
+																	aria-labelledby="myModalLabel" aria-hidden="true">
+																	<div class="modal-dialog modal-lg" role="document">
+																		<div class="modal-content">
+																		
+																			<div class="modal-header">
+																				<h5 class="modal-title" id="myModalLabel">주소 헤더</h5>
+																				<button type="button" id="btnModalCloseAuction" class="close" data-dismiss="modal">
+																					<span aria-hidden="true">×</span>
+																				</button>
+																			</div>
+																			
+																			<div class="modal-body"> 
+																				<div>
+																				<input type="text" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
+																				<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
+																				
+																				</div>
+																					<div id="list"></div>
+																					<!-- 검색 결과 리스트 출력 영역 -->
+																			</div>
+																			
+																			<div class="modal-footer">
+																				<button type="button" class="btn btn-primary">주소선택</button>
+																				<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+																			</div>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+													<!--  주소 찾기 모달 끝 -->
 													<!-- 주소 찾기 끝-->
 													</div>
 													
@@ -657,8 +587,8 @@ $(function() {
 												</form>
 												</div>
 											</div>
-										</div><!-- tab5 -->
-										<!--------------------------------- tab5 div 끝 -------------------------------------->
+										</div><!-- tab3 -->
+										<!--------------------------------- tab3 div 끝 -------------------------------------->
 								</div>
 							</div>
 							<!--------------------------------------- 탭 끝 ------------------------------------------------------>
@@ -671,5 +601,3 @@ $(function() {
 		</div><!-- col-md-12 -->
 	</div><!-- row -->
 </div><!-- container-fluid -->
-</body>
-</html>

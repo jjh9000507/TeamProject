@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.AuctionBidVo;
+import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
@@ -20,11 +21,17 @@ public interface AuctionService {
 	//main에서 보여주는 최근파일과 메인 이미지
 	public List<AuctionSellVo> getAuctoionMainList() throws Exception;
 	
-	//현재 판매 상품
-	public List<AuctionSellVo> getAuctionUserMemberListSell(String m_id) throws Exception;
+	//현재 입찰중인 상품
+	public List<AuctionSellVo> getAuctionBidingList(String m_id, AuctionDateAndTimeVo auctionDandTVo) throws Exception;
+	//입찰 종료된 상품
+	public List<AuctionSellVo> getAuctionBidingFinishList(String m_id, AuctionDateAndTimeVo auctionDandTVo) throws Exception;
 	//거래된 상품
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception;
-		
+	//내가 구매한 상품
+	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception;
+	//수정할 상품 가져오기
+	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception;	
+	
 	//main이미지 가져오기
 	public List<AuctionMainImgVo> getAuctionMainImg() throws Exception;
 	//모든 이미지 가죠오기
@@ -49,6 +56,19 @@ public interface AuctionService {
 	
 	//종료일 가져오기
 	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception;
+	//마감일이 지나면 deadline를 Y롤
+	public void updateAuctionExpriationDeadline(int p_no) throws Exception;
+			
+	
+	//마감 기한 5분연장
+	public void updateAuctionEDate(AuctionEDateVo auctionEDateVo) throws Exception;
+	//자동 bid일 때 가장 큰 price가져오기
+	public AuctionTempBidVo getTempBidFromMaxPrice(int p_no) throws Exception;
+	//temp_bid에서 bid로 옮기기
+	public void insertAutoCommitBid(int p_no) throws Exception;
+	//auction데이블에 purchaser와 sold_price 업데이트
+	public void updateAuctionAfterFinish(String purchaser, int sold_price, int p_no, String seller) throws Exception;
+
 	
 	public void insertAuction(AuctionVo auctionVo) throws Exception;
 	public void insertAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception;

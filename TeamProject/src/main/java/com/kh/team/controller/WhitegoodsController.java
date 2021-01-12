@@ -1,8 +1,10 @@
 package com.kh.team.controller;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,8 +12,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.ProductImgVo;
 import com.kh.team.domain.WhitegoodsVo;
 import com.kh.team.service.WhitegoodsService;
 import com.kh.team.util.UploadFileUtils;
@@ -60,7 +65,10 @@ public class WhitegoodsController {
 	@RequestMapping(value="/whitegoodsUpdate/{w_no}", method=RequestMethod.GET)
 	public String whitegoodsUpdate(@PathVariable("w_no") int w_no, Model model) throws Exception {
 		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
+		int p_no = whitegoodsVo.getP_no();
+		List<String> productImgList = whitegoodsService.productImgList(p_no);
 		model.addAttribute("whitegoodsVo", whitegoodsVo);
+		model.addAttribute("productImgList", productImgList);
 		return "/whitegoods/whitegoodsUpdate";
 	}
 	
@@ -81,6 +89,36 @@ public class WhitegoodsController {
 		UploadFileUtils.delete(thumbnail);
 		
 		whitegoodsService.deleteWhitegoods(w_no);
+		return "redirect:/";
+	}
+	
+	//수정
+	@RequestMapping(value="/whitegoodsUpdateRun", method=RequestMethod.POST, produces="application/test;charset=utf-8")
+	public String whitegoodsUpdateRun(WhitegoodsVo whitegoodsVo, ProductImgVo productImgVo, MultipartFile file, HttpSession session) throws Exception{
+		if(file != null || !file.equals("")) {
+			String fileName = file.getOriginalFilename();
+			boolean isImage = UploadFileUtils.isImage(fileName);
+			String upload = null;
+			if(isImage) {
+				File isFile = new File(file.getOriginalFilename());
+				file.transferTo(isFile);
+				String fileNames = UploadFileUtils.upload(isFile, fileName);
+				upload = fileNames;
+			} else {
+				upload = null;
+			}
+			
+			whitegoodsVo.setW_thumbimg(upload);
+		}
+		
+		if(productImgVo.getImg_name() != null) {
+			whitegoodsService.imgInsert(whitegoodsVo, productImgVo);
+		}
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		String m_id = memberVo.getM_id();
+		whitegoodsVo.setW_seller(m_id);
+		
+		whitegoodsService.updateWhitegoods(whitegoodsVo);
 		return "redirect:/";
 	}
 }

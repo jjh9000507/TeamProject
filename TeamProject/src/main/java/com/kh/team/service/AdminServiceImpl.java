@@ -179,4 +179,21 @@ public class AdminServiceImpl implements AdminService{
 		List<QACateVo> QACategory = adminDao.QACategory();
 		return QACategory;
 	}
+
+	@Override
+	public List<QACateVo> firstQACategory() throws Exception {
+		List<QACateVo> firstQACategory = adminDao.firstQACategory();
+		return firstQACategory;
+	}
+
+	@Override
+	public List<QACateVo> otherQACategory(String qa_cate_no) throws Exception {
+		List<QACateVo> otherQACategory = adminDao.otherQACategory(qa_cate_no);
+		return otherQACategory;
+	}
+
+	@Override
+	public void qaInsert(QandAVo qandAVo) throws Exception {
+		adminDao.qaInsert(qandAVo);
+	}
 }

@@ -23,6 +23,7 @@ public class AuctionSellVo {
 	private int r_day;
 	private int r_hour;
 	private int r_minute;
+	private int r_second;
 	
 	private int e_no;
 	private int e_year;
@@ -30,6 +31,8 @@ public class AuctionSellVo {
 	private int e_day;
 	private int e_hour;
 	private int e_minute;
+	private int e_second;
+	private String deadline;
 	
 	private int main_img_no;
 	private String main_img_name;
@@ -142,6 +145,12 @@ public class AuctionSellVo {
 	public void setR_minute(int r_minute) {
 		this.r_minute = r_minute;
 	}
+	public int getR_second() {
+		return r_second;
+	}
+	public void setR_second(int r_second) {
+		this.r_second = r_second;
+	}
 	public int getE_no() {
 		return e_no;
 	}
@@ -178,6 +187,18 @@ public class AuctionSellVo {
 	public void setE_minute(int e_minute) {
 		this.e_minute = e_minute;
 	}
+	public int getE_second() {
+		return e_second;
+	}
+	public void setE_second(int e_second) {
+		this.e_second = e_second;
+	}
+	public String getDeadline() {
+		return deadline;
+	}
+	public void setDeadline(String deadline) {
+		this.deadline = deadline;
+	}
 	public int getMain_img_no() {
 		return main_img_no;
 	}
@@ -192,14 +213,14 @@ public class AuctionSellVo {
 	}
 	@Override
 	public String toString() {
-		return "AuctionAllVo [p_no=" + p_no + ", seller=" + seller + ", p_title=" + p_title + ", p_content=" + p_content
-				+ ", present_price=" + present_price + ", instant_price=" + instant_price
-				+ ", sell_status=" + sell_status + ", address_no=" + address_no
-				+ ", zip=" + zip + ", road_address=" + road_address + ", jibun_address=" + jibun_address
-				+ ", detail_address=" + detail_address + ", r_no=" + r_no + ", r_year=" + r_year + ", r_month="
-				+ r_month + ", r_day=" + r_day + ", r_hour=" + r_hour + ", r_minute=" + r_minute + ", e_no=" + e_no
-				+ ", e_year=" + e_year + ", e_month=" + e_month + ", e_day=" + e_day + ", e_hour=" + e_hour
-				+ ", e_minute=" + e_minute + ", main_img_no=" + main_img_no + ", main_img_name=" + main_img_name + "]";
+		return "AuctionSellVo [p_no=" + p_no + ", seller=" + seller + ", p_title=" + p_title + ", p_content="
+				+ p_content + ", present_price=" + present_price + ", instant_price=" + instant_price + ", sell_status="
+				+ sell_status + ", address_no=" + address_no + ", zip=" + zip + ", road_address=" + road_address
+				+ ", jibun_address=" + jibun_address + ", detail_address=" + detail_address + ", r_no=" + r_no
+				+ ", r_year=" + r_year + ", r_month=" + r_month + ", r_day=" + r_day + ", r_hour=" + r_hour
+				+ ", r_minute=" + r_minute + ", r_second=" + r_second + ", e_no=" + e_no + ", e_year=" + e_year
+				+ ", e_month=" + e_month + ", e_day=" + e_day + ", e_hour=" + e_hour + ", e_minute=" + e_minute
+				+ ", e_second=" + e_second + ", deadline=" + deadline + ", main_img_no=" + main_img_no
+				+ ", main_img_name=" + main_img_name + "]";
 	}
-	
 }

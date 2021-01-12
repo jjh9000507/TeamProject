@@ -18,12 +18,14 @@ Access.java
 AuctionS3Key.java
 JoinSMSKey.java
 PhoneSender.java
+ImPortKey.java
 
 ### Team Ignore ###
 Access.java
 AuctionS3Key.java
 JoinSMSKey.java
 PhoneSender.java
+ImPortKey.java
 
 # External tool builders
 .externalToolBuilders/

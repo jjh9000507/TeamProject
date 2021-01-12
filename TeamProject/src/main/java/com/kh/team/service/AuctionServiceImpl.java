@@ -18,6 +18,7 @@ import com.kh.team.controller.AuctionS3Key;
 import com.kh.team.dao.AuctionDao;
 import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.AuctionBidVo;
+import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
@@ -85,6 +86,7 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 		
 		//credential과 client객체 생성
 		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
+		
 		AmazonS3 s3Client = AmazonS3ClientBuilder
 				.standard()
 				.withCredentials(new AWSStaticCredentialsProvider(credential))
@@ -109,8 +111,9 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 				String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
 				//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
 				s3Client.putObject(bucketName,bucketKey,new File(filePath));
-			
+				
 				auctionImgVo.setImg_name(images[i]);
+				System.out.println("AuctionService images["+i+"]:"+images[i]);
 				auctionDao.insertAuctionImg(auctionImgVo);
 			}
 		}
@@ -129,11 +132,18 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	}
 
 	@Override
-	public List<AuctionSellVo> getAuctionUserMemberListSell(String m_id) throws Exception {
-		List<AuctionSellVo> list = auctionDao.getAuctionUserMemberListSell(m_id);
+	public List<AuctionSellVo> getAuctionBidingList(String m_id, AuctionDateAndTimeVo auctionDandTVo) throws Exception {
+		List<AuctionSellVo> list = auctionDao.getAuctionBidingList(m_id, auctionDandTVo);
 		return list;
 	}
 
+	@Override
+	public List<AuctionSellVo> getAuctionBidingFinishList(String m_id, AuctionDateAndTimeVo auctionDandTVo)
+			throws Exception {
+		List<AuctionSellVo> list = auctionDao.getAuctionBidingFinishList(m_id, auctionDandTVo);
+		return list;
+	}
+	
 	@Override
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception {
 		List<AuctionSoldVo> list = auctionDao.getAuctionUserMemberListSold(m_id);
@@ -241,12 +251,50 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	@Override
 	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception {
 		auctionDao.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
-		
 	}
 
 	@Override
 	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception {
 		AuctionEDateVo auctionEdateVo = auctionDao.getAuctionExpirationDate(p_no);
 		return auctionEdateVo;
+	}
+
+	@Override
+	public void updateAuctionEDate(AuctionEDateVo auctionEDateVo) throws Exception {
+		auctionDao.updateAuctionEDate(auctionEDateVo);
+	}
+
+	@Override
+	public AuctionTempBidVo getTempBidFromMaxPrice(int p_no) throws Exception {
+		AuctionTempBidVo auctionTempBidVo = auctionDao.getTempBidFromMaxPrice(p_no);
+		return auctionTempBidVo;
+	}
+
+	@Override
+	public void insertAutoCommitBid(int p_no) throws Exception {
+		auctionDao.insertAutoCommitBid(p_no);
+		
+	}
+
+	@Override
+	public void updateAuctionAfterFinish(String purchaser, int sold_price, int p_no, String seller) throws Exception {
+		auctionDao.updateAuctionAfterFinish(purchaser, sold_price, p_no, seller);
+	}
+
+	@Override
+	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception {
+		List<AuctionSoldVo> list = auctionDao.getAuctionPurchaserList(m_id);
+		return list;
+	}
+
+	@Override
+	public void updateAuctionExpriationDeadline(int p_no) throws Exception {
+		auctionDao.updateAuctionExpriationDeadline(p_no);
+	}
+
+	@Override
+	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception {
+		AuctionSellVo auctionSellVo = auctionDao.getAuctionModifyList(p_no);
+		return auctionSellVo;
 	}
 }

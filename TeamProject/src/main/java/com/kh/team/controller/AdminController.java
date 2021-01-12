@@ -248,8 +248,26 @@ public class AdminController {
 	
 	//Q&A 추가 페이지
 	@RequestMapping(value="/adminQandAInput", method=RequestMethod.GET)
-	public String adminQandAInput() throws Exception {
+	public String adminQandAInput(Model model) throws Exception {
+		List<QACateVo> firstQACategory = adminService.firstQACategory();
+		model.addAttribute("firstQACategory", firstQACategory);
 		return "/admin/a_q_input";
+	}
+	
+	//Q&A 추가 페이지서 1카테고리 선택 시 하위 카테고리 띄우기
+	@RequestMapping(value="/adminQACategorySelect", method=RequestMethod.GET)
+	@ResponseBody
+	public List<QACateVo> adminQACategorySelect(String qa_cate_no) throws Exception{
+		List<QACateVo> otherQACategoryList = adminService.otherQACategory(qa_cate_no);
+		return otherQACategoryList;
+	}
+	
+	//Q&A 추가하기
+	@RequestMapping(value="/adminQAInsert", method=RequestMethod.GET)
+	public String adminQAInsert(QandAVo qandaVo) throws Exception{
+		System.out.println("QandAVo: " + qandaVo);
+		adminService.qaInsert(qandaVo);
+		return "redirect:/admin/adminForm";
 	}
 	
 	//Q&A 수정/삭제 페이지

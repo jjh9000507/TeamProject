@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.QACateVo;
@@ -28,7 +29,9 @@ public class ServicecenterContorller {
 	//고객센터 페이지
 	@RequestMapping(value="serviceMain", method=RequestMethod.GET)
 	public String serviceMain(HttpSession session, Model model) throws Exception{
+		List<NoticeVo> noticeList = serviceService.noticeList();
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		model.addAttribute("noticeList", noticeList);
 		model.addAttribute("memberVo", memberVo);
 		return "/service/service_center";
 	}
@@ -84,6 +87,12 @@ public class ServicecenterContorller {
 			page="/service/inquiry";
 		}
 		return page;
+	}
+	
+	@RequestMapping(value="/inquiryQ", method=RequestMethod.GET)
+	public String inquiryQ(InquiryVo inquiryVo) throws Exception {
+		serviceService.inquiryQ(inquiryVo);
+		return "redirect:/";
 	}
 	
 }

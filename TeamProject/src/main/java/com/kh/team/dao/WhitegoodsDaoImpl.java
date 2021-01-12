@@ -1,6 +1,8 @@
 package com.kh.team.dao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -62,5 +64,20 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 	public void productImgDelete(int p_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "productImgDelete", p_no);
 	}
+
+	@Override
+	public void readUpdate(int w_no) throws Exception {
+		sqlSession.update(NAMESPACE + "readUpdate", w_no);
+	}
+
+	@Override
+	public void imgInsert(int p_no, String img_name) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("p_no", p_no);
+		map.put("img_name", img_name);
+		sqlSession.insert(NAMESPACE + "productImage", map);
+	}
+
+	
 
 }

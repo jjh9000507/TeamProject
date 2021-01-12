@@ -34,8 +34,7 @@ $(function(){
 		var p_no = "${buyComputerVo.p_no}";
 		var sendData = {
 				"p_no" : p_no
-			};
-		
+			};		
 		$.post(url,sendData, function(data) {
 			$.each(data, function() {				
 				var tr = $("#trTable").find("tr").clone();
@@ -65,8 +64,7 @@ $(function(){
 		$("#productExplainTable > tbody").empty();
 		var url = "/computerProductComment/inquireShow/${buyComputerVo.p_no}";
 		$.get(url, function(data) {
-			$.each(data, function() {
-				
+			$.each(data, function() {				
 				var tr = $("#productExplainTrTable").find("tr").clone();
 				tr.find("td").eq(0).text(indexInquire);
 				tr.find("td").eq(1).text(this.p_e_answer_status);
@@ -87,8 +85,7 @@ $(function(){
 		console.log("comment_no:" + comment_no);
 		$("#modal-modify").trigger("click");		
 	});
-	$("#updateAfterBuyProduct").click(function(){		
-				
+	$("#updateAfterBuyProduct").click(function(){				
 		var updateInput = $("#updateInput").val();
 		console.log("c_com_comment_content:" + updateInput);
 		var url = "/computerProductComment/updateRefContent";
@@ -100,8 +97,7 @@ $(function(){
 			if(data == "success"){
 				alert("후기 내용 변경 성공");
 			}
-		});
-		
+		});		
 	});
 	$("#commentTable").on("click", ".btnCommentDelete", function(){
 		comment_no = $(this).parent().parent().find("td").eq(6).text();
@@ -116,7 +112,62 @@ $(function(){
 				}
 			});
 	});
-	
+	$("#inquireControll").on("click", "#inquireProductWrite", function(){
+		$("#modal-inquireModal").trigger("click");
+					
+	});
+	$("#inquireControll").on("click", "#searchInquireButton", function(){
+		var indexInquire = 1;
+		var search = $("#searchInquireListSearch").val();
+		console.log("search:" + search);
+		var buySelectInquireListSearchOption = $("#buySelectInquireListSearchOption option:selected").val();
+		console.log("buySelectInquireListSearchOption:" + buySelectInquireListSearchOption);			
+		var c_com_name = "${buyComputerVo.c_com_name}";
+		var url = "/computerProductComment/searchInquireExplain";
+		var sendData = {
+			"p_e_title"	 : search,
+			"p_e_inquiry_status" : buySelectInquireListSearchOption,
+			"p_e_product"		: c_com_name
+		};
+		$("#productExplainTable > tbody").empty();
+		$.post(url,sendData,function(data){
+			$.each(data, function() {				
+				var tr = $("#productExplainTrTable").find("tr").clone();
+				tr.find("td").eq(0).text(indexInquire);
+				tr.find("td").eq(1).text(this.p_e_answer_status);
+				tr.find("td").eq(2).text(this.p_e_inquiry_status);
+				tr.find("td").eq(3).text(this.p_e_title);
+				tr.find("td").eq(4).text(this.p_e_id);
+				tr.find("td").eq(5).text(this.p_e_regdate);
+				tr.find("td").eq(6).text(this.p_e_no);
+				$("#productExplainTable").append(tr);
+				indexInquire++;
+			});	
+		});
+		$("#productExplainTable").show();
+	});
+	$("#buySelectModalConfirm").click(function(){
+		var p_e_contents = $("#p_e_contents").val();
+		console.log("p_e_contents:" + p_e_contents);
+		var buySelectModalVal = $("#buySelectModal option:selected").val();
+		console.log("buySelectModalVal:" + buySelectModalVal);
+		var inquireWriter = $("#getInquireId").val();
+		console.log("inquireWriter:" + inquireWriter);
+		var getInquireProduct = $("#getInquireProduct").val();
+		console.log("getInquireProduct:" + getInquireProduct);
+		var url = "/computerProductComment/insertInquireExpain";
+		var sendData = {
+				"p_e_title" : p_e_contents,
+				"p_e_id"	: inquireWriter,
+				"p_e_inquiry_status" : buySelectModalVal,
+				"p_e_product"        : getInquireProduct
+		};
+		$.post(url,sendData,function(data){
+			if(data == "success"){
+				alert("상품문의 사항 전달 성공");
+			}
+		});
+	});
 });
 </script>
 <div class="row">
@@ -155,11 +206,50 @@ $(function(){
 			
 		</div>
 	</div>
+	<div class="row">
+		<div class="col-md-12">
+			 <a id="modal-inquireModal" href="#modal-container-inquireModal" role="button"  style="display: none;" class="btn" data-toggle="modal">Launch demo modal</a>
+			
+			<div class="modal fade" id="modal-container-inquireModal" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">
+								상품문의 작성
+							</h5> 
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+						<select id="buySelectModal">
+							<option value="상품문의" selected="selected">상품문의</option>
+							<option value="배송">배송</option>
+							<option value="교환">교환</option>
+							<option value="반품/취소/환불">반품/취소/환불</option>
+							<option value="기타">기타</option>
+						</select>								
+						<input type="text" class="form-control" name="p_e_contents" id="p_e_contents" placeholder="상품문의 사항 작성"/>
+						<input type="text" style="display: none;" id="getInquireId" value="${buyComputerVo.c_com_seller}"/>
+						<input type="text" style="display: none;" id="getInquireProduct" value="${buyComputerVo.c_com_name}"/>
+						</div>
+						<div class="modal-footer">							 
+							<button type="button" id="buySelectModalConfirm" class="btn btn-primary">
+								작성완료
+							</button> 
+							<button type="button" id="buySelectModalCancle" class="btn btn-secondary" data-dismiss="modal">
+								닫기
+							</button>
+						</div>
+					</div>					
+				</div>				
+			</div>			
+		</div>
+	</div>
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
 <%@ include file="../include/header_mainCatagories.jsp"%>
-
 <br>
 	</div>
 	<div class="col-md-2"></div>
@@ -275,16 +365,11 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							<div class="dropdown">				 
-				<button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown">
-					배송방법을 선택하시오
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-					 <a class="dropdown-item disabled" href="#">택배-무료배송</a> 
-					 <a class="dropdown-item" href="#">직접방문수령</a> 
-					 <a class="dropdown-item" href="#">퀵서비스</a>
-				</div>
-			</div>
+							<select id="buySelectMenu">
+							<option value="" selected="selected">택배무료배송</option>
+							<option value="">직접방문수령</option>
+							<option value="">퀵서비스</option>
+						</select>
 						</td>						
 					</tr>
 					<tr>
@@ -343,20 +428,15 @@ $(function(){
 		<div class="col-md-12">
 		<div>
 		<ul class="nav nav-tabs breadcrumb" id="inquireControll" style="display: none;">
-		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquire" type="text"/><button id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
-		<li class="nav-item">
-		<div class="dropdown">				 
-				<button class="btn dropdown-toggle" type="button" id="dropdownInquireButton" data-toggle="dropdown">
-					문의 유형(전체)
-				</button>
-				<div class="dropdown-menu" aria-labelledby="dropdownInquireButton">
-					 <a class="dropdown-item" href="#">상품문의</a> 
-					 <a class="dropdown-item" href="#">배송</a> 
-					 <a class="dropdown-item" href="#">교환</a>
-					 <a class="dropdown-item" href="#">반품/취소/환불</a>
-					 <a class="dropdown-item" href="#">기타</a>
-				</div>
-			</div>
+		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquireListSearch" type="text"/><button type="button" id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
+		<li class="nav-item">						 
+				<select id="buySelectInquireListSearchOption">
+							<option value="상품문의" selected="selected">상품문의</option>
+							<option value="배송">배송</option>
+							<option value="교환">교환</option>
+							<option value="반품/취소/환불">반품/취소/환불</option>
+							<option value="기타">기타</option>
+						</select>			
 			</li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
@@ -365,7 +445,7 @@ $(function(){
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
 				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-		<li class="nav-item"><button id="inquireProduct">상품문의</button></li>
+		<li class="nav-item"><button id="inquireProductWrite">상품문의</button></li>
 		</ul>
 		</div>	
 			<table class="table" id="productExplainTable" style="display: none;">
@@ -374,7 +454,7 @@ $(function(){
 						<th>번호</th>
 						<th>답변상태</th>
 						<th>문의유형</th>
-						<th>문의제목</th>
+						<th>문의내용</th>
 						<th>작성자</th>
 						<th>작성일자</th>												
 						<th></th>												
