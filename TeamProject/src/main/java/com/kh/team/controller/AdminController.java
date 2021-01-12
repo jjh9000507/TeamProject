@@ -19,18 +19,22 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.EmailDto;
 import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
 import com.kh.team.domain.SanctionVo;
 import com.kh.team.service.AdminService;
 import com.kh.team.service.SanctionService;
+import com.kh.team.service.ServiceService;
 import com.kh.team.service.WhitegoodsService;
 import com.kh.team.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	@Inject
+	private ServiceService serviceService;
 	
 	@Inject
 	private JavaMailSender mailSender;
@@ -327,7 +331,15 @@ public class AdminController {
 	
 	//공지사항 페이지
 	@RequestMapping(value="/adminNotice", method=RequestMethod.GET)
-	public String adminNotice() throws Exception {
+	public String adminNotice(Model model) throws Exception {
+		List<NoticeVo> noticeList = serviceService.noticeList();
+		model.addAttribute("noticeList", noticeList);
 		return "/admin/a_notice";
+	}
+	
+	//공지사항 작성 페이지
+	@RequestMapping(value="/adminNoticeWrite", method=RequestMethod.GET)
+	public String adminNoticeWrite() throws Exception{
+		return "/admin/a_notice_write";
 	}
 }

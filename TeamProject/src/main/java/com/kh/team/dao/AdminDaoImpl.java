@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
@@ -276,6 +277,11 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void deleteInquiry(int inquiry_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "inquiryDelete", inquiry_no);
+	}
+
+	@Override
+	public void insertNotice(NoticeVo noticeVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "insertNotice",noticeVo);
 	}
 
 }

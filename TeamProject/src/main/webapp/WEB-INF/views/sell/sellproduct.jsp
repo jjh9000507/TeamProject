@@ -196,7 +196,7 @@ $(function(){
 		} else if(large == 30){
 			form.attr("action", "/sellproduct/whitegoodsUpload");
 		} else if(large == 50){
-			form.attr("action", "/sellproduct/computer");
+			form.attr("action", "/sellproduct/computerUpload");
 		}
 
 		if(small2 != null){

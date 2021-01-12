@@ -19,6 +19,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ClothesVo;
+import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductImgVo;
 import com.kh.team.domain.ProductVo;
@@ -104,7 +105,7 @@ public class SellProductContoller {
 	}
 	
 	//의류 등록
-	@RequestMapping(value="/clothesUpload", method=RequestMethod.GET, produces="application/test;charset=utf-8")
+	@RequestMapping(value="/clothesUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
 	public String clothesUpload(MultipartFile file, ProductVo productVo, HttpSession session) throws Exception {
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
@@ -133,7 +134,7 @@ public class SellProductContoller {
 	}
 	
 	//가구 등록
-	@RequestMapping(value="/furnitureUpload", method=RequestMethod.GET, produces="application/test;charset=utf-8")
+	@RequestMapping(value="/furnitureUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
 	public String furnitureUpload(MultipartFile file, ProductVo productVo) throws Exception {
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
@@ -151,8 +152,9 @@ public class SellProductContoller {
 	}
 	
 	//컴퓨터 등록
-	@RequestMapping(value="/computerUpload", method=RequestMethod.GET)
-	public String computerUpload(MultipartFile file, ProductVo productVo) throws Exception {
+	@RequestMapping(value="/computerUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
+	public String computerUpload(MultipartFile file, ProductVo productVo, ProductImgVo productImgVo, HttpSession session) throws Exception {
+		System.out.println("ProductVo: " + productVo);
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
 		String upload = null;
@@ -165,6 +167,17 @@ public class SellProductContoller {
 		} else {
 			upload = null;
 		}
+		
+		ComputerVo computerVo = new ComputerVo();
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
+		computerVo.setC_com_cate_no(productVo.getCate_no());
+		computerVo.setC_com_name(productVo.getP_name());
+		computerVo.setC_com_seller(memberVo.getM_id());
+		computerVo.setC_com_price(productVo.getP_price());
+		computerVo.setC_com_content(productVo.getP_content());
+		computerVo.setC_com_pic(upload);
+		
+		sellProductService.computerInsert(computerVo, productImgVo);
 		return "redirect:/";
 	}
 	

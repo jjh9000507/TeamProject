@@ -344,4 +344,10 @@
 		delete from inquiry
 		where inquiry_no = #{inquiry_no}
 	</delete>
+	
+	<!-- 공지사항 작성 -->
+	<insert id="insertNotice">
+		insert into notice(notice_no, notice_title, notice_content)
+		values(seq_notice_no.nextval, #{notice_title}, #{notice_content})
+	</insert>
 </mapper>
