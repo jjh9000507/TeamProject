@@ -4,6 +4,28 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/buyComputerProductDetail_css.css" %>
 <%@ include file="../include/header.jsp"%>
+<script>
+$(function(){
+	$("#buyProduct").click(function(){	
+		var url = "/buyComputerProduct/sendForGetPurchasePercentage";
+		var productNum = "${buyComputerInfo.productNum}";
+		var productName = "${buyComputerInfo.productName}";
+		var seller = "${buyComputerInfo.seller}";
+		var sendData = {
+			"productNum" : productNum,
+			"productName" : productName,
+			"seller"      : seller
+		};
+		$.post(url,sendData, function(data) {
+			if(data == "success"){
+				alert("성공");
+			}else if(data == "fail"){
+				alert("실패");
+			}
+		});
+	});
+});
+</script>
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -175,13 +197,13 @@ nav
 					<tr>
 						<td>
 						<form>
-							<input type="radio" name="cardPayment" value="cardPayment">신용/체크카드
-							&nbsp&nbsp<input type="radio" name="bankPayment" value="bankPayment">무통장입금
-							&nbsp&nbsp<input type="radio" name="phonePayment" value="phonePayment">휴대폰결제
+							<input type="radio" name="Payment" value="cardPayment">신용/체크카드
+							&nbsp&nbsp<input type="radio" name="Payment" value="bankPayment">무통장입금
+							&nbsp&nbsp<input type="radio" name="Payment" value="phonePayment">휴대폰결제
 						</form>
 						</td>
 						<td>
-							<button>결제하기</button>
+							<button type="button" id="buyProduct">결제하기</button>
 						</td>						
 					</tr>					
 				</tbody>
