@@ -71,7 +71,7 @@ public class PageController {
 	public String best_item(Model model) throws Exception {
 		List<ProductVo> list = pageService.best_item();
 		model.addAttribute("list" , list);
-		return "/best";
+		return "/sell/best";
 	}
 	
 } // main class

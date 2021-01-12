@@ -192,10 +192,9 @@
 	
 	<select id="best_item" resultType="ProductVo">
 		select * from (
-		select rownum rnum, p.* from product p )
-		where rnum between 1 and 12
+						select rownum rnum, p.* from product p )
+			where rnum between 1 and 12
 		order by p_readcount desc
-;
 
 	</select>
 	

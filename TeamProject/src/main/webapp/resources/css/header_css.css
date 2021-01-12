@@ -548,7 +548,7 @@ ul, li {
 	position: fixed;	
 	top : 0;
 	height: 50;	
-	z-index : 2;	
+	z-index : 15;	
 	background : white;	
 	border-bottom : 1px solid black;
 	padding-left: 200px;
