@@ -59,7 +59,7 @@ public class PageController {
 	public String content(int p_no, Model model) throws Exception {
 		
 		//조회수 증가
-//		pageService.updateReadCount(p_no);
+		pageService.updateReadCount(p_no);
 		
 		// 글 데이터 받아오기
 		ProductVo productVo = pageService.content(p_no);

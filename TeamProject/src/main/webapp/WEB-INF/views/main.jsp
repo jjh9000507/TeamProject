@@ -26,6 +26,7 @@ $(function(){
 					ul.find("a").eq(1).text(this.p_name);  // 상품이름
 					ul.find("span").eq(0).text(this.p_price);  // 상품가격
 					ul.find("a").eq(2).text(this.p_seller);  // 판매자
+					ul.find("a").eq(1).attr("href" , "/page/content?p_no=" + this.p_no)
 					ul.css("display" , "");
 // 				 $(".productList > ul:eq(0)").remove();
 					$(".productList").append(ul);
@@ -156,6 +157,7 @@ $(function(){
 							data-slide="next"><span class="carousel-control-next-icon"></span>
 							<span class="sr-only">Next</span></a>
 					</div>
+			</div>
 					
 					<!------------------------------------------ 상품 리스트 ---------------------------------------->
 					
@@ -177,9 +179,9 @@ $(function(){
 					
 					<!-- 히든(복사) 데이터 -->
 					<ul class="nav nav-pills list" style="display:none;">
-						<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/shirt.jpg"/></a></li>
-						<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
-						<li class="nav-item"><a class="nav-link seller">판매자</a></li>
+							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
+							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="/page/content?p_no=${all_list.p_no}">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
+							<li class="nav-item"><a class="nav-link seller">${all_list.p_seller}</a></li>
 					</ul>
 					
 					<!-- 전체 상품 목록(7개만) -->
