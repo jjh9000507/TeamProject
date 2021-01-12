@@ -38,6 +38,9 @@ public class ComputersController {
 		//상품리스트 불러오기
 		List<ComputerVo> computerList = computersService.list(cate_no);
 		
+		int listNumber = computerList.size();
+		System.out.println("listNumber:" + listNumber);
+		
 		//카테고리 불러오기
 		List<CategoryVo> categoryInfo = computersService.categoryInfo(cate_no);
 		System.out.println("computerList:" + computerList);
@@ -51,6 +54,7 @@ public class ComputersController {
 		
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", checkList);
+		request.setAttribute("listNumber", listNumber);
 		return "/computerProduct/computersForm";
 	}
 	
@@ -95,11 +99,15 @@ public class ComputersController {
 		
 		//컴퓨터제품 정보 불러와서 모델에 저장
 		List<ComputerVo> computerList = computersService.listSearch(c_com_name, confirmList);
-        System.out.println("computerList_search:" + computerList);
+		int listNumber = computerList.size();
+		System.out.println("listNumber:" + listNumber);
+		
+		System.out.println("computerList_search:" + computerList);
 		model.addAttribute("computerList", computerList);
 		
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", confirmList);
+		request.setAttribute("listNumber", listNumber);
 		return "/computerProduct/computersForm";
 	}
 	
@@ -147,9 +155,12 @@ public class ComputersController {
 		List<ComputerVo> computerList = computersService.listSearchPrice(firstPrice, lastPrice, confirmList);
 		model.addAttribute("computerList", computerList);
 		System.out.println("computerList_price:" + computerList);
+		int listNumber = computerList.size();
+		System.out.println("listNumber:" + listNumber);
 		
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", confirmList);
+		request.setAttribute("listNumber", listNumber);
 		return "/computerProduct/computersForm";
 	}
 
@@ -194,9 +205,12 @@ public class ComputersController {
 		List<ComputerVo> computerList = computersService.listArray(checkList);
 		model.addAttribute("computerList", computerList);
         System.out.println("computerList_check:" + computerList);
+        int listNumber = computerList.size();
+		System.out.println("listNumber:" + listNumber);
 		
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		request.setAttribute("cate_no_confirm", checkList);
+		request.setAttribute("listNumber", listNumber);
 		return "/computerProduct/computersForm";
 	}
 	
@@ -280,7 +294,8 @@ public class ComputersController {
 		List<ComputerVo> computerList = computersService.listSearchById(c_com_seller, confirmList);
 				
 		System.out.println("computerList_byId:" + computerList);
-		        
+		int listNumber = computerList.size();
+		System.out.println("listNumber:" + listNumber);        
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
 		
 		String view = "";
@@ -292,6 +307,7 @@ public class ComputersController {
 			model.addAttribute("categoryInfo", categoryInfo);
 			model.addAttribute("computerList", computerList);
 			request.setAttribute("cate_no_confirm", confirmList);
+			request.setAttribute("listNumber", listNumber);
 			view = "/computerProduct/computersForm";
 		}		
 		return view;

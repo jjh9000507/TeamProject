@@ -56,4 +56,16 @@ public class PageDaoImpl implements PageDao {
 		return list;
 	}
 
+	// 조회수 증가
+	@Override
+	public void updateReadCount(int p_no) throws Exception {
+		sqlSession.update(NAMESPACE + "updateReadCount" , p_no);
+	}
+
+	@Override
+	public ProductVo content(int p_no) throws Exception {
+		ProductVo productVo = sqlSession.selectOne(NAMESPACE + "content" , p_no);
+		return productVo;
+	}
+
 }
