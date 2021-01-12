@@ -3,13 +3,25 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
+<link rel="stylesheet" href="/resources/css/sidebar.css" /> 
 
 <style>
 .img-class {
-    width: auto; height: auto;
-    max-width: 200px;
-    max-height: 300px;
+    width: 200px; height: 200px;
 }
+
+.firstTd {
+    padding-right: 20px;
+    padding-top: 0px;
+    padding-bottom: 35px;
+    padding-left: 20px;
+}
+
+.secondTable{
+	height: 400px;
+}
+
+
 </style>
 
 <script type="text/javascript">
@@ -362,6 +374,47 @@ $(function(){
 		location.href="/auction/auctionSelected?p_no="+pno;
 		//location.href="/auction/auctionSelected";
 	});
+	
+	/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
+	
+		//아우터 
+		$(".sidebar__nav > li:eq(1) > a").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(1) > ul").show();	
+		});
+		
+		$(".sidebar__nav > li:eq(1) > a").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(1) > ul").hide();	
+		});
+		
+		// 상의
+		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(2) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(2) > ul").hide();
+		});
+		
+		// 바지
+		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(3) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(3) > ul").hide();
+		});
+		
+		// 스포츠웨어
+		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(4) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(4) > ul").hide();
+		});
+	
+	/* ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
+	
 });//function
 
 function makeTwoDigit(num){
@@ -392,15 +445,15 @@ function makeTwoDigit(num){
 
 		<div class="col-md-8">
 			<div class="lblHOT">
-			 	<table border=1>
+			 	<table border=0>
 			 		<c:forEach var="auctionSellVo" items="${list}" varStatus="status">
 			 		<c:if test="${(status.count-1) % 4 == 0}">
 			 			<tr><!-- 4개 넘어서면 tr추가 -->
 					</c:if>
 					
-			 			<td><!-- 4개까진 td 추가 -->
+			 			<td class="firstTd"><!-- 4개까진 td 추가 -->
 
-			 				<table border=1>
+			 				<table border=1 class="secondTable">
 								<tr>
 									<td>
 										<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a>
@@ -411,10 +464,10 @@ function makeTwoDigit(num){
 									<td>${auctionSellVo.p_title}</td>
 								</tr>			 				
 								<tr>
-									<td>${auctionSellVo.present_price}</td>
+									<td>${auctionSellVo.present_price}원</td>
 								</tr>
 								<tr>
-									<td style="font-size:15px">${auctionSellVo.seller} ${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
+									<td style="font-size:15px">${auctionSellVo.seller} 마감시간:${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
 								</tr>
 								<tr>
 									<td>
@@ -450,5 +503,119 @@ function makeTwoDigit(num){
 </div><!-- container-fluid -->
 <hr>
 <br><br>
+
+<!-- aside 시작 -->
+<aside class="sidebar">
+			<nav>
+				<ul class="sidebar__nav">
+				
+				 <!-- 베스트 아이템1 -->
+					<li>
+						<a href="#" class="sidebar__nav__link">
+							<img class="sidebar__img" src="/resources/auctionImage/main1.png"/>
+						</a>
+							<ul class="sidebar__submenu"><img src="/resources/auctionImage/main1.png"/></ul>
+					</li>
+					
+				 <!-- 아우터2 -->
+					<li>
+						<a href="#" class="sidebar__nav__link">
+							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_coat.png"/></i>
+							<span class="sidebar__nav__text">아우터<span class="sidebar__nav__text__ENG">OUTER</span></span>
+						</a>
+							<ul class="sidebar__submenu">
+							
+									<li><a href="#">후드집업</a></li>
+									<li><a href="#">코트</a></li>
+									<li><a href="#">가디건</a></li>
+									<li><a href="#">조끼</a></li>
+									<li><a href="#">자켓</a></li>
+									<li><a href="#">점퍼/야상/패딩</a></li>
+									<li><a href="#">수트/블레이저</a></li>
+							</ul>
+					</li>
+					
+				 <!-- 상의3 -->
+					<li>
+						<a href="#" class="sidebar__nav__link">
+							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_shirt.png"/></i>
+							<span class="sidebar__nav__text">상의<span class="sidebar__nav__text__ENG">Top</span></span>
+						</a>
+							<ul class="sidebar__submenu">
+								<li><a href="#">민소매</a></li>
+								<li><a href="#">반팔 티셔츠</a></li>
+								<li><a href="#">긴팔 티셔츠</a></li>
+								<li><a href="#">니트/스웨터</a></li>
+								<li><a href="#">후드티</a></li>
+								<li><a href="#">셔츠</a></li>
+							</ul>
+					</li>
+					
+				 <!-- 바지4 -->
+					<li>
+						<a href="#" class="sidebar__nav__link">
+							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_jeans.png"/></i>
+							<span class="sidebar__nav__text">바지<span class="sidebar__nav__text__ENG">Pants</span></span>
+						</a>
+							<ul class="sidebar__submenu">
+								<li><a href="#">숏 팬츠</a></li>
+								<li><a href="#">슈트/슬랙스</a></li>
+								<li><a href="#">레깅스</a></li>
+								<li><a href="#">점프슈트/오버올</a></li>
+								<li><a href="#">데님 팬츠</a></li>
+								<li><a href="#">코튼 팬츠</a></li>
+							</ul>
+					</li>
+					
+				 <!-- 스포츠/기타5 -->
+					<li>
+						<a href="#" class="sidebar__nav__link">
+							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_sports.png"/></i>
+							<span class="sidebar__nav__text">스포츠/기타<span class="sidebar__nav__text__ENG">Sports</span></span>
+						</a>
+						
+							<ul class="sidebar__submenu">
+								<li><a href="#">기능성 의류</a></li>
+								<li><a href="#">수면/잠옷</a></li>
+								<li><a href="#">교복</a></li>
+								<li><a href="#">이벤트</a></li>
+								<li><a href="#">수영복</a></li>
+							</ul>
+					</li>
+					
+				<!-- 신발6 -->
+					<li>
+						<a href="#" class="sidebar__nav__link">
+							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_shoes.png"/></i>
+							<span class="sidebar__nav__text">신발<span class="sidebar__nav__text__ENG">Shoes</span></span>
+						</a>
+						
+							<ul class="sidebar__submenu">
+								<li><a href="#">구두</a></li>
+								<li><a href="#">스니커즈</a></li>
+								<li><a href="#">운동화</a></li>
+								<li><a href="#">샌들/슬리퍼</a></li>
+							</ul>
+						
+					</li>				
+					
+				<!-- 속옷7 -->
+					<li>
+						<a href="#" class="sidebar__nav__link">
+							<i class=""></i>
+							<span class="sidebar__nav__text">속옷<span class="sidebar__nav__text__ENG">Underwear</span></span>
+						</a>
+							<ul class="sidebar__submenu">
+								<li><a href="#">남성 속옷</a></li>
+							</ul>
+						
+						
+					</li>
+					
+					
+				</ul>
+			</nav>
+		</aside>
+<!-- aside 끝 -->
 <%-- <%@ include file="../include/footer.jsp" %> --%>
 
