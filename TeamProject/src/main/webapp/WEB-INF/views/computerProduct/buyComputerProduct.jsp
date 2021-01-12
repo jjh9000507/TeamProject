@@ -402,7 +402,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							전체판매상품 중 선호도:
+							<span>${indexName[0]}</span> 카테고리내에서의 구매율:
 							<div class="progress">
 								<div class="progress-bar w-75">
 								</div>
