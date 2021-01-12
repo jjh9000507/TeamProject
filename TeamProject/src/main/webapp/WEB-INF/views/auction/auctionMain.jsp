@@ -6,9 +6,18 @@
 
 <style>
 .img-class {
-    width: auto; height: auto;
-    max-width: 200px;
-    max-height: 300px;
+    width: 200px; height: 200px;
+}
+
+.firstTd {
+    padding-right: 20px;
+    padding-top: 0px;
+    padding-bottom: 35px;
+    padding-left: 20px;
+}
+
+.secondTable{
+	height: 400px;
 }
 </style>
 
@@ -362,6 +371,7 @@ $(function(){
 		location.href="/auction/auctionSelected?p_no="+pno;
 		//location.href="/auction/auctionSelected";
 	});
+	
 });//function
 
 function makeTwoDigit(num){
@@ -389,18 +399,20 @@ function makeTwoDigit(num){
 		<div class="col-md-2">
 		<button type="button" id="stopTimer">타이머종료</button>	
 		</div>
-
+		
 		<div class="col-md-8">
+			<div><a href="/auction/auctionResisterList"><img src="/resources/auctionImage/btn_sell.png"></a></div>
 			<div class="lblHOT">
-			 	<table border=1>
+				
+			 	<table border=0>
 			 		<c:forEach var="auctionSellVo" items="${list}" varStatus="status">
 			 		<c:if test="${(status.count-1) % 4 == 0}">
 			 			<tr><!-- 4개 넘어서면 tr추가 -->
 					</c:if>
 					
-			 			<td><!-- 4개까진 td 추가 -->
+			 			<td class="firstTd"><!-- 4개까진 td 추가 -->
 
-			 				<table border=1>
+			 				<table border=1 class="secondTable">
 								<tr>
 									<td>
 										<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a>
@@ -411,10 +423,10 @@ function makeTwoDigit(num){
 									<td>${auctionSellVo.p_title}</td>
 								</tr>			 				
 								<tr>
-									<td>${auctionSellVo.present_price}</td>
+									<td>${auctionSellVo.present_price}원</td>
 								</tr>
 								<tr>
-									<td style="font-size:15px">${auctionSellVo.seller} ${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
+									<td style="font-size:15px">${auctionSellVo.seller} 마감시간:${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
 								</tr>
 								<tr>
 									<td>
@@ -444,7 +456,6 @@ function makeTwoDigit(num){
 
 		</div><!-- 첫번째 col-md-8 -->
 	<div class="col-md-2">
-		<a href="/auction/auctionResisterList" style="cursor:pointer"><img src="/resources/auctionImage/btn_sell.png"></a>
 	</div>
 </div> <!-- row -->
 </div><!-- container-fluid -->

@@ -16,43 +16,21 @@
 
 <script>
 $(function(){	
+	var tabBtn = $("#tab-btn > ul > li");     //각각의 버튼을 변수에 저장
+	var tabCont = $("#tab-cont > div");       //각각의 콘텐츠를 변수에 저장
+
+	//컨텐츠 내용을 숨겨주세요!
+	tabCont.hide().eq(0).show();
+
+	tabBtn.click(function(){
+	  var target = $(this);         //버튼의 타겟(순서)을 변수에 저장
+	  var index = target.index();   //버튼의 순서를 변수에 저장
+	  tabBtn.removeClass("active");    //버튼의 클래스를 삭제
+	  target.addClass("active");       //타겟의 클래스를 추가
+	  tabCont.css("display","none");
+	  tabCont.eq(index).css("display","block");
+	});
 		
-		//아우터 
-		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(1) > ul").show();	
-		});
-		
-		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(1) > ul").hide();	
-		});
-		
-		// 상의
-		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(2) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(2) > ul").hide();
-		});
-		
-		// 바지
-		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(3) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(3) > ul").hide();
-		});
-		
-		// 스포츠웨어
-		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(4) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(4) > ul").hide();
-		});
-	
 }); // main function
 
 </script>
@@ -60,25 +38,41 @@ $(function(){
 <br>
 
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
+<div class="row">
 
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
 		
-			<div>
 				<ul class="nowMenu">
-					<li><a href="/">홈 </a>></li>
 					<li><a style="color:red;" href="/clothes/101">남성의류</a></li>
 				</ul>
-			</div>
-			
-			
+				
+				<div id="tab-menu">
+				  <div id="tab-btn">
+				    <ul>
+				      <li class="active"><a href="#">아우터</a></li>
+				      <li><a href="#">상의</a></li>
+				      <li><a href="#">바지</a></li>
+				      <li><a href="#">스포츠</a></li>
+				      <li><a href="#">신발</a></li>
+				      <li><a href="#">속옷</a></li>
+				    </ul>
+				  </div>
+				  
+				  <div id="tab-cont">
+				    <div><a href="#">후드집업</a><a href="#">코트</a><a href="#">가디건</a><a href="#">조끼</a><a href="#">자켓</a><a href="#">점퍼/야상/패딩</a><a href="#">수트/블레이저</a></div>
+				    <div><a href="#">민소매</a><a href="#">반팔 티셔츠</a><a href="#">긴팔 티셔츠</a><a href="#">니트/스웨터</a><a>후드티</a><a>셔츠</a></div>
+				    <div><a href="#">숏 팬츠</a><a href="#">점프슈트/오버올</a><a href="#">바지</a><a href="#">청바지</a></div>
+				    <div><a href="#">기능성 의류</a><a href="#">수면/잠옷 (상의)</a><a href="#">교복</a><a href="#">이벤트</a><a href="#">수영복</a></div>
+				    <div>모목도리</div>
+				    <div>남성 속옷</div>
+				  </div>
+				</div>
 		</div>
-	<div class="col-md-2"></div>
-
-
+		<div class="col-md-2"></div>
+</div>
 		<div style="padding-top: 150px;">
 			<div class="row listMain" style="position:relative;left:15%;">
-
 				<div class="col-md-8 productList">
 					
 					<ul class="nav nav-pills list" style="display:none;">
@@ -87,14 +81,18 @@ $(function(){
 							<li class="nav-item"><a class="nav-link seller">판매자</a></li>
 					</ul>
 					
+					<select style="float:right;">
+						<option>가격</option>
+						<option>이름</option>
+					</select>
+					
 					<ul class="nav nav-pills list">
 							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="/resources/image/shirt.jpg"/></a></li>
 							<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
 							<li class="nav-item"><a class="nav-link seller">판매자</a></li>
+
 					</ul>
-					
 				</div>
-				<div class="col-md-2"></div>
 			</div>
 		</div>
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
@@ -116,117 +114,3 @@ $(function(){
 	</div>
 </div>
 
-<aside class="sidebar">
-			<nav>
-				<ul class="sidebar__nav">
-				
-				 <!-- 베스트 아이템1 -->
-					<li>
-						<a href="#" class="sidebar__nav__link">
-							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_best.png"/></i>
-							<span class="sidebar__nav__text">BEST ITEM</span>
-						</a>
-							<ul class="sidebar__submenu">
-							<!---------------->
-							</ul>
-					</li>
-					
-				 <!-- 아우터2 -->
-					<li>
-						<a href="#" class="sidebar__nav__link">
-							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_coat.png"/></i>
-							<span class="sidebar__nav__text">아우터<span class="sidebar__nav__text__ENG">OUTER</span></span>
-						</a>
-							<ul class="sidebar__submenu">
-							
-									<li><a href="#">후드집업</a></li>
-									<li><a href="#">코트</a></li>
-									<li><a href="#">가디건</a></li>
-									<li><a href="#">조끼</a></li>
-									<li><a href="#">자켓</a></li>
-									<li><a href="#">점퍼/야상/패딩</a></li>
-									<li><a href="#">수트/블레이저</a></li>
-							</ul>
-					</li>
-					
-				 <!-- 상의3 -->
-					<li>
-						<a href="#" class="sidebar__nav__link">
-							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_shirt.png"/></i>
-							<span class="sidebar__nav__text">상의<span class="sidebar__nav__text__ENG">Top</span></span>
-						</a>
-							<ul class="sidebar__submenu">
-								<li><a href="#">민소매</a></li>
-								<li><a href="#">반팔 티셔츠</a></li>
-								<li><a href="#">긴팔 티셔츠</a></li>
-								<li><a href="#">니트/스웨터</a></li>
-								<li><a href="#">후드티</a></li>
-								<li><a href="#">셔츠</a></li>
-							</ul>
-					</li>
-					
-				 <!-- 바지4 -->
-					<li>
-						<a href="#" class="sidebar__nav__link">
-							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_jeans.png"/></i>
-							<span class="sidebar__nav__text">바지<span class="sidebar__nav__text__ENG">Pants</span></span>
-						</a>
-							<ul class="sidebar__submenu">
-								<li><a href="#">숏 팬츠</a></li>
-								<li><a href="#">슈트/슬랙스</a></li>
-								<li><a href="#">레깅스</a></li>
-								<li><a href="#">점프슈트/오버올</a></li>
-								<li><a href="#">데님 팬츠</a></li>
-								<li><a href="#">코튼 팬츠</a></li>
-							</ul>
-					</li>
-					
-				 <!-- 스포츠/기타5 -->
-					<li>
-						<a href="#" class="sidebar__nav__link">
-							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_sports.png"/></i>
-							<span class="sidebar__nav__text">스포츠/기타<span class="sidebar__nav__text__ENG">Sports</span></span>
-						</a>
-						
-							<ul class="sidebar__submenu">
-								<li><a href="#">기능성 의류</a></li>
-								<li><a href="#">수면/잠옷</a></li>
-								<li><a href="#">교복</a></li>
-								<li><a href="#">이벤트</a></li>
-								<li><a href="#">수영복</a></li>
-							</ul>
-					</li>
-					
-				<!-- 신발6 -->
-					<li>
-						<a href="#" class="sidebar__nav__link">
-							<i class=""><img class="sidebar__img" src="/resources/image/sidebar_shoes.png"/></i>
-							<span class="sidebar__nav__text">신발<span class="sidebar__nav__text__ENG">Shoes</span></span>
-						</a>
-						
-							<ul class="sidebar__submenu">
-								<li><a href="#">구두</a></li>
-								<li><a href="#">스니커즈</a></li>
-								<li><a href="#">운동화</a></li>
-								<li><a href="#">샌들/슬리퍼</a></li>
-							</ul>
-						
-					</li>				
-					
-				<!-- 속옷7 -->
-					<li>
-						<a href="#" class="sidebar__nav__link">
-							<i class=""></i>
-							<span class="sidebar__nav__text">속옷<span class="sidebar__nav__text__ENG">Underwear</span></span>
-						</a>
-							<ul class="sidebar__submenu">
-								<li><a href="#">남성 속옷</a></li>
-							</ul>
-						
-						
-					</li>
-					
-					
-				</ul>
-			</nav>
-		</aside>

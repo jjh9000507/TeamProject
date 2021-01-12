@@ -34,32 +34,74 @@ public class SellProductServiceImpl implements SellProductService {
 
 	//컴퓨터 등록
 	@Override
-	public void computerInsert(ComputerVo computerVo) throws Exception {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
-	public void fBedInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
-		// TODO Auto-generated method stub
+	public void computerInsert(ComputerVo computerVo, ProductImgVo productImgVo) throws Exception {
+		String[] files = productImgVo.getImg_name();
+		int p_no = sellProductDao.getPnoNextval();
+		computerVo.setP_no(p_no);
+		sellProductDao.computerInsert(computerVo);
+		productImgVo.setP_no(p_no);
+		if(files != null && files.length > 0) {
+			for(String img_name : files) {
+				sellProductDao.productImage(img_name, p_no);
+			}
+		}
 		
 	}
 
 	@Override
-	public void fInteriorInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void fBedInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception {
+		String[] files = productImgVo.getImg_name();
+		int p_no = sellProductDao.getPnoNextval();
+		furnitureInteriorVo.setP_no(p_no);
+		sellProductDao.fBedInsert(furnitureInteriorVo);
+		productImgVo.setP_no(p_no);
+		if(files != null && files.length > 0) {
+			for(String img_name : files) {
+				sellProductDao.productImage(img_name, p_no);
+			}
+		}
 	}
 
 	@Override
-	public void fKitchenInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void fInteriorInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception {
+		String[] files = productImgVo.getImg_name();
+		int p_no = sellProductDao.getPnoNextval();
+		furnitureInteriorVo.setP_no(p_no);
+		sellProductDao.fInteriorInsert(furnitureInteriorVo);
+		productImgVo.setP_no(p_no);
+		if(files != null && files.length > 0) {
+			for(String img_name : files) {
+				sellProductDao.productImage(img_name, p_no);
+			}
+		}
 	}
 
 	@Override
-	public void fLifeInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception {
-		// TODO Auto-generated method stub
-		
+	public void fKitchenInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception {
+		String[] files = productImgVo.getImg_name();
+		int p_no = sellProductDao.getPnoNextval();
+		furnitureInteriorVo.setP_no(p_no);
+		sellProductDao.fKitchenInsert(furnitureInteriorVo);
+		productImgVo.setP_no(p_no);
+		if(files != null && files.length > 0) {
+			for(String img_name : files) {
+				sellProductDao.productImage(img_name, p_no);
+			}
+		}
+	}
+
+	@Override
+	public void fLifeInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception {
+		String[] files = productImgVo.getImg_name();
+		int p_no = sellProductDao.getPnoNextval();
+		furnitureInteriorVo.setP_no(p_no);
+		sellProductDao.fLifeInsert(furnitureInteriorVo);
+		productImgVo.setP_no(p_no);
+		if(files != null && files.length > 0) {
+			for(String img_name : files) {
+				sellProductDao.productImage(img_name, p_no);
+			}
+		}
 	}
 
 	@Override

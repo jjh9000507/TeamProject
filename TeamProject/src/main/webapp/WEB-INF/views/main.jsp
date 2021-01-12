@@ -26,6 +26,7 @@ $(function(){
 					ul.find("a").eq(1).text(this.p_name);  // 상품이름
 					ul.find("span").eq(0).text(this.p_price);  // 상품가격
 					ul.find("a").eq(2).text(this.p_seller);  // 판매자
+					ul.find("a").eq(1).attr("href" , "/page/content?p_no=" + this.p_no)
 					ul.css("display" , "");
 // 				 $(".productList > ul:eq(0)").remove();
 					$(".productList").append(ul);
@@ -121,20 +122,14 @@ $(function(){
 							<div class="carousel-item">
 								<img class="d-block w-100" alt="Carousel Bootstrap First"
 									src="/resources/image/mainimage1.jpg" />
-								<div class="carousel-caption">
-									<h4>First Thumbnail label</h4>
-									<p>소개글</p>
-								</div>
 							</div>
 							
 							<div class="carousel-item">
 								<img class="d-block w-100" alt="Carousel Bootstrap Second"
 									src="/resources/image/mainimage2.jpg" />
 								<div class="carousel-caption">
-									<h4>Second Thumbnail label</h4>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-										quam. Donec id elit non mi porta gravida at eget metus. Nullam
-										id dolor id nibh ultricies vehicula ut id elit.</p>
+									<h4>14 Color / free 니트 </h4>
+									<p id="carousel-detail"><span id="carousel-discount">30%</span><strike id="txtStrike">69,900원</strike>48,900원</p>
 								</div>
 							</div>
 							
@@ -142,10 +137,8 @@ $(function(){
 								<img class="d-block w-100" alt="Carousel Bootstrap Third"
 									src="/resources/image/mainimage3.jpg" />
 								<div class="carousel-caption">
-									<h4>Third Thumbnail label</h4>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-										quam. Donec id elit non mi porta gravida at eget metus. Nullam
-										id dolor id nibh ultricies vehicula ut id elit.</p>
+									<h4>ROG G512LI-HN061 10세대 게이밍 최종 102만 특가</h4>
+									<p id="carousel-detail"><span id="carousel-discount">5%</span><strike id="txtStrike">1,209,480</strike>1,149,000원</p>
 								</div>
 							</div>
 						</div>
@@ -156,6 +149,7 @@ $(function(){
 							data-slide="next"><span class="carousel-control-next-icon"></span>
 							<span class="sr-only">Next</span></a>
 					</div>
+			</div>
 					
 					<!------------------------------------------ 상품 리스트 ---------------------------------------->
 					
@@ -177,9 +171,9 @@ $(function(){
 					
 					<!-- 히든(복사) 데이터 -->
 					<ul class="nav nav-pills list" style="display:none;">
-						<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/shirt.jpg"/></a></li>
-						<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
-						<li class="nav-item"><a class="nav-link seller">판매자</a></li>
+							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
+							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="/page/content?p_no=${all_list.p_no}">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
+							<li class="nav-item"><a class="nav-link seller">${all_list.p_seller}</a></li>
 					</ul>
 					
 					<!-- 전체 상품 목록(7개만) -->

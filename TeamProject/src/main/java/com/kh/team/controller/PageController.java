@@ -55,16 +55,23 @@ public class PageController {
 		return "/map";
 	}
 	
-	@RequestMapping(value="/content")
+	@RequestMapping(value="/content" , method=RequestMethod.GET)
 	public String content(int p_no, Model model) throws Exception {
 		
 		//조회수 증가
-//		pageService.updateReadCount(p_no);
+		pageService.updateReadCount(p_no);
 		
 		// 글 데이터 받아오기
 		ProductVo productVo = pageService.content(p_no);
 		model.addAttribute("productVo" , productVo);
 		return "/content";
+	}
+	
+	@RequestMapping(value="/best" , method=RequestMethod.GET)
+	public String best_item(Model model) throws Exception {
+		List<ProductVo> list = pageService.best_item();
+		model.addAttribute("list" , list);
+		return "/sell/best";
 	}
 	
 } // main class

@@ -8,7 +8,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
@@ -231,33 +233,86 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.delete(NAMESPACE + "productImgDelete", p_no);
 	}
 
+	//Q&A 수정/삭제 페이지에 사용할 Q&A 리스트
 	@Override
 	public List<QandAVo> QA_UDList() throws Exception {
 		List<QandAVo> QA_UDList = sqlSession.selectList(NAMESPACE + "QA_UDList");
 		return QA_UDList;
 	}
 
+	//Q&A 수정/삭제 페이지에서 카테고리 이름을 뜨게하기 위해 카테고리 리스트 가져오기
 	@Override
 	public List<QACateVo> QACategory() throws Exception {
 		List<QACateVo> QACategory = sqlSession.selectList(NAMESPACE + "QACategory");
 		return QACategory;
 	}
 
+	//Q&A 추가에 사용될 카테고리 대분류 가져오기
 	@Override
 	public List<QACateVo> firstQACategory() throws Exception {
 		List<QACateVo> firstQACategory = sqlSession.selectList(NAMESPACE + "firstQACategory");
 		return firstQACategory;
 	}
 
+	//Q&A 추가에 사용될 카테고리 하위분류 가져오기
 	@Override
 	public List<QACateVo> otherQACategory(String qa_cate_no) throws Exception {
 		List<QACateVo> otherQACategory = sqlSession.selectList(NAMESPACE + "otherQACategory", qa_cate_no);
 		return otherQACategory;
 	}
 
+	//Q&A 추가하기
 	@Override
 	public void qaInsert(QandAVo qandAVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "qaInsert", qandAVo);
 	}
+	
+	//Q&A 삭제하기
+	@Override
+	public void QADelete(int qa_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "QADelete", qa_no);
+	}
+
+	//수정하기에 사용할 상세보기
+	@Override
+	public QandAVo QandADetail(int qa_no) throws Exception {
+		QandAVo qandaDetail = sqlSession.selectOne(NAMESPACE + "qandaDetail", qa_no);
+		return qandaDetail;
+	}
+	
+	//Q&A 수정하기
+	@Override
+	public void QAUpdate(QandAVo qandAVo) throws Exception {
+		sqlSession.update(NAMESPACE + "QAUpdate", qandAVo);
+	}
+
+	//공지사항 리스트 가져오기
+	@Override
+	public List<InquiryVo> inquiryList() throws Exception {
+		List<InquiryVo> inquiryList = sqlSession.selectList(NAMESPACE + "inquiryList");
+		return inquiryList;
+	}
+
+	//공지사항 상세보기 페이지
+	@Override
+	public InquiryVo detailInquiry(int inquiry_no) throws Exception {
+		InquiryVo detailInquiry = sqlSession.selectOne(NAMESPACE + "detailInquiry", inquiry_no);
+		return detailInquiry;
+	}
+
+	//공지사항 삭제
+	@Override
+	public void deleteInquiry(int inquiry_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "inquiryDelete", inquiry_no);
+	}
+
+	//공지사항 추가
+	@Override
+	public void insertNotice(NoticeVo noticeVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "insertNotice",noticeVo);
+	}
+
+	
+	
 
 }

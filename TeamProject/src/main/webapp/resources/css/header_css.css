@@ -296,7 +296,7 @@ ul, li {
 }
 
 .btnMore {
-	padding-left : 24.7%
+	padding-left : 29.4%
 }
 
 .divMore {
@@ -548,7 +548,7 @@ ul, li {
 	position: fixed;	
 	top : 0;
 	height: 50;	
-	z-index : 2;	
+	z-index : 15;	
 	background : white;	
 	border-bottom : 1px solid black;
 	padding-left: 200px;
@@ -635,6 +635,27 @@ ul, li {
 #content_detail_img {
 	position: relative;
     left: 20%;
+}
+
+.carousel-caption {
+	background-color: rgb(255,255, 255, 0.8);
+	color: black;
+}
+
+#txtStrike {
+	font-size: 15px;
+	color : black;
+}
+
+#carousel-detail {
+	font-size: 25px;
+    color: red;
+}
+
+#carousel-discount{
+	font-size: 35px;
+	color : red;
+	padding-right : 1%;
 }
 
 </style>
