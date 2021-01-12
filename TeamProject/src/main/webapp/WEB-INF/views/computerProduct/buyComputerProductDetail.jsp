@@ -81,6 +81,9 @@ nav
 						</th>
 						<th>
 							
+						</th>
+						<th>
+							
 						</th>												
 					</tr>
 				</thead>
@@ -95,6 +98,9 @@ nav
 							<label> <input type="checkbox"/>
 						입력한 주문자명으로 회원정보 변경하기</label>
 						</div>
+						</td>
+						<td>
+						<button>변경</button>
 						</td>												
 					</tr>					
 				</tbody>

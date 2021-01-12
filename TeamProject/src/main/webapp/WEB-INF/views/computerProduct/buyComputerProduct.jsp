@@ -191,9 +191,29 @@ $(function(){
 			searchBuyFormSendData.find("input").eq(3).val(productName);
 			searchBuyFormSendData.find("input").eq(4).val(sendMethod);
 			$("#frmBuyFormSendData").submit();
-		}
+		}		
+	});
+	$("#putBasket").click(function(){
+		var current_id = "${sessionScope.memberVo.m_id}";
+		console.log("current_id:" + current_id);
+		var p_no = "${buyComputerVo.p_no}";
+		console.log("p_no:" + p_no);
 		
+		var url = "/buyComputerProduct/putBasketProduct";
 		
+		var sendData = {
+				"m_id" 	: current_id,
+				"p_no"	: p_no
+		};
+		if(current_id == null || current_id == ""){
+			alert("로그인 하시오.");
+		}else{
+			$.post(url,sendData,function(data){
+				if(data == "success"){
+					alert("해당 상품을 장바구니에 추가하였습니다.");
+				}
+			});
+		}		
 	});
 });
 </script>
@@ -412,7 +432,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							<button id="putBasket">장바구니</button>
+							<button type="button" id="putBasket">장바구니</button>
 							<button type="button" id="buyProduct">구매하기</button>
 						</td>						
 					</tr>
