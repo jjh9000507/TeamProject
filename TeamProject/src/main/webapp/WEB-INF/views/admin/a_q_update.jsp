@@ -22,20 +22,27 @@ $(function(){
 			}
 		})
 	});
+	
+	$("#submitQAUpdate").click(function(){
+		var selected = $("#secondQACategory option:selected").val();
+		$("#qa_cate_no").val(selected);
+		
+		$("#frmQAUpdate").submit();
+	});
 });
 </script>
-
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<form role="form" action>
+			<form id="frmQAUpdate" role="form" action="/admin/qaUpdateRun" method="get">
+			
 				<input type="hidden" name="qa_no" value="${qaDetail.qa_no}">
-				
+				<input type="hidden" name="qa_cate_no" id="qa_cate_no">
 				<select id="firstQACategory">
 					<option value="">선택하세요</option>
 					<c:forEach var="QACateVo" items="${firstQACategory}">
 						<option value="${QACateVo.qa_cate_no}"
-						<c:if test="${qaDetail.qa_cate_no}">
+						<c:if test="${qaDetail.qa_cate_no.toString().substring(0,2) == QACateVo.qa_cate_no}">
 							selected
 						</c:if>>${QACateVo.qa_cate_name}</option>
 					</c:forEach>
@@ -54,7 +61,7 @@ $(function(){
 					<label for="a_content">답변</label>
 					<input type="text" class="form-control" id="a_content" name="a_content" value="${qaDetail.a_content}" />
 				</div>
-				<button type="button" class="btn btn-primary">
+				<button type="button" class="btn btn-primary" id="submitQAUpdate">
 					수정
 				</button>
 			</form>
