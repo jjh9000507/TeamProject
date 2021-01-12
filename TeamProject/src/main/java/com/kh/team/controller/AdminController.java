@@ -342,4 +342,11 @@ public class AdminController {
 	public String adminNoticeWrite() throws Exception{
 		return "/admin/a_notice_write";
 	}
+	
+	//공지사항 작성
+	@RequestMapping(value="/insertNotice", method=RequestMethod.GET)
+	public String insertNotice(NoticeVo noticeVo) throws Exception{
+		adminService.insertNotice(noticeVo);
+		return "redirect:/admin/adminForm";
+	}
 }

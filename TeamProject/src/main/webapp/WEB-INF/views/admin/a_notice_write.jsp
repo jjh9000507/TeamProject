@@ -4,7 +4,7 @@
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12">
-			<form role="form" action="" method="get">
+			<form role="form" action="insertNotice" method="get">
 				
 				<div class="form-group">
 					<label for="notice_title">제목</label>
