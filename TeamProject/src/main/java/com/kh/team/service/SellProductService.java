@@ -18,11 +18,11 @@ public interface SellProductService {
 	
 	//상품 등록
 	public void whitegoodsInsert(WhitegoodsVo whitegoodsVo, ProductImgVo productImgeVo) throws Exception; 
-	public void computerInsert(ComputerVo computerVo) throws Exception;
-	public void fBedInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception;
-	public void fInteriorInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception;
-	public void fKitchenInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception;
-	public void fLifeInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception;
+	public void computerInsert(ComputerVo computerVo, ProductImgVo productImgVo) throws Exception;
+	public void fBedInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception;
+	public void fInteriorInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception;
+	public void fKitchenInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception;
+	public void fLifeInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception;
 	
 	//상품등록 시 이미지 등록
 //	public void productImage(ProductImgVo productImgVo) throws Exception;

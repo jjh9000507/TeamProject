@@ -29,6 +29,8 @@ public interface PageDao {
 	// 글 데이터 받아오기
 	public ProductVo content(int p_no) throws Exception;
 	
+	// 조회수 높은 순으로 상품 불러오기(best 12개)
+	public List<ProductVo> best_item() throws Exception;
 	
 	
 }

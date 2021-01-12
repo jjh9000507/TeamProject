@@ -19,18 +19,22 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.EmailDto;
 import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
 import com.kh.team.domain.SanctionVo;
 import com.kh.team.service.AdminService;
 import com.kh.team.service.SanctionService;
+import com.kh.team.service.ServiceService;
 import com.kh.team.service.WhitegoodsService;
 import com.kh.team.util.UploadFileUtils;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	@Inject
+	private ServiceService serviceService;
 	
 	@Inject
 	private JavaMailSender mailSender;
@@ -289,6 +293,31 @@ public class AdminController {
 		return "/admin/a_q_delete";
 	}
 	
+	//Q&A 수정 페이지로
+	@RequestMapping(value="/qaUpdate/{qa_no}", method=RequestMethod.GET)
+	public String QandAUpdate(@PathVariable("qa_no")int qa_no, Model model) throws Exception {
+		QandAVo qaDetail= adminService.QandADetail(qa_no);
+		List<QACateVo> firstQACategory = adminService.firstQACategory();
+		model.addAttribute("qaDetail", qaDetail);
+		model.addAttribute("firstQACategory", firstQACategory);
+		return "/admin/a_q_update";
+	}
+	
+	//Q&A 수정하기
+	@RequestMapping(value="/qaUpdateRun", method=RequestMethod.GET)
+	public String QandAUpdateRun(QandAVo qandAVo) throws Exception {
+		adminService.QAUpdate(qandAVo);
+		return "redirect:/admin/adminForm";
+	}
+	
+	//Q&A 삭제
+	@RequestMapping(value="/QandADeleteRun", method=RequestMethod.GET)
+	@ResponseBody
+	public String QandADeleteRun(int qa_no) throws Exception{
+		adminService.QADelete(qa_no);
+		return "success";
+	}
+	
 	//1:1문의 접수 페이지
 	@RequestMapping(value="/adminInquiry", method=RequestMethod.GET)
 	public String adminInquiry(Model model) throws Exception {
@@ -327,7 +356,22 @@ public class AdminController {
 	
 	//공지사항 페이지
 	@RequestMapping(value="/adminNotice", method=RequestMethod.GET)
-	public String adminNotice() throws Exception {
+	public String adminNotice(Model model) throws Exception {
+		List<NoticeVo> noticeList = serviceService.noticeList();
+		model.addAttribute("noticeList", noticeList);
 		return "/admin/a_notice";
+	}
+	
+	//공지사항 작성 페이지
+	@RequestMapping(value="/adminNoticeWrite", method=RequestMethod.GET)
+	public String adminNoticeWrite() throws Exception{
+		return "/admin/a_notice_write";
+	}
+	
+	//공지사항 작성
+	@RequestMapping(value="/insertNotice", method=RequestMethod.GET)
+	public String insertNotice(NoticeVo noticeVo) throws Exception{
+		adminService.insertNotice(noticeVo);
+		return "redirect:/admin/adminForm";
 	}
 }

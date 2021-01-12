@@ -63,4 +63,10 @@ public class PageServiceImpl implements PageService {
 		return productVo;
 	}
 
+	@Override
+	public List<ProductVo> best_item() throws Exception {
+		List<ProductVo> list = pageDao.best_item();
+		return list;
+	}
+
 }

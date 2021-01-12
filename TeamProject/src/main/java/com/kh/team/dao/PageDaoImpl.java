@@ -62,10 +62,18 @@ public class PageDaoImpl implements PageDao {
 		sqlSession.update(NAMESPACE + "updateReadCount" , p_no);
 	}
 
+	// 글 데이터 뿌려주기
 	@Override
 	public ProductVo content(int p_no) throws Exception {
 		ProductVo productVo = sqlSession.selectOne(NAMESPACE + "content" , p_no);
 		return productVo;
+	}
+
+	// 조회수 높은 상품 순으로 가져오기
+	@Override
+	public List<ProductVo> best_item() throws Exception {
+		List<ProductVo> list = sqlSession.selectList(NAMESPACE + "best_item");
+		return list;
 	}
 
 }
