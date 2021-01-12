@@ -4,6 +4,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="../include/header.jsp"%>
+<link rel="stylesheet" href="/resources/css/sidebar.css" /> 
 
 <%
 	String inputYn = request.getParameter("inputYn");
@@ -326,6 +327,46 @@ $(function() {
 			location.href="/auction/auctionDelete?p_no="+p_no;
 		});
 		
+		/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
+		
+		//메인으로
+		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(1) > ul").show();	
+		});
+		
+		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(1) > ul").hide();	
+		});
+		
+		// 관심상품
+		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(2) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(2) > ul").hide();
+		});
+		
+		/* 내상품
+		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(3) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(3) > ul").hide();
+		});*/
+		
+		// 주문내역
+		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(4) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(4) > ul").hide();
+		});
+			
+		/* ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
+		
 });//function	
 
 	//--- 엔터키 ---//
@@ -443,7 +484,7 @@ $(function() {
 								<div class="tab-content">
 				
 									<div class="tab-pane active" id="bidingItemContent"><!-- tab1 -->
-										<!--------------------------------- tab1 div 시작 ------------------------------------>
+										<!--------------------------------- tab1 입찰 중인 상품 div 시작 ------------------------------------>
 				
 										<div class="row">
 											<div class="col-md-12">
@@ -471,11 +512,11 @@ $(function() {
 												</div>
 											</div>
 										</div>
-										<!--------------------------------- tab1 div 끝 -------------------------------------->
+										<!--------------------------------- tab1 입찰 중인 상품 div 끝 -------------------------------------->
 									</div><!-- tab1 -->
 									
 									<div class="tab-pane" id="bidingFinishItemContent">	<!-- tab2시작 -->
-										<!--------------------------------- tab2 div 시작 -------------------------------------->
+										<!--------------------------------- tab2 입찰 종료된 상품 div 시작 -------------------------------------->
 											<div class="row">
 											<div class="col-md-12">
 											<div class="row">
@@ -502,11 +543,11 @@ $(function() {
 												</div>
 											</div>
 										</div>
-										<!--------------------------------- tab2 div 끝 -------------------------------------->
+										<!--------------------------------- tab2 입찰 종료된 상품 div 끝 -------------------------------------->
 									</div><!-- tab2끝 -->
 									
 									<div class="tab-pane" id="soldItemContent">	<!-- tab3 -->
-										<!--------------------------------- tab3 div 시작 ------------------------------------>
+										<!--------------------------------- tab3 거래된 상품 div 시작 ------------------------------------>
 					
 										<div class="row">
 											<div class="col-md-12">
@@ -536,19 +577,18 @@ $(function() {
 											</div>
 										</div>					
 					
-										<!--------------------------------- tab3 div 끝 -------------------------------------->
+										<!--------------------------------- tab3 거래된 상품 div 끝 -------------------------------------->
 									</div><!-- tab3 -->
 									
 									<div class="tab-pane" id="purchaseItemContent"><!-- tab4 -->
-										<!---------------------------------- tab4 div 시작 ------------------------------------>
+										<!---------------------------------- tab4 구매한 상품 div 시작 ------------------------------------>
 										<c:forEach var="purchaserList" items="${purchaserList}" >
 										<table border='1'>
 											<tr>
 												<td>입찰 날짜:<span>${purchaserList.bid_date}</span></td>
 												<td rowspan='3'><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></td>
 												<td rowspan='2'>${purchaserList.p_title}</td>
-												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.sold_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td>
-												
+<%-- 												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.sold_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td> --%>
 											</tr>
 											<tr>
 												<td>최초금액:<span>${purchaserList.present_price}</span></td>
@@ -564,13 +604,12 @@ $(function() {
 											</tr>
 										</table>
 										</c:forEach>
-										<!---------------------------------- tab4 div 시작 ------------------------------------>
+										<!---------------------------------- tab4 구매한 상품 div 시작 ------------------------------------>
 									</div>
 									
 									
 									<div class="tab-pane" id="registerItemContent"><!-- tab5 -->
-										<!--------------------------------- tab5 div 시작 ------------------------------------>
-										
+										<!--------------------------------- tab5 물품 등록 div 시작 ------------------------------------>
 										<div class="row">
 											<div class="col-md-12">
 												<form role="form" name="writeForm" id="writeForm" action="/auction/auctionResister">    
@@ -585,80 +624,75 @@ $(function() {
 												<input type="hidden" name="zip" id="zip">
 												<input type="hidden" name="road_address" id="road_address">
 												<input type="hidden" name="jibun_address" id="jibun_address">
-												
-												
-													<div class="form-group">
-														<label for="p_title"> 상품명 </label> <input
-															type="text" class="form-control" id="p_title" name="p_title"/>
-													</div>
-													
-													<div class="form-group">
-														<label for="present_price"> 경매금액 </label> <input
-															type="text" class="form-control" id="present_price" name="present_price"/>
-													</div>
-													
-													<div class="form-group">
-														<label for="instant_price"> 즉구가 </label> <input
-															type="text" class="form-control" id="instant_price" name="instant_price"/>
-													</div>
-													
-													<div class="form-group">
-														<label for="p_content"> 상품설명 </label> 
-														<textarea class="form-control" id="p_content" name="p_content"></textarea>
-													</div>
-													
-													<!-- 마감일 입력 -->
-												
-													<label for="datetimepicker1">경매기한</label>
-													<!-- -------------------- 달력 입력 시작 ------------------------------------- -->
-													
-													<input type="text" id="txtDatePicker">
-													시간:<input type="text" id="txtHour" name='e_hour' style="width:40px">
-													분:<input type="text" id="txtMinute" name='e_minute' style="width:40px">
-				
-													
-													<!-- --------------------- 달력 입력 끝 ------------------------------------ -->
-												
-																						
-													<!-- 파일 추가 시작 -->
-													<div>
-														<label>첨부할 파일 드로그 하세요(메인 사진에 체크하세요)</label>
-														<label id="lblFileNameCheckError" style="color:red;display:none">(이미지 파일만 추가하세요)</label>
-														<div id="fileDrop" data-nextPNO="${nextPNO}"></div>
-														<!-- 여기에 파일을 드래그 드롭 -->
-													</div>
-													
-													<div class="divUploaded" style="display: none;float:left;">
-														<!-- 추가한 그림 크기와 옆에 x추가 -->
-														<img height="50px" width="50px" /> <a href="#" class="a_times">&times;</a>
-														<input type="radio" name="radioMainImg" id="radioMainImg">
-													</div>
-													
-													<div id="uploadList"></div>
-													<!-- 파일 추가 끝 -->
-													
-													<br clear="left">
-													<br>
-													<div>
-														<label>직구를 원하시면 주소를 입력하세요</label>
-													<br>
-														
-													<!-- 주소 찾기 시작 -->
-													우편번호:<span id="spanZip"></span><a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
-													<span id="spanRoadAddr"></span><br>
-													<span id="spanjibundAddr"></span><br>
-													<input type="text" placeholder="상세주소를 입력하세요" id="txtjibundAddrDetail" name="detail_address"/>
-													
-													<!-- 주소 찾기 끝-->
-													</div>
-													
-													<br>
-													<button type="button" class="btn form-control btn-warning" id="btnSubmit">등록</button>
-												</form>
+											
+												<div class="form-group">
+													<label for="p_title"> 상품명 </label> <input
+														type="text" class="form-control" id="p_title" name="p_title"/>
 												</div>
+												
+												<div class="form-group">
+													<label for="present_price"> 경매금액 </label> <input
+														type="text" class="form-control" id="present_price" name="present_price"/>
+												</div>
+												
+												<div class="form-group">
+													<label for="instant_price"> 즉구가 </label> <input
+														type="text" class="form-control" id="instant_price" name="instant_price"/>
+												</div>
+												
+												<div class="form-group">
+													<label for="p_content"> 상품설명 </label> 
+													<textarea class="form-control" id="p_content" name="p_content"></textarea>
+												</div>
+												
+												<!-- 마감일 입력 -->
+											
+												<label for="datetimepicker1">경매기한</label>
+												<!-- -------------------- 달력 입력 시작 ------------------------------------- -->
+												<input type="text" id="txtDatePicker">
+												시간:<input type="text" id="txtHour" name='e_hour' style="width:40px">
+												분:<input type="text" id="txtMinute" name='e_minute' style="width:40px">
+												<!-- --------------------- 달력 입력 끝 ------------------------------------ -->
+																					
+												<!-- 파일 추가 시작 -->
+												<div>
+													<label>첨부할 파일 드로그 하세요(메인 사진에 체크하세요)</label>
+													<label id="lblFileNameCheckError" style="color:red;display:none">(이미지 파일만 추가하세요)</label>
+													<div id="fileDrop" data-nextPNO="${nextPNO}"></div>
+													<!-- 여기에 파일을 드래그 드롭 -->
+												</div>
+												
+												<div class="divUploaded" style="display: none;float:left;">
+													<!-- 추가한 그림 크기와 옆에 x추가 -->
+													<img height="50px" width="50px" /> <a href="#" class="a_times">&times;</a>
+													<input type="radio" name="radioMainImg" id="radioMainImg">
+												</div>
+												
+												<div id="uploadList"></div>
+												<!-- 파일 추가 끝 -->
+												
+												<br clear="left">
+												<br>
+												<div>
+													<label>직구를 원하시면 주소를 입력하세요</label>
+												<br>
+													
+												<!-- 주소 찾기 시작 -->
+												우편번호:<span id="spanZip"></span><a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
+												<span id="spanRoadAddr"></span><br>
+												<span id="spanjibundAddr"></span><br>
+												<input type="text" placeholder="상세주소를 입력하세요" id="txtjibundAddrDetail" name="detail_address"/>
+												
+												<!-- 주소 찾기 끝-->
+												</div>
+												
+												<br>
+												<button type="button" class="btn form-control btn-warning" id="btnSubmit">등록</button>
+												</form>
 											</div>
-										</div><!-- tab5 -->
-										<!--------------------------------- tab5 div 끝 -------------------------------------->
+										</div>
+									</div><!-- tab5 -->
+										<!--------------------------------- tab5 물품 등록 div 끝 -------------------------------------->
 								</div>
 							</div>
 							<!--------------------------------------- 탭 끝 ------------------------------------------------------>
@@ -671,5 +705,45 @@ $(function() {
 		</div><!-- col-md-12 -->
 	</div><!-- row -->
 </div><!-- container-fluid -->
+
+<!-- aside 시작 -->
+<aside class="sidebar">
+	<nav>
+		<ul class="sidebar__nav">
+		 <!-- 메인 -->
+			<li>
+				<a href="/auction/auctionMain" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/main3.png"/></i>
+					<span class="sidebar__nav__text">메인으로</span>
+				</a>
+					<ul class="sidebar__submenu">
+					</ul>
+			</li>
+		 <!-- 관심상품 -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/favorite2.png"/></i>
+					<span class="sidebar__nav__text">관심상품</span>
+				</a>
+			</li>
+		 <!-- 내상품 -->
+<!-- 			<li> -->
+<!-- 				<a href="/auction/auctionResisterList" class="sidebar__nav__link"> -->
+<!-- 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/myitem2.png"/></i> -->
+<!-- 					<span class="sidebar__nav__text">내상품</span> -->
+<!-- 				</a> -->
+<!-- 			</li> -->
+		 <!-- 주문내역 -->
+			<li>
+				<a href="/auction/auctionPurchaseSelected?url=auctionPurchaseSelected" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i>
+					<span class="sidebar__nav__text">주문 하기</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</aside>
+<!-- aside 끝 -->
+
 </body>
 </html>
