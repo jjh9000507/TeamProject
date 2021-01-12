@@ -392,7 +392,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		return "redirect:/auction/auctionSelected?p_no="+p_no;
 	}
 	
-	@RequestMapping(value="/auctionPurchaseSelectecd", method=RequestMethod.GET)
+	@RequestMapping(value="/auctionPurchaseSelected", method=RequestMethod.GET)
 	public String auctionPurchaseSelectecd(int price, Model model) throws Exception{
 		
 		makeImgDirectoryAfterCheck();
@@ -400,7 +400,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		model.addAttribute("price", price);
 		model.addAttribute("ImPortkey", ImPortkey);
 		
-		return "auction/auctionPurchaseSelectecd";
+		return "auction/auctionPurchaseSelected";
 	}
 	
 	@RequestMapping(value="/auctionModify", method=RequestMethod.GET)

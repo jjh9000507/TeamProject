@@ -371,7 +371,7 @@ $(function() {
 	}//changeMonth
 	
 	function openPop(price){
-	    var popup = window.open('/auction/auctionPurchaseSelectecd?price='+price, '결제 팝업', 'width=920px,height=670px,scrollbars=yes,resizable=no,toolbar=no,menubar=no,status=no,titlebar=no');
+	    var popup = window.open('/auction/auctionPurchaseSelected?price='+price, '결제 팝업', 'width=920px,height=670px,scrollbars=yes,resizable=no,toolbar=no,menubar=no,status=no,titlebar=no');
 	}
 </script>
 </head>

@@ -1,8 +1,56 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ include file="../include/admin_header.jsp"%>
-<h1>공지사항</h1>
-<!-- 
-	여기에는 고객센터 공지사항 처럼 만들고 글쓰기 버튼을 만들 예정.
-	글쓰기 들어가서 글 작성하면 공지사항 추가.
- -->
+<style>
+table{
+	text-align: center;
+}
+.noticeNo{
+	width:90px;
+}
+.noticeWriter{
+	width:100px;
+}
+.noticeReg{
+	width:200px;
+}
+.noticeTitle{
+	text-align: left;
+}
+</style>
+
+<div class="container-fluid">
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="noticeNo">번호</th>
+						<th class="noticeTitleHead">제목</th>
+						<th class="noticeWriter">작성자</th>
+						<th class="noticeReg">작성일</th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="NoticeVo" items="${noticeList}">
+						<tr>
+							<td>${NoticeVo.notice_no}</td>
+							<td class="noticeTitle noticeTitleHead"><a href="/service/noticeDetail/${NoticeVo.notice_no}">${NoticeVo.notice_title}</a></td>
+							<td>관리자</td>
+							<td class="noticeReg">${NoticeVo.notice_reg}</td>
+						</tr>
+					</c:forEach>
+				</tbody>
+			</table>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+			<a href="/admin/adminNoticeWrite" class="button-success button-xlarge">글쓰기</a>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+</div>

@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
@@ -71,16 +72,16 @@ public interface AdminService {
 	public List<QACateVo> firstQACategory() throws Exception;
 	//Q&A 추가에 사용할 하위 카테고리 리스트 가져오기
 	public List<QACateVo> otherQACategory(String qa_cate_no) throws Exception;
-	
 	//Q&A 추가하기
 	public void qaInsert(QandAVo qandAVo) throws Exception;
 	
 	//1:1 문의 전체 리스트
 	public List<InquiryVo> inquiryList() throws Exception;
-		
 	//1:1문의 세부보기
-	public InquiryVo detailInquiry(int inquiry_no) throws Exception;
-		
+	public InquiryVo detailInquiry(int inquiry_no) throws Exception;	
 	//1:1문의 후 삭제
 	public void deleteInquiry(int inquiry_no) throws Exception;
+	
+	//공지사항 추가
+	public void insertNotice(NoticeVo noticeVo) throws Exception;
 }
