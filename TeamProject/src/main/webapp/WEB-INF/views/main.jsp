@@ -122,20 +122,14 @@ $(function(){
 							<div class="carousel-item">
 								<img class="d-block w-100" alt="Carousel Bootstrap First"
 									src="/resources/image/mainimage1.jpg" />
-								<div class="carousel-caption">
-									<h4>First Thumbnail label</h4>
-									<p>소개글</p>
-								</div>
 							</div>
 							
 							<div class="carousel-item">
 								<img class="d-block w-100" alt="Carousel Bootstrap Second"
 									src="/resources/image/mainimage2.jpg" />
 								<div class="carousel-caption">
-									<h4>Second Thumbnail label</h4>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-										quam. Donec id elit non mi porta gravida at eget metus. Nullam
-										id dolor id nibh ultricies vehicula ut id elit.</p>
+									<h4>14 Color / free 니트 </h4>
+									<p id="carousel-detail"><span id="carousel-discount">30%</span><strike id="txtStrike">69,900원</strike>48,900원</p>
 								</div>
 							</div>
 							
@@ -143,10 +137,8 @@ $(function(){
 								<img class="d-block w-100" alt="Carousel Bootstrap Third"
 									src="/resources/image/mainimage3.jpg" />
 								<div class="carousel-caption">
-									<h4>Third Thumbnail label</h4>
-									<p>Cras justo odio, dapibus ac facilisis in, egestas eget
-										quam. Donec id elit non mi porta gravida at eget metus. Nullam
-										id dolor id nibh ultricies vehicula ut id elit.</p>
+									<h4>ROG G512LI-HN061 10세대 게이밍 최종 102만 특가</h4>
+									<p id="carousel-detail"><span id="carousel-discount">5%</span><strike id="txtStrike">1,209,480</strike>1,149,000원</p>
 								</div>
 							</div>
 						</div>

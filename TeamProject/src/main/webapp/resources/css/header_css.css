@@ -637,4 +637,25 @@ ul, li {
     left: 20%;
 }
 
+.carousel-caption {
+	background-color: rgb(255,255, 255, 0.8);
+	color: black;
+}
+
+#txtStrike {
+	font-size: 15px;
+	color : black;
+}
+
+#carousel-detail {
+	font-size: 25px;
+    color: red;
+}
+
+#carousel-discount{
+	font-size: 35px;
+	color : red;
+	padding-right : 1%;
+}
+
 </style>

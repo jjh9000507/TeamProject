@@ -55,7 +55,7 @@ public class PageController {
 		return "/map";
 	}
 	
-	@RequestMapping(value="/content")
+	@RequestMapping(value="/content" , method=RequestMethod.GET)
 	public String content(int p_no, Model model) throws Exception {
 		
 		//조회수 증가
@@ -65,6 +65,13 @@ public class PageController {
 		ProductVo productVo = pageService.content(p_no);
 		model.addAttribute("productVo" , productVo);
 		return "/content";
+	}
+	
+	@RequestMapping(value="/best" , method=RequestMethod.GET)
+	public String best_item(Model model) throws Exception {
+		List<ProductVo> list = pageService.best_item();
+		model.addAttribute("list" , list);
+		return "/best";
 	}
 	
 } // main class
