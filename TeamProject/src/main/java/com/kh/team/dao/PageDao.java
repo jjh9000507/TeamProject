@@ -23,4 +23,12 @@ public interface PageDao {
 	// 전체 상품 리스트
 	public List<ProductVo> selectAll_List() throws Exception;
 	
+	// 조회수 증가(베스트)
+	public void updateReadCount(int p_no) throws Exception;
+	
+	// 글 데이터 받아오기
+	public ProductVo content(int p_no) throws Exception;
+	
+	
+	
 }

@@ -38,7 +38,7 @@ $(function(){
 	// 메인 카테고리 스크롤 이동 시에 따라오기
 	$(window).scroll(function() {
 		var position = $(window).scrollTop(); // 현재 스크롤 위치
-		console.log(position);
+// 		console.log(position);
 		
 		// 현재 스크롤 위치가 200이 넘어가면
 		if(position >= 200) {
@@ -93,7 +93,7 @@ $(function(){
 <!--------------------------------------- 메인 카테고리 목록 -------------------------------------->
 	
 <div class="row">
-<div class="col-md-12 borderAllCategory" id="borderAllCategory">
+	<div class="col-md-12 borderAllCategory" id="borderAllCategory">
 	<div class="col-md-2"></div>
 		<div class="col-md-8" >
 <%@ include file="include/header_mainCatagories.jsp"%>
@@ -186,7 +186,7 @@ $(function(){
 				<c:forEach var="all_list" items="${selectAll_List}">
 					<ul class="nav nav-pills list">
 							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
-							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="#">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
+							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="/page/content?p_no=${all_list.p_no}">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
 							<li class="nav-item"><a class="nav-link seller">${all_list.p_seller}</a></li>
 					</ul>
 				</c:forEach>
