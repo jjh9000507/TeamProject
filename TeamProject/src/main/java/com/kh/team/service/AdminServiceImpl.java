@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.AdminDao;
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
@@ -195,5 +196,22 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void qaInsert(QandAVo qandAVo) throws Exception {
 		adminDao.qaInsert(qandAVo);
+	}
+
+	@Override
+	public List<InquiryVo> inquiryList() throws Exception {
+		List<InquiryVo> inquiryList = adminDao.inquiryList();
+		return inquiryList;
+	}
+
+	@Override
+	public InquiryVo detailInquiry(int inquiry_no) throws Exception {
+		InquiryVo detailInquiry = adminDao.detailInquiry(inquiry_no);
+		return detailInquiry;
+	}
+
+	@Override
+	public void deleteInquiry(int inquiry_no) throws Exception {
+		adminDao.deleteInquiry(inquiry_no);
 	}
 }

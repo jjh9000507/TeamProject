@@ -327,4 +327,21 @@
 		delete from q_and_a
 		where qa_no = #{qa_no}
 	</delete>
+	
+	<!-- 1:1문의 리스트 가져오기 -->
+	<select id="inquiryList" resultType="InquiryVo">
+		select * from inquiry
+	</select>
+	
+	<!-- 1:1 답변용 데이터 가져오기 -->
+	<select id="detailInquiry" resultType="InquiryVo">
+		select * from inquiry
+		where inquiry_no = #{inquiry_no}
+	</select>
+	
+	<!-- 답변 완료시 삭제 -->
+	<delete id="inquiryDelete">
+		delete from inquiry
+		where inquiry_no = #{inquiry_no}
+	</delete>
 </mapper>
