@@ -179,7 +179,6 @@
 								placeholder="등록된 e-mail를 입력하시오" required="required" />
 						</div>
 						<div class="modal-footer">
-
 							<button type="button" class="btn btn-primary"
 								id="btnEmailIdSendForId">등록된 이메일로 받아보기</button>
 							<button type="button" class="btn btn-secondary"
