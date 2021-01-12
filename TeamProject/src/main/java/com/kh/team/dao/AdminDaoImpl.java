@@ -243,11 +243,21 @@ public class AdminDaoImpl implements AdminDao{
 		return QACategory;
 	}
 
-	
+	@Override
+	public List<QACateVo> firstQACategory() throws Exception {
+		List<QACateVo> firstQACategory = sqlSession.selectList(NAMESPACE + "firstQACategory");
+		return firstQACategory;
+	}
 
-	
+	@Override
+	public List<QACateVo> otherQACategory(String qa_cate_no) throws Exception {
+		List<QACateVo> otherQACategory = sqlSession.selectList(NAMESPACE + "otherQACategory", qa_cate_no);
+		return otherQACategory;
+	}
 
-
-	
+	@Override
+	public void qaInsert(QandAVo qandAVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "qaInsert", qandAVo);
+	}
 
 }

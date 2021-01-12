@@ -2,6 +2,7 @@ package com.kh.team.dao;
 
 import java.util.List;
 
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.NoticeVo;
 import com.kh.team.domain.QACateVo;
 import com.kh.team.domain.QandAVo;
@@ -20,4 +21,7 @@ public interface ServiceDao {
 	public List<NoticeVo> noticeList() throws Exception;
 	//공지사항 게시물 상세보기
 	public NoticeVo noticeDetail(int notice_no) throws Exception;
+	
+	//1:1문의 넣기
+	public void inquiryQ(InquiryVo inquiryVo) throws Exception;
 }

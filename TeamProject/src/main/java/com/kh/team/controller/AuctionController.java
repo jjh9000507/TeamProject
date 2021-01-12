@@ -44,7 +44,7 @@ import com.kh.team.util.FurnitureFileUtil;
 
 @Controller
 @RequestMapping(value="/auction")
-public class AuctionController implements AuctionS3Key {
+public class AuctionController implements AuctionS3Key, ImPortKey {
 
 	@Inject
 	private AuctionService auctionService;
@@ -57,8 +57,17 @@ public class AuctionController implements AuctionS3Key {
 		//System.out.println("auctionController getAuctionList list:"+list);
 		model.addAttribute("list", list);
 		
+		makeImgDirectoryAfterCheck();
+		
+		return "auction/auctionMain";
+	}
+	
+	
+	/*메인에서만 이미지를 불러오게 되면 낙찰을 받아서 메인에 없는 상태에서 
+	 * 다른 컴퓨터에서 낙찰받은 이미지를 불러오면 에러발생 이미지를 불러오는 폼에선 전부 디렉토리 검사*/
+	private void makeImgDirectoryAfterCheck() throws Exception{
 		/* 시작 할 때 s3에 있는 이미지를 다운 받는다 */
-		List<AuctionImgVo> imgList = auctionService.getAuctionImg();
+		List<AuctionImgVo> imgList = auctionService.getAuctionImg(); 
 		
 		//credential과 client객체 생성
 		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
@@ -96,13 +105,12 @@ public class AuctionController implements AuctionS3Key {
 						S3ObjectInputStream inputStream = s3Object.getObjectContent();
 						
 						FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));
-					}
-					//s3끝
-				}
-			} 
-		}		
-		return "auction/auctionMain";
+					}//if끝
+				}//for끝
+			}//if끝 
+		}//for끝		
 	}
+	
 	
 	@RequestMapping(value="/auctionResisterList", method=RequestMethod.GET)
 	public String auctionResisterList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
@@ -146,6 +154,7 @@ public class AuctionController implements AuctionS3Key {
 	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
 	public String auctionSelected(int p_no, Model model) throws Exception{
 		//System.out.println("pno:"+p_no);
+		makeImgDirectoryAfterCheck();
 		
 		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
 		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
@@ -206,26 +215,12 @@ public class AuctionController implements AuctionS3Key {
 		auctionEDateVo.setP_no(nextPNO);
 		auctionMainImgVo.setP_no(nextPNO);
 		
-//		//오늘 날짜
-//		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-//		Date date = new Date();
-//		String nowDate = nowDateFormat.format(date);
-//		String[] nowDateArray = nowDate.split("-");
-//		int[] nowDataArrayInt = stringArrayTointArray(nowDateArray);
-//		//오늘 시간
-//		SimpleDateFormat nowTimeFormat = new SimpleDateFormat("HH:mm:ss");
-//		String nowTime = nowTimeFormat.format(date);
-//		String[] nowTimeArray = nowTime.split(":");
-//		
-//		int[] nowTimeArrayInt = stringArrayTointArray(nowTimeArray);
 		//int second = (int)((Math.random()*58)+1);
 		int[] nDate = getNowDate();
 		int[] nTime = getNowTime();
 		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2], nextPNO);
 		
 		//auctionVo -> auctionAddressVo -> auctionRDateVo -> auctionEDateVo -> auctionMainImgVo -> auctionImgVo
-		//seller에 가입자 대신 임의로 user03입력
-		
 		String seller = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 		
 		auctionVo.setSeller(seller);
@@ -398,26 +393,24 @@ public class AuctionController implements AuctionS3Key {
 	}
 	
 	@RequestMapping(value="/auctionPurchaseSelectecd", method=RequestMethod.GET)
-	public void auctionPurchaseSelectecd(int p_no, Model model) throws Exception{
-		/*
-		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
-		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
-		List<AuctionTempBidVo> tempBidList = auctionService.getAuctionTempBid(p_no);
-		int bidCount = auctionService.getAuctionCountBid(p_no);
+	public String auctionPurchaseSelectecd(int price, Model model) throws Exception{
 		
-		int tempBidMaxPrice = auctionService.getAuctionTempBidMaxPrice(p_no);
-		int presentPrice = selectedItem.getPresent_price();
+		makeImgDirectoryAfterCheck();
 		
-		if(presentPrice>tempBidMaxPrice) {
-			model.addAttribute("maxPrice", presentPrice);
-		}else {
-			model.addAttribute("maxPrice", tempBidMaxPrice);
-		}
+		model.addAttribute("price", price);
+		model.addAttribute("ImPortkey", ImPortkey);
 		
-		model.addAttribute("selectedItem", selectedItem);
-		model.addAttribute("selectedImg", selectedImg);
-		model.addAttribute("tempBidList", tempBidList);
-		model.addAttribute("bidCount", bidCount);
-		*/
+		return "auction/auctionPurchaseSelectecd";
+	}
+	
+	@RequestMapping(value="/auctionModify", method=RequestMethod.GET)
+	public String auctionModify(int p_no, Model model) throws Exception{
+		
+		makeImgDirectoryAfterCheck();
+		
+		AuctionSellVo auctionSellVo = auctionService.getAuctionModifyList(p_no);
+		model.addAttribute("auctionSellVo",auctionSellVo);
+		System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
+		return "auction/auctionModify";
 	}
 }

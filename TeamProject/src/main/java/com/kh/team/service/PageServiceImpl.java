@@ -52,4 +52,15 @@ public class PageServiceImpl implements PageService {
 		return list;
 	}
 
+	@Override
+	public void updateReadCount(int p_no) throws Exception {
+		pageDao.updateReadCount(p_no);
+	}
+
+	@Override
+	public ProductVo content(int p_no) throws Exception {
+		ProductVo productVo = pageDao.content(p_no);
+		return productVo;
+	}
+
 }

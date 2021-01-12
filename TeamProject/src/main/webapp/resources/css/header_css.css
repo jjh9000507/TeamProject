@@ -568,4 +568,73 @@ ul, li {
 	width: 200px;
 }
 
+#content_img {
+	padding-left : 20%;
+	height: 450px;
+    position: relative;
+    float: left;
+}
+
+#content_p_name {
+	font-size : 30px;
+	
+}
+
+#divContent {
+    border-top: 2px solid black;
+    border-bottom: 1px solid gainsboro;
+}
+
+#divContent2 {
+    border-bottom: 1px solid gainsboro;
+}
+
+.content_span {
+    padding-left: 15%;
+}
+
+.content_span2 {
+    padding-left: 12%;
+}
+
+.content_span3 {
+    padding-left: 8%;
+}
+
+.content_span4 {
+    padding-left: 7%;
+}
+
+#btnBuy {
+	position: absolute;
+    bottom: 0;
+    left: 10%;
+	width: 60%;
+    height: 12%;
+}
+
+#btnBuy2 {
+	position: absolute;
+    bottom: 0;
+    left: 72%;
+	width: 30%;
+    height: 12%;
+    border: 1px solid gainsboro;
+    color: black;
+}
+
+#span_detail {
+    font-weight: bold;
+    font-size: 20px;
+}
+
+#content_detail_info {
+	border-bottom : 1px solid gainsboro;
+}
+
+#content_detail_img {
+	position: relative;
+    left: 20%;
+}
+
 </style>

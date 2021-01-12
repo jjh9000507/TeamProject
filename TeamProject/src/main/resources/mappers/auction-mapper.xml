@@ -94,6 +94,21 @@
 		order by bid.bid_date desc
 	</select>
 	
+	<!-- 수정할 값 가져오기 -->
+	<select id="getAuctionModifyList" resultType="AuctionSellVo">
+		select a.*, addr.*, rdate.*, edate.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_expiration_date edate
+		on rdate.p_no = edate.p_no
+		inner join auction_main_img img
+		on edate.p_no = img.p_no
+		where a.p_no = #{p_no}
+	</select>
+	
 	<select id="getAuctionMainImg" resultType="AuctionMainImgVo">
 		select * from auction_main_img
 	</select>
@@ -203,13 +218,13 @@
 	</insert>
 	
 	<insert id="insertAuctionRegisterDate">
-		insert into auction_register_date(r_no, r_year, r_month, r_day, r_hour, r_minute, r_second p_no)
+		insert into auction_register_date(r_no, r_year, r_month, r_day, r_hour, r_minute, r_second, p_no)
 		values(SEQ_REGISTER_DATE.nextval,#{r_year},#{r_month},#{r_day},#{r_hour},#{r_minute},#{r_second},#{p_no})
 	</insert>
 	
 	<insert id="insertAuctionExpirationDate">
 		insert into auction_expiration_date(e_no, e_year, e_month, e_day, e_hour, e_minute, e_second, p_no)
-		values(SEQ_EXPIRATION_DATE.nextval,#{e_year},#{e_month},#{e_day},#{e_hour},#{e_minute},#{e_seond},#{p_no})
+		values(SEQ_EXPIRATION_DATE.nextval,#{e_year},#{e_month},#{e_day},#{e_hour},#{e_minute},#{e_second},#{p_no})
 	</insert>
 	
 	<insert id="insertAuctionSoldDate">

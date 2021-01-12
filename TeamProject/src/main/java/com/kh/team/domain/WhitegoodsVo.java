@@ -12,6 +12,7 @@ public class WhitegoodsVo {
 	private String w_thumbimg;
 	private Timestamp w_regdate;
 	private int p_no;
+	private int p_readcount;
 	public int getW_no() {
 		return w_no;
 	}
@@ -66,11 +67,17 @@ public class WhitegoodsVo {
 	public void setP_no(int p_no) {
 		this.p_no = p_no;
 	}
+	public int getP_readcount() {
+		return p_readcount;
+	}
+	public void setP_readcount(int p_readcount) {
+		this.p_readcount = p_readcount;
+	}
 	@Override
 	public String toString() {
 		return "WhitegoodsVo [w_no=" + w_no + ", w_name=" + w_name + ", cate_no=" + cate_no + ", w_price=" + w_price
 				+ ", w_content=" + w_content + ", w_seller=" + w_seller + ", w_thumbimg=" + w_thumbimg + ", w_regdate="
-				+ w_regdate + ", p_no=" + p_no + "]";
+				+ w_regdate + ", p_no=" + p_no + ", p_readcount=" + p_readcount + "]";
 	}
-	
+
 }

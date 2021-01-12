@@ -66,4 +66,11 @@ public interface AdminService {
 	public List<QandAVo> QA_UDList() throws Exception;
 	//Q&A 수정/삭제에 이름 띄우기위해 대조하는 Q&A 카테고리 리스트 가져오기
 	public List<QACateVo> QACategory() throws Exception;
+	//Q&A 추가에 사용할 대분류 카테고리 리스트 가져오기
+	public List<QACateVo> firstQACategory() throws Exception;
+	//Q&A 추가에 사용할 하위 카테고리 리스트 가져오기
+	public List<QACateVo> otherQACategory(String qa_cate_no) throws Exception;
+	
+	//Q&A 추가하기
+	public void qaInsert(QandAVo qandAVo) throws Exception;
 }

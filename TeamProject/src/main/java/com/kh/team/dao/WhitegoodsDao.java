@@ -14,4 +14,6 @@ public interface WhitegoodsDao {
 	public void userPAlldelete(String m_id) throws Exception;
 	public List<String> productImgList(int p_no) throws Exception;
 	public void productImgDelete(int p_no) throws Exception;
+	public void readUpdate(int w_no) throws Exception;
+	public void imgInsert(int p_no, String img_name) throws Exception;
 }
