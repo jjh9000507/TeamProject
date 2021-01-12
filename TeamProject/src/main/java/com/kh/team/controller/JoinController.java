@@ -77,8 +77,6 @@ public class JoinController implements JoinSMSKey {
 	@ResponseBody
 	public String phoneConfirm(@PathVariable("phoneNumber") String phoneNumber) throws Exception{
 		//System.out.println("phoneNumber:"+phoneNumber);
-	
-	
 	    Message sms = new Message(api_key, api_secret);
 	    
 	    String randomStr = makeRandom(4);
@@ -86,13 +84,12 @@ public class JoinController implements JoinSMSKey {
 	    
 	    // 4 params(to, from, type, text) are mandatory. must be filled
 	    HashMap<String, String> params = new HashMap<String, String>();
-	    params.put("to", "01087116886");
+	    params.put("to", phoneNumber);
 	    params.put("from", "01087116886"); //무조건 자기번호 (인증)
 	    params.put("type", "SMS");
 	    params.put("text", "안녕하세요 중고동네입니다. 인증번호는["+randomStr+"]입니다");
 	    params.put("app_version", "test app 1.2"); // application name and version
 
-	    
 	    try {
 	    	//send() 는 메시지를 보내는 함수  
 	      JSONObject obj = (JSONObject) sms.send(params);

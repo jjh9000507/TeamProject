@@ -176,48 +176,77 @@ public class AdminServiceImpl implements AdminService{
 		return QA_UDList;
 	}
 
+	//Q&A 수정/삭제 페이지에서 카테고리 이름을 뜨게하기 위해 카테고리 리스트 가져오기
 	@Override
 	public List<QACateVo> QACategory() throws Exception {
 		List<QACateVo> QACategory = adminDao.QACategory();
 		return QACategory;
 	}
-
+	
+	//Q&A 추가에 사용될 카테고리 대분류 가져오기
 	@Override
 	public List<QACateVo> firstQACategory() throws Exception {
 		List<QACateVo> firstQACategory = adminDao.firstQACategory();
 		return firstQACategory;
 	}
 
+	//Q&A 추가에 사용될 카테고리 하위분류 가져오기
 	@Override
 	public List<QACateVo> otherQACategory(String qa_cate_no) throws Exception {
 		List<QACateVo> otherQACategory = adminDao.otherQACategory(qa_cate_no);
 		return otherQACategory;
 	}
 
+	//Q&A 추가하기
 	@Override
 	public void qaInsert(QandAVo qandAVo) throws Exception {
 		adminDao.qaInsert(qandAVo);
 	}
 
+	//Q&A 삭제하기
+	@Override
+	public void QADelete(int qa_no) throws Exception {
+		adminDao.QADelete(qa_no);
+	}
+	//수정하기에 사용할 상세보기 데이터
+	@Override
+	public QandAVo QandADetail(int qa_no) throws Exception {
+		QandAVo qandaDetail = adminDao.QandADetail(qa_no);
+		return qandaDetail;
+	}
+	//Q&A 수정하기
+	@Override
+	public void QAUpdate(QandAVo qandAVo) throws Exception {
+		adminDao.QAUpdate(qandAVo);
+	}
+	
+	//공지사항 리스트 가져오기
 	@Override
 	public List<InquiryVo> inquiryList() throws Exception {
 		List<InquiryVo> inquiryList = adminDao.inquiryList();
 		return inquiryList;
 	}
 
+	//공지사항 상세보기
 	@Override
 	public InquiryVo detailInquiry(int inquiry_no) throws Exception {
 		InquiryVo detailInquiry = adminDao.detailInquiry(inquiry_no);
 		return detailInquiry;
 	}
 
+	//공지사항 삭제
 	@Override
 	public void deleteInquiry(int inquiry_no) throws Exception {
 		adminDao.deleteInquiry(inquiry_no);
 	}
 
+	//공지사항 추가
 	@Override
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		adminDao.insertNotice(noticeVo);
 	}
+
+
+
+	
 }

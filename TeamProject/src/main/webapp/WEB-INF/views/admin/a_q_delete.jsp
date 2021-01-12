@@ -21,6 +21,19 @@
 			var that = $(this).parent().parent().next();
 			that.toggle();
 		});
+		
+		$(".btnDelete").on("click", function(){
+			var qa_no = $(this).attr("data-qano");
+			var url="/admin/QandADeleteRun";
+			var sendData = {
+					"qa_no":qa_no
+			}
+			$.get(url, sendData, function(data){
+				if(data.trim() == "success"){
+					location.reload();
+				}
+			});
+		});
 	});
 </script>
 
@@ -39,7 +52,7 @@
 						<td class="cate_content">${QandAVo.q_content}</td>
 						<td class="cate_btn"><button type="button" class="btnShow">+</button></td>
 						<td class="btns">
-							<button type="button" class="btnUpdate" data-qano="${QandAVo.qa_no}">수정</button>
+							<a href="/admin/qaUpdate/${QandAVo.qa_no}" class="btn btn-success btnUpdate" data-qano="${QandAVo.qa_no}">수정</a>
 							<button type="button" class="btnDelete" data-qano="${QandAVo.qa_no}">삭제</button>
 						</td>
 					</tr>

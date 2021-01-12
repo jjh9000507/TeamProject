@@ -393,12 +393,18 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	}
 	
 	@RequestMapping(value="/auctionPurchaseSelected", method=RequestMethod.GET)
-	public String auctionPurchaseSelectecd(int price, Model model) throws Exception{
+	public String auctionPurchaseSelectecd(String url, Model model, HttpSession session) throws Exception{
 		
-		makeImgDirectoryAfterCheck();
-		
-		model.addAttribute("price", price);
-		model.addAttribute("ImPortkey", ImPortkey);
+		String m_id = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+
+		if(m_id != null) {
+			//내가 구매한 상품
+			List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
+			model.addAttribute("purchaserList", purchaserList);
+			
+			makeImgDirectoryAfterCheck();
+			model.addAttribute("ImPortkey", ImPortkey);
+		}
 		
 		return "auction/auctionPurchaseSelected";
 	}

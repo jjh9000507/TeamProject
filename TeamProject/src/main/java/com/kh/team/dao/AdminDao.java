@@ -92,7 +92,14 @@ public interface AdminDao {
 	public List<QACateVo> otherQACategory(String qa_cate_no) throws Exception;
 	//Q&A 추가하기
 	public void qaInsert(QandAVo qandAVo) throws Exception;
-
+	//Q&A 수정하기에 필요한 데이터
+	public QandAVo QandADetail(int qa_no) throws Exception;
+	//Q&A 삭제하기
+	public void QADelete(int qa_no) throws Exception;
+	//Q&A 수정하기
+	public void QAUpdate(QandAVo qandAVo) throws Exception;
+	
+	
 	//1:1 문의 전체 리스트
 	public List<InquiryVo> inquiryList() throws Exception;
 	//1:1문의 세부보기

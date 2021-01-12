@@ -307,12 +307,20 @@
 	<!-- Q&A 수정/삭제에 필요한 Q&A 리스트 가져오기 -->
 	<select id="QA_UDList" resultType="QandAVo">
 		select * from q_and_a
+		order by qa_cate_no asc
+	</select>
+	
+	<!-- Q&A 수정하기에 사용할 데이터 -->
+	<select id="qandaDetail" resultType="QandAVo">
+		select * from q_and_a
+		where qa_no = #{qa_no}
 	</select>
 	
 	<!-- Q&A 수정/삭제에 필요한 Q&A 카테고리 리스트 가져오기(이름 필요해서 대조해서 쓸 예정) -->
 	<select id="QACategory" resultType="QACateVo">
 		select * from qa_cate
 	</select> 
+	
 	<!-- Q&A 수정 -->
 	<update id="QAUpdate">
 		update q_and_a set

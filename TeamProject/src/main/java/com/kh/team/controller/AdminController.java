@@ -293,6 +293,31 @@ public class AdminController {
 		return "/admin/a_q_delete";
 	}
 	
+	//Q&A 수정 페이지로
+	@RequestMapping(value="/qaUpdate/{qa_no}", method=RequestMethod.GET)
+	public String QandAUpdate(@PathVariable("qa_no")int qa_no, Model model) throws Exception {
+		QandAVo qaDetail= adminService.QandADetail(qa_no);
+		List<QACateVo> firstQACategory = adminService.firstQACategory();
+		model.addAttribute("qaDetail", qaDetail);
+		model.addAttribute("firstQACategory", firstQACategory);
+		return "/admin/a_q_update";
+	}
+	
+	//Q&A 수정하기
+	@RequestMapping(value="/qaUpdateRun", method=RequestMethod.GET)
+	public String QandAUpdateRun(QandAVo qandAVo) throws Exception {
+		adminService.QAUpdate(qandAVo);
+		return "redirect:/admin/adminForm";
+	}
+	
+	//Q&A 삭제
+	@RequestMapping(value="/QandADeleteRun", method=RequestMethod.GET)
+	@ResponseBody
+	public String QandADeleteRun(int qa_no) throws Exception{
+		adminService.QADelete(qa_no);
+		return "success";
+	}
+	
 	//1:1문의 접수 페이지
 	@RequestMapping(value="/adminInquiry", method=RequestMethod.GET)
 	public String adminInquiry(Model model) throws Exception {
