@@ -1,12 +1,13 @@
+
 .sidebar {
-	background-color: orange;
+	background-color: white;
 	position: fixed;
 	transition: width 0.2s ease;
-	top : 9.2%;
+	top : 30%;
 }
 
 .sidebar nav {
-	height: 100%;
+	height: 50%;
 }
 
 .sidebar .sidebar__nav {
@@ -28,8 +29,9 @@
 }
 
 .sidebar .sidebar__nav .sidebar__nav__link:hover {
-	background-color: rgba(0, 0, 0, 0.15);
-	color: #80f;
+	/*background-color: rgba(0, 0, 0, 0.15);
+	color: #80f;*/
+	color: white
 }
 
 .sidebar .sidebar__nav .sidebar__nav__text {
@@ -103,7 +105,7 @@
 
 @media (min-width: 572px) {
 	.sidebar {
-		height: 100vh;
+		height: 67vh;
 		left: 0;
 		width: var(--sidebar-width);
 	}
@@ -132,9 +134,9 @@
 	}
 }
 
+
 @media (max-height: 434px) {
 	.sidebar {
 		overflow-y: scroll;
 	}
 }
-
