@@ -3,7 +3,11 @@ package com.kh.team.controller;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.mail.internet.MimeMessage;
 
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.mail.javamail.MimeMessagePreparator;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.EmailDto;
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
@@ -25,6 +31,9 @@ import com.kh.team.util.UploadFileUtils;
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
+	
+	@Inject
+	private JavaMailSender mailSender;
 	
 	@Inject
 	private SanctionService sanctionService;
@@ -282,8 +291,38 @@ public class AdminController {
 	
 	//1:1문의 접수 페이지
 	@RequestMapping(value="/adminInquiry", method=RequestMethod.GET)
-	public String adminInquiry() throws Exception {
+	public String adminInquiry(Model model) throws Exception {
+		List<InquiryVo> inquiryList = adminService.inquiryList();
+		model.addAttribute("inquiryList", inquiryList);
 		return "/admin/a_inq";
+	}
+	
+	//1:1문의 답변 페이지
+	@RequestMapping(value="/inquiryAnswer/{inquiry_no}", method=RequestMethod.GET)
+	public String adminInquiryAnswer(@PathVariable("inquiry_no") int inquiry_no, Model model) throws Exception{
+		InquiryVo inquiryVo = adminService.detailInquiry(inquiry_no);
+		model.addAttribute("inquiryVo", inquiryVo);
+		return "/admin/a_inq_answer";
+	}
+	
+	//1:1문의 메일 송부
+	@RequestMapping(value="/sendMail", method=RequestMethod.POST)
+	@ResponseBody
+	public String sendMail(EmailDto emailDto, int inquiry_no) throws Exception{
+		MimeMessagePreparator preparator = new MimeMessagePreparator() {
+			
+			@Override
+			public void prepare(MimeMessage mimeMessage) throws Exception {
+				MimeMessageHelper helper = new MimeMessageHelper(mimeMessage, false, "utf-8");
+				helper.setFrom(emailDto.getFrom());
+				helper.setTo(emailDto.getTo());
+				helper.setSubject(emailDto.getSubject());
+				helper.setText(emailDto.getContent());
+			}
+		};
+		mailSender.send(preparator);
+		adminService.deleteInquiry(inquiry_no);
+		return "success";
 	}
 	
 	//공지사항 페이지

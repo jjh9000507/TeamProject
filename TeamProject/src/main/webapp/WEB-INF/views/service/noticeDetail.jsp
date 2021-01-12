@@ -3,4 +3,4 @@
 <%@ include file="../include/header.jsp" %>
 ${noticeDetail}<br>
 ${noticeDetail.notice_title}<br>
-${noticeDetail.notice_content}
+${noticeDetail.notice_content}<br>

@@ -10,6 +10,8 @@ $(function(){
 	var priceFinal = "";
 	var index = "";
 	var comment_no = "";
+	var inputBuyFormSendData = $(".inputBuyFormSendData");
+	var searchBuyFormSendData = $(".searchBuyFormSendData");
 	$("#confirmPrice").click(function() {
 		var productNumber = $("#productNumber").val();
 		console.log("productNumber:" + productNumber);
@@ -168,8 +170,63 @@ $(function(){
 			}
 		});
 	});
+	$("#buyProduct").click(function(){
+		console.log("구매하기 버튼 클릭됨.");
+		var price = parseInt($("#finalPrice").text());
+		console.log("price:" + price);
+		var seller = "${buyComputerVo.c_com_seller}";
+		console.log("seller:" + seller);
+		var productNum = $("#productNumber").val();
+		console.log("productNum:" + productNum);
+		var productName = "${buyComputerVo.c_com_name}";
+		console.log("productName:" + productName);
+		var sendMethod = $("#buySelectMenu option:selected").val();
+		console.log("sendMethod:" + sendMethod);
+		if(price == "" || productNum == ""){
+			alert("내용정보 불충분");
+		}else{
+			searchBuyFormSendData.find("input").eq(0).val(price);
+			searchBuyFormSendData.find("input").eq(1).val(seller);
+			searchBuyFormSendData.find("input").eq(2).val(productNum);
+			searchBuyFormSendData.find("input").eq(3).val(productName);
+			searchBuyFormSendData.find("input").eq(4).val(sendMethod);
+			$("#frmBuyFormSendData").submit();
+		}		
+	});
+	$("#putBasket").click(function(){
+		var current_id = "${sessionScope.memberVo.m_id}";
+		console.log("current_id:" + current_id);
+		var p_no = "${buyComputerVo.p_no}";
+		console.log("p_no:" + p_no);
+		
+		var url = "/buyComputerProduct/putBasketProduct";
+		
+		var sendData = {
+				"m_id" 	: current_id,
+				"p_no"	: p_no
+		};
+		if(current_id == null || current_id == ""){
+			alert("로그인 하시오.");
+		}else{
+			$.post(url,sendData,function(data){
+				if(data == "success"){
+					alert("해당 상품을 장바구니에 추가하였습니다.");
+				}
+			});
+		}		
+	});
 });
 </script>
+<form role="form" id="frmBuyFormSendData" action="/buyComputerProduct/openBuyComputerProductDetail" method="post">
+<div class="form-group searchBuyFormSendData" style="display:none;">
+	<input type="text" name="price" value=""/>
+	<input type="text" name="seller" value=""/>
+	<input type="text" name="productNum" value=""/>
+	<input type="text" name="productName" value=""/>
+	<input type="text" name="sendMethod" value=""/>
+</div>
+</form>
+
 <div class="row">
 		<div class="col-md-12">
 			 <a id="modal-modify" href="#modal-container-modify" role="button" style="display: none;" class="btn" data-toggle="modal">Launch demo modal</a>
@@ -256,6 +313,7 @@ $(function(){
 </div>	
 <br>
 <br>
+
 <div class="row">
 <div class="col-md-12">
 <div class="buycomputersFormDiv">
@@ -366,16 +424,16 @@ $(function(){
 					<tr>
 						<td>
 							<select id="buySelectMenu">
-							<option value="" selected="selected">택배무료배송</option>
-							<option value="">직접방문수령</option>
-							<option value="">퀵서비스</option>
+							<option value="택배무료배송" selected="selected">택배무료배송</option>
+							<option value="직접방문수령">직접방문수령</option>
+							<option value="퀵서비스">퀵서비스</option>
 						</select>
 						</td>						
 					</tr>
 					<tr>
 						<td>
-							<button id="putBasket">장바구니</button>
-							<button id="buyProduct">구매하기</button>
+							<button type="button" id="putBasket">장바구니</button>
+							<button type="button" id="buyProduct">구매하기</button>
 						</td>						
 					</tr>
 				</tbody>

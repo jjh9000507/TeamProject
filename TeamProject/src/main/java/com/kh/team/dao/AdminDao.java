@@ -3,6 +3,7 @@ package com.kh.team.dao;
 import java.util.List;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.QACateVo;
@@ -94,4 +95,13 @@ public interface AdminDao {
 	
 	//Q&A 추가하기
 	public void qaInsert(QandAVo qandAVo) throws Exception;
+	
+	//1:1 문의 전체 리스트
+	public List<InquiryVo> inquiryList() throws Exception;
+	
+	//1:1문의 세부보기
+	public InquiryVo detailInquiry(int inquiry_no) throws Exception;
+	
+	//1:1문의 후 삭제
+	public void deleteInquiry(int inquiry_no) throws Exception;
 }
