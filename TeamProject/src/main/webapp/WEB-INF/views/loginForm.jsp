@@ -306,7 +306,7 @@
 					</label> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a> <a type="button"
 						class="loginFont" id="findID">아이디 찾기</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<a type="button" class="loginFont" id="findPW">비밀번호 찾기</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
-					<a type="submit" class="loginFont" href="#">회원가입</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+					<a type="submit" class="loginFont" href="/join/joinForm">회원가입</a> <a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
 					<a type="button" class="loginFont" id="nonBuyerLogin">비회원 주문조회</a>
 				</div>
 				<button type="submit" class="btn btn-primary loginFont">
