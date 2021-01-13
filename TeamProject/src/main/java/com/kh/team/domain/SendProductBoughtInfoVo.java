@@ -11,7 +11,9 @@ public class SendProductBoughtInfoVo {
 	private String detailAddress;
 	private int p_no;
 	private String m_id;
-	
+	private int todayValueYear;
+	private int todayValueMonth;
+	private int todayValueDate;
 	public String getRadioVal() {
 		return radioVal;
 	}
@@ -29,7 +31,7 @@ public class SendProductBoughtInfoVo {
 	}
 	public void setMessageForDriver(String messageForDriver) {
 		this.messageForDriver = messageForDriver;
-	}	
+	}
 	public int getPostcode() {
 		return postcode;
 	}
@@ -66,12 +68,30 @@ public class SendProductBoughtInfoVo {
 	public void setM_id(String m_id) {
 		this.m_id = m_id;
 	}
+	public int getTodayValueYear() {
+		return todayValueYear;
+	}
+	public void setTodayValueYear(int todayValueYear) {
+		this.todayValueYear = todayValueYear;
+	}
+	public int getTodayValueMonth() {
+		return todayValueMonth;
+	}
+	public void setTodayValueMonth(int todayValueMonth) {
+		this.todayValueMonth = todayValueMonth;
+	}
+	public int getTodayValueDate() {
+		return todayValueDate;
+	}
+	public void setTodayValueDate(int todayValueDate) {
+		this.todayValueDate = todayValueDate;
+	}
 	@Override
 	public String toString() {
 		return "SendProductBoughtInfoVo [radioVal=" + radioVal + ", memberOfTelephone=" + memberOfTelephone
 				+ ", messageForDriver=" + messageForDriver + ", postcode=" + postcode + ", roadAddress=" + roadAddress
 				+ ", extraAddress=" + extraAddress + ", detailAddress=" + detailAddress + ", p_no=" + p_no + ", m_id="
-				+ m_id + "]";
-	}
-		
+				+ m_id + ", todayValueYear=" + todayValueYear + ", todayValueMonth=" + todayValueMonth
+				+ ", todayValueDate=" + todayValueDate + "]";
+	}	
 }

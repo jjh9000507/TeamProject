@@ -14,7 +14,9 @@ setInterval(function(){
     document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
 },1000);
 
-
+var todayValueYear = "";
+var todayValueMonth = "";
+var todayValueDate = "";
 var today = new Date();//오늘 날짜//내 컴퓨터 로컬을 기준으로 today에 Date 객체를 넣어줌
 var date = new Date();//today의 Date를 세어주는 역할
 function prevCalendar() {//이전 달
@@ -93,11 +95,16 @@ function buildCalendar(){//현재 달 달력 만들기
          && today.getMonth() == date.getMonth()
          && i == date.getDate()) {
           //달력에 있는 년,달과 내 컴퓨터의 로컬 년,달이 같고, 일이 오늘의 일과 같으면
-        cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로 
+        cell.bgColor = "#FAF58C";//셀의 배경색을 노랑으로         
        }
      }
 }
 
+function getByTodayValue(){
+	todayValueYear = today.getFullYear();
+	todayValueMonth = today.getMonth() + 1;
+	todayValueDate = today.getDate();
+}
 
 function computer_execDaumPostcode() {
     new daum.Postcode({
@@ -158,6 +165,14 @@ function computer_execDaumPostcode() {
 }
 
 $(function(){
+	getByTodayValue();
+	$("#buyYear").text(todayValueYear);
+	$("#buyMonth").text(todayValueMonth);
+	$("#buyDate").text(todayValueDate);
+	
+	console.log("todayValueYear:" + todayValueYear);
+	console.log("todayValueMonth:" + todayValueMonth);
+	console.log("todayValueDate:" + todayValueDate);
 	var postcode = "";
 	var roadAddress = "";
 	var extraAddress = "";
@@ -237,7 +252,10 @@ $(function(){
 					"extraAddress"  		: extraAddress,		
 					"detailAddress" 		: detailAddress,
 					"p_no"					: p_no,
-					"m_id"					: m_id
+					"m_id"					: m_id,
+					"todayValueYear"		: todayValueYear,
+					"todayValueMonth"		: todayValueMonth,
+					"todayValueDate"		: todayValueDate
 			};
  			$.post(urlSendProductInfo,sendDataSendProductInfo, function(data) {
 				if(data == "success"){
@@ -305,35 +323,28 @@ $(function(){
 	});	
 });
 </script>
-
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
 <%@ include file="../include/header_mainCatagories.jsp"%>
-
 <br>
 	</div>
 	<div class="col-md-2"></div>
 </div>
-
-
 <div class="row">
 		<div class="col-md-12">
 			<a id="modalAddrByComputer" href="#modalAddr-container-computer" role="button"
 				class="btn" data-toggle="modal" style="display:none">주소 찾기</a>
-<!-- "modal-dialog modal-fullsize modal-center" -->
 			<div class="modal fade" id="modalAddr-container-computer" role="dialog"
 				aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog modal-xl" role="document">
-					<div class="modal-content">
-					
+					<div class="modal-content">					
 						<div class="modal-header">
 							<h5 class="modal-title" id="myModalLabelComputer">배송지 주소 찾기</h5>
 							<button type="button" id="btnModalCloseComputer" class="close" data-dismiss="modal">
 								<span aria-hidden="true">×</span>
 							</button>
-						</div>
-						
+						</div>						
 						<div class="modal-body"> 
 							<div id="searchAddrComputer">
 								<input type="text" id="computer_postcode" placeholder="우편번호">
@@ -347,47 +358,40 @@ $(function(){
 								</div>
 									<input type="text" id="computer_detailAddress" placeholder="상세주소">
 							</div>
-						</div>
-						
+						</div>						
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary" id="selectAddrComputer">서버에 저장해둠</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 						</div>
 					</div>
-
 				</div>
-
 			</div>
-
 		</div>
 	</div>
 	<div class="row">
 <div class="col-md-12">
 <div class="DetailDiv">
-<nav class="DetailNav">
-<p></p>
-    <h3 align="center">★Jerry의 달력★</h3>
-<table id="calendar" border="3" align="center" style="border-color:#3333FF ">
+<nav class="DetailNav">    
+<table id="calendar" align="center">
     <tr><!-- label은 마우스로 클릭을 편하게 해줌 -->
         <td><label onclick="prevCalendar()"><</label></td>
         <td align="center" id="tbCalendarYM" colspan="5">
         yyyy년 m월</td>
-        <td><label onclick="nextCalendar()">>
-            
+        <td><label onclick="nextCalendar()">>            
         </label></td>
     </tr>
     <tr>
-        <td align="center"><font color ="#F79DC2">일</td>
+        <td align="center">일</td>
         <td align="center">월</td>
         <td align="center">화</td>
         <td align="center">수</td>
         <td align="center">목</td>
         <td align="center">금</td>
-        <td align="center"><font color ="skyblue">토</td>
+        <td align="center">토</td>
     </tr> 
 </table>
 <script language="javascript" type="text/javascript">
-    buildCalendar();//
+    buildCalendar();
 </script>
 </nav>
 <section class="DetailSection">
@@ -417,6 +421,9 @@ $(function(){
 						<th>
 							가격
 						</th>
+						<th>
+							주문날짜
+						</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -435,6 +442,9 @@ $(function(){
 						</td>
 						<td>
 							${buyComputerInfo.price}<span>원</span>
+						</td>
+						<td>
+							<span id="buyYear"></span>-<span id="buyMonth"></span>-<span id="buyDate"></span>
 						</td>
 					</tr>					
 				</tbody>
@@ -563,6 +573,7 @@ $(function(){
 	</div>
 </section>
 <aside class="DetailAside">
+<h1>현재시간:</h1>
 <h1 id="clock"></h1>
 </aside>
 </div>
