@@ -51,6 +51,12 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	@Override
+	public int changeNameByCallProduct(String buyerName, String m_id, String m_pass) throws Exception {
+		int count = memberDao.changeNameByCallProduct(buyerName, m_id, m_pass);
+		return count;
+	}
+
 	
 
 	
