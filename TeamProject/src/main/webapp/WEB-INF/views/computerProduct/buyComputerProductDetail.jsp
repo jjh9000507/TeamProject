@@ -3,9 +3,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/buyComputerProductDetail_css.css" %>
-<%@ include file="../include/header.jsp"%>
+
 <script>
 $(function(){
+	$("#searchJuso").click(function() {
+		$("#myModalLabel").text("배송지 주소 찾기");
+		modalTrigger();
+	});
 	var m_id = "${sessionScope.memberVo.m_id}";
 	var m_pass = "${sessionScope.memberVo.m_pass}";
 	console.log("m_pass:" + m_pass);
@@ -80,8 +84,11 @@ $(function(){
 			alert("미체크");
 		}
 	});
+	
+	
 });
 </script>
+<%@ include file="../include/header.jsp"%>
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -92,7 +99,6 @@ $(function(){
 </div>
 <div class="DetailDiv">
 <nav class="DetailNav">
-
 nav
 </nav>
 <section class="DetailSection">
@@ -194,10 +200,7 @@ nav
 		<div class="col-md-12">
 			<table class="table">
 				<thead>
-					<tr>						
-						<th>
-							이름
-						</th>												
+					<tr>																		
 						<th>
 							주소
 						</th>												
@@ -212,13 +215,8 @@ nav
 				<tbody>
 					<tr>						
 						<td>
-						<label>주문자 이름:</label>
-						<input placeholder="성함을 입력하시오"/>
-						</td>
-						<td>
-						<label>주소:</label>
-						<input placeholder="우편번호 입력"/><button>우편번호 검색</button><br>
-						<input placeholder="주소를 입력하시오"/>&nbsp&nbsp<input placeholder="상세주소를 입력하시오"/>						
+						<label>주소넣기:</label>
+						<button id="searchJuso">검색</button><br>							
 						</td>
 						<td>
 						<label>연락처:</label>
