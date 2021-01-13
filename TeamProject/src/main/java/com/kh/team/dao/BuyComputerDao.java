@@ -16,4 +16,8 @@ public interface BuyComputerDao {
 	public int selectNumForGetPurchasePercentage(int c_com_no) throws Exception;
 	//해당 제품 구매시 컴퓨터 카테고리내의 구매한 품목의 구매율 구해오기 위해 구매수량 저장 테이블에 해당 품목 컬럼이 있는지 중복체크
 	public int selectNumForCheck(int c_com_no) throws Exception;
+	//해당 제품 구매시 컴퓨터 카테고리내의 구매한 품목의 구매율 구해오기 위해 전체 구매수량 저장 테이블에 갯수 더하기
+	public int updateTotalNumPlus(String nok,int purchase_num_plus, int select_number) throws Exception;
+	//해당 제품 구매시 컴퓨터 카테고리내의 구매한 품목의 구매율 구해오기 위해 전체 구매수량 저장 테이블을 선택하기
+	public int selectTotalTable(String nok) throws Exception;
 }

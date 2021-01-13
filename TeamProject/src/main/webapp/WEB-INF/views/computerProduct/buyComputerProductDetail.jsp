@@ -6,23 +6,79 @@
 <%@ include file="../include/header.jsp"%>
 <script>
 $(function(){
-	$("#buyProduct").click(function(){	
-		var url = "/buyComputerProduct/sendForGetPurchasePercentage";
-		var productNum = "${buyComputerInfo.productNum}";
-		var productName = "${buyComputerInfo.productName}";
-		var seller = "${buyComputerInfo.seller}";
-		var sendData = {
-			"productNum" : productNum,
-			"productName" : productName,
-			"seller"      : seller
-		};
-		$.post(url,sendData, function(data) {
-			if(data == "success"){
-				alert("성공");
-			}else if(data == "fail"){
-				alert("실패");
-			}
-		});
+	var m_id = "${sessionScope.memberVo.m_id}";
+	var m_pass = "${sessionScope.memberVo.m_pass}";
+	console.log("m_pass:" + m_pass);
+	
+	$("#buyProduct").click(function(){
+		var isConfirm = confirm("정말 구매하시겠어요?");
+		if(isConfirm == true){
+			alert("주문합니다.");
+			var url = "/buyComputerProduct/sendForGetPurchasePercentage";
+			var productNum = "${buyComputerInfo.productNum}";
+			var productName = "${buyComputerInfo.productName}";
+			var seller = "${buyComputerInfo.seller}";
+			var sendData = {
+				"productNum" : productNum,
+				"productName" : productName,
+				"seller"      : seller
+			};
+			$.post(url,sendData, function(data) {
+				if(data == "success"){
+					alert("성공");
+				}else{
+					alert("실패");
+				}
+			});
+		}else{
+			alert("다른 상품도 둘러보세요.");
+		}
+		
+	});
+	
+	$("#changeMemberNameButton").click(function(){
+		if($("#changeMemberName").is(":checked") == true){
+			alert("주문자 변경 체크박스 체크됨");	
+			
+			if(m_id != ""){
+				alert("접속됨");
+				var buyerName = $("#buyerName").val();
+				console.log("buyerName:" + buyerName);
+				if(buyerName != ""){
+					var m_pass_confirm = "";
+					m_pass_confirm = prompt("비밀번호를 확인하겠습니다.","");
+					console.log("m_pass_confirm:" + m_pass_confirm);							
+								
+					var url = "/buyComputerProduct/changeBuyerName";												
+					
+					if(m_pass_confirm == m_pass){
+						alert("비밀번호 일치");
+						var sendData ={
+								"buyerName" : buyerName,
+								"m_id" : m_id,
+								"m_pass" : m_pass
+							};
+						$.post(url,sendData, function(data) {
+							if(data == "success"){
+								alert("성공");
+							}else{
+								alert("실패");
+							}
+						});
+						
+					}else{
+						alert("비밀번호 불일치");
+					}
+				}else{
+					alert("주문자 변경정보를 기입하시오");
+				}
+				
+			}else{
+				alert("미접속됨");
+			}			
+		}else{
+			alert("미체크");
+		}
 	});
 });
 </script>
@@ -36,6 +92,7 @@ $(function(){
 </div>
 <div class="DetailDiv">
 <nav class="DetailNav">
+
 nav
 </nav>
 <section class="DetailSection">
@@ -113,16 +170,16 @@ nav
 					<tr>
 						<td>
 							<label>주문자명:</label>
-							<input placeholder="주문자 기입"/>							
+							<input placeholder="주문자 기입" name="buyerName" id="buyerName"/>							
 						</td>
 						<td>
 						<div class="checkbox">
-							<label> <input type="checkbox"/>
+							<label> <input type="checkbox" id="changeMemberName"/>
 						입력한 주문자명으로 회원정보 변경하기</label>
 						</div>
 						</td>
 						<td>
-						<button>변경</button>
+						<button type="button" id="changeMemberNameButton">변경</button>
 						</td>												
 					</tr>					
 				</tbody>

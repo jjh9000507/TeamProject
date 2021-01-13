@@ -40,6 +40,11 @@
 		where m_id = #{m_id}				
 	</update>
 	
-	
+	<update id="changeNameByCallProduct">
+		update member set
+			m_pass = #{m_pass},			
+			m_name = #{buyerName}
+		where m_id = #{m_id}				
+	</update>
 	
 </mapper>
