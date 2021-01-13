@@ -324,8 +324,8 @@
 	<!-- Q&A 수정 -->
 	<update id="QAUpdate">
 		update q_and_a set
-			qa_cate_no = #{qa_cate_no}
-			q_content = #{q_content}
+			qa_cate_no = #{qa_cate_no},
+			q_content = #{q_content},
 			a_content = #{a_content}
 		where qa_no = #{qa_no}
 	</update>
