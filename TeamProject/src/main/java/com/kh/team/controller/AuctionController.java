@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMethodMappingNamingStrategy;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -25,6 +26,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.amazonaws.services.s3.model.DeleteObjectRequest;
 import com.amazonaws.services.s3.model.GetObjectRequest;
 import com.amazonaws.services.s3.model.S3Object;
 import com.amazonaws.services.s3.model.S3ObjectInputStream;
@@ -41,6 +43,8 @@ import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.service.AuctionService;
 import com.kh.team.util.FurnitureFileUtil;
+
+import edu.emory.mathcs.backport.java.util.concurrent.ExecutionException;
 
 @Controller
 @RequestMapping(value="/auction")
@@ -63,7 +67,12 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	}
 	
 	
-	/*메인에서만 이미지를 불러오게 되면 낙찰을 받아서 메인에 없는 상태에서 
+	/*이미지 -> 
+	 * 메인 : 가지고 올 때만 폴더 항목으로 검색
+	 * 등록 : p_no로 폴더를 만들고 파일당 루프를 돌면서 삽입
+	 * 수정 : 파일당 폴더와 s3를 찾아가서 지우고 등록
+	 * 
+	 * 메인에서만 이미지를 불러오게 되면 낙찰을 받아서 메인에 없는 상태에서 
 	 * 다른 컴퓨터에서 낙찰받은 이미지를 불러오면 에러발생 이미지를 불러오는 폼에선 전부 디렉토리 검사*/
 	private void makeImgDirectoryAfterCheck() throws Exception{
 		/* 시작 할 때 s3에 있는 이미지를 다운 받는다 */
@@ -317,6 +326,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		return result;
 	}
 	
+	//삭제 버튼을 눌렀을 때
 	@RequestMapping(value="/auctionDelete", method=RequestMethod.GET)
 	public String auctionDelete(int p_no) throws Exception{
 		//System.out.println("seller:"+seller);
@@ -324,9 +334,89 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		auctionService.deleteAcutionAll(p_no);
 		
 		String folderName = Integer.toString(p_no);
-		FurnitureFileUtil.deleteImage(folderName);
+		FurnitureFileUtil.deleteFolder(folderName);
 		
 		return "redirect:/auction/auctionResisterList";
+	}
+	
+	//이미지에서 x를 눌렀을 때 실시간으로 바로바로 이미지를 삭제한다
+	//수정버튼을 눌렀을 땐 이미지에 대한 다른 처리는 안 한다
+	@RequestMapping(value="/ModifyDelImg", method=RequestMethod.GET)
+	@ResponseBody
+	public String ModifyDelImg(String fileAllName, int p_no) throws Exception{
+		System.out.println("ModifyDelImg fileAllName:"+fileAllName+" ,p_no:"+p_no);
+		
+		/*한꺼번에
+		DB에서 파일 삭제
+		폴더에서 파일 삭제
+		S3에서 파일 삭제*/
+		
+		//DB에서 파일 삭제
+		auctionService.modifyAuction_imgDel(fileAllName);		
+		
+		//폴더에서 파일 삭제
+		FurnitureFileUtil.deleteImage(fileAllName);
+		
+		//S3에서 파일 삭제
+		ModifyDelImgS3(fileAllName, p_no);
+				
+		return "success";
+	}
+	
+	//s3에서 파일 삭제
+	private void ModifyDelImgS3(String fileAllName, int p_no) throws Exception {
+    
+		int length = fileAllName.length();
+		int lastSlash = fileAllName.lastIndexOf("/");
+		String fileName = fileAllName.substring(lastSlash+1, length);
+		String folderName = Integer.toString(p_no);
+		
+        String bucketName = "sdk-new-bucket";
+        String keyName = folderName + "/" + fileName;
+
+        try {
+        	//credential과 client객체 생성
+    		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
+    		AmazonS3 s3Client = AmazonS3ClientBuilder
+    				.standard()
+    				.withCredentials(new AWSStaticCredentialsProvider(credential))
+    				.withRegion(Regions.AP_NORTHEAST_2)
+    				.build();
+        	System.out.println("----------------------------------AuctionController ModifyImgS3에서 s3접속 ------------------------------------------");
+        	//System.out.println("bucketname:"+bucketName+" ,keyName:"+keyName);
+            s3Client.deleteObject(new DeleteObjectRequest(bucketName, keyName));
+        } catch (Exception e) {
+			e.printStackTrace();
+		}
+    }
+	
+	//수정에서 이미지 드로그드롭으로 추가시
+	@RequestMapping(value="/ModifyAddImg/{p_no}", method=RequestMethod.POST)
+	@ResponseBody
+	public String ModifyAddImg(MultipartFile file, @PathVariable("p_no") int p_no) throws Exception{
+		System.out.println("ModifyAddImg file:"+file+" ,p_no:"+p_no);
+
+		/*한꺼번에
+		DB에 파일 삽입
+		폴더에서 파일 삽입
+		S3에서 파일 삽입*/
+		
+		//폴더에 파일 삽입
+		String fileName = file.getOriginalFilename();
+		boolean result = FurnitureFileUtil.checkImage(fileName);
+		String returnFileResult = "false";
+		if(result) {
+			String filePathAndName = FurnitureFileUtil.uploadFile(file, String.valueOf(p_no));
+			returnFileResult = filePathAndName;
+		}
+		
+		//DB에 파일 삽입
+		
+		
+		
+		//S3에 파일 삽입
+		
+		return returnFileResult;		
 	}
 	
 	@RequestMapping(value="/insertAuctionTempBid", method=RequestMethod.GET)
@@ -393,17 +483,19 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	}
 	
 	@RequestMapping(value="/auctionPurchaseSelected", method=RequestMethod.GET)
-	public String auctionPurchaseSelectecd(String url, Model model, HttpSession session) throws Exception{
+	public String auctionPurchaseSelectecd(Model model, HttpSession session) throws Exception{
 		
-		String m_id = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 
-		if(m_id != null) {
+		if(memberVo != null) {
 			//내가 구매한 상품
-			List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
+			List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(memberVo.getM_id());
 			model.addAttribute("purchaserList", purchaserList);
 			
 			makeImgDirectoryAfterCheck();
 			model.addAttribute("ImPortkey", ImPortkey);
+			
+			model.addAttribute("purchaserMemberVo", memberVo);
 		}
 		
 		return "auction/auctionPurchaseSelected";
@@ -416,7 +508,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		
 		AuctionSellVo auctionSellVo = auctionService.getAuctionModifyList(p_no);
 		model.addAttribute("auctionSellVo",auctionSellVo);
-		System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
+		
+		List<String> imgModify = auctionService.getAuctionImgModify(p_no);
+		model.addAttribute("imgModify", imgModify);
+		System.out.println("imgModify:"+imgModify);
+		//System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
 		return "auction/auctionModify";
 	}
 }

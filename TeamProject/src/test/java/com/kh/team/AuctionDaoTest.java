@@ -102,4 +102,9 @@ public class AuctionDaoTest {
 		List<AuctionSoldVo> list = auctionDao.getAuctionPurchaserList("user02");
 		System.out.println(list);
 	}
+	
+	@Test
+	public void modifyAuction_imgDel() throws Exception {
+		auctionDao.modifyAuction_imgDel("C:/Temp/auctionImg/22/2_f3694afc-5823-410b-9b2c-d614d0e84f64.jpg");
+	}
 }

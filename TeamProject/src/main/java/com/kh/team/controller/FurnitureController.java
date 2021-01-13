@@ -59,6 +59,7 @@ public class FurnitureController {
 		return returnFileResult;
 	}	
 	
+	//등록에서 이미지 삭제는 db와 s2에 없는 상태기 때문에 그냥 폴더에서 파일만 지우면 된다
 	@RequestMapping(value="/deleteAjax", method=RequestMethod.GET)
 	@ResponseBody
 	public String deleteAjax(String fileName) throws Exception{

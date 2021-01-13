@@ -93,6 +93,7 @@ public class FurnitureFileUtil {
 	}
 	
 	public static boolean deleteImage(String fileName) {
+		System.out.println("FurntureFileUpload fileName:"+fileName);
 		File f = new File(fileName);
 		if(f.exists()) {
 			f.delete();
