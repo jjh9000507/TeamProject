@@ -284,4 +284,30 @@ public class AuctionDaoImpl implements AuctionDao{
 		AuctionSellVo auctionSellVo = sqlSession.selectOne(NAMESPACE + "getAuctionModifyList", p_no);
 		return auctionSellVo;
 	}
+
+	@Override
+	public List<String> getAuctionImgModify(int p_no) throws Exception {
+		List<String> imgModify = sqlSession.selectList(NAMESPACE + "getAuctionImgModify", p_no);
+		return imgModify;
+	}
+
+	@Override
+	public void modifyAuction_imgDel(String fileAllName, int p_no) throws Exception {
+		System.out.println("AuctionDaoImpl modifyAuction_imgDel:"+fileAllName);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("fileAllName", fileAllName);
+		map.put("p_no", p_no);
+		
+		sqlSession.delete(NAMESPACE + "modifyAuction_imgDel", map);
+	}
+
+	@Override
+	public void modifyAuction_imgInsert(String fileAllName, int p_no) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("fileAllName", fileAllName);
+		map.put("p_no", p_no);
+		
+		sqlSession.insert(NAMESPACE + "modifyAuction_imgInsert", map);
+	}
 }

@@ -6,7 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
 
 .loginHeader{		/*  로그인 폼 배경*/
-	background : orange;
+	background : silver;
 	width:450px;
 	outline:orange; 	
 	padding:10px;

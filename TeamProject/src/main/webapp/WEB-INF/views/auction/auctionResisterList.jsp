@@ -735,7 +735,7 @@ $(function() {
 <!-- 			</li> -->
 		 <!-- 주문내역 -->
 			<li>
-				<a href="/auction/auctionPurchaseSelected?url=auctionPurchaseSelected" class="sidebar__nav__link">
+				<a href="/auction/auctionPurchaseSelected" class="sidebar__nav__link">
 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i>
 					<span class="sidebar__nav__text">주문 하기</span>
 				</a>

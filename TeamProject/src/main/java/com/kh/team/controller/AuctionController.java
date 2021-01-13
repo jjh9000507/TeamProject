@@ -1,6 +1,5 @@
 package com.kh.team.controller;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -9,25 +8,15 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
-import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.mvc.method.RequestMappingInfoHandlerMethodMappingNamingStrategy;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.amazonaws.auth.AWSCredentials;
-import com.amazonaws.auth.AWSStaticCredentialsProvider;
-import com.amazonaws.auth.BasicAWSCredentials;
-import com.amazonaws.regions.Regions;
-import com.amazonaws.services.s3.AmazonS3;
-import com.amazonaws.services.s3.AmazonS3ClientBuilder;
-import com.amazonaws.services.s3.model.GetObjectRequest;
-import com.amazonaws.services.s3.model.S3Object;
-import com.amazonaws.services.s3.model.S3ObjectInputStream;
 import com.kh.team.domain.AuctionAddressVo;
 import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionSellVo;
@@ -62,55 +51,55 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		return "auction/auctionMain";
 	}
 	
-	
-	/*메인에서만 이미지를 불러오게 되면 낙찰을 받아서 메인에 없는 상태에서 
-	 * 다른 컴퓨터에서 낙찰받은 이미지를 불러오면 에러발생 이미지를 불러오는 폼에선 전부 디렉토리 검사*/
+	/*이미지 -> 
+	 * 메인 : 가지고 올 때만 폴더 항목으로 검색
+	 * 등록 : p_no로 폴더를 만들고 파일당 루프를 돌면서 삽입
+	 * 수정 : 파일당 폴더와 s3를 찾아가서 지우고 등록
+	 * 
+	 * 메인에서만 이미지를 불러오게 되면 낙찰을 받아서 메인에 없는 상태에서 
+	 * 다른 컴퓨터에서 낙찰받은 이미지를 불러오면 에러발생 이미지를 불러오는 폼에선 전부 디렉토리 검사
+	 * 
+	 * getAuctoionMainList - 메인
+	 * auctionSelected - 입찰중인 상품 클릭해서 들어갔을 때
+	 * auctionPurchaseSelectecd - 내 상품팔기로 들어갔을 때
+	 * auctionModify - 수정시
+	 * */
 	private void makeImgDirectoryAfterCheck() throws Exception{
 		/* 시작 할 때 s3에 있는 이미지를 다운 받는다 */
-		List<AuctionImgVo> imgList = auctionService.getAuctionImg(); 
 		
-		//credential과 client객체 생성
-		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
-		AmazonS3 s3Client = AmazonS3ClientBuilder
-				.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(credential))
-				.withRegion(Regions.AP_NORTHEAST_2)
-				.build();
-		//버킷 생성
-		//s3Client.createBucket("sdk-new-bucket");
+		//이미지 리스트를 가져온다
+		List<AuctionImgVo> imgList = auctionService.getAuctionImg();
+		AuctionFileS3Controll fs3;
 		
 		for(AuctionImgVo localAuctionImgVo : imgList) {//로컬에 없는 폴더를 먼저 고른다
 			String localFolderName = Integer.toString(localAuctionImgVo.getP_no());
-			//System.out.println("Controller 밖에 localFolderName:"+localFolderName);
+
 			if(FurnitureFileUtil.chkDirecotry(localFolderName)) {//폴더가 없으면
 				//System.out.println("Controller 안에 localFolderName-------:"+localFolderName);
 				for(AuctionImgVo auctionImgVo : imgList) {
 					
-					String fileNamePath =auctionImgVo.getImg_name();
-					int length = fileNamePath.length();
-					int lastSlash = fileNamePath.lastIndexOf("/");
-					String fileName = fileNamePath.substring(lastSlash+1, length);
-					String folderName = Integer.toString(auctionImgVo.getP_no());
-					
+					String filePathName =auctionImgVo.getImg_name();
+					String[] filePathNameArray = filePathName.split("/");
+					String folderName = filePathNameArray[3];
+					String fileName = filePathNameArray[4];
+					/*
+					filePathNameArray[0]:C:
+					filePathNameArray[1]:Temp
+					filePathNameArray[2]:auctionImg
+					filePathNameArray[3]:15
+					filePathNameArray[4]:2_5b68f941-1b63-486e-be6e-a19f119bab0b.jpg
+					*/
 					if(localFolderName.equals(folderName)) {//폴더가 존재하지 않으면 s3접속 파일을 가지고 온다
-						System.out.println("-----------------------controller에서 s3 접속 --------------------------------------");
-						String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
-						String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-						//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
 						
-						//파일 다운로드
-						String downFileName = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//다운로드 받을 폴더와 파일명
-			
-						S3Object s3Object = s3Client.getObject(new GetObjectRequest(bucketName, bucketKey));
-						S3ObjectInputStream inputStream = s3Object.getObjectContent();
-						
-						FileUtils.copyInputStreamToFile(inputStream, new File(downFileName));
+						System.out.println("-------------------------- AuctionController getAuctoionMainList에서 s3에 접속 --------------------------");
+					
+						fs3 = new AuctionFileS3Controll(filePathName, 0);
+						fs3.fileS3Controll();					
 					}//if끝
 				}//for끝
 			}//if끝 
-		}//for끝		
+		}//for끝
 	}
-	
 	
 	@RequestMapping(value="/auctionResisterList", method=RequestMethod.GET)
 	public String auctionResisterList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
@@ -317,16 +306,78 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		return result;
 	}
 	
+	//삭제 버튼을 눌렀을 때
 	@RequestMapping(value="/auctionDelete", method=RequestMethod.GET)
 	public String auctionDelete(int p_no) throws Exception{
 		//System.out.println("seller:"+seller);
 		
+		//DB삭제
 		auctionService.deleteAcutionAll(p_no);
 		
-		String folderName = Integer.toString(p_no);
-		FurnitureFileUtil.deleteImage(folderName);
+		//local 폴더 삭제
+		String folderName = Integer.toString(32);
+		FurnitureFileUtil.deleteFolder(folderName);
 		
+		//s3 폴더 삭제 
 		return "redirect:/auction/auctionResisterList";
+	}
+	
+	//이미지에서 x를 눌렀을 때 실시간으로 바로바로 이미지를 삭제한다
+	//수정버튼을 눌렀을 땐 이미지에 대한 다른 처리는 안 한다
+	@RequestMapping(value="/ModifyDelImg", method=RequestMethod.GET)
+	@ResponseBody
+	public String ModifyDelImg(String filePathName, int p_no) throws Exception{
+		System.out.println("ModifyDelImg filePathName:"+filePathName+" ,p_no:"+p_no);
+		
+		/*한꺼번에
+		DB에서 파일 삭제
+		폴더에서 파일 삭제
+		S3에서 파일 삭제*/
+		
+		//DB에서 파일 삭제
+		auctionService.modifyAuction_imgDel(filePathName, p_no);		
+		
+		//폴더에서 파일 삭제
+		FurnitureFileUtil.deleteImage(filePathName);
+		
+		//S3에서 파일 삭제
+		AuctionFileS3Controll fs3 = new AuctionFileS3Controll(filePathName, 2);
+		fs3.fileS3Controll();
+				
+		return "success";
+	}
+	
+	//수정에서 이미지 드로그드롭으로 추가시
+	@RequestMapping(value="/ModifyAddImg/{p_no}", method=RequestMethod.POST)
+	@ResponseBody
+	public String ModifyAddImg(MultipartFile file, @PathVariable("p_no") int p_no) throws Exception{
+		//System.out.println("ModifyAddImg file:"+file+" ,p_no:"+p_no);
+
+		/*한꺼번에
+		DB에 파일 삽입
+		폴더에서 파일 삽입
+		S3에서 파일 삽입*/
+		
+		String filePathName = null;
+		String fileName = file.getOriginalFilename();//fileName:5.jpg 파일이름과 확장자만
+		//System.out.println("filePathName:"+fileName);
+		boolean result = FurnitureFileUtil.checkImage(fileName);
+		String returnFileResult = "false";
+
+		if(result) {//이미지 파일인지 아닌지 먼저 체크
+			
+			//폴더에 파일 삽입
+			filePathName = FurnitureFileUtil.uploadFile(file, String.valueOf(p_no));
+			returnFileResult = filePathName;
+			
+			//DB에 파일 삽입
+			auctionService.modifyAuction_imgInsert(filePathName, p_no);
+			
+			//S3에 파일 삽입
+			AuctionFileS3Controll fs3 = new AuctionFileS3Controll(filePathName, 1);
+			fs3.fileS3Controll();
+		}
+		return returnFileResult;		
 	}
 	
 	@RequestMapping(value="/insertAuctionTempBid", method=RequestMethod.GET)
@@ -393,17 +444,19 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	}
 	
 	@RequestMapping(value="/auctionPurchaseSelected", method=RequestMethod.GET)
-	public String auctionPurchaseSelectecd(String url, Model model, HttpSession session) throws Exception{
+	public String auctionPurchaseSelectecd(Model model, HttpSession session) throws Exception{
 		
-		String m_id = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 
-		if(m_id != null) {
+		if(memberVo != null) {
 			//내가 구매한 상품
-			List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
+			List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(memberVo.getM_id());
 			model.addAttribute("purchaserList", purchaserList);
 			
 			makeImgDirectoryAfterCheck();
 			model.addAttribute("ImPortkey", ImPortkey);
+			
+			model.addAttribute("purchaserMemberVo", memberVo);
 		}
 		
 		return "auction/auctionPurchaseSelected";
@@ -416,7 +469,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		
 		AuctionSellVo auctionSellVo = auctionService.getAuctionModifyList(p_no);
 		model.addAttribute("auctionSellVo",auctionSellVo);
-		System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
+		
+		List<String> imgModify = auctionService.getAuctionImgModify(p_no);
+		model.addAttribute("imgModify", imgModify);
+		System.out.println("imgModify:"+imgModify);
+		//System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
 		return "auction/auctionModify";
 	}
 }

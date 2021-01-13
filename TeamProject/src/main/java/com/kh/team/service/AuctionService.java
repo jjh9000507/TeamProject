@@ -31,6 +31,8 @@ public interface AuctionService {
 	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception;
 	//수정할 상품 가져오기
 	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception;	
+	//수정에서 선택된 p_no의 이미지
+	public List<String> getAuctionImgModify(int p_no) throws Exception;
 	
 	//main이미지 가져오기
 	public List<AuctionMainImgVo> getAuctionMainImg() throws Exception;
@@ -91,4 +93,8 @@ public interface AuctionService {
 	public void deleteAuction_register_date(int p_no) throws Exception;
 	public void deleteAuction_sold_date(int p_no) throws Exception;
 	public void deleteAuction(int p_no) throws Exception;
+	//수정할 때 x버튼을 누르면 auction_img에서 해당 파일만 삭제 
+	public void modifyAuction_imgDel(String fileAllName, int p_no) throws Exception;
+	// 수정할 때 이미지 한개만 넣기
+	public void modifyAuction_imgInsert(String fileAllName, int p_no) throws Exception;
 }
