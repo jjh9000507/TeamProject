@@ -402,10 +402,9 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							전체판매상품 중 선호도:
-							<div class="progress">
-								<div class="progress-bar w-75">
-								</div>
+							컴퓨터 카테고리내에서의 구매율:(<sqan>${productBuyPercentage}</sqan>)&percnt;
+							<div>
+							<progress value="${productBuyPercentage}" max="100"></progress>
 							</div>
 						</td>						
 					</tr>					

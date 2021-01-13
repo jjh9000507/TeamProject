@@ -18,6 +18,7 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.ProductExplainVo;
+import com.kh.team.service.BuyComputerService;
 import com.kh.team.service.ComputersService;
 
 
@@ -29,6 +30,10 @@ public class ComputersController {
 	//인젝
 	@Inject
 	private ComputersService computersService;
+	
+	//인젝
+	@Inject
+	private BuyComputerService buyComputerService;
 	
 	//메인창에서 컴퓨터제품 폼을 카테고리의 cate_no를 참조하여 불러오기
 	@RequestMapping(value="/computersForm/{cate_no}", method=RequestMethod.GET)
@@ -227,12 +232,34 @@ public class ComputersController {
 	@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
 	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model,HttpServletRequest request) throws Exception {
 		ComputerVo computerVo = computersService.buyComputerProduct(p_no);
+		String nok = "nok";
 		String c_com_cate_no = computerVo.getC_com_cate_no();
 		String c_com_product = computerVo.getC_com_name();
 		System.out.println("buyFormUsed + c_com_cate_no:" + c_com_cate_no);
 		String[] indexName = computersService.buyCategoryInfoGet(c_com_cate_no);
 		int countComment = computersService.buyComputerComment(c_com_product);
 		int countExplain = computersService.buyComputerExplain(c_com_product);
+		int select_number = buyComputerService.getTotalNum(nok);
+		int c_com_no = computerVo.getC_com_no();
+		System.out.println("select_number:" + select_number);
+		int productNum = buyComputerService.getProductNum(c_com_no);
+		System.out.println("productNum:" + productNum);
+		double productBuyPercentage = 0;
+		if(select_number == 0) {
+			request.setAttribute("productBuyPercentage", productBuyPercentage);
+		}else {
+			productBuyPercentage = ((double)productNum / (double)select_number) * 100;
+			double result = productBuyPercentage * 100;
+			double resultAgain =  Math.floor(result);
+			double resultConfrim = resultAgain / 100;
+			
+			System.out.println("productBuyPercentage:" + productBuyPercentage);
+			System.out.println("result:" + result);
+			System.out.println("resultAgain:" + resultAgain);
+			System.out.println("resultConfrim:" + resultConfrim);
+			request.setAttribute("productBuyPercentage", resultConfrim);
+		}
+		
 		model.addAttribute("buyComputerVo", computerVo);
 		request.setAttribute("indexName", indexName);
 		request.setAttribute("computerCommentCount", countComment);

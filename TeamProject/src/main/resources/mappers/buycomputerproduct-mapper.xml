@@ -10,4 +10,41 @@
 		values (seq_cart_no.nextval, #{p_no}, #{m_id})
 	</insert>
 	
+	<select id="getComNoForPercentage" resultType="ComputerVo">
+		select c_com_no from computer_product 
+		where c_com_name = #{productName}
+	</select>
+	
+	<insert id="pushNumForPercentage">		
+		insert into c_product_purchase_percentage (no, c_com_no_ref)
+		values (c_purchase_index.nextval, #{c_com_no})
+	</insert>
+	
+	<select id="selectNumForPercentage" resultType="int">
+		select purchase_num from c_product_purchase_percentage 
+		where c_com_no_ref = #{c_com_no}
+	</select>
+	
+	<update id="updateNumForPercentage">		
+		update c_product_purchase_percentage set
+		purchase_num = #{purchase_num} + #{purchase_num_plus}	
+	where c_com_no_ref = #{c_com_no}		
+	</update>
+	
+	<select id="selectNumForCheck" resultType="int">
+		select count(c_com_no_ref) from c_product_purchase_percentage 
+		where c_com_no_ref = #{c_com_no}
+	</select>
+	
+	<update id="updateTotalNumPlus">		
+		update c_total_purchase set
+		total = #{purchase_num_plus} + #{select_number}	
+		where nok = #{nok}		
+	</update>
+	
+	<select id="selectTotalTable" resultType="int">
+		select total from c_total_purchase 
+		where nok = #{nok}
+	</select>
+	
 </mapper>

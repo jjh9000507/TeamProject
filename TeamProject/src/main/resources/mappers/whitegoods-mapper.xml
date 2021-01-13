@@ -26,7 +26,7 @@
 		where w_no = #{w_no}
 	</delete>
 	
-	<select id="getCategoryList" resultType="CategoryVo">
+	<select id="getFirstCategoryList" resultType="CategoryVo">
 		select * from category
 		where cate_ref = #{cate_ref}
 	</select>

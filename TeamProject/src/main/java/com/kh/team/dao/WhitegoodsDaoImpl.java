@@ -37,9 +37,9 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 	}
 
 	@Override
-	public List<CategoryVo> getCategoryList(String cate_ref) throws Exception {
-		List<CategoryVo> getCategoryList = sqlSession.selectList(NAMESPACE + "getCategoryList", cate_ref);
-		return getCategoryList;
+	public List<CategoryVo> getFirstCategoryList(String cate_ref) throws Exception {
+		List<CategoryVo> getFirstCategoryList = sqlSession.selectList(NAMESPACE + "getFirstCategoryList", cate_ref);
+		return getFirstCategoryList;
 	}
 
 	@Override

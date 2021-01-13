@@ -28,16 +28,22 @@ public class WhitegoodsController {
 	@Inject
 	private WhitegoodsService whitegoodsService;
 	
-	//가전제품 카테고리 클릭하여 리스트 보기
+	//가전제품 카테고리 클릭하여 상품 전체 리스트 보기
 	@RequestMapping(value="/whitegoodsPage/{w_cate_no}", method=RequestMethod.GET)
 	public String WhitegoodsPage(@PathVariable("w_cate_no") String w_cate_no, Model model) throws Exception {
 		List<WhitegoodsVo> getWhitegoodsList = whitegoodsService.getWhitegoodsList(w_cate_no);
-		List<CategoryVo> getCategoryList = whitegoodsService.getCategoryList(w_cate_no);
-//		System.out.println("whitegoodsList: " + getWhitegoodsList);
-//		System.out.println("CategoryList: " + getCategoryList);
+		List<CategoryVo> getFirstCategoryList = whitegoodsService.getFirstCategoryList(w_cate_no);
 		model.addAttribute("WhitegoodsList", getWhitegoodsList);
-		model.addAttribute("categoryList", getCategoryList);
+		model.addAttribute("firstCategoryList", getFirstCategoryList);
 		return "/whitegoods/whitegoodsList";
+	}
+	
+	//하위 카테고리 선택 시 카테고리 반환
+	@RequestMapping(value="/whitegoodsCate", method=RequestMethod.GET)
+	@ResponseBody
+	public List<CategoryVo> getOtherCategoryList(String w_cate_no) throws Exception{
+		List<CategoryVo> getOtherCategoryList = whitegoodsService.getFirstCategoryList(w_cate_no);
+		return getOtherCategoryList;
 	}
 	
 	//상품 상세보기 페이지
@@ -51,15 +57,6 @@ public class WhitegoodsController {
 		return "/whitegoods/detailwhitegoods";
 	}
 
-	
-	//카테고리 가져오기
-	@RequestMapping(value="/getCategoryList", method=RequestMethod.GET)
-	@ResponseBody
-	public List<CategoryVo> getCategoryList(String cate_no) throws Exception {
-		List<CategoryVo> cate_list = whitegoodsService.getCategoryList(cate_no);
-		System.out.println(cate_list);
-		return cate_list;
-	}
 	
 	//수정하기 버튼
 	@RequestMapping(value="/whitegoodsUpdate/{w_no}", method=RequestMethod.GET)
