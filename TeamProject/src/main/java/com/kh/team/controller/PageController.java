@@ -74,4 +74,10 @@ public class PageController {
 		return "/sell/best";
 	}
 	
+	@RequestMapping(value="/purchase", method=RequestMethod.GET)
+	public String purchaseForm() throws Exception {
+		
+		return "/purchaseForm";
+	}
+	
 } // main class

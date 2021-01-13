@@ -244,7 +244,7 @@ $(function(){
 							</div>
 						</div>
 						
-						<div class="modal-footer">
+						<div class="modal-footer jusoChange">
 							<button type="button" class="btn btn-primary" id="selectAddr">주소 선택</button>
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
 						</div>

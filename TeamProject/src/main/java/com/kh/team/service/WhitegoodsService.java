@@ -10,7 +10,7 @@ public interface WhitegoodsService {
 	public List<WhitegoodsVo> getWhitegoodsList(String w_cate_no) throws Exception;
 	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception;
 	public void deleteWhitegoods(int w_no) throws Exception;
-	public List<CategoryVo> getCategoryList(String cate_ref) throws Exception;
+	public List<CategoryVo> getFirstCategoryList(String w_cate_no) throws Exception;
 	public WhitegoodsVo detailWhitegoods(int w_no) throws Exception;
 	public void userPAlldelete(String m_id) throws Exception;
 	public List<String> productImgList(int p_no) throws Exception;

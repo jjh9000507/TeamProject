@@ -102,8 +102,61 @@ div{
 	</div>
 	<div class="col-md-2"></div>
 </div>
+
+
 <br>
 <br>
 <br>
 <br>
 <br>
+
+<!-- <div class="prod-buy new-oos-style not-loyalty-member eligible-address without-subscribe-buy-type DISPLAY_0"> -->
+<!-- 	<div class="prod-buy-blocker"> -->
+<!-- 		<div class="prod-buy-blocker__bg"></div> -->
+<!-- 		<div class="prod-buy-blocker__spinner"></div> -->
+<!-- 	</div> -->
+<!-- 	<div class="prod-title-badges"> -->
+
+
+
+
+
+<!-- 		<span class="prod-pre-order-badge" style="display: none"> <span -->
+<!-- 			class="prod-pre-order-badge-text"></span> -->
+<!-- 		</span> -->
+<!-- 	</div> -->
+<!-- 	<div class="prod-buy-header"> -->
+<%-- 		<h2 class="prod-buy-header__title">${whitegoodsVo.w_name }</h2> --%>
+<!-- 		<div class="prod-buy-header__info"> -->
+<!-- 			<span class="prod-buy-header__productreview" data-virolecode="3" -->
+<!-- 				id="prod-buy-header__productreview" style="display: block;"> -->
+<!-- 				<a href="#sdpReview" class="moveAnchor" id="prod-review-nav-link"> -->
+<!-- 					<span class="rating-star-container" style="float: left;"> <span -->
+<!-- 						class="rating-star-num" style="width: 90.0%;"></span> -->
+<!-- 				</span> -->
+<!-- 			</a> -->
+<!-- 			</span> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+
+<!-- 	<div class="prod-price-container"> -->
+<!-- 		<div class="prod-price"> -->
+<!-- 			<div class="prod-price-onetime"> -->
+<%-- 				<div class="prod-origin-price "><span class="origin-price">${whitegoodsVo.w_price}원</span> --%>
+<!-- 				</div> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- 	</div> -->
+	
+<!-- 		<div class="prod-buy-footer "> -->
+<!-- 			<div class="prod-onetime-order " style=""> -->
+<!-- 				<button class="prod-cart-btn" -->
+<!-- 					data-gaclick='{"hitType":"event", "eventCategory":"addCartButton", "eventAction":"click", "eventLabel":"optionBarButton", "eventValue":0}'> -->
+<!-- 					장바구니 담기</button> -->
+<!-- 				<button class="prod-buy-btn" -->
+<!-- 					data-gaclick='{"hitType":"event", "eventCategory":"orderButton", "eventAction":"click", "eventLabel":"buy_optionBarButton", "eventValue":0}'> -->
+<!-- 					<span class="prod-buy-btn__txt">바로구매</span> -->
+<!-- 				</button> -->
+<!-- 			</div> -->
+<!-- 		</div> -->
+<!-- </div> -->
