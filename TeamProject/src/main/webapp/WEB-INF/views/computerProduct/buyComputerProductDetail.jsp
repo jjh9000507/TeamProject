@@ -6,7 +6,8 @@
 <%@ include file="../include/header.jsp"%>
 <script>
 $(function(){
-	$("#buyProduct").click(function(){	
+	$("#buyProduct").click(function(){
+		
 		var url = "/buyComputerProduct/sendForGetPurchasePercentage";
 		var productNum = "${buyComputerInfo.productNum}";
 		var productName = "${buyComputerInfo.productName}";
@@ -19,7 +20,7 @@ $(function(){
 		$.post(url,sendData, function(data) {
 			if(data == "success"){
 				alert("성공");
-			}else if(data == "fail"){
+			}else{
 				alert("실패");
 			}
 		});

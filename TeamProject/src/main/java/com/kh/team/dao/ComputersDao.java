@@ -41,5 +41,5 @@ public interface ComputersDao {
 	//컴퓨터 제품 구매 폼 구매후기 갯수 보여주기
 	public int buyComputerComment(String c_com_product) throws Exception;
 	//컴퓨터 제품 구매 폼 상품문의 갯수 보여주기
-	public int buyComputerExplain(String c_com_product) throws Exception;
+	public int buyComputerExplain(String c_com_product) throws Exception;	
 }

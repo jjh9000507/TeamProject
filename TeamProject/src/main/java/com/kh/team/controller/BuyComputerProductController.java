@@ -47,7 +47,9 @@ public class BuyComputerProductController {
 		System.out.println("buyComputerVo:" + buyComputerVo);
 		int purchase_num_plus = buyComputerVo.getProductNum();
 		
-		int count = buyComputerService.getPurchasePercentage(buyComputerVo, purchase_num_plus);
+		String nok = "nok";
+		
+		int count = buyComputerService.getPurchasePercentage(buyComputerVo, purchase_num_plus, nok);
 		String view = "";
 		if(count == CHECK_FOR_INDEX) {
 			view = "success";

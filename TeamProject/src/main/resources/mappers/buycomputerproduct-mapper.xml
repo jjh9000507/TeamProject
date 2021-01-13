@@ -36,4 +36,15 @@
 		where c_com_no_ref = #{c_com_no}
 	</select>
 	
+	<update id="updateTotalNumPlus">		
+		update c_total_purchase set
+		total = #{purchase_num_plus} + #{select_number}	
+		where nok = #{nok}		
+	</update>
+	
+	<select id="selectTotalTable" resultType="int">
+		select total from c_total_purchase 
+		where nok = #{nok}
+	</select>
+	
 </mapper>

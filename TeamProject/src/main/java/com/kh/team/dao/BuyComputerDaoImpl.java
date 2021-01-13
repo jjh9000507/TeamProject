@@ -67,6 +67,22 @@ public class BuyComputerDaoImpl implements BuyComputerDao {
 		return check_no;
 	}
 
+	@Override
+	public int updateTotalNumPlus(String nok,int purchase_num_plus,int select_number) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("nok", nok);
+		map.put("purchase_num_plus", purchase_num_plus);
+		map.put("select_number", select_number);
+		int count = sqlSession.update(NAMESPACE + "updateTotalNumPlus", map);
+		return count;
+	}
+
+	@Override
+	public int selectTotalTable(String nok) throws Exception {
+		int select_number = sqlSession.selectOne(NAMESPACE + "selectTotalTable", nok);
+		return select_number;		
+	}
+
 	
 		
 }
