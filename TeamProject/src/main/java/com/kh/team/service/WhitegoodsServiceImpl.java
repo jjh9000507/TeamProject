@@ -34,10 +34,11 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 	}
 
 	@Override
-	public List<CategoryVo> getCategoryList(String cate_ref) throws Exception {
-		List<CategoryVo> getCategoryList = whitegoodsDao.getCategoryList(cate_ref);
-		return getCategoryList;
+	public List<CategoryVo> getFirstCategoryList(String w_cate_no) throws Exception {
+		List<CategoryVo> getFirstCategoryList = whitegoodsDao.getFirstCategoryList(w_cate_no);
+		return getFirstCategoryList;
 	}
+
 
 	@Override
 	public WhitegoodsVo detailWhitegoods(int w_no) throws Exception {

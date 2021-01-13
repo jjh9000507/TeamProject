@@ -4,7 +4,28 @@
 
 <%@ include file="../include/header.jsp"%>
 <style>
-div{
+.productshow{
+	border-left:2px solid #CCC;
+	border-right:2px solid #CCC;
+	padding:20px;
+	width:900px;
+}
+.show1{
+	border-top: 2px solid #CCC;
+}
+.show2{
+	border-bottom: 2px solid #CCC;
+}
+#divProductData{
+	margin-left: 200px;
+}
+#btnsList{
+	margin-left: 1800px;
+}
+#div{
+	text-align: right;
+}
+.imgProduct{
 	text-align: center;
 }
 .content{
@@ -63,45 +84,59 @@ div{
 </script>
 <div class="row">
 	<div class="col-md-2"></div>
-	<div class="col-md-8" >
-<%@ include file="../include/header_mainCatagories.jsp"%>
-<br>
-<!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
-<div style="padding-top: 150px;">
-	<ul class="nav nav-pills list">
-		<li class="nav-item"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}" style="width:200px; height:260px;"/></li>
-		<li class="nav-item detail" style="width:360px;">${whitegoodsVo.w_name}<br><span id="price" class="detail">${whitegoodsVo.w_price}</span>원</li>
-		<li class="nav-item seller">${whitegoodsVo.w_seller}<br></li>
-	</ul>
-	<ul class="nav nav-pills btnlist">
-		<li><button type="button" class="btn btndetail cart" id="btnCart" data-pno="${whitegoodsVo.p_no}">장바구니</button></li>
-		<li><button type="button" class="btn btndetail sell" id="btnSell">구매하기</button></li>
-	</ul>
-</div>
-<c:if test="${sessionScope.memberVo.m_id == whitegoodsVo.w_seller}">
-	<div><a href="/whitegoods/whitegoodsUpdate/${whitegoodsVo.w_no}">수정하기</a></div>
-	<div><a href="/whitegoods/whitegoodsDelete/${whitegoodsVo.w_no}">삭제하기</a></div>
-</c:if>
+	<div class="col-md-8">
+		<%@ include file="../include/header_mainCatagories.jsp"%>
 	</div>
 	<div class="col-md-2"></div>
+</div>
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8 productshow show1">
+<br>
+<!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
+	<div id="divProductData" style="padding-top: 150px;">
+		<ul class="nav nav-pills list">
+			<li class="nav-item"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}" style="width:200px; height:260px;"/></li>
+			<li class="nav-item detail" style="width:360px;">${whitegoodsVo.w_name}<br><span id="price" class="detail">${whitegoodsVo.w_price}</span>원</li>
+			<li class="nav-item seller">${whitegoodsVo.w_seller}<br></li>
+		</ul>
+	</div>
+	<br/>
+	<div style="text-align: right;">
+		<button type="button" class="btn btndetail cart" id="btnCart" data-pno="${whitegoodsVo.p_no}">장바구니</button>
+		<button type="button" class="btn btndetail sell" id="btnSell">구매하기</button>
+	</div>
+	<br>
+	<div style="text-align: right;">
+			<c:if test="${sessionScope.memberVo.m_id == whitegoodsVo.w_seller}">
+				<div>
+					<a class="btn btn-success btn-xs" href="/whitegoods/whitegoodsUpdate/${whitegoodsVo.w_no}">수정하기</a>
+					<a class="btn btn-danger btn-xs" href="/whitegoods/whitegoodsDelete/${whitegoodsVo.w_no}">삭제하기</a>
+				</div>
+			</c:if>
+		</div>
+	</div>
 </div>
 
 <div class="row">
 	<div class="col-md-2"></div>
 	
-	<div class="col-md-8">
+	<div class="col-md-8 productshow show2">
+	
+		<c:forEach var="productImgVo" items="${productImgList}">
+			<div class="imgProduct">
+				<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
+			</div>
+		</c:forEach>
+		<hr>
 		<div class="content">
 			${whitegoodsVo.w_content}
 		</div>
 		
-		<c:forEach var="productImgVo" items="${productImgList}">
-			<div>
-				<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
-			</div>
-		</c:forEach>
 	</div>
 	<div class="col-md-2"></div>
 </div>
+
 <br>
 <br>
 <br>

@@ -180,6 +180,8 @@ $(function(){
 		console.log("productNum:" + productNum);
 		var productName = "${buyComputerVo.c_com_name}";
 		console.log("productName:" + productName);
+		var p_no = "${buyComputerVo.p_no}";
+		console.log("p_no:" + p_no);
 		var sendMethod = $("#buySelectMenu option:selected").val();
 		console.log("sendMethod:" + sendMethod);
 		if(price == "" || productNum == ""){
@@ -190,6 +192,7 @@ $(function(){
 			searchBuyFormSendData.find("input").eq(2).val(productNum);
 			searchBuyFormSendData.find("input").eq(3).val(productName);
 			searchBuyFormSendData.find("input").eq(4).val(sendMethod);
+			searchBuyFormSendData.find("input").eq(5).val(p_no);
 			$("#frmBuyFormSendData").submit();
 		}		
 	});
@@ -224,6 +227,7 @@ $(function(){
 	<input type="text" name="productNum" value=""/>
 	<input type="text" name="productName" value=""/>
 	<input type="text" name="sendMethod" value=""/>
+	<input type="number" name="p_no" value=""/>
 </div>
 </form>
 
@@ -402,10 +406,9 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							<span>${indexName[0]}</span> 카테고리내에서의 구매율:
-							<div class="progress">
-								<div class="progress-bar w-75">
-								</div>
+							컴퓨터 카테고리내에서의 구매율:(<sqan>${productBuyPercentage}</sqan>)&percnt;
+							<div>
+							<progress value="${productBuyPercentage}" max="100"></progress>
 							</div>
 						</td>						
 					</tr>					

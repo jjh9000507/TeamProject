@@ -171,7 +171,7 @@ $(function(){
 					
 					<!-- 히든(복사) 데이터 -->
 					<ul class="nav nav-pills list" style="display:none;">
-							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
+							<li class="nav-item"><a class="nav-link" href="/page/content?p_no=${all_list.p_no}"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
 							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="/page/content?p_no=${all_list.p_no}">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
 							<li class="nav-item"><a class="nav-link seller">${all_list.p_seller}</a></li>
 					</ul>
@@ -179,7 +179,7 @@ $(function(){
 					<!-- 전체 상품 목록(7개만) -->
 				<c:forEach var="all_list" items="${selectAll_List}">
 					<ul class="nav nav-pills list">
-							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
+							<li class="nav-item"><a class="nav-link" href="/page/content?p_no=${all_list.p_no}"><img style="width:225px; height:225px;" src="resources/image/${all_list.p_thumbimg}"/></a></li>
 							<li class="nav-item" style="width:365px;"><a class="nav-link productName" href="/page/content?p_no=${all_list.p_no}">${all_list.p_name}<br></a><span id="price">${all_list.p_price }</span>원<br> 무료배송</li>
 							<li class="nav-item"><a class="nav-link seller">${all_list.p_seller}</a></li>
 					</ul>

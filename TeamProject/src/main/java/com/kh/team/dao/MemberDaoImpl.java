@@ -75,6 +75,16 @@ private final String NAMESPACE = "com.kh.team.member.";
 		return count;
 	}
 
+	@Override
+	public int changeNameByCallProduct(String buyerName, String m_id, String m_pass) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("m_pass", m_pass);
+		map.put("m_id", m_id);
+		map.put("buyerName", buyerName);
+		int count = sqlSession.update(NAMESPACE + "changeNameByCallProduct", map);
+		return count;
+	}
+
 	
 	
 	

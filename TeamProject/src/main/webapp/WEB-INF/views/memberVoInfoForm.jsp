@@ -157,6 +157,10 @@ $(function() {
 			</div>			
 		</div>
 	</div>
+	
+	
+	
+${sessionScope.sendProductBoughtInfoVo}	
 <div class="row">
 		<div class="col-md-12">
 			<form role="form" class="memberVoInfoFormHeader">
@@ -207,12 +211,5 @@ $(function() {
 				</div> 
 				</form>
 		</div>
-	</div>
-<br>
-<br>
-<br>
-<br>
-<br>
-	
+	</div>	
 </div>
-<%@ include file="include/footer.jsp"%>
