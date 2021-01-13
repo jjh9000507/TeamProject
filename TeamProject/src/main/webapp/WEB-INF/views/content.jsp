@@ -6,6 +6,16 @@
 <%@ include file="include/header.jsp"%>
 
 
+<script>
+$(function(){
+	$("#btnBuy").click(function(){
+		location.href = "/page/purchase"
+	});
+});
+
+</script>
+
+
 <div class="row">
 	<div class="col-md-12 borderAllCategory" id="borderAllCategory">
 		<div class="col-md-2"></div>
@@ -31,7 +41,7 @@
 			판매자 <span class="content_span2">${productVo.p_seller}</span><br>
 			신용등급 <span class="content_span3">★★★★☆</span><br>
 			주소 정보 <span class="content_span4">주소 정보 받아와야함</span><br>
-			<button type="button" class="btn btn-primary" id="btnBuy">구매하기</button>
+			<button type="button" class="btn btn-primary" id="btnBuy">구매 하기</button>
 			<button type="button" class="btn btn-outline-warning" id="btnBuy2">장바구니에 담기</button>
 		</div>
 	</div>

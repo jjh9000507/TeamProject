@@ -42,9 +42,9 @@ $(function(){
 
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
-		
 				<ul class="nowMenu">
 					<li><a style="color:red;" href="/clothes/101">남성의류</a></li>
+					
 				</ul>
 				
 				<div id="tab-menu">
@@ -75,23 +75,18 @@ $(function(){
 			<div class="row listMain" style="position:relative;left:15%;">
 				<div class="col-md-8 productList">
 					
-					<ul class="nav nav-pills list" style="display:none;">
-							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="/resources/image/shirt.jpg"/></a></li>
-							<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
-							<li class="nav-item"><a class="nav-link seller">판매자</a></li>
-					</ul>
-					
 					<select style="float:right;">
 						<option>가격</option>
 						<option>이름</option>
 					</select>
 					
+						<c:forEach var="male" items="${list}">
 					<ul class="nav nav-pills list">
-							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="/resources/image/shirt.jpg"/></a></li>
-							<li class="nav-item" style="width:360px;"><a class="nav-link productName" href="#">슬림면스판나시 짱짱한원단 L~XXL 남자나시 타투나시<br></a><span id="price">59,900</span>원<br> 무료배송</li>
-							<li class="nav-item"><a class="nav-link seller">판매자</a></li>
-
+							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="/resources/image/${male.p_thumbimg }"/></a></li>
+							<li class="nav-item" style="width:372px;"><a class="nav-link productName" href="/page/content?p_no=${male.p_no}">${male.p_name }<br></a><span id="price">${male.p_price }</span>원<br> 무료배송</li>
+							<li class="nav-item"><a class="nav-link seller">${male.p_seller}</a></li>
 					</ul>
+						</c:forEach>
 				</div>
 			</div>
 		</div>

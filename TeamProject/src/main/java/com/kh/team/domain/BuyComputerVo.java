@@ -7,6 +7,7 @@ public class BuyComputerVo {
 	private int productNum;
 	private String productName;
 	private String sendMethod;
+	private int p_no;
 	public int getPrice() {
 		return price;
 	}
@@ -37,10 +38,16 @@ public class BuyComputerVo {
 	public void setSendMethod(String sendMethod) {
 		this.sendMethod = sendMethod;
 	}
+	public int getP_no() {
+		return p_no;
+	}
+	public void setP_no(int p_no) {
+		this.p_no = p_no;
+	}
 	@Override
 	public String toString() {
 		return "BuyComputerVo [price=" + price + ", seller=" + seller + ", productNum=" + productNum + ", productName="
-				+ productName + ", sendMethod=" + sendMethod + "]";
+				+ productName + ", sendMethod=" + sendMethod + ", p_no=" + p_no + "]";
 	}
 	
 	

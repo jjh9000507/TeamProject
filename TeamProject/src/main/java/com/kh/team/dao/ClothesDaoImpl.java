@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.ClothesVo;
+import com.kh.team.domain.ProductVo;
 
 @Repository
 public class ClothesDaoImpl implements ClothesDao {
@@ -45,6 +46,12 @@ public class ClothesDaoImpl implements ClothesDao {
 		
 		sqlSession.delete(NAMESPACE + "deleteClothes", map);
 
+	}
+
+	@Override
+	public List<ProductVo> maleClothes_List() throws Exception {
+		List<ProductVo> list = sqlSession.selectList(NAMESPACE + "maleClothes_List" );
+		return list;
 	}
 
 }

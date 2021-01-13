@@ -31,4 +31,10 @@
 		where p_no = #{p_no}
 		and p_seller = #{p_seller}
 	</delete>
+	
+	<select id="maleClothes_List" resultType="ProductVo">
+		select * from clothes_product
+		where cate_no like 101 || '%'
+		
+	</select>
 </mapper>
