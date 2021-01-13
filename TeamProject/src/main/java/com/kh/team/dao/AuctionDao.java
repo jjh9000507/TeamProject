@@ -90,5 +90,7 @@ public interface AuctionDao {
 	public void deleteAuction_sold_date(int p_no) throws Exception;
 	public void deleteAuction(int p_no) throws Exception;
 	//수정할 때 x버튼을 누르면 auction_img에서 해당 파일만 삭제 
-	public void modifyAuction_imgDel(String fileAllName) throws Exception;
+	public void modifyAuction_imgDel(String fileAllName, int p_no) throws Exception;
+	// 수정할 때 이미지 한개만 넣기
+	public void modifyAuction_imgInsert(String fileAllName, int p_no) throws Exception;
 }

@@ -105,6 +105,10 @@ public class AuctionDaoTest {
 	
 	@Test
 	public void modifyAuction_imgDel() throws Exception {
-		auctionDao.modifyAuction_imgDel("C:/Temp/auctionImg/22/2_f3694afc-5823-410b-9b2c-d614d0e84f64.jpg");
+		Map<String, Object> map = new HashMap<>();
+		map.put("fileAllName", "C:/Temp/auctionImg/22/2_f3694afc-5823-410b-9b2c-d614d0e84f64.jpg");
+		map.put("p_no", 22);
+		
+		auctionDao.modifyAuction_imgDel("C:/Temp/auctionImg/22/2_f3694afc-5823-410b-9b2c-d614d0e84f64.jpg",22);
 	}
 }

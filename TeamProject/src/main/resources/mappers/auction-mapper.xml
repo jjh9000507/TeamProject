@@ -148,7 +148,6 @@
 	</select>
 	
 	<!-- 입찰 시작 -->
-	
 	<select id="getAuctionTempBid" resultType="AuctionTempBidVo">
 		select * from auction_temp_bid where p_no = #{p_no}
 	</select>
@@ -275,6 +274,11 @@
 	
 	<!-- 수정할 때 auction_img에서 해당 파일만 삭제 -->
 	<delete id="modifyAuction_imgDel">
-		delete from auction_img where img_name=#{fileAllName}
+		delete from auction_img where img_name=#{fileAllName} and p_no=#{p_no}
 	</delete>
+	
+	<!-- 수정할 때 이미지 한개만 넣기 -->
+	<insert id="modifyAuction_imgInsert">
+		insert into auction_img (img_no, img_name, p_no) values(seq_auction_img_no.nextval,#{fileAllName},#{p_no})
+	</insert>
 </mapper>

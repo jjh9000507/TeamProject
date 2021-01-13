@@ -20,15 +20,14 @@ $(function(){
 	
 	//x버튼을 눌러 삭제시
 	$("#uploadList").on("click",".a_times", function(){
-		alert("dsf");
+		//alert("dsf");
 		var that = $(this);
-		var fileAllName = that.next().attr("value");
+		var filePathName = that.next().attr("value");
 		var p_no = $("#p_no").val();
-		console.log(fileAllName)
-		alert("fileAllName:"+fileAllName);
+		console.log(filePathName)
 		
 		var sendData = {
-			"fileAllName" : fileAllName,
+			"filePathName" : filePathName,
 			"p_no" : p_no
 		};
 		

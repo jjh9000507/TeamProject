@@ -292,8 +292,22 @@ public class AuctionDaoImpl implements AuctionDao{
 	}
 
 	@Override
-	public void modifyAuction_imgDel(String fileAllName) throws Exception {
+	public void modifyAuction_imgDel(String fileAllName, int p_no) throws Exception {
 		System.out.println("AuctionDaoImpl modifyAuction_imgDel:"+fileAllName);
-		sqlSession.delete(NAMESPACE + "modifyAuction_imgDel", fileAllName);
+		
+		Map<String, Object> map = new HashMap<>();
+		map.put("fileAllName", fileAllName);
+		map.put("p_no", p_no);
+		
+		sqlSession.delete(NAMESPACE + "modifyAuction_imgDel", map);
+	}
+
+	@Override
+	public void modifyAuction_imgInsert(String fileAllName, int p_no) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("fileAllName", fileAllName);
+		map.put("p_no", p_no);
+		
+		sqlSession.insert(NAMESPACE + "modifyAuction_imgInsert", map);
 	}
 }
