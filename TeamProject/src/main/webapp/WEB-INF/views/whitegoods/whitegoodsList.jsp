@@ -7,6 +7,7 @@
 	href="https://fonts.googleapis.com/css?family=Roboto&display=swap" />
 <link rel="stylesheet" href="/resources/css/styles.css" />
 <link rel="stylesheet" href="/resources/css/sidebar.css" />
+<%@ include file="/resources/css/clothes.css"%>
 <%@ include file="../include/header.jsp"%>
 <style>
 .categoryMenu li{
@@ -24,44 +25,30 @@
 }
 </style>
 <script>
-$(function(){	
-	
-	//아우터 
-	$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
-		$(".sidebar__nav > li:eq(1) > ul").show();	
-	});
-	
-	$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseout" , function(){
-		$(".sidebar__nav > li:eq(1) > ul").hide();	
-	});
-	
-	// 상의
-	$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
-		$(".sidebar__nav > li:eq(2) > ul").show();
-	});
-	
-	$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
-		$(".sidebar__nav > li:eq(2) > ul").hide();
-	});
-	
-	// 바지
-	$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
-		$(".sidebar__nav > li:eq(3) > ul").show();
-	});
-	
-	$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
-		$(".sidebar__nav > li:eq(3) > ul").hide();
-	});
-	
-	// 스포츠웨어
-	$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
-		$(".sidebar__nav > li:eq(4) > ul").show();
-	});
-	
-	$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
-		$(".sidebar__nav > li:eq(4) > ul").hide();
-	});
+$(function(){
 
+	$(".showOtherCategory").on("click", function(){
+		var cate_no = $(this).attr("data-cateno");
+		var url="/whitegoods/whitegoodsCate";
+		var sendData = {
+				"w_cate_no":cate_no
+		};
+		
+		$.get(url, sendData, function(data){
+			$("#tab-cont").show();
+			var that = $("#divcateList");
+			that.empty();
+			$.each(data,function(){
+				var a = "<a href='/whitegoods/whitegoodsPage/" + this.cate_no + "' class='showOtherProductList'>";
+				a += this.cate_name;
+				a += "</a>";
+				
+				that.append(a);
+			});
+			
+			
+		});
+	});
 }); // main function
 </script>
 <div class="row">
@@ -71,7 +58,21 @@ $(function(){
 <br>
 
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
-
+			<div id="tab-menu">
+				<div id="tab-btn">
+					<ul>
+						<c:forEach var="CategoryVo" items="${firstCategoryList}">
+							<li><a href="#" class="showOtherCategory" data-cateno="${CategoryVo.cate_no}">${CategoryVo.cate_name}</a></li>
+						</c:forEach>
+					</ul>
+				</div>
+				  
+				<div id="tab-cont" style="display: none;">
+					<div id="divcateList">
+						<a href="#" class="showOtherProductList"></a>
+					</div>
+				</div>
+			</div>
 
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
 		<div style="padding-top: 150px;">
