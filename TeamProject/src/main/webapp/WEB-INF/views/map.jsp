@@ -10,7 +10,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>간단한 지도 표시하기</title>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=8io5mp0l3f"></script>
+<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=5i2j41zq2n"></script>
 <script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk&amp;submodules=panorama,geocoder,drawing,visualization"></script>
 <script>
 	$(function() {
@@ -19,62 +19,15 @@
 			modalTrigger();
 		});
 		
-		var map = new naver.maps.Map('map');
-		//map.setMapTypeId(naver.maps.MapTypeId.HYBRID); //위성 지도 
-		map.setCursor('pointer');
-		
-		//클릭 했을 때 마커 생성 (lat , lng)
-		var marker = new naver.maps.Marker({
-			map : map
-			
-		});
-		
-		//클릭했을 때 마크이동
-		naver.maps.Event.addListener(map, 'click', function(e) {
-			marker.setPosition(e.coord);
-			console.log(e.coord);
-		});
-
+		//메인으로 돌아가기
 		$("#goToTeam").click(function() {
 			location.href = "/";
-		})
-
-		//좌표를 주소로 가져오기
-		function searchCoordinateToAddress(lat, lng) {
-			
-			naver.maps.Service.reverseGeocode({
-				location : new naver.maps.LatLng(lat, lng),
-			}, function(status, response) { //비동기기 때문에 searchCoordinateToJibunAddress값만 리턴이 되고 이 함수 안에 값은 리턴이 안 된다
-				if (status == naver.maps.Service.Status.ERROR) {
-					return alert('Something wrong!');
-				}
-
-				var result = response.result, // 검색 결과의 컨테이너
-				items = result.items; // 검색 결과의 배열
-
-				if (items[0] != null) {
-					$("#spandJibunAddress").text(items[0].address);
-				} else {
-					$("#spandJibunAddress").text("지번 주소 없음");
-				}
-
-				if (items[1] != null) {
-					$("#spandRoadAddress").text(items[1].address);
-				} else {
-					$("#spandRoadAddress").text("도로 주소 없음");
-				}
-
-				var latlng = new naver.maps.LatLng(lat, lng); //경
-				map.setCenter(latlng);
-				map.setZoom(15);
-				var marker = new naver.maps.Marker({
-					position : new naver.maps.LatLng(latlng),
-					map : map
-				  
-				});
-			});
-		}	
-
+		});
+		
+		//맵 생성
+		var map = new naver.maps.Map('map');
+		//map.setMapTypeId(naver.maps.MapTypeId.HYBRID); //위성 지도 
+		
 		//검색한 주소로 좌표값 가져오기 (addr : 주소)
 		function searchAddressToCoordinate(addr) {
 			naver.maps.Service.fromAddrToCoord({
@@ -131,7 +84,11 @@
 			
 				var latlng_sellProduct = new naver.maps.LatLng(
 						response.result.items[0].point.y,
-						response.result.items[0].point.x); //경
+						response.result.items[0].point.x
+				); 
+				
+
+				
 				map.setCenter(latlng_sellProduct);
 				map.setZoom(15);
 				
@@ -141,17 +98,54 @@
 					
 				});
 
-			});
-		}
+// 				console.log("latlng_sellProduct" + latlng_sellProduct);
+				var MARKER_SPRITE_X_OFFSET = 29,
+    				MARKER_SPRITE_Y_OFFSET = 50;
 
-		// 좌표 값 가져오기
+				var contentString = [];
+				 contentString = {
+					"A1" : [] ,
+					"B1" : []
+						
+				};
+// 				 등록된 상품 주소들
+				 /* data_addr */
+
+			for (var key in contentString) {
+ 				var infowindow = new naver.maps.InfoWindow({
+		      		  content: '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"'+ key +'"</b>.</div>'
+				 });
+			};
+				
+				naver.maps.Event.addListener(marker_sellProduct, "click", function(e) {
+				    if (infowindow.getMap()) {
+				        infowindow.close();
+				    } else {
+				        infowindow.open(map, marker_sellProduct);
+				    }
+				});	
+	
+				infowindow.open(map, marker_sellProduct);
+				
+			});
+			
+				
+			
+		} //등록한 상품 주소 마커 
+		
+		
+		
+		
+		
+			// 좌표 값 가져오기
 			var data_Address = $("#address").attr("data-Address");
 			searchAddressToCoordinate(data_Address);
+			console.log("data_Address : " + data_Address); // 검색한 주소
 			
 			// 주소 값 가져와서 위도 경도로 변환
 			$(".addr_list").each(function(){
-			var data_addr = $(this).attr("data-addr"); // 주소
-			console.log(data_addr);
+			var data_addr = $(this).attr("data-addr"); //등록된 상품들 주소
+			console.log("data_addr : " + data_addr);
 			sellProductToAddress(data_addr);
 			});
 		
@@ -174,8 +168,9 @@
 						<div style="position: absolute; left: 63%;">
 						검색한 주소 : <input type="text" id="txtAddress" name="txtAddress" value="${roadAddress}">
 						</div>
-						<div id="map" style="width: 40%; top: 25%; left: 56%; height: 460px;"></div>
+						<div id="map" style="width: 70%; top: 25%; left: 40%; height: 500px;"></div>
 					</div>
+					
 					<div class="col-md-4">
 						<br>
 						<br>

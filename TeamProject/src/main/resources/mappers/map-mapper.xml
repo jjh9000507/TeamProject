@@ -5,7 +5,7 @@
   
 <mapper namespace="com.kh.team.map">
 	<select id="alterLatLng" resultType="AuctionAddressVo">
-		select * from auction_address
+		select * from product
 		where road_address is not null
 	</select>
 </mapper>
