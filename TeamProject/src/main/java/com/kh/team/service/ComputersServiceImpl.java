@@ -6,7 +6,9 @@ import javax.inject.Inject;
 
 import org.springframework.stereotype.Service;
 
+import com.kh.team.dao.BuyComputerDao;
 import com.kh.team.dao.ComputersDao;
+import com.kh.team.domain.BuyComputerVo;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
@@ -15,8 +17,13 @@ import com.kh.team.domain.ProductExplainVo;
 @Service
 public class ComputersServiceImpl implements ComputersService {
 	
+	private int CHECK_FOR_INDEX = 0;
+	
 	@Inject
 	private ComputersDao computersDao;
+	
+	@Inject
+	private BuyComputerDao buyComputerDao;
 
 	@Override
 	public List<ComputerVo> list(String cate_no) throws Exception {
@@ -95,6 +102,56 @@ public class ComputersServiceImpl implements ComputersService {
 	public int buyComputerExplain(String c_com_product) throws Exception {
 		int count = computersDao.buyComputerExplain(c_com_product);
 		return count;
+	}
+
+	
+	
+	@Override
+	public int getPurchaseLike(BuyComputerVo buyComputerVo,int like_num_plus, String nok) throws Exception {
+		int c_com_no = buyComputerDao.getPkForTakePurchasePercentage(buyComputerVo);
+		System.out.println("c_com_no_like:" + c_com_no);
+		int check_no = CHECK_FOR_INDEX;
+		check_no = buyComputerDao.selectNumForCheck(c_com_no);
+		System.out.println("check_no_like:" + check_no);
+		if(check_no == 0) {
+			buyComputerDao.pushNumForGetPurchasePercentage(c_com_no);			
+		}else {
+			System.out.println("이미 존재_like");
+		}	
+		int select_like = buyComputerDao.selectNumForGetPurchaseLike(c_com_no);
+		System.out.println("select_like:" + select_like);
+		int count = buyComputerDao.updateNumForGetPurchaseLike(c_com_no, like_num_plus, select_like);
+		System.out.println("count_like:" + count);
+		int select_number = buyComputerDao.selectTotalTableLike(nok);
+		System.out.println("select_number_like:" + select_number);
+		
+		int countRe = buyComputerDao.updateTotalNumLikePlus(nok, like_num_plus, select_number);
+		System.out.println("countRe_like:" + countRe);
+		
+		return count;
+	}
+
+	@Override
+	public int getTotalNumLike(String nok) throws Exception {
+		int count =buyComputerDao.selectTotalTableLike(nok);
+		System.out.println("count_like:" + count);
+		return count;
+	}
+
+	@Override
+	public int getProductNumLike(int c_com_no) throws Exception {
+		int check_no = CHECK_FOR_INDEX;
+		check_no = buyComputerDao.selectNumForCheck(c_com_no);
+		System.out.println("check_no_like:" + check_no);
+		if(check_no == 0) {
+			buyComputerDao.pushNumForGetPurchasePercentage(c_com_no);			
+		}else {
+			System.out.println("이미 존재_like_get");
+		}	
+		int likeNum = 0;
+		likeNum = buyComputerDao.selectNumForGetPurchaseLike(c_com_no);
+		System.out.println("likeNum_like:" + likeNum);
+		return likeNum;
 	}
 	
 }
