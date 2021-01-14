@@ -49,7 +49,8 @@ public class HomeController {
 	public String logout(HttpSession session, HttpServletRequest request) throws Exception {
 		
 		//세션 초기화
-		session.removeAttribute("memberVo");;
+		session.removeAttribute("memberVo");
+		session.removeAttribute("sendProductBoughtInfoVo");
 		
 		//메인에서 alert창을 띄우기 위한 request구현
 		request.setAttribute("msg", "logoutSuccess");

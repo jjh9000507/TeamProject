@@ -8,6 +8,9 @@
 	position:relative;
 	left:500px;
 }
+#sellerReg{
+	margin-left: 520px;
+}
 </style>
 <script>
 $(function(){
@@ -29,15 +32,21 @@ $(function(){
 	});
 });
 </script>
-<div class="col-md-4"></div>
-<div class="col-md-4">
-	<%@include file="regTerm.jsp" %>
-	<input type="checkbox" class="check" id="termCheck">
-	<label class="check check1">이 약관을 모두 읽었고, 내용에 동의합니다.(필수)</label>
-	<%@include file="regInclude.jsp" %>
-	<input type="checkbox" class="check" id="dataCheck">
-	<label class="check check2">이 약관을 모두 읽었고, 내용에 동의합니다.(필수)</label>
+<div align="center">
+	<h1>판매자 이용 약관 동의</h1>
 </div>
-<div class="col-md-4"></div>
-<a href="#" id="sellerReg">등록</a>
+<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<%@include file="regTerm.jsp" %>
+		<input type="checkbox" class="check" id="termCheck">
+		<label class="check check1">이 약관을 모두 읽었고, 내용에 동의합니다.(필수)</label>
+		<%@include file="regInclude.jsp" %>
+		<input type="checkbox" class="check" id="dataCheck">
+		<label class="check check2">이 약관을 모두 읽었고, 내용에 동의합니다.(필수)</label>
+		<br>
+	</div>
+	<div class="col-md-3"></div>
+
+	<a class="btn btn-primary" href="#" id="sellerReg">등록</a>
+
 <%@ include file="../include/footer.jsp"%>

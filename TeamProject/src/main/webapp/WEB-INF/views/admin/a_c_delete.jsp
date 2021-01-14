@@ -25,7 +25,25 @@ h1{
 }
 .categorybtn{
 	text-align: center;
-	width:80px;
+	width:90px;
+}
+li{
+	float: left;
+}
+a.btns{
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	text-decoration: none;
+	border-radius: 4px;
+}
+
+a.btns:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
 }
 </style>
 <script>
@@ -35,20 +53,24 @@ h1{
 		<div class="col-md-12" style="text-align: center"><h1>카테고리 삭제</h1></div>
 	</div>
 	<div class="row">
-		<div class="col-md-12" style="text-align: center">
-			<a href="/admin/adminCategory">이전 화면으로</a>
-			<a href="/admin/adminForm">관리자 메인 화면으로</a>
+		<div class="col-md-5"></div>
+		<div class="col-md-3" style="text-align: center">
+			<ul>
+				<li><a class="btn btns" href="/admin/adminCategory">이전 화면으로</a></li>
+				<li><a class="btn btns" href="/admin/adminForm">관리자 메인 화면으로</a></li>
+			</ul>
 		</div>
+		<div class="col-md-4"></div>
 	</div>
 	<div class="row listMain">
 		<ul class="nav nav-tabs categoryMenu">
 			<li class="nav-item"><a class="nav-link" href="/admin/adminCategoryDelete">전체</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/10">의류</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/20">가구</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/50">컴퓨터</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/30">가전제품</a></li>
+			<c:forEach var="firstCategory" items="${firstCategory}">
+				<li class="nav-item"><a class="nav-link" href="/admin/categoryDeletePage/${firstCategory.cate_no}">${firstCategory.cate_name}</a></li>			
+			</c:forEach>
 		</ul>
 	</div>
+	
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -66,7 +88,7 @@ h1{
 						<td class="categoryno">${CategoryVo.cate_no}</td>
 						<td class="categoryname">${CategoryVo.cate_name}</td>
 						<td class="categorybtn">
-							<a href="/admin/CategoryDelete/${CategoryVo.cate_no}" class="categoryDelete">삭제</a>
+							<a href="/admin/CategoryDelete/${CategoryVo.cate_no}" class="btn btns categoryDelete">삭제</a>
 						</td>
 					</tr>
 					</c:forEach>
@@ -76,4 +98,3 @@ h1{
 		<div class="col-md-2"></div>
 	</div>
 </div>
-<%@include file="../include/footer.jsp" %>

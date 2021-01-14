@@ -11,5 +11,5 @@ public interface BuyComputerService {
 	//전체 구매상품 갯수 가져오기
 	public int getTotalNum(String nok) throws Exception;
 	//선택상품 구매갯수 가져오기
-	public int getProductNum(int c_com_no) throws Exception;
+	public int getProductNum(int c_com_no) throws Exception;	
 }

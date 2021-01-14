@@ -5,6 +5,7 @@
     
 <!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<link rel="stylesheet" href="/resources/css/sidebar.css" /> 
 
 <script type="text/javascript">
 $(function(){
@@ -15,22 +16,21 @@ $(function(){
 	var IMP = window.IMP; // 생략가능
 	IMP.init('${ImPortkey}');
 	
-	$("#btnPayListCheck").click(function(){
+	$(".payment").click(function(){
 		
-	});
-	
-	$("#payment").click(function(){
+		var sold_price = $(this).parent().parent().next().next().find("td").eq(0).find("span").text();
+		
 		IMP.request_pay({
 		    pg : 'inicis', // version 1.1.0부터 지원.
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '주문명:결제테스트',
-		    amount : '100',
-		    buyer_email : 'natista99@gmail.com',
-		    buyer_name : 'user02',
-		    buyer_tel : '010-8711-6666',
-		    buyer_addr : '울산 남구 옥동',
-		    buyer_postcode : '123-456',
+		    amount : sold_price,
+		    buyer_email : '${purchaserMemberVo.email}',
+		    buyer_name : '${purchaserMemberVo.m_id}',
+		    buyer_tel : '${purchaserMemberVo.m_phonenumber}',
+		    //buyer_addr : '${purchaserMemberVo.m_phonenumber}',
+		    //buyer_postcode : '123-456',
 		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 		}, function(rsp) {
 			var msg="";
@@ -51,9 +51,51 @@ $(function(){
 		        msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
 		    }
-		});
+		});//IMP.request_pay	
+		
+		$(this).parent().hide();
+	    $(this).parent().next().show();
 	});
-});
+	
+	/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
+	//메인으로
+	$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
+		$(".sidebar__nav > li:eq(1) > ul").show();	
+	});
+	
+	$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseout" , function(){
+		$(".sidebar__nav > li:eq(1) > ul").hide();	
+	});
+	
+	// 관심상품
+	$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
+		$(".sidebar__nav > li:eq(2) > ul").show();
+	});
+	
+	$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
+		$(".sidebar__nav > li:eq(2) > ul").hide();
+	});
+	
+	//내상품
+	$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
+		$(".sidebar__nav > li:eq(3) > ul").show();
+	});
+	
+	$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
+		$(".sidebar__nav > li:eq(3) > ul").hide();
+	});
+	
+	/* 주문내역
+	$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
+		$(".sidebar__nav > li:eq(4) > ul").show();
+	});
+	
+	$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
+		$(".sidebar__nav > li:eq(4) > ul").hide();
+	});
+	/* ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
+});//function
+
 </script>
 <br><br>
 <div class="container-fluid">
@@ -69,7 +111,30 @@ $(function(){
 						<td>입찰 날짜:<span>${purchaserList.bid_date}</span></td>
 						<td rowspan='3'><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></td>
 						<td rowspan='2'>${purchaserList.p_title}</td>
-						<td rowspan='3'><a href="#" id="payment"><img src="/resources/auctionImage/btn_payment.png"></a></td>
+						<!-- 결제 전 버튼 시작 -->
+						<td rowspan='3' class="tdPaymentBefore"><a href="#" class="payment"><img src="/resources/auctionImage/btn_payment.png"></a></td>
+						<!-- 결제 전 버튼 끝 -->
+						
+						<!-- 결제 완료 테이블 시작-->
+						<td rowspan='3' class="tdPaymentAfter" style="display:none">
+							<h1>결제가 완료 되었습니다</h1>
+							<table>
+								<tr>
+									<td>고유ID</td>
+									<td>유저ID</td>
+									<td>결제 금액</td>
+									<td>카드 승인번호</td>
+								</tr>
+								<tr>
+									<td id="txtId">고유ID</td>
+									<td id="txtUserId">유저ID</td>
+									<td id="txtPrice">결제 금액</td>
+									<td id="txtCardNum">카드 승인번호</td>
+								</tr>
+							</table>
+						</td>
+						<!-- 결제 완료 테이블 끝 -->
+						
 					</tr>
 					<tr>
 						<td>최초금액:<span>${purchaserList.present_price}</span></td>
@@ -78,7 +143,7 @@ $(function(){
 				<!-- 												<td>결제버튼</td> -->
 					</tr>
 					<tr>
-						<td>낙찰금액:<span>${purchaserList.sold_price}</span></td>
+						<td>낙찰금액:<span class="classSold_price">${purchaserList.sold_price}</span></td>
 				<!-- 												<td>이미지</td> -->
 						<td>판매자:<span>${purchaserList.seller}</span></td>
 				<!-- 												<td>결제버튼</td> -->
@@ -111,6 +176,45 @@ $(function(){
 </table>
 <button type="button" id="btnPayListCheck">창닫기</button>
  -->
+
+<!-- aside 시작 -->
+<aside class="sidebar">
+	<nav>
+		<ul class="sidebar__nav">
+		 <!-- 메인 -->
+			<li>
+				<a href="/auction/auctionMain" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/main3.png"/></i>
+					<span class="sidebar__nav__text">메인으로</span>
+				</a>
+					<ul class="sidebar__submenu">
+					</ul>
+			</li>
+		 <!-- 관심상품 -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/favorite2.png"/></i>
+					<span class="sidebar__nav__text">관심상품</span>
+				</a>
+			</li>
+		 <!-- 내상품 -->
+			<li>
+				<a href="/auction/auctionResisterList" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/myitem2.png"/></i>
+					<span class="sidebar__nav__text">내상품</span>
+				</a>
+			</li>
+		 <!-- 주문내역 -->
+<!-- 			<li> -->
+<!-- 				<a href="/auction/auctionPurchaseSelected?url=auctionPurchaseSelected" class="sidebar__nav__link"> -->
+<!-- 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i> -->
+<!-- 					<span class="sidebar__nav__text">주문 하기</span> -->
+<!-- 				</a> -->
+<!-- 			</li> -->
+		</ul>
+	</nav>
+</aside>
+<!-- aside 끝 -->
 
 </body>
 </html>

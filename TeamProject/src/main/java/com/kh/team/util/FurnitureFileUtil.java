@@ -93,6 +93,7 @@ public class FurnitureFileUtil {
 	}
 	
 	public static boolean deleteImage(String fileName) {
+		System.out.println("FurntureFileUpload deleteImage에서 fileName:"+fileName);
 		File f = new File(fileName);
 		if(f.exists()) {
 			f.delete();
@@ -102,12 +103,23 @@ public class FurnitureFileUtil {
 	}
 	
 	public static boolean deleteFolder(String folderName) {
+		System.out.println("FurntureFileUpload deleteFolder에서 folderName:"+folderName);
 		String folderPath = uploadFileDirectory + "/" +  folderName;
 		File f = new File(folderPath);
-		if(f.exists()) {
-			f.delete();
-		}
 		
+		while(f.exists()) {
+			File[] files = f.listFiles();
+			
+			for(int i=0 ; i<files.length ; i++) {
+				files[i].delete();
+				System.out.println(folderName+"폴더안에 파일이 삭제 됨");
+			}
+			
+			if(files.length == 0 && f.isDirectory()) {
+				f.delete();
+				System.out.println(folderName+"폴더가 삭제 됨");
+			}
+		}
 		return true;
 	}
 }

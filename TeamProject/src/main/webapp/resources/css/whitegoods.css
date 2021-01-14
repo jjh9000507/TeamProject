@@ -1,0 +1,61 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+<style>
+.categoryMenu li{
+	width:243px;
+}
+.categoryMenu{
+ 	padding-left : 155px;
+	padding-bottom : 5px;
+	text-align: center;
+}
+.productList {
+	padding : 0px;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#tab-menu {
+  width: 830px; 
+  background : white;
+  position: relative; 
+  left: 50%;
+  top: 50px;
+  transform: translatex(-50%);
+  border-radius: 4px;
+  
+}
+#tab-btn ul {
+  overflow: hidden;
+}
+#tab-btn li {
+  float: left; width: 150px; text-align: center;
+  border: 1px soild;
+}
+#tab-btn li a {
+  display: block; 
+  color: black; 
+  padding: 15px 20px; 
+  font-weight: bold;
+}
+#tab-btn li.active a {
+  border-bottom: 3px solid #2b210e;
+  color: #2b210e;
+}
+
+#tab-cont {
+  width: 100%; 
+  background: #fff; padding: 20px; 
+  box-sizing: border-box;
+  border-radius: 0 0 4px 4px;
+  padding-left: 20%;
+}
+
+#tab-cont div a {
+	padding-right: 4%;
+	color: black;
+    font-size: 12px;
+}
+
+</style>

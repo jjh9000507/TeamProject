@@ -2,6 +2,9 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp" %>
 <style>
+table td{
+	vertical-align: middle;
+}
 .listMenu{
 	text-align: center;
 	font-size:15px;
@@ -14,16 +17,38 @@
 	font-size:15px;
 	text-align: center;
 }
+.cate_content{
+	width:1000px;
+}
 .cate_btn{
 	text-align:center;
-	width:60px;
+	width:50px;
+}
+.cate_btns{
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	text-decoration: none;
+	border-radius: 4px;
+}
+.cate_btns:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
+}
+
+.trShow{
+	top: 50%;
+	left: 50%;
+	text-align: center;
 }
 </style>
 <script>
 	$(function(){
-		$(".btnShow").on("click", function(){
-			var that = $(this).parent().parent().next();
-			that.toggle();
+		$(".trShow").on("click", function(){
+			$(this).next().toggle();
 		});
 	});
 </script>
@@ -46,14 +71,14 @@
 			<table class="table">
 				<tbody>
 				<c:forEach var="QandAVo" items="${QAList}">
-					<tr>
+					<tr class="trShow">
 						<c:forEach var="QACateVo" items="${qaCategoryList}">
 							<c:if test="${QandAVo.qa_cate_no == QACateVo.qa_cate_no}">
 								<td class="cate_name">${QACateVo.qa_cate_name}</td>
 							</c:if>
 						</c:forEach>
 						<td class="cate_content">${QandAVo.q_content}</td>
-						<td class="cate_btn"><button type="button" class="btnShow">+</button></td>
+						<td class="cate_btn "><p class="btn cate_btns">+</p></td>
 					</tr>
 					<tr style="display: none;">
 						<td class="cate_name"></td>

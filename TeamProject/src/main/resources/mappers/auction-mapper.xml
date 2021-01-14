@@ -113,8 +113,14 @@
 		select * from auction_main_img
 	</select>
 	
+	<!-- 메인에서 전체 다 가져올 때 -->
 	<select id="getAuctionImg" resultType="AuctionImgVo">
 		select * from auction_img
+	</select>
+
+	<!-- 수정에서 해당 이미지만 가져올 때 -->
+	<select id="getAuctionImgModify" resultType="AuctionImgVo">
+		select * from auction_img where p_no=#{p_no} 
 	</select>
 	
 	<select id="getNextSeqNumber" resultType="int">
@@ -142,7 +148,6 @@
 	</select>
 	
 	<!-- 입찰 시작 -->
-	
 	<select id="getAuctionTempBid" resultType="AuctionTempBidVo">
 		select * from auction_temp_bid where p_no = #{p_no}
 	</select>
@@ -249,6 +254,8 @@
 	<delete id="deleteAuction_expration_date">
 		delete from auction_expiration_date where p_no=#{p_no}
 	</delete>
+	
+	<!-- auction_img에서 p_no에 해당하는 모든 파일들을 삭제 -->
 	<delete id="deleteAuction_img">
 		delete from auction_img where p_no=#{p_no}
 	</delete>
@@ -265,6 +272,13 @@
 		delete from auction where p_no=#{p_no}
 	</delete>
 	
+	<!-- 수정할 때 auction_img에서 해당 파일만 삭제 -->
+	<delete id="modifyAuction_imgDel">
+		delete from auction_img where img_name=#{fileAllName} and p_no=#{p_no}
+	</delete>
 	
-	
+	<!-- 수정할 때 이미지 한개만 넣기 -->
+	<insert id="modifyAuction_imgInsert">
+		insert into auction_img (img_no, img_name, p_no) values(seq_auction_img_no.nextval,#{fileAllName},#{p_no})
+	</insert>
 </mapper>

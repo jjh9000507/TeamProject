@@ -14,6 +14,7 @@ import com.amazonaws.auth.BasicAWSCredentials;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.AmazonS3ClientBuilder;
+import com.kh.team.controller.AuctionFileS3Controll;
 import com.kh.team.controller.AuctionS3Key;
 import com.kh.team.dao.AuctionDao;
 import com.kh.team.domain.AuctionAddressVo;
@@ -84,35 +85,17 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	@Transactional
 	public void insertAuctionImg(AuctionImgVo auctionImgVo) throws Exception {
 		
-		//credential과 client객체 생성
-		AWSCredentials credential = new BasicAWSCredentials(accesskey, secretkey);
-		
-		AmazonS3 s3Client = AmazonS3ClientBuilder
-				.standard()
-				.withCredentials(new AWSStaticCredentialsProvider(credential))
-				.withRegion(Regions.AP_NORTHEAST_2)
-				.build();
-		
-		String folderName = Integer.toString(auctionImgVo.getP_no());
-		
 		String[] images = auctionImgVo.getImages();
+		AuctionFileS3Controll fs3;
+		
 		if(images != null) {
-			System.out.println("-----------------------AuctionServiceImpl에서 s3 접속 --------------------------------------");
 			for(int i=0 ; i<images.length ; i++) {
-	
-				//images[i]에는 경로가 포함되어있으니깐 이름만 추출한다
-				String fileNamePath = images[i];
-				int length = fileNamePath.length();
-				int lastSlash = fileNamePath.lastIndexOf("/");
-				String fileName = fileNamePath.substring(lastSlash+1, length);
-				String filePath = "C:/Temp/auctionImg/"+folderName+"/"+fileName;//저장할 파일 위치
+				System.out.println("-----------------------AuctionServiceImpl에서 s3 접속 --------------------------------------");
+				String filePathName = images[i];
+				fs3 = new AuctionFileS3Controll(filePathName, 1);
+				fs3.fileS3Controll();
 				
-				String bucketName = "sdk-new-bucket"; //버킷(디렉토리) 이름
-				String bucketKey = folderName+ "/" +fileName; //버킷안에 저장 될 폴더와 파일이름
-				//System.out.println("service insertAuctionImg bucketkey:"+bucketKey);
-				s3Client.putObject(bucketName,bucketKey,new File(filePath));
-				
-				auctionImgVo.setImg_name(images[i]);
+				auctionImgVo.setImg_name(filePathName);
 				System.out.println("AuctionService images["+i+"]:"+images[i]);
 				auctionDao.insertAuctionImg(auctionImgVo);
 			}
@@ -296,5 +279,21 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public AuctionSellVo getAuctionModifyList(int p_no) throws Exception {
 		AuctionSellVo auctionSellVo = auctionDao.getAuctionModifyList(p_no);
 		return auctionSellVo;
+	}
+
+	@Override
+	public List<String> getAuctionImgModify(int p_no) throws Exception {
+		List<String> auctionImgVo = auctionDao.getAuctionImgModify(p_no);
+		return auctionImgVo;
+	}
+
+	@Override
+	public void modifyAuction_imgDel(String fileAllName, int p_no) throws Exception {
+		auctionDao.modifyAuction_imgDel(fileAllName, p_no);
+	}
+
+	@Override
+	public void modifyAuction_imgInsert(String fileAllName, int p_no) throws Exception {
+		auctionDao.modifyAuction_imgInsert(fileAllName, p_no);		
 	}
 }

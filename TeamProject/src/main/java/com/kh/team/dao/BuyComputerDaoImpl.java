@@ -83,6 +83,45 @@ public class BuyComputerDaoImpl implements BuyComputerDao {
 		return select_number;		
 	}
 
+	// -----------------------------------------------------
+	
+	@Override
+	public int updateNumForGetPurchaseLike(int c_com_no,int like_num_plus, int select_number) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("c_com_no", c_com_no);
+		map.put("like_num", select_number);		
+		map.put("like_num_plus", like_num_plus);		
+		
+		int count = sqlSession.update(NAMESPACE + "updateNumForLike", map);
+		System.out.println("updateNumForGetPurchaseLike_like_count:" + count);
+		return count;
+	}
+
+	@Override
+	public int selectNumForGetPurchaseLike(int c_com_no) throws Exception {
+		int like_num = sqlSession.selectOne(NAMESPACE + "selectNumForLike", c_com_no);
+		System.out.println("selectNumForGetPurchaseLike_like_num:" + like_num);
+		return like_num;
+	}
+
+	@Override
+	public int updateTotalNumLikePlus(String nok,int like_num_plus, int select_number) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("nok", nok);
+		map.put("select_number", select_number);		
+		map.put("like_num_plus", like_num_plus);		
+		int count = sqlSession.update(NAMESPACE + "updateTotalNumLikePlus", map);
+		System.out.println("updateTotalNumLikePlus_count:" + count);
+		return count;
+	}
+
+	@Override
+	public int selectTotalTableLike(String nok) throws Exception {
+		int totallike = sqlSession.selectOne(NAMESPACE + "selectTotalTableLike", nok);
+		System.out.println("selectTotalTableLike_totallike:" + totallike);
+		return totallike;
+	}
+
 	
 		
 }

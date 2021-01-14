@@ -7,27 +7,13 @@
 	href="https://fonts.googleapis.com/css?family=Roboto&display=swap" />
 <link rel="stylesheet" href="/resources/css/styles.css" />
 <link rel="stylesheet" href="/resources/css/sidebar.css" />
-<%@ include file="/resources/css/clothes.css"%>
+<%@ include file="/resources/css/whitegoods.css"%>
 <%@ include file="../include/header.jsp"%>
-<style>
-.categoryMenu li{
-	width:243px;
-}
-.categoryMenu{
- 	padding-left : 155px;
-	padding-bottom : 5px;
-	text-align: center;
-}
-.productList {
-	padding : 0px;
-	margin-left: auto;
-	margin-right: auto;
-}
-</style>
+
 <script>
 $(function(){
 
-	$(".showOtherCategory").on("click", function(){
+	$(".showOtherCategory").on("mouseover", function(){
 		var cate_no = $(this).attr("data-cateno");
 		var url="/whitegoods/whitegoodsCate";
 		var sendData = {
@@ -45,8 +31,6 @@ $(function(){
 				
 				that.append(a);
 			});
-			
-			
 		});
 	});
 }); // main function

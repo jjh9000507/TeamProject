@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="https://cdn.materialdesignicons.com/4.9.95/css/materialdesignicons.min.css" />
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap" />
 <link rel="stylesheet" href="/resources/css/styles.css" />
-<link rel="stylesheet" href="/resources/css/sidebar.css" />    
+<link rel="stylesheet" href="/resources/css/sidebar.css" />
     
 <%@ include file="../include/header.jsp"%>
 
