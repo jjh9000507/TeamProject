@@ -193,6 +193,7 @@ $(function(){
 		console.log("roadAddress:" + roadAddress);
 		console.log("extraAddress:" + extraAddress);
 		console.log("detailAddress:" + detailAddress);
+		$("#btnModalCloseComputer").trigger("click");
 		alert("서버에 저장되었습니다.");
 	});
 	var m_id = "${sessionScope.memberVo.m_id}";
@@ -202,9 +203,31 @@ $(function(){
 	var messageForDriver = "";
 	
 	$("#pushMessageAndTel").click(function(){
-		memberOfTelephone = $("#memberOfTelephone").val();
-		messageForDriver = $("#messageForDriver").val();
-		alert("서버에 기입되었습니다");		
+		var messageForDriverBefore = $("#messageForDriver").val();		
+		var m_length = messageForDriverBefore.length;
+		var memberOfTelephone1 = $("#memberOfTelephone1").val();
+		var memberOfTelephone2 = $("#memberOfTelephone2").val();
+		var memberOfTelephone3 = $("#memberOfTelephone3").val();
+		var mt_length1 = memberOfTelephone1.length;
+		var mt_length2 = memberOfTelephone2.length;
+		var mt_length3 = memberOfTelephone3.length;
+		if((m_length == 0) || (mt_length1 == 0) || (mt_length2 == 0) || (mt_length3 == 0)){
+			alert("제대로 기입하십시오");
+			$("#stringLengthSpan").text(m_length);
+		}else{
+			if((m_length < 51) && (mt_length1 < 4) && (mt_length2 < 5) && (mt_length3 < 5)){
+				$("#stringLengthSpan").text(m_length);
+				memberOfTelephone = memberOfTelephone1 + memberOfTelephone2 + memberOfTelephone3;		
+				messageForDriver = messageForDriverBefore;
+				alert("서버에 기입되었습니다");	
+			}else{
+				alert("글자수를 초과하였거나 올바른 연락처가 아닙니다");
+				$("#stringLengthSpan").text(m_length);
+			}	
+		}
+			
+		console.log("memberOfTelephone:" + memberOfTelephone);
+		console.log("messageForDriver:" + messageForDriver);			
 	});
 	
 	$("#buyProduct").click(function(){
@@ -278,11 +301,12 @@ $(function(){
 	});
 	
 	$("#changeMemberNameButton").click(function(){
+		
 		if($("#changeMemberName").is(":checked") == true){
 			alert("주문자 변경 체크박스 체크됨");	
 			
 			if(m_id != ""){
-				alert("접속됨");
+				alert("접속됨");	
 				var buyerName = $("#buyerName").val();
 				console.log("buyerName:" + buyerName);
 				if(buyerName != ""){
@@ -523,11 +547,13 @@ $(function(){
 						</td>
 						<td>
 						<label>연락처:</label>
-						<input type="tel" placeholder="연락처를 입력하시오" id="memberOfTelephone"/>
+						<input type="text" placeholder="첫번호" id="memberOfTelephone1"/>-
+						<input type="text" placeholder="둘째번호" id="memberOfTelephone2"/>-
+						<input type="text" placeholder="셋째번호" id="memberOfTelephone3"/>
 						</td>
 						<td>
 						<label>배송메세지:</label>
-						<input placeholder="택배 기사님께 부탁할 사항을 입력하시오" type="text" id="messageForDriver"/>(<span></span>/50자)
+						<input placeholder="택배 기사님께 부탁할 사항을 입력하시오" type="text" id="messageForDriver"/>(<span id="stringLengthSpan"></span>/50자)
 						</td>
 						<td>						
 						<button type="button" id="pushMessageAndTel">기입</button><br>							
