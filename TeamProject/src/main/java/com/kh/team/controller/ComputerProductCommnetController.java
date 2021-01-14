@@ -104,12 +104,11 @@ public class ComputerProductCommnetController {
 			productBuyLike = ((double)likeNum / (double)select_like) * 100;
 			double resultLike = productBuyLike * 100;
 			double resultAgainLike =  Math.floor(resultLike);
-			double resultConfrimLike = resultAgainLike / 100;
+			productBuyLike = resultAgainLike / 100;
 			
 			System.out.println("productBuyLike:" + productBuyLike);
 			System.out.println("result:" + resultLike);
-			System.out.println("resultAgain:" + resultAgainLike);
-			System.out.println("resultConfrim:" + resultConfrimLike);
+			System.out.println("resultAgain:" + resultAgainLike);			
 		}
 		String view = "";
 		if(count == CHECK_FOR_INDEX) {
