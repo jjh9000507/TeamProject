@@ -3,7 +3,8 @@
 <%@ include file="../include/admin_header.jsp"%>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
 			<form role="form" action="insertNotice" method="get">
 				
 				<div class="form-group">
@@ -19,7 +20,9 @@
 				<button type="submit" class="btn btn-primary">
 					작성완료
 				</button>
+				<a href="/admin/adminNotice" class="btn btns">취소</a>
 			</form>
 		</div>
+		<div class="col-md-3"></div>
 	</div>
 </div>

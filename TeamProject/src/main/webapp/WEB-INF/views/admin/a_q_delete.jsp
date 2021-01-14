@@ -14,6 +14,22 @@
 .btns{
 	width:200px;
 }
+a.btns{
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	text-decoration: none;
+	border-radius: 4px;
+	float:left;
+}
+
+a.btns:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
+}
 </style>
 <script>
 	$(function(){
@@ -22,7 +38,8 @@
 			that.toggle();
 		});
 		
-		$(".btnDelete").on("click", function(){
+		$(".btnDelete").on("click", function(e){
+			e.preventDefault();
 			var qa_no = $(this).attr("data-qano");
 			var url="/admin/QandADeleteRun";
 			var sendData = {
@@ -39,6 +56,14 @@
 
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-md-5"></div>
+		<div class="col-md-3">
+			<a class="btn btns" href="/admin/adminQandAMain">이전 페이지</a>
+			<a class="btn btns" href="/admin/adminForm">관리자 페이지 홈으로</a>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
+	<div class="row">
 		<div class="col-md-12">
 			<table class="table">
 				<tbody>
@@ -52,8 +77,8 @@
 						<td class="cate_content">${QandAVo.q_content}</td>
 						<td class="cate_btn"><button type="button" class="btnShow">+</button></td>
 						<td class="btns">
-							<a href="/admin/qaUpdate/${QandAVo.qa_no}" class="btn btn-success btnUpdate" data-qano="${QandAVo.qa_no}">수정</a>
-							<button type="button" class="btnDelete" data-qano="${QandAVo.qa_no}">삭제</button>
+							<a href="/admin/qaUpdate/${QandAVo.qa_no}" class="btn btns btnUpdate" data-qano="${QandAVo.qa_no}">수정</a>
+							<a href="#" class="btn btns btnDelete" data-qano="${QandAVo.qa_no}">삭제</a>
 						</td>
 					</tr>
 					<tr style="display: none;">
