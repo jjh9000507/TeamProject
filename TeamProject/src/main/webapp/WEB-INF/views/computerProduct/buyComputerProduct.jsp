@@ -8,8 +8,9 @@
 
 <script>
 $(function(){
-	var price = "${buyComputerVo.c_com_price}";
+	var price = "${buyComputerVo.c_com_price}";	
 	var m_id = "${sessionScope.memberVo.m_id}";
+	
 	console.log("m_id:" + m_id);
 	var priceFinal = "";
 	var index = "";
@@ -225,16 +226,21 @@ $(function(){
 	
 	$("#iLikeThisProduct").click(function(){
 		var c_com_name = "${buyComputerVo.c_com_name}";
+		var c_com_no = "${buyComputerVo.c_com_no}";
 		var url = "/computerProductComment/sendForGetPurchaseLike";
 		var sendData = {
-				"productName" : c_com_name
+				"productName" : c_com_name,
+				"c_com_no"	  : c_com_no
+				
 		};
 		if(m_id != ""){
 			$.post(url,sendData,function(data){
-				if(data == "success"){
-					alert("해당 상품에 대한 선호도가 올라갔습니다.");
-				}else if(data == "fail"){
+				if(data == "fail"){
 					alert("다시 클릭하시오");
+					
+				}else{
+					alert("선호도 상승");
+					$("#likeValue").text(data);
 				}
 			});
 		}else{
@@ -473,7 +479,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							컴퓨터 카테고리내에서의 선호도:(<span>${productBuyLike}</span>)&percnt;
+							컴퓨터 카테고리내에서의 선호도:(<span id="likeValue">${productBuyLike}</span>)&percnt;
 							<div>
 							<progress value="${productBuyLike}" max="100"></progress>
 							</div>

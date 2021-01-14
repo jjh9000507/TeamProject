@@ -5,7 +5,9 @@ package com.kh.team.controller;
 import java.util.List;
 
 
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.team.domain.BuyComputerVo;
 import com.kh.team.domain.ComputerCommentVo;
+
 import com.kh.team.domain.ProductExplainVo;
 import com.kh.team.service.ComputerCommentService;
 import com.kh.team.service.ComputersService;
@@ -89,10 +92,28 @@ public class ComputerProductCommnetController {
 		String nok = "nok";
 		int like_num_plus = 1;
 		int count = computersService.getPurchaseLike(buyComputerVo,like_num_plus ,nok);
+		int c_com_no = buyComputerVo.getC_com_no();
 		
+		int select_like = computersService.getTotalNumLike(nok);
+		System.out.println("select_like:" + select_like);
+		int likeNum = computersService.getProductNumLike(c_com_no);
+		System.out.println("likeNum:" + likeNum);
+		
+		double productBuyLike = 0;
+		if(select_like != 0) {
+			productBuyLike = ((double)likeNum / (double)select_like) * 100;
+			double resultLike = productBuyLike * 100;
+			double resultAgainLike =  Math.floor(resultLike);
+			double resultConfrimLike = resultAgainLike / 100;
+			
+			System.out.println("productBuyLike:" + productBuyLike);
+			System.out.println("result:" + resultLike);
+			System.out.println("resultAgain:" + resultAgainLike);
+			System.out.println("resultConfrim:" + resultConfrimLike);
+		}
 		String view = "";
 		if(count == CHECK_FOR_INDEX) {
-			view = "success";
+			view = Double.toString(productBuyLike);
 		}else {
 			view = "fail";
 		}

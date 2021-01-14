@@ -4,6 +4,7 @@ package com.kh.team.controller;
 import java.util.List;
 
 
+
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
-import com.kh.team.domain.ComputerCommentVo;
+
+
+
 import com.kh.team.domain.ComputerVo;
-import com.kh.team.domain.ProductExplainVo;
+
 import com.kh.team.service.BuyComputerService;
 import com.kh.team.service.ComputersService;
 
@@ -26,6 +29,7 @@ import com.kh.team.service.ComputersService;
 @Controller
 @RequestMapping("/computerProduct")
 public class ComputersController {	
+	
 	
 	//인젝
 	@Inject
@@ -279,6 +283,9 @@ public class ComputersController {
 			System.out.println("resultConfrim:" + resultConfrimLike);
 			request.setAttribute("productBuyLike", resultConfrimLike);
 		}
+		
+		
+		
 		
 		model.addAttribute("buyComputerVo", computerVo);
 		request.setAttribute("indexName", indexName);

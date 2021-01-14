@@ -8,6 +8,7 @@ public class BuyComputerVo {
 	private String productName;
 	private String sendMethod;
 	private int p_no;
+	private int c_com_no;
 	public int getPrice() {
 		return price;
 	}
@@ -44,11 +45,16 @@ public class BuyComputerVo {
 	public void setP_no(int p_no) {
 		this.p_no = p_no;
 	}
+	public int getC_com_no() {
+		return c_com_no;
+	}
+	public void setC_com_no(int c_com_no) {
+		this.c_com_no = c_com_no;
+	}
 	@Override
 	public String toString() {
 		return "BuyComputerVo [price=" + price + ", seller=" + seller + ", productNum=" + productNum + ", productName="
-				+ productName + ", sendMethod=" + sendMethod + ", p_no=" + p_no + "]";
+				+ productName + ", sendMethod=" + sendMethod + ", p_no=" + p_no + ", c_com_no=" + c_com_no + "]";
 	}
-	
 	
 }
