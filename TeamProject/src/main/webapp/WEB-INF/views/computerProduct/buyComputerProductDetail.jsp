@@ -11,7 +11,7 @@ setInterval(function(){
     var h = timer.getHours();
     var m = timer.getMinutes();
     var s = timer.getSeconds();
-    document.getElementById('clock').innerHTML = h + ":" + m + ":" + s;
+    document.getElementById('clock').innerHTML = h + "시-" + m + "분-" + s + "초";
 },1000);
 
 var todayValueYear = "";
@@ -169,7 +169,11 @@ $(function(){
 	$("#buyYear").text(todayValueYear);
 	$("#buyMonth").text(todayValueMonth);
 	$("#buyDate").text(todayValueDate);
-	
+	var price = "${buyComputerInfo.price}";
+	var seller = "${buyComputerInfo.seller}";
+	var productNum = "${buyComputerInfo.productNum}";
+	var productName = "${buyComputerInfo.productName}";
+	var sendMethod = "${buyComputerInfo.sendMethod}";
 	console.log("todayValueYear:" + todayValueYear);
 	console.log("todayValueMonth:" + todayValueMonth);
 	console.log("todayValueDate:" + todayValueDate);
@@ -267,6 +271,11 @@ $(function(){
 
 			var urlSendProductInfo = "/buyComputerProduct/sendProductInfoBought";
 			var sendDataSendProductInfo = {
+					"price"					: price,
+					"seller"				: seller,
+					"productNum"			: productNum,
+					"productName"			: productName,
+					"sendMethod"			: sendMethod,
 					"radioVal"    			: radioVal,
 					"memberOfTelephone"     : memberOfTelephone,
 					"messageForDriver"      : messageForDriver,					
@@ -584,9 +593,9 @@ $(function(){
 					<tr>
 						<td>
 						<form>
-							<input type="radio" name="Payment" value="cardPayment" checked="checked">신용/체크카드
-							&nbsp&nbsp<input type="radio" name="Payment" value="bankPayment">무통장입금
-							&nbsp&nbsp<input type="radio" name="Payment" value="phonePayment">휴대폰결제
+							<input type="radio" name="Payment" value="신용/체크카드" checked="checked">신용/체크카드
+							&nbsp&nbsp<input type="radio" name="Payment" value="무통장입금">무통장입금
+							&nbsp&nbsp<input type="radio" name="Payment" value="휴대폰결제">휴대폰결제
 						</form>
 						</td>
 						<td>

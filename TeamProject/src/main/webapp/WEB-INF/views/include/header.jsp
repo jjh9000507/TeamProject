@@ -126,12 +126,6 @@ $(function(){
 	            }
 	        }).open();
 	    }
-	
-	
-
-
-
-
 </script>
 
 <body>
