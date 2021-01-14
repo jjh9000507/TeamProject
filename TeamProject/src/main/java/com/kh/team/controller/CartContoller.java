@@ -38,7 +38,7 @@ public class CartContoller {
 	//장바구니 삭제
 	@RequestMapping(value="/cartDelete", method=RequestMethod.GET)
 	@ResponseBody
-	public String cartDelete(int cart_no) throws Exception{
+	public String cartDelete(int[] cart_no) throws Exception{
 		cartService.cartOutput(cart_no);
 		return "success";
 	}
@@ -63,5 +63,22 @@ public class CartContoller {
 		}
 		
 		return msg;
+	}
+	
+	//여러개 선택 장바구니 삭제
+	@RequestMapping(value="/cartListDelete", method=RequestMethod.POST)
+	public String cartListDelete(int[] cart_no, String type) throws Exception{
+//		for(int i = 0; i<cart_no.length; i++) {
+//			System.out.println("cart_no: " + cart_no[i]);
+//		}
+		cartService.cartOutput(cart_no);
+		return "redirect:/cart/cartPage";
+	}
+	
+	//상품 구매
+	@RequestMapping(value="/cartListBuy", method=RequestMethod.POST)
+	public String cartListBuy(int[] cart_no, String type) throws Exception{
+		
+		return "";
 	}
 }
