@@ -2,9 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ include file="/resources/css/bootstrap.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-
 <%@ include file="../include/header.jsp"%>
-<link rel="stylesheet" href="/resources/css/sidebar.css" /> 
 
 <%
 	String inputYn = request.getParameter("inputYn");
@@ -15,10 +13,10 @@
 	String zipNo = request.getParameter("zipNo"); //우편번호
 	String addrDetail = request.getParameter("addrDetail"); //사용자가 직접 입력
 %>
+<html>
+<head>
 
-<!-- 결제 시스템추가 -->
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
-<!-- <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script> -->
+<link rel="stylesheet" href="/resources/css/sidebar.css" />
 
 <!-- 달력추가 -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
@@ -26,8 +24,7 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
 
-<html>
-<head>
+<script type="text/javascript" src="/resources/js/auctionScript.js" charset="UTF-8"></script>
 
 <style>
 #fileDrop {
@@ -36,12 +33,24 @@
 	background-color: white;
 	border: 4px dashed #c8d7ff;
 	}
-.img-class {
-    width: auto; 
-    height: auto;
-    max-width: 200px;
-    max-height: 300px;
-	}
+	
+.tablePurchase{
+	margin-bottom: 24px;
+	width: 800px; 
+	height: 150px;
+}
+
+.tdPurchase{
+	border-right-width: 3px;
+	width: 300px;
+	font-family: verdana;
+	font-size:14px;
+}
+
+.tabTitle{
+	font-family: verdana;
+	font-size:14px;
+}
 </style>
 
 <!-- 입력 값
@@ -157,7 +166,6 @@ $(function() {
 		$("#e_month").val(dates[1]);
 		$("#e_day").val(dates[2]);
 	});
-
 	//------------------------ 달력 끝 ---------------------------------//
 	
 	//----------------------------------------- 이미지 추가----------------------------------------------------------//
@@ -210,7 +218,6 @@ $(function() {
 
 	$("#uploadList").on("click",".a_times",function(){
 		var that = $(this);
-		
 		var fileName = that.next().attr("value");
 		console.log(fileName)
 		
@@ -219,9 +226,7 @@ $(function() {
 		};
 		
 		var url = "/furniture/deleteAjax"
-		
 		$.get(url,sendData, function(result){
-				
 			if(result == "success"){
 				that.parent().remove();
 			}
@@ -253,10 +258,17 @@ $(function() {
 		});
 		//메인 이미지 결정
 		var radioValue = $("input[name=radioMainImg]:checked").val();//main이미지 이름 가져오기
-		var htmlMainImgName = "<input type='hidden' name='main_img_name' value='"+radioValue+"'>"
-		$("#writeForm").prepend(htmlMainImgName);
+		console.log("radioValue:"+radioValue);
 		
-		$("#writeForm").submit();
+		
+		if(radioValue == null || radiValue == "undefined"){
+			alert("메인 이미지를 선택하세요");
+		}else{
+			var htmlMainImgName = "<input type='hidden' name='main_img_name' value='"+radioValue+"'>"
+			$("#writeForm").prepend(htmlMainImgName);
+			
+			//$("#writeForm").submit();
+		}
 	});	
 			
 	//--------------------------------------------- 주소  ----------------------------------------------------------//
@@ -312,6 +324,7 @@ $(function() {
 			$("#spanZip").text(zip);
 			$("#spanRoadAddr").text(roadAddr);
 			$("#spanjibundAddr").text(jibunAddr);
+			$("#txtjibundAddrDetail").val("");
 			
 			$("#zip").val(zip);
 			$("#road_address").val(roadAddr);
@@ -369,6 +382,7 @@ $(function() {
 		
 });//function	
 
+/*
 	//--- 엔터키 ---//
 	function enterSearch() {
 		var evt_code = (window.netscape) ? ev.which : event.keyCode;
@@ -410,10 +424,11 @@ $(function() {
 		}
 
 	}//changeMonth
-	
+
 	function openPop(price){
 	    var popup = window.open('/auction/auctionPurchaseSelected?price='+price, '결제 팝업', 'width=920px,height=670px,scrollbars=yes,resizable=no,toolbar=no,menubar=no,status=no,titlebar=no');
-	}
+	}*/
+	
 </script>
 </head>
 
@@ -474,11 +489,11 @@ $(function() {
 							
 							<div class="tabbable" id="tabs-778663">
 								<ul class="nav nav-tabs">
-								<li class="nav-item"><a class="nav-link active" href="#tab1" data-toggle="tab" id="bidingItem">입찰 중인 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab2" data-toggle="tab" id="bidingFinishItem">입찰 종료된 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab3" data-toggle="tab" id="soldItem">거래된 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab4" data-toggle="tab" id="purchaseItem">구매한 상품</a></li>
-								<li class="nav-item"><a class="nav-link" href="#tab5" data-toggle="tab" id="registerItem">물품 등록</a></li>
+								<li class="nav-item"><a class="nav-link active tabTitle" href="#tab1" data-toggle="tab" id="bidingItem">입찰 중인 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab2" data-toggle="tab" id="bidingFinishItem">입찰 종료된 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab3" data-toggle="tab" id="soldItem">거래된 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab4" data-toggle="tab" id="purchaseItem">구매한 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab5" data-toggle="tab" id="registerItem">물품 등록</a></li>
 								</ul>
 				
 								<div class="tab-content">
@@ -583,28 +598,28 @@ $(function() {
 									<div class="tab-pane" id="purchaseItemContent"><!-- tab4 -->
 										<!---------------------------------- tab4 구매한 상품 div 시작 ------------------------------------>
 										<c:forEach var="purchaserList" items="${purchaserList}" >
-										<table border='1'>
+										<table border='1' class="tablePurchase">
 											<tr>
-												<td>입찰 날짜:<span>${purchaserList.bid_date}</span></td>
-												<td rowspan='3'><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></td>
-												<td rowspan='2'>${purchaserList.p_title}</td>
+												<td class="tdPurchase">입찰 날짜:<span>${purchaserList.bid_date}</span></td>
+												<td rowspan='3' style="width:130px"><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:150px;width:150px"></td>
+												<td class="tdPurchase" rowspan='2'>${purchaserList.p_title}</td>
 <%-- 												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.sold_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td> --%>
 											</tr>
 											<tr>
-												<td>최초금액:<span>${purchaserList.present_price}</span></td>
+												<td class="tdPurchase">최초금액:<span>${purchaserList.present_price}</span></td>
 <!-- 												<td>이미지</td> -->
 <!-- 												<td>제목</td> -->
 <!-- 												<td>결제버튼</td> -->
 											</tr>
 											<tr>
-												<td>낙찰금액:<span>${purchaserList.sold_price}</span></td>
+												<td class="tdPurchase">낙찰금액:<span>${purchaserList.sold_price}</span></td>
 <!-- 												<td>이미지</td> -->
-												<td>판매자:<span>${purchaserList.seller}</span></td>
+												<td class="tdPurchase">판매자:<span>${purchaserList.seller}</span></td>
 <!-- 												<td>결제버튼</td> -->
 											</tr>
 										</table>
 										</c:forEach>
-										<!---------------------------------- tab4 구매한 상품 div 시작 ------------------------------------>
+										<!---------------------------------- tab4 구매한 상품 div 끝 ------------------------------------>
 									</div>
 									
 									

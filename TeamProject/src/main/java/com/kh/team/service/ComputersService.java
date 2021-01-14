@@ -2,6 +2,7 @@ package com.kh.team.service;
 
 import java.util.List;
 
+import com.kh.team.domain.BuyComputerVo;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ComputerVo;
@@ -34,4 +35,14 @@ public interface ComputersService {
 		public int buyComputerComment(String c_com_product) throws Exception;
 		//컴퓨터 제품 구매 폼 상품문의 갯수 보여주기
 		public int buyComputerExplain(String c_com_product) throws Exception;
+		
+		
+		//------------------------------
+		
+		//해당 제품 구매시 컴퓨터 카테고리내의 구매한 품목의 선호도를 구해오는 기능
+		public int getPurchaseLike(BuyComputerVo buyComputerVo,int like_num_plus, String nok) throws Exception;
+		//전체 구매상품 갯수 가져오기
+		public int getTotalNumLike(String nok) throws Exception;
+		//선택상품 구매갯수 가져오기
+		public int getProductNumLike(int c_com_no) throws Exception;
 }
