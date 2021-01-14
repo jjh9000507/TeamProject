@@ -13,49 +13,14 @@
 .show1{
 	border-top: 2px solid #CCC;
 }
-.show2{
-	border-bottom: 2px solid #CCC;
-}
-#divProductData{
-	margin-left: 200px;
-}
-#btnsList{
-	margin-left: 1800px;
-}
-#div{
-	text-align: right;
-}
-.imgProduct{
-	text-align: center;
-}
-.content{
-	text-align: center;
-	font-size: 25px;
-}
-.detail{
-	font-size:30px;
-	text-align: center;
-}
-.btndetail{
-	font-size: 20px;
-    
-}
-.btnlist{
-	width: 972px;
-	background : white;
-	float: right;
-}
 
-.cart{
-	background-color: white;
-	border: 1px solid;
-}
+.prod-image__detail{float:left;width:410px;height:410px}
 
-.sell{
-	background-color: red;
-	border: 1px solid black;
-	color:white;
-}
+.prod-buy-header{position:relative;padding:0 0 10px;border-bottom:1px solid #ccc}
+.prod-buy-header .prod-buy-header__title{font-size:18px;font-weight:bold;width:380px}
+.prod-buy-header .prod-buy-header__title{width:375px}
+.prod-buy-header {padding-top:2px;*zoom:1}
+.prod-buy-header {content:" ";display:table}
 </style>
 <script>
 	$(function(){
@@ -94,18 +59,7 @@
 	<div class="col-md-8 productshow show1">
 <br>
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
-	<div id="divProductData" style="padding-top: 150px;">
-		<ul class="nav nav-pills list">
-			<li class="nav-item"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}" style="width:200px; height:260px;"/></li>
-			<li class="nav-item detail" style="width:360px;">${whitegoodsVo.w_name}<br><span id="price" class="detail">${whitegoodsVo.w_price}</span>원</li>
-			<li class="nav-item seller">${whitegoodsVo.w_seller}<br></li>
-		</ul>
-	</div>
-	<br/>
-	<div style="text-align: right;">
-		<button type="button" class="btn btndetail cart" id="btnCart" data-pno="${whitegoodsVo.p_no}">장바구니</button>
-		<button type="button" class="btn btndetail sell" id="btnSell">구매하기</button>
-	</div>
+<!-- 
 	<br>
 	<div style="text-align: right;">
 			<c:if test="${sessionScope.memberVo.m_id == whitegoodsVo.w_seller}">
@@ -115,9 +69,47 @@
 				</div>
 			</c:if>
 		</div>
-	</div>
+-->
+<div class="prod-image" data-global-banner-fold="">
+    <div id="repImageContainer" class="prod-image-container">
+        <img class="prod-image__detail" src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}"
+             onload="_logTTI(this)" alt="detail image"/>
+    </div>
+    
+    <div id="prodStickyBanner" class="product-sticky-banner-clickable prod-sticky-banner"></div>
 </div>
 
+
+		<div class="prod-buy-header">
+		    <h2 class="prod-buy-header__title">${whitegoodsVo.w_name}</h2>
+		</div>
+	    <div class="prod-price-container">
+		    <div class="prod-price">
+		    	<div class="prod-sale-price   prod-major-price" >
+					<span class="total-price">
+						<strong>${whitegoodsVo.w_price}<span class="price-unit">원</span></strong>
+					</span>
+				<span class="unit-price"></span> 
+				</div>
+			</div>
+		</div>
+		<div class="prod-vendor-container without-coach" >
+			<div class="prod-vendor with-delivery-vendor">
+		        <div class="prod-sale-vendor">
+		                판매자: <a class="prod-sale-vendor-name" href="#">${whitegoodsVo.w_seller}</a>
+		        </div>
+		    </div>
+		</div>
+		
+		<div class="prod-buy-footer ">
+			<div class="prod-onetime-order " style="">
+				<button class="prod-cart-btn" id="btnCart" data-pno="${whitegoodsVo.p_no}">장바구니 담기</button>
+				<button class="prod-buy-btn"><span class="prod-buy-btn__txt">바로구매</span></button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 
 <div class="row">
 	<div class="col-md-2"></div>
 	
@@ -136,7 +128,7 @@
 	</div>
 	<div class="col-md-2"></div>
 </div>
-
+-->
 <br>
 <br>
 <br>
