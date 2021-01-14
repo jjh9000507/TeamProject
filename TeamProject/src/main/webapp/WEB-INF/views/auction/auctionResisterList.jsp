@@ -1,8 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ include file="/resources/css/bootstrap.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="../include/header.jsp"%>
 
 <%
 	String inputYn = request.getParameter("inputYn");
@@ -13,18 +11,22 @@
 	String zipNo = request.getParameter("zipNo"); //우편번호
 	String addrDetail = request.getParameter("addrDetail"); //사용자가 직접 입력
 %>
-<html>
-<head>
 
-<link rel="stylesheet" href="/resources/css/sidebar.css" />
+<%@ include file="/resources/css/bootstrap.jsp"%>
+<%@ include file="../include/header.jsp"%>
 
-<!-- 달력추가 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script> 
+<!-- 달력 스타일시트 시작-->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
+<!-- 달력 스타일시트 끝-->
+<link rel="stylesheet" href="/resources/css/sidebar.css" />
 
-<script type="text/javascript" src="/resources/js/auctionScript.js" charset="UTF-8"></script>
+<!-- 달력 스크립트 추가-->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script>
+<!-- 달력 스크립트 끝--> 
+<script type="text/javascript" src="/resources/js/auctionJS.js" charset="UTF-8"></script>
+
 
 <style>
 #fileDrop {
@@ -52,18 +54,11 @@
 .tabTitle{
 	font-family: verdana;
 	font-size:16px;
-	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+/* 	text-shadow: 1px 1px 1px rgba(0,0,0,0.2); */
 }
 
 .tabMd3{
 	padding:20px;
-}
-
-input {
-	width: 150px;
-	padding: 6px 5px;
-    border: 1px solid #d9d9d9;
-    color: #202020;
 }
 
 .card-title{
@@ -78,6 +73,14 @@ input {
 .card-text{
 	font-family: verdana;
 	font-size:14px;
+}
+
+input[type=text]{
+	text-align:center;
+	border-left-width:0;
+	border-right-width:0;
+	border-top-width:0;
+	border-bottom-width:1;
 }
 </style>
 
@@ -329,14 +332,11 @@ $(function() {
 			success : function(jsonStr) {
 				$("#list").html("");
 				var htmlStr = "";
-				htmlStr += "<table border='1'>";
+				htmlStr += "<table style='border:1;width:300px'>";
 				$(jsonStr.results.juso).each(function() {
-					htmlStr += "<tr>";
-					htmlStr += "<td><a href='#' id='roadAddrPart1' class='roadAddrPart1'>" + this.roadAddrPart1 + "</a></td>";
-					htmlStr += "<td>" + this.jibunAddr + "</td>";
-					//htmlStr += "<td>" + this.engAddr + "</td>";
-					htmlStr += "<td>" + this.zipNo + "</td>";
-					htmlStr += "</tr>";
+					htmlStr += "<tr><td style='text-align:center;font-size:15px;font-family:verdana;padding:2px'><a href='#' class='roadAddrPart1' data-zip='"+this.zipNo+"'>" + this.roadAddrPart1 + "</a></td><tr>";
+					htmlStr += "<tr><td style='text-align:center;font-size:13px;font-family:verdana;font-color:gray;margin-bottom:4px'>" + this.jibunAddr + "<hr></td><tr>";
+					//htmlStr += "<td>" + this.zipNo + "</td>";
 				});
 				htmlStr += "</table>";
 				$("#list").html(htmlStr);
@@ -345,9 +345,10 @@ $(function() {
 		});//addrFind
 
 		$("#list").on("click",".roadAddrPart1", function(){//모달에서 주소 링크 클릭시 값 넘기기
-			var roadAddr = $(this).parent().parent().find("td").eq(0).text();
-			var jibunAddr = $(this).parent().parent().find("td").eq(1).text();
-			var zip = $(this).parent().parent().find("td").eq(2).text();
+			var roadAddr = $(this).text();
+			var jibunAddr = $(this).parent().parent().next().next().children().text();//닫는tr-> /tr 도 요소에 포함. next()에 포함시킨다
+			var zip = $(this).attr("data-zip");
+			//alert("도로:"+roadAddr+" ,지번:"+jibunAddr);
 			//console.log("zip:"+zip);
 			$("#spanZip").text(zip);
 			$("#spanRoadAddr").text(roadAddr);
@@ -369,7 +370,6 @@ $(function() {
 		});
 		
 		/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
-		
 		//메인으로
 		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
 			$(".sidebar__nav > li:eq(1) > ul").show();	
@@ -405,62 +405,12 @@ $(function() {
 		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
 			$(".sidebar__nav > li:eq(4) > ul").hide();
 		});
-			
 		/* ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
 		
 });//function	
-
-/*
-	//--- 엔터키 ---//
-	function enterSearch() {
-		var evt_code = (window.netscape) ? ev.which : event.keyCode;
-		//alert(evt_code);
-		if (evt_code == 13) { //아스키코드 13은 엔터, 엔터를 치면 검색  
-			event.keyCode = 0;
-			getAddr();
-		}
-	}//enterSearch
-	
-	function changeMonth(engMonth){//datepicker의 요일 영어를 숫자로 변화
-		var upperMonth = engMonth.toUpperCase();
-		
-		switch(upperMonth){
-		case 'JAN':
-			return 1;
-		case 'FEB':
-			return 2;
-		case 'MAR':
-			return 3;
-		case 'APR':
-			return 4;
-		case 'MAY':
-			return 5;
-		case 'JUN':
-			return 6;
-		case 'JUL':
-			return 7;
-		case 'AUG':
-			return 8;
-		case 'SEP':
-			return 9;
-		case 'OCT':
-			return 10;
-		case 'NOV':
-			return 11;
-		case 'DEC':
-			return 12;
-		}
-
-	}//changeMonth
-
-	function openPop(price){
-	    var popup = window.open('/auction/auctionPurchaseSelected?price='+price, '결제 팝업', 'width=920px,height=670px,scrollbars=yes,resizable=no,toolbar=no,menubar=no,status=no,titlebar=no');
-	}*/
 	
 </script>
-</head>
 
-<body>
 <!--  주소 찾기 모달 시작 -->
 <div class="container-fluid">
 	<div class="row">
@@ -474,7 +424,7 @@ $(function() {
 					<div class="modal-content">
 					
 						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">주소 헤더</h5>
+							<h5 class="modal-title" id="myModalLabel">주소 입력</h5>
 							<button type="button" id="btnModalCloseAuction" class="close" data-dismiss="modal">
 								<span aria-hidden="true">×</span>
 							</button>
@@ -482,17 +432,15 @@ $(function() {
 						
 						<div class="modal-body"> 
 							<div>
-							<input type="text" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
-							<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
-							
+								<input type="text" style="width:300px;margin-bottom:15px;font-size:15px" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
+								<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
 							</div>
-								<div id="list"></div>
+								<div id="list" style="padding-bottm:20px"></div>
 								<!-- 검색 결과 리스트 출력 영역 -->
 						</div>
 						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary">주소선택</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							<button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">취소</button>
 						</div>
 					</div>
 				</div>
@@ -509,7 +457,6 @@ $(function() {
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
 					<div class="row">
-<!-- 						<div class="col-md-2"></div> -->
 						<%@ include file="../include/header_mainCatagories.jsp"%>
 						<div class="col-md-12" style="padding:35px;left: 56px;">
 							
@@ -519,8 +466,8 @@ $(function() {
 								<ul class="nav nav-tabs">
 								<li class="nav-item"><a class="nav-link active tabTitle" href="#tab1" data-toggle="tab" id="bidingItem">입찰 중인 상품</a></li>
 								<li class="nav-item"><a class="nav-link tabTitle" href="#tab2" data-toggle="tab" id="bidingFinishItem">입찰 종료된 상품</a></li>
-								<li class="nav-item"><a class="nav-link tabTitle" href="#tab3" data-toggle="tab" id="soldItem">거래된 상품</a></li>
-								<li class="nav-item"><a class="nav-link tabTitle" href="#tab4" data-toggle="tab" id="purchaseItem">구매한 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab3" data-toggle="tab" id="soldItem">낙찰된 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab4" data-toggle="tab" id="purchaseItem">내가 입찰한 상품</a></li>
 								<li class="nav-item"><a class="nav-link tabTitle" href="#tab5" data-toggle="tab" id="registerItem">물품 등록</a></li>
 								</ul>
 				
@@ -538,7 +485,7 @@ $(function() {
 												<div class="card">
 														<img src="/furniture/displayImage?imageName=${bidingList.main_img_name}" class="img-class" style="height:200px;">
 														<div class="card-block">
-														<h5 class="card-title">상품:${bidingList.p_title}</h5>
+														<h5 class="card-title">${bidingList.p_title}</h5>
 														<p class="card-text">현재가:${bidingList.present_price}</p>
 														<p class="card-text">즉구가:${bidingList.instant_price}</p>
 														<p class="card-text">등록일:${bidingList.r_year}/${bidingList.r_month}/${bidingList.r_day}</p>
@@ -694,9 +641,9 @@ $(function() {
 											
 												<label for="datetimepicker1">경매기한</label>
 												<!-- -------------------- 달력 입력 시작 ------------------------------------- -->
-												<input type="text" id="txtDatePicker">
-												시간:<input type="text" id="txtHour" name='e_hour' style="width:40px">
-												분:<input type="text" id="txtMinute" name='e_minute' style="width:40px">
+												<input type="text" id="txtDatePicker" style="width:140px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1">
+												시간<input type="text" id="txtHour" name='e_hour' style="width:50px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1">
+												분<input type="text" id="txtMinute" name='e_minute' style="width:50px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1">
 												<!-- --------------------- 달력 입력 끝 ------------------------------------ -->
 																					
 												<!-- 파일 추가 시작 -->
@@ -719,14 +666,15 @@ $(function() {
 												<br clear="left">
 												<br>
 												<div>
-													<label>직구를 원하시면 주소를 입력하세요</label>
+													<label style="padding-right:10px">직구를 원하시면 주소를 입력하세요</label>
+													<a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a>
 												<br>
 													
 												<!-- 주소 찾기 시작 -->
-												우편번호:<span id="spanZip"></span><a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
+												우편번호:<span id="spanZip" style="padding-left:10px"></span><br/>
 												<span id="spanRoadAddr"></span><br>
 												<span id="spanjibundAddr"></span><br>
-												<input type="text" placeholder="상세주소를 입력하세요" id="txtjibundAddrDetail" name="detail_address"/>
+												<input type="text" placeholder="상세주소" id="txtjibundAddrDetail" name="detail_address" style="width:140px;"/>
 												
 												<!-- 주소 찾기 끝-->
 												</div>
@@ -790,5 +738,3 @@ $(function() {
 </aside>
 <!-- aside 끝 -->
 
-</body>
-</html>

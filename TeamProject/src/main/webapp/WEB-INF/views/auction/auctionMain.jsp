@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
+<script type="text/javascript" src="/resources/js/auctionJS.js" charset="UTF-8"></script>
 
 <style>
 .img-class {
@@ -407,15 +408,15 @@ $(function(){
 	
 });//function
 
-function makeTwoDigit(num){
-	console.log("makeTwoDigit num:"+num);
-	var len = num.toString().length;
-	console.log("makeTwoDigit len:"+len);
-	if(len < 2){
-		num = "0"+num;
-	}
-	return num;
-}
+// function makeTwoDigit(num){
+// 	console.log("makeTwoDigit num:"+num);
+// 	var len = num.toString().length;
+// 	console.log("makeTwoDigit len:"+len);
+// 	if(len < 2){
+// 		num = "0"+num;
+// 	}
+// 	return num;
+// }
 
 </script>
 <input type="hidden" id="hiddenDate">
