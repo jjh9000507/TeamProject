@@ -10,17 +10,26 @@ import javax.inject.Inject;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.kh.team.domain.BuyComputerVo;
 import com.kh.team.domain.ComputerCommentVo;
 import com.kh.team.domain.ProductExplainVo;
 import com.kh.team.service.ComputerCommentService;
+import com.kh.team.service.ComputersService;
 
 
 
 @RestController
 @RequestMapping("/computerProductComment")
 public class ComputerProductCommnetController {
+	
+	private int CHECK_FOR_INDEX = 1;	
+	
+	//인젝
+	@Inject
+	private ComputersService computersService;
 	
 	//인젝
 	@Inject
@@ -73,5 +82,20 @@ public class ComputerProductCommnetController {
 		System.out.println("p_e_product:" + productExplainVo.getP_e_product());
 		List<ProductExplainVo> list = computerCommentService.searchInquire(productExplainVo);
 		return list;		
+	}
+	
+	@RequestMapping(value="/sendForGetPurchaseLike", method=RequestMethod.POST)	
+	public String sendForGetPurchaseLike(BuyComputerVo buyComputerVo) throws Exception{		
+		String nok = "nok";
+		int like_num_plus = 1;
+		int count = computersService.getPurchaseLike(buyComputerVo,like_num_plus ,nok);
+		
+		String view = "";
+		if(count == CHECK_FOR_INDEX) {
+			view = "success";
+		}else {
+			view = "fail";
+		}
+		return view;		
 	}
 }

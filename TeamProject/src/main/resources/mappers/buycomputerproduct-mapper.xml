@@ -20,6 +20,13 @@
 		values (c_purchase_index.nextval, #{c_com_no})
 	</insert>
 	
+	<select id="selectNumForCheck" resultType="int">
+		select count(c_com_no_ref) from c_product_purchase_percentage 
+		where c_com_no_ref = #{c_com_no}
+	</select>
+	
+	
+	
 	<select id="selectNumForPercentage" resultType="int">
 		select purchase_num from c_product_purchase_percentage 
 		where c_com_no_ref = #{c_com_no}
@@ -29,12 +36,7 @@
 		update c_product_purchase_percentage set
 		purchase_num = #{purchase_num} + #{purchase_num_plus}	
 	where c_com_no_ref = #{c_com_no}		
-	</update>
-	
-	<select id="selectNumForCheck" resultType="int">
-		select count(c_com_no_ref) from c_product_purchase_percentage 
-		where c_com_no_ref = #{c_com_no}
-	</select>
+	</update>	
 	
 	<update id="updateTotalNumPlus">		
 		update c_total_purchase set
@@ -44,6 +46,31 @@
 	
 	<select id="selectTotalTable" resultType="int">
 		select total from c_total_purchase 
+		where nok = #{nok}
+	</select>
+	
+	
+	
+	
+	<select id="selectNumForLike" resultType="int">
+		select like_num from c_product_purchase_percentage 
+		where c_com_no_ref = #{c_com_no}
+	</select>
+	
+	<update id="updateNumForLike">		
+		update c_product_purchase_percentage set
+		like_num = #{like_num} + #{like_num_plus}	
+	where c_com_no_ref = #{c_com_no}		
+	</update>	
+	
+	<update id="updateTotalNumLikePlus">		
+		update c_total_purchase set
+		totallike = #{select_number} + #{like_num_plus}
+		where nok = #{nok}		
+	</update>
+	
+	<select id="selectTotalTableLike" resultType="int">
+		select totallike from c_total_purchase 
 		where nok = #{nok}
 	</select>
 	

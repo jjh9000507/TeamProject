@@ -260,6 +260,26 @@ public class ComputersController {
 			request.setAttribute("productBuyPercentage", resultConfrim);
 		}
 		
+		int select_like = computersService.getTotalNumLike(nok);
+		System.out.println("select_like:" + select_like);
+		int likeNum = computersService.getProductNumLike(c_com_no);
+		System.out.println("likeNum:" + likeNum);
+		double productBuyLike = 0;
+		if(select_like == 0) {
+			request.setAttribute("productBuyLike", productBuyLike);
+		}else {
+			productBuyLike = ((double)likeNum / (double)select_like) * 100;
+			double resultLike = productBuyLike * 100;
+			double resultAgainLike =  Math.floor(resultLike);
+			double resultConfrimLike = resultAgainLike / 100;
+			
+			System.out.println("productBuyLike:" + productBuyLike);
+			System.out.println("result:" + resultLike);
+			System.out.println("resultAgain:" + resultAgainLike);
+			System.out.println("resultConfrim:" + resultConfrimLike);
+			request.setAttribute("productBuyLike", resultConfrimLike);
+		}
+		
 		model.addAttribute("buyComputerVo", computerVo);
 		request.setAttribute("indexName", indexName);
 		request.setAttribute("computerCommentCount", countComment);

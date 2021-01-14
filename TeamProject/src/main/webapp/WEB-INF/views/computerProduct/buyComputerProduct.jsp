@@ -4,9 +4,13 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/buyComputerProduct_css.css" %>
 <%@ include file="../include/header.jsp"%>
+
+
 <script>
 $(function(){
 	var price = "${buyComputerVo.c_com_price}";
+	var m_id = "${sessionScope.memberVo.m_id}";
+	console.log("m_id:" + m_id);
 	var priceFinal = "";
 	var index = "";
 	var comment_no = "";
@@ -218,6 +222,27 @@ $(function(){
 			});
 		}		
 	});
+	
+	$("#iLikeThisProduct").click(function(){
+		var c_com_name = "${buyComputerVo.c_com_name}";
+		var url = "/computerProductComment/sendForGetPurchaseLike";
+		var sendData = {
+				"productName" : c_com_name
+		};
+		if(m_id != ""){
+			$.post(url,sendData,function(data){
+				if(data == "success"){
+					alert("해당 상품에 대한 선호도가 올라갔습니다.");
+				}else if(data == "fail"){
+					alert("다시 클릭하시오");
+				}
+			});
+		}else{
+			alert("중고 동네 회원만 가능합니다");
+		}
+		
+		
+	});
 });
 </script>
 <form role="form" id="frmBuyFormSendData" action="/buyComputerProduct/openBuyComputerProductDetail" method="post">
@@ -396,12 +421,17 @@ $(function(){
 						<th>
 							${buyComputerVo.c_com_name}
 						</th>						
+						<th>
+							<button id="iLikeThisProduct">좋아요</button>
+						</th>						
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>
 							<span>${buyComputerVo.c_com_price}</span>원
+						</td>
+						<td>
 						</td>						
 					</tr>
 					<tr>
@@ -410,6 +440,8 @@ $(function(){
 							<div>
 							<progress value="${productBuyPercentage}" max="100"></progress>
 							</div>
+						</td>
+						<td>
 						</td>						
 					</tr>					
 					<tr>
@@ -417,11 +449,15 @@ $(function(){
 							상품수량선택:&nbsp
 							<input id="productNumber" type="number" min="0" max="100" step="1"/>
 							<button type="button" id="confirmPrice">결정</button>
+						</td>
+						<td>
 						</td>						
 					</tr>
 					<tr>
 						<td>
 							총 상품금액:<span id="finalPrice"></span>
+						</td>
+						<td>
 						</td>						
 					</tr>
 					<tr>
@@ -431,12 +467,26 @@ $(function(){
 							<option value="직접방문수령">직접방문수령</option>
 							<option value="퀵서비스">퀵서비스</option>
 						</select>
+						</td>
+						<td>
 						</td>						
+					</tr>
+					<tr>
+						<td>
+							컴퓨터 카테고리내에서의 선호도:(<span>${productBuyLike}</span>)&percnt;
+							<div>
+							<progress value="${productBuyLike}" max="100"></progress>
+							</div>
+						</td>
+						<td>
+						</td>
 					</tr>
 					<tr>
 						<td>
 							<button type="button" id="putBasket">장바구니</button>
 							<button type="button" id="buyProduct">구매하기</button>
+						</td>
+						<td>
 						</td>						
 					</tr>
 				</tbody>
