@@ -40,7 +40,6 @@ table td{
 }
 
 .trShow{
-	cursor: pointer;
 	top: 50%;
 	left: 50%;
 	text-align: center;

@@ -125,8 +125,10 @@ public class AdminController {
 	public String detailDeletePage(Model model) throws Exception{
 		List<ProductVo> allProductList = adminService.allProductList();
 		List<CategoryVo> categoryList = adminService.getCategoryList();
+		List<CategoryVo> firstCategory = adminService.firstCategoryList();
 		model.addAttribute("allProductList", allProductList);
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("firstCategory", firstCategory);
 		return "/admin/a_d_delete";
 	}
 	
@@ -192,7 +194,9 @@ public class AdminController {
 	@RequestMapping(value="/adminCategoryDelete", method=RequestMethod.GET)
 	public String adminCategoryDelete(Model model) throws Exception {
 		List<CategoryVo> categoryList = adminService.getCategoryList();
+		List<CategoryVo> firstCategory = adminService.firstCategoryList();
 		model.addAttribute("categoryList", categoryList);
+		model.addAttribute("firstCategory", firstCategory);
 		return "/admin/a_c_delete";
 	}
 	

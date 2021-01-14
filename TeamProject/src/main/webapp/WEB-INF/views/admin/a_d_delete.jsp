@@ -44,6 +44,26 @@ td.pname{
 .pbtn{
 	width:110px;
 }
+
+a.btns{
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	text-decoration: none;
+	border-radius: 4px;
+	float:left;
+}
+
+a.btns:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
+}
+.backs{
+	float:left;
+}
 </style>
 <script>
 $(function(){
@@ -69,18 +89,19 @@ $(function(){
 		<div class="col-md-12" style="text-align: center;"><h1>상품게시물 삭제</h1></div>
 	</div>
 	<div class="row">
-		<div class="col-md-12" style="text-align: center">
-			<a href="/admin/adminDetail">이전 화면으로</a>
-			<a href="/admin/adminForm">관리자 메인 화면으로</a>
+		<div class="col-md-5"></div>
+		<div class="col-md-3">
+			<a class="btn btns backs" href="/admin/adminDetail">이전 화면으로</a>
+			<a class="btn btns backs" href="/admin/adminForm">관리자 메인 화면으로</a>
 		</div>
+		<div class="col-md-4"></div>
 	</div>
 	<div class="row listMain">
 		<ul class="nav nav-tabs categoryMenu">
 			<li class="nav-item"><a class="nav-link" href="/admin/detailDelete">전체</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/adminCategoryDelete/10">의류</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/20">가구</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/50">컴퓨터</a></li>
-			<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/30">가전제품</a></li>
+			<c:forEach var="firstCategory" items="${firstCategory}">
+				<li class="nav-item"><a class="nav-link" href="/admin/detailDeleteCatePage/${firstCategory.cate_no}">${firstCategory.cate_name}</a></li>			
+			</c:forEach>
 		</ul>
 	</div>
 	<div class="row">
@@ -112,7 +133,7 @@ $(function(){
 						<td class="pseller">${ProductVo.p_seller}</td>
 						<td class="pregdate">${ProductVo.p_regdate}</td>
 						<td class="pbtn">
-							<a href="#" class="contentDelete" data-pno="${ProductVo.p_no}" data-cateno="${ProductVo.cate_no}" data-pno2="${ProductVo.p_no2}">게시물 삭제</a>
+							<a href="#" class="btn btns contentDelete" data-pno="${ProductVo.p_no}" data-cateno="${ProductVo.cate_no}" data-pno2="${ProductVo.p_no2}">게시물 삭제</a>
 							<button style="display: none;" type="button" class="btnHome" onclick="location.reload()">홈</button>
 						</td>
 					</tr>
@@ -125,5 +146,7 @@ $(function(){
 	
 	
 </div>
-
-<%@include file="../include/footer.jsp" %>
+<br>
+<br>
+<br>
+<br>

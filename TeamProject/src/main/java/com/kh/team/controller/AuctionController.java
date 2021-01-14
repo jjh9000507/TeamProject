@@ -213,8 +213,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		String seller = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 		
 		auctionVo.setSeller(seller);
-		auctionService.insertAuction(auctionVo);
-		
+		auctionService.insertAuction(auctionVo);		
 		auctionService.insertAuctionAddress(auctionAddressVo);
 		auctionService.insertAuctionRegisterDate(auctionRDateVo);
 		auctionService.insertAuctionExpirationDate(auctionEDateVo);
@@ -472,8 +471,47 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		
 		List<String> imgModify = auctionService.getAuctionImgModify(p_no);
 		model.addAttribute("imgModify", imgModify);
-		System.out.println("imgModify:"+imgModify);
+		//System.out.println("imgModify:"+imgModify);
 		//System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
 		return "auction/auctionModify";
+	}
+	/*
+	@RequestMapping(value="/auctionModifyRun", method=RequestMethod.GET)
+	public String auctionModifyRun(AuctionVo auctionVo, 
+			AuctionAddressVo auctionAddressVo, AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo, HttpSession session) throws Exception{
+		*/
+	@RequestMapping(value="/auctionModifyRun", method=RequestMethod.GET)
+	public String auctionModifyRun(AuctionVo auctionVo, AuctionAddressVo auctionAddressVo,
+			AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo) throws Exception{
+		
+		System.out.println("AuctionController auctionModifyRun에서 "
+				+ "auctionVo:" + auctionVo
+				+ "auctionAddressVo" + auctionAddressVo
+				+ "auctionEDateVo:" + auctionEDateVo
+				+ "auctionMainImgVo:" + auctionMainImgVo);
+		/*
+		auctionAddressVo.setP_no(nextPNO);
+		auctionImgVo.setP_no(nextPNO);
+		auctionEDateVo.setP_no(nextPNO);
+		auctionMainImgVo.setP_no(nextPNO);
+		
+		//int second = (int)((Math.random()*58)+1);
+		int[] nDate = getNowDate();
+		int[] nTime = getNowTime();
+		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2], nextPNO);
+		
+		//auctionVo -> auctionAddressVo -> auctionRDateVo -> auctionEDateVo -> auctionMainImgVo -> auctionImgVo
+		String seller = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		
+		auctionVo.setSeller(seller);
+		auctionService.insertAuction(auctionVo);
+		
+		auctionService.insertAuctionAddress(auctionAddressVo);
+		auctionService.insertAuctionRegisterDate(auctionRDateVo);
+		auctionService.insertAuctionExpirationDate(auctionEDateVo);
+		auctionService.insertAuctionMainImg(auctionMainImgVo);
+		auctionService.insertAuctionImg(auctionImgVo);
+		*/
+		return "auction/auctionResisterList";
 	}
 }
