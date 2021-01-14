@@ -17,9 +17,32 @@ table{
 .noticeTitle{
 	text-align: left;
 }
-</style>
+a.btns{
+	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	-o-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
+	display: block;
+	text-decoration: none;
+	border-radius: 4px;
+	float:left;
+}
 
+a.btns:hover {
+	color: rgba(255, 255, 255, 0.85);
+	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
+}
+</style>
 <div class="container-fluid">
+	<div class="row">
+		<div class="col-md-5"></div>
+		<div class="col-md-3">
+			<a class="btn btns" href="/admin/adminService">이전 페이지</a>
+			<a class="btn btns" href="/admin/adminForm">관리자 페이지 홈으로</a>
+		</div>
+		<div class="col-md-4"></div>
+	</div>
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
@@ -49,7 +72,7 @@ table{
 	<div class="row">
 		<div class="col-md-3"></div>
 		<div class="col-md-6">
-			<a href="/admin/adminNoticeWrite" class="button-success button-xlarge">글쓰기</a>
+			<a href="/admin/adminNoticeWrite" class="btn btns btn-xlarge">글쓰기</a>
 		</div>
 		<div class="col-md-3"></div>
 	</div>

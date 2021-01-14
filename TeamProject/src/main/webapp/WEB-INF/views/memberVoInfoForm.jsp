@@ -72,16 +72,19 @@ $(function() {
 		}else{
 			alert("인증코드가 다르니 다시 입력하시오.");
 		}
-	});
-	
-	
+	});	
 });
 </script>
-<div class="container-fluid">
+<div class="memberVoInfoClass">
+<nav class="leftMemberVoInfoNav">
+<div>
+<h1></h1>
+</div>
+</nav>
+<nav class="memberVoInfoNav">
 <div class="row">
 		<div class="col-md-12">
 			 <a id="modal-549609" href="#modal-container-549609" role="button" class="btn" style="display: none;" data-toggle="modal">Launch demo modal</a>
-			
 			<div class="modal fade" id="modal-container-549609" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content memberInfoHeaderModal">
@@ -99,8 +102,7 @@ $(function() {
 								 name="m_phonenumber_send" value="${memberVoInfo.m_phonenumber}"
 								 style="display: none;"/>
 						</div>
-						<div class="modal-footer">
-							 
+						<div class="modal-footer">							 
 							<button type="button" id="sendPhoneMessage" class="btn btn-primary">
 								전화번호로 인증코드 발송
 							</button> 
@@ -116,7 +118,6 @@ $(function() {
 <div class="row">
 		<div class="col-md-12">
 			 <a id="modal-pw" href="#modal-container-pw" role="button" class="btn" style="display: none;" data-toggle="modal">Launch demo modal</a>
-			
 			<div class="modal fade" id="modal-container-pw" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 					<div class="modal-content memberInfoHeaderModal">
@@ -156,11 +157,7 @@ $(function() {
 				</div>				
 			</div>			
 		</div>
-	</div>
-	
-	
-	
-${sessionScope.sendProductBoughtInfoVo}	
+	</div>	
 <div class="row">
 		<div class="col-md-12">
 			<form role="form" class="memberVoInfoFormHeader">
@@ -171,8 +168,7 @@ ${sessionScope.sendProductBoughtInfoVo}
 				<div class="form-group">
 					 <div class="row">
 		<div class="col-md-12">
-			<table class="table memberVoInfoFormTable memberVoInfoFormFont">
-				
+			<table class="table memberVoInfoFormTable memberVoInfoFormFont">				
 				<tbody>
 					<tr>
 						<td>아이디</td>
@@ -206,10 +202,131 @@ ${sessionScope.sendProductBoughtInfoVo}
 				</tbody>
 			</table>
 		</div>
-	</div>
-					
+	</div>					
 				</div> 
 				</form>
 		</div>
 	</div>	
+</nav>
+<aside class="memberVoInfoAside">
+<c:choose>														
+	<c:when test="${not empty sessionScope.sendProductBoughtInfoVo}">
+		<h1>주문상품내용</h1>
+<hr>
+<br>
+<br>
+<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							주문상품명
+						</th>
+						<th>
+							상품수량
+						</th>
+						<th>
+							판매자명
+						</th>
+						<th>
+							배송방식
+						</th>
+						<th>
+							가격
+						</th>
+						<th>
+							주문날짜
+						</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.productName}
+						</td>
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.productNum}<span>개</span>
+						</td>
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.seller}<span>님</span>
+						</td>
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.sendMethod}
+						</td>
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.price}<span>원</span>
+						</td>
+						<td>
+							<span>${sessionScope.sendProductBoughtInfoVo.todayValueYear}</span>-
+							<span>${sessionScope.sendProductBoughtInfoVo.todayValueMonth}</span>-
+							<span>${sessionScope.sendProductBoughtInfoVo.todayValueDate}</span>					
+						</td>
+					</tr>					
+				</tbody>
+			</table>
+		</div>
+	</div>	
+	<br>
+	<br>
+	<h3>구매내역정보</h3>
+	<hr>
+	<br>
+<div class="row">
+		<div class="col-md-12">
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							결제방식
+						</th>
+						<th>
+							연락처
+						</th>
+						<th>
+							전달사항
+						</th>
+						<th>
+							우편번호
+						</th>
+						<th>
+							주소
+						</th>											
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.radioVal}
+						</td>
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.memberOfTelephone}
+						</td>						
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.messageForDriver}
+						</td>						
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.postcode}
+						</td>						
+						<td>
+							${sessionScope.sendProductBoughtInfoVo.roadAddress}<span>-</span>
+							${sessionScope.sendProductBoughtInfoVo.extraAddress}<span>-</span>
+							${sessionScope.sendProductBoughtInfoVo.detailAddress}
+						</td>						
+					</tr>					
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</c:when>
+	<c:when test="${empty sessionScope.sendProductBoughtInfoVo}">
+		<h1>구매상품미존재</h1>
+	</c:when>
+	</c:choose>
+</aside>
+<aside class="rightMemberVoInfoAside">
+<div>
+<h1></h1>
+</div>
+</aside>
 </div>

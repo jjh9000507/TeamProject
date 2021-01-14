@@ -91,7 +91,7 @@ public class BuyComputerProductController {
 	public String sendProductInfoBought(SendProductBoughtInfoVo sendProductBoughtInfoVo,HttpSession session, RedirectAttributes rttr) throws Exception{
 		System.out.println("sendProductBoughtInfoVo:" + sendProductBoughtInfoVo);		
 		session.setAttribute("sendProductBoughtInfoVo", sendProductBoughtInfoVo);
-		rttr.addFlashAttribute("msg", "sendProductBoughtInfoVoSuccess");
+		
 		System.out.println("end");
 		return "success";				
 	}

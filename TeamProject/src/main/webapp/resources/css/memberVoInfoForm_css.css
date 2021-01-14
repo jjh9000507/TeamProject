@@ -7,20 +7,14 @@
 
 .memberVoInfoFormHeader{		/*  회원정보 양식 설정*/
 	background : orange;
-	width:450px;
+	width:100%;
 	outline:orange; 	
 	padding:10px;
-	border:5px;
-	position: relative; 
-	left: 38%;  /*  나중에 고치기*/
-     
-	
+	border:5px; 	
 }
+
 .memberVoInfoFormTable, .memberInfoHeaderModal{		/*  회원정보 양식 테이블 설정 및 회원정보수정 모달 설정*/
-	background : orange;
-	
-     
-	
+	background : orange;	
 }
 
 .memberVoInfoFormFont{        /* 로그인 폼의 글씨 설정 */ 
@@ -110,6 +104,33 @@ ul.join_box {
 .fpmgBt1{background-color: #fff;color:#888}
 .fpmgBt2{background-color: lightsalmon;color: #fff}
 
+.memberVoInfoClass{
+	display:inline-block;
+	width:100%;
+}
 
+.leftMemberVoInfoNav{
+	display:inline-block;
+	width:15%;
+	float:left;
+}
+
+.memberVoInfoNav{
+	display:inline-block;	
+	width:35%;
+	float:left;
+}
+
+.memberVoInfoAside{
+	display:inline-block;	
+	width:35%;	
+	float:left;
+}
+
+.rightMemberVoInfoAside{
+	display:inline-block;
+	width:15%;	
+	float:left;
+}
 
 </style>

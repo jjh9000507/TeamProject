@@ -34,8 +34,10 @@ public class CartServiceImpl implements CartService {
 	}
 
 	@Override
-	public void cartOutput(int cart_no) throws Exception {
-		cartDao.cartOutput(cart_no);
+	public void cartOutput(int[] cart_no) throws Exception {
+		for(int i = 0; i<cart_no.length; i++) {
+			cartDao.cartOutput(cart_no[i]);
+		}
 	}
 
 	@Override
