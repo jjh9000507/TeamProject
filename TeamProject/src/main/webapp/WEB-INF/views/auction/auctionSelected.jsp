@@ -5,7 +5,7 @@
 <%@ include file="../include/header.jsp"%>
 <%@ include file="/resources/css/auction_css.css" %>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
-<script src="/resources/js/AuctionScript.js"></script>
+<script type="text/javascript" src="/resources/js/auctionScript.js" charset="UTF-8"></script>
 
 <script>
 

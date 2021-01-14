@@ -281,4 +281,25 @@
 	<insert id="modifyAuction_imgInsert">
 		insert into auction_img (img_no, img_name, p_no) values(seq_auction_img_no.nextval,#{fileAllName},#{p_no})
 	</insert>
+	
+	<!-- 수정하기 시작-->
+	<update id="modifyAuctoin">
+		update auction set p_title=#{p_title}, p_content=#{p_content},  
+		present_price=#{present_price}, instant_price=#{instant_price} where p_no=#{p_no}
+	</update>
+	
+	<update id="modifyAuctionAddress">
+		update auction_Address set zip=#{zip}, road_address=#{road_address}, jibun_address=#{jibun_address}, 
+		detail_address=#{detail_address} where p_no=#{p_no}
+	</update>
+	
+	<update id="modifyAuctionMainImg">
+		update auction_Main_Img set main_img_name=#{main_img_name} where p_no=#{p_no}
+	</update>
+		
+	<update id="modifyAuctionExpirationDate">
+		update auction_expiration_date set  e_year=#{e_year}, e_month=#{e_month}, e_day=#{e_day}, e_hour=#{e_hour}, e_minute=#{e_minute}, e_second=#{e_second}
+		where p_no=#{p_no}	
+	</update>
+		<!-- 수정하기 끝-->
 </mapper>

@@ -45,9 +45,37 @@
 	width: 300px;
 	font-family: verdana;
 	font-size:14px;
+    padding-left: 17px;
+	
 }
 
 .tabTitle{
+	font-family: verdana;
+	font-size:16px;
+	text-shadow: 1px 1px 1px rgba(0,0,0,0.2);
+}
+
+.tabMd3{
+	padding:20px;
+}
+
+input {
+	width: 150px;
+	padding: 6px 5px;
+    border: 1px solid #d9d9d9;
+    color: #202020;
+}
+
+.card-title{
+	text-align: center;
+    font-size: 16px;
+    font-weight: 700;
+   	font-family: verdana;
+    vertical-align: middle;
+    margin:30px;
+}
+
+.card-text{
 	font-family: verdana;
 	font-size:14px;
 }
@@ -483,7 +511,7 @@ $(function() {
 					<div class="row">
 <!-- 						<div class="col-md-2"></div> -->
 						<%@ include file="../include/header_mainCatagories.jsp"%>
-						<div class="col-md-12">
+						<div class="col-md-12" style="padding:35px;left: 56px;">
 							
 							<!--------------------------------------- 탭 시작 ------------------------------------------------------>
 							
@@ -506,16 +534,16 @@ $(function() {
 											<div class="row">
 				
 											<c:forEach var="bidingList" items="${bidingList}" >
-											<div class="col-md-3">
-												<div class="card" style="height: 451px">
+											<div class="col-md-4 tabMd3">
+												<div class="card">
 														<img src="/furniture/displayImage?imageName=${bidingList.main_img_name}" class="img-class" style="height:200px;">
-													<div class="card-block">
+														<div class="card-block">
 														<h5 class="card-title">상품:${bidingList.p_title}</h5>
 														<p class="card-text">현재가:${bidingList.present_price}</p>
 														<p class="card-text">즉구가:${bidingList.instant_price}</p>
 														<p class="card-text">등록일:${bidingList.r_year}/${bidingList.r_month}/${bidingList.r_day}</p>
 														<p class="card-text">마감일:${bidingList.e_year}/${bidingList.e_month}/${bidingList.e_day}</p>
-														<p>
+														<p class="card-text">
 															<a class="btn btn-outline-primary" href="/auction/auctionModify?p_no=${bidingList.p_no}">수정</a>
 															<a class="btn btn-outline-danger btnDelAuction" href="#" data-pno="${bidingList.p_no}">삭제</a>
 														</p>
@@ -537,8 +565,8 @@ $(function() {
 											<div class="row">
 				
 											<c:forEach var="bidingFinishList" items="${bidingFinishList}" >
-											<div class="col-md-3">
-												<div class="card" style="height: 451px">
+											<div class="col-md-4 tabMd3">
+												<div class="card">
 														<img src="/furniture/displayImage?imageName=${bidingFinishList.main_img_name}" class="img-class" style="height:200px;">
 													<div class="card-block">
 														<h5 class="card-title">상품:${bidingFinishList.p_title}</h5>
@@ -569,7 +597,7 @@ $(function() {
 											<div class="row">
 				
 											<c:forEach var="auctionSoldVo" items="${soldList}" >
-											<div class="col-md-3">
+											<div class="col-md-3 tabMd3">
 												<div class="card" style="height: 451px">
 														<img src="/furniture/displayImage?imageName=${auctionSoldVo.main_img_name}" class="img-class" style="height:200px;">
 													<div class="card-block">
@@ -595,27 +623,29 @@ $(function() {
 										<!--------------------------------- tab3 거래된 상품 div 끝 -------------------------------------->
 									</div><!-- tab3 -->
 									
-									<div class="tab-pane" id="purchaseItemContent"><!-- tab4 -->
+									<div class="tab-pane tabMd3" id="purchaseItemContent"><!-- tab4 -->
 										<!---------------------------------- tab4 구매한 상품 div 시작 ------------------------------------>
-										<c:forEach var="purchaserList" items="${purchaserList}" >
+										<c:forEach var="auctionSoldVo" items="${purchaserList}" >
 										<table border='1' class="tablePurchase">
 											<tr>
-												<td class="tdPurchase">입찰 날짜:<span>${purchaserList.bid_date}</span></td>
-												<td rowspan='3' style="width:130px"><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:150px;width:150px"></td>
-												<td class="tdPurchase" rowspan='2'>${purchaserList.p_title}</td>
-<%-- 												<td rowspan='3'><a href="#none" target="_parent" onclick="openPop(${purchaserList.sold_price})"><img src="/resources/auctionImage/btn_payment.png"></a></td> --%>
+												<td class="tdPurchase">입찰 날짜:<span>${auctionSoldVo.bid_date}</span></td>
+												<td rowspan='3' style="width:130px"><img src="/furniture/displayImage?imageName=${auctionSoldVo.main_img_name}" class="img-class" style="height:150px;width:150px"></td>
+												<td class="tdPurchase">${auctionSoldVo.p_title}</td>
 											</tr>
 											<tr>
-												<td class="tdPurchase">최초금액:<span>${purchaserList.present_price}</span></td>
+												<td class="tdPurchase">최초금액:<span>${auctionSoldVo.present_price}</span></td>
 <!-- 												<td>이미지</td> -->
 <!-- 												<td>제목</td> -->
-<!-- 												<td>결제버튼</td> -->
+												<td class="tdPurchase">판매자:<span>${auctionSoldVo.seller}</span></td>
 											</tr>
 											<tr>
-												<td class="tdPurchase">낙찰금액:<span>${purchaserList.sold_price}</span></td>
+												<td class="tdPurchase">낙찰금액:<span>${auctionSoldVo.sold_price}</span></td>
 <!-- 												<td>이미지</td> -->
-												<td class="tdPurchase">판매자:<span>${purchaserList.seller}</span></td>
-<!-- 												<td>결제버튼</td> -->
+												 <td class="tdPurchase" style="padding:0px; height: 45px;text-align:center">
+												 <a href="/auction/auctionPurchaseSelected/${auctionSoldVo.p_no}">
+												 	<img src="/resources/auctionImage/btn_payment.png" style="height:45px;width:80%;cursor:pointer">
+												 </a>
+												 </td>
 											</tr>
 										</table>
 										</c:forEach>
@@ -623,7 +653,7 @@ $(function() {
 									</div>
 									
 									
-									<div class="tab-pane" id="registerItemContent"><!-- tab5 -->
+									<div class="tab-pane tabMd3" id="registerItemContent"><!-- tab5 -->
 										<!--------------------------------- tab5 물품 등록 div 시작 ------------------------------------>
 										<div class="row">
 											<div class="col-md-12">
@@ -750,9 +780,9 @@ $(function() {
 <!-- 			</li> -->
 		 <!-- 주문내역 -->
 			<li>
-				<a href="/auction/auctionPurchaseSelected" class="sidebar__nav__link">
+				<a href="#" class="sidebar__nav__link">
 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i>
-					<span class="sidebar__nav__text">주문 하기</span>
+					<span class="sidebar__nav__text">내 결제 내역</span>
 				</a>
 			</li>
 		</ul>

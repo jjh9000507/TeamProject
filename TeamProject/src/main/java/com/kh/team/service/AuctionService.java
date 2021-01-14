@@ -97,4 +97,10 @@ public interface AuctionService {
 	public void modifyAuction_imgDel(String fileAllName, int p_no) throws Exception;
 	// 수정할 때 이미지 한개만 넣기
 	public void modifyAuction_imgInsert(String fileAllName, int p_no) throws Exception;
+
+	//수정하기
+	public void modifyAuctoin(AuctionVo auctionVo) throws Exception;
+	public void modifyAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception;
+	public void modifyAuctionMainImg(AuctionMainImgVo auctionMainImgVo) throws Exception;
+	public void modifyAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception;
 }

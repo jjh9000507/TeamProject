@@ -310,4 +310,25 @@ public class AuctionDaoImpl implements AuctionDao{
 		
 		sqlSession.insert(NAMESPACE + "modifyAuction_imgInsert", map);
 	}
+
+	@Override
+	public void modifyAuctoin(AuctionVo auctionVo) throws Exception {
+		sqlSession.update(NAMESPACE + "modifyAuctoin", auctionVo);
+	}
+
+	@Override
+	public void modifyAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception {
+		sqlSession.update(NAMESPACE + "modifyAuctionAddress", auctionAddressVo);
+	}
+
+	@Override
+	public void modifyAuctionMainImg(AuctionMainImgVo auctionMainImgVo) throws Exception {
+		sqlSession.update(NAMESPACE + "modifyAuctionMainImg", auctionMainImgVo);
+		
+	}
+
+	@Override
+	public void modifyAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception {
+		sqlSession.update(NAMESPACE + "modifyAuctionExpirationDate", auctionEDateVo);
+	}
 }

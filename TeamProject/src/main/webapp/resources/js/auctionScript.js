@@ -1,6 +1,3 @@
-/**
- * 
- */
 
 //-- 시간 한자리를 두자리로 --//
 function makeTwoDigit(num){

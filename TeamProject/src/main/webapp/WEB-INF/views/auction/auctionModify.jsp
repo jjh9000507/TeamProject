@@ -23,6 +23,15 @@
 
 <script type="text/javascript" src="/resources/js/auctionScript.js" charset="UTF-8"></script>
 
+<style>
+input {
+	width: 150px;
+	padding: 6px 5px;
+    border: 1px solid #d9d9d9;
+    color: #202020;
+}
+</style>
+
 <script>
 $(function(){
 	/*
