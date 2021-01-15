@@ -10,6 +10,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 @Repository
@@ -76,6 +78,18 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 		map.put("p_no", p_no);
 		map.put("img_name", img_name);
 		sqlSession.insert(NAMESPACE + "productImage", map);
+	}
+
+	@Override
+	public List<WhitegoodsReviewVo> reviewList(int w_no) throws Exception {
+		List<WhitegoodsReviewVo> reviewList = sqlSession.selectList(NAMESPACE + "reviewList", w_no);
+		return reviewList;
+	}
+
+	@Override
+	public MemberVo sellingMember(String m_id) throws Exception {
+		MemberVo sellingMember = sqlSession.selectOne(NAMESPACE + "sellingMember", m_id);
+		return sellingMember;
 	}
 
 	

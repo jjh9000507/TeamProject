@@ -49,7 +49,7 @@ $(function(){
 			</div>
 	
 <!----------------------------------------- 검색한 상품 리스트 ------------------------------------->	
-		<div class="productList" style="position:relative; left: 7%;">
+		<div class="productList" style="position:relative; left: 7%; top:3%;">
 					
 				
 					
@@ -81,13 +81,15 @@ $(function(){
 
 <br>
 <div class="row">
-	<div class="col-md-12 btnMore">
+	<div class="col-md-2"></div>
+	<div class="col-md-8 btnMore" style="padding-left: 6%;">
 		<div class="form-control divMore">
 			<a href="#" class="a_More">더보기  <span class="arrow"><img src="/resources/image/arrow.PNG"/></span></a>
 			<input type="hidden" id="morePage" name="morePage"/>
 		</div>
 
 	</div>
+	<div class="col-md-2"></div>
 </div>
 
 <hr><br><br>

@@ -5,11 +5,10 @@
 <%@ include file="/resources/css/header_css.css" %>
 <%@ include file="/resources/css/loginForm_css.css" %>
 <%@ include file="/resources/css/footer_css.css"%>
+<%@ include file="/resources/css/admin.css"%>
 <style>
-h1{
-	text-align: center;
-	cursor: pointer;
-}
+
+
 </style>
 <script>
 	$(function(){
