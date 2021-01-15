@@ -11,7 +11,32 @@ $(function(){
 	$("#btnBuy").click(function(){
 		location.href = "/page/purchase"
 	});
-});
+	
+	$("#btnBuy2").click(function(){
+		var current_id = "${sessionScope.memberVo.m_id}";
+		console.log("current_id:" + current_id);
+		var p_no = "${productVo.p_no}";
+		console.log("p_no:" + p_no);
+		
+		var url = "/buyComputerProduct/putBasketProduct";
+		
+		var sendData = {
+				"m_id" 	: current_id,
+				"p_no"	: p_no
+		};
+		
+		if(current_id == null || current_id == ""){
+			alert("로그인 하시오.");
+		}else{
+			$.post(url,sendData,function(data){
+				if(data == "success"){
+					alert("해당 상품을 장바구니에 추가하였습니다.");
+				}
+			});
+		}		
+	});
+	
+}); // main function
 
 </script>
 
@@ -28,42 +53,48 @@ $(function(){
 		
 <div class="row" style="padding-top: 3%">
 	<div class="col-md-2"></div>
-	<div class="col-md-4">
+	<div class="col-md-8">
 		<img id="content_img" src="/resources/image/${productVo.p_thumbimg}"/>
 	</div>
-	<div class="col-md-3">
-		<div id="divContent">
-			<span id="content_p_name">${productVo.p_name}</span>
-		</div>
-		<br>
-		<div id="divContent2">
-			가격  <span class="content_span">₩${productVo.p_price}</span><br>
-			판매자 <span class="content_span2">${productVo.p_seller}</span><br>
-			신용등급 <span class="content_span3">★★★★☆</span><br>
-			주소 정보 <span class="content_span4">주소 정보 받아와야함</span><br>
-			<button type="button" class="btn btn-primary" id="btnBuy">구매 하기</button>
-			<button type="button" class="btn btn-outline-warning" id="btnBuy2">장바구니에 담기</button>
-		</div>
-	</div>
-	<div class="col-md-3"></div>
+	
+	<div class="col-md-2"></div>
 	
 </div>
 
 <div class="row" style="padding-top: 3%">
-		<div class="col-md-3"></div>
-		<div class="col-md-8" id="content_detail_info">
-			<span id="span_detail">상품 상세정보</span><br>
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div id="divContent">
+			<span id="content_p_name">${productVo.p_name}</span>
 		</div>
-		<div class="col-md-1"></div>
+		
+	</div>
+	
+	<div class="col-md-2"></div>
+	
+</div>
+
+<div class="row">
+		<div class="col-md-2"></div>
+		<div class="col-md-8" id="content_detail_info">
+			<span class="content_span2">${productVo.p_seller}</span><br>
+			<span class="content_span4">${productVo.road_address}<br><span>신용등급 ★★★★☆</span></span><br>
+			<button type="button" class="btn btn-primary" id="btnBuy">구매 하기</button>
+			<button type="button" class="btn btn-outline-warning" id="btnBuy2">장바구니에 담기</button>
+		</div>
+			
+		<div class="col-md-2"></div>
 </div>
 
 <div class="row" style="padding-top: 3%">
-		<div class="col-md-3"></div>
-		<div class="col-md-8">
+		<div class="col-md-2"></div>
+		<div class="col-md-8" style="text-align:center;">
+			<span id="span_detail">상품 상세정보</span><br>
 			<span>${productVo.p_content}</span>
 			<span><img id="content_detail_img"src="/resources/image/${productVo.p_thumbimg}"/></span><br>
+			
 		</div>
-		<div class="col-md-1"></div>
+		<div class="col-md-2"></div>
 </div>
 <br>
 	

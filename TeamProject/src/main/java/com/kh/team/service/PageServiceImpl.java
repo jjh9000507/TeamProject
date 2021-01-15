@@ -69,4 +69,10 @@ public class PageServiceImpl implements PageService {
 		return list;
 	}
 
+	@Override
+	public List<ProductVo> sellProductData() throws Exception {
+		List<ProductVo> list = pageDao.sellProductData();
+		return list;
+	}
+
 }
