@@ -301,5 +301,25 @@
 		update auction_expiration_date set  e_year=#{e_year}, e_month=#{e_month}, e_day=#{e_day}, e_hour=#{e_hour}, e_minute=#{e_minute}, e_second=#{e_second}
 		where p_no=#{p_no}	
 	</update>
-		<!-- 수정하기 끝-->
+	<!-- 수정하기 끝-->
+	
+	<!-- 주문서 -->
+	<select id="orderAuctionSold" resultType="AuctionSoldVo">
+		select a.*, addr.*, rdate.*, bid.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_bid bid
+		on rdate.p_no = bid.p_no
+		inner join auction_main_img img
+		on bid.p_no = img.p_no
+		where a.purchaser=#{purchaser} and a.p_no=#{p_no}
+		order by bid.bid_date desc
+	</select>
+	
+	<select id="getMember" resultType="MemberVo">
+		select * from member where m_id=#{m_id}
+	</select>
 </mapper>

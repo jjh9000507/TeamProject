@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.inject.Inject;
 
 import org.apache.ibatis.session.SqlSession;
-import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.AuctionAddressVo;
@@ -23,7 +22,6 @@ import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.MemberVo;
-import com.thoughtworks.qdox.model.Member;
 
 @Repository
 public class AuctionDaoImpl implements AuctionDao{
@@ -330,5 +328,22 @@ public class AuctionDaoImpl implements AuctionDao{
 	@Override
 	public void modifyAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception {
 		sqlSession.update(NAMESPACE + "modifyAuctionExpirationDate", auctionEDateVo);
+	}
+
+	@Override
+	public AuctionSoldVo orderAuctionSold(String purchaser, int p_no) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("purchaser", purchaser);
+		map.put("p_no", p_no);
+		
+		AuctionSoldVo auctionSoldVo = sqlSession.selectOne(NAMESPACE + "orderAuctionSold", map);
+		
+		return auctionSoldVo;
+	}
+
+	@Override
+	public MemberVo getMember(String m_id) throws Exception {
+		MemberVo memberVo = sqlSession.selectOne(NAMESPACE + "getMember", m_id);
+		return memberVo;
 	}
 }
