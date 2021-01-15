@@ -318,7 +318,7 @@ $(function(){
 						
 						<div class="modal-body"> 
 							<div>
-								<input type="text" style="width:300px;margin-bottom:15px;font-size:15px" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
+								<input type="text" style="width:300px;margin-bottom:15px;font-size:15px" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction">
 								<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
 							</div>
 								<div id="list" style="padding-bottm:20px"></div>

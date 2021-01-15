@@ -95,4 +95,14 @@ public class BuyComputerProductController {
 		System.out.println("end");
 		return "success";				
 	}
+	
+	@RequestMapping(value="/insertProductRef", method=RequestMethod.POST)
+	@ResponseBody
+	public String insertProductRef(String productName, String m_id, String c_com_comment_content) throws Exception{
+		System.out.println("productName:" + productName);
+		System.out.println("m_id:" + m_id);
+		System.out.println("c_com_comment_content:" + c_com_comment_content);
+		buyComputerService.insertProductRef(productName, m_id, c_com_comment_content);
+		return "success";				
+	}
 }

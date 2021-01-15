@@ -249,6 +249,7 @@ $(function(){
 				}else{
 					alert("선호도 상승");
 					$("#likeValue").text(data);
+					$("#likeValueProgress").val(data);
 				}
 			});
 		}else{
@@ -489,7 +490,7 @@ $(function(){
 						<td>
 							컴퓨터 카테고리내에서의 선호도:(<span id="likeValue">${productBuyLike}</span>)&percnt;
 							<div>
-							<progress value="${productBuyLike}" max="100"></progress>
+							<progress id="likeValueProgress" value="${productBuyLike}" max="100"></progress>
 							</div>
 						</td>
 						<td>

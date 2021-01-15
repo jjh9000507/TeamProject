@@ -446,6 +446,25 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	public String auctionPurchaseSelectecd(@PathVariable("p_no") int p_no, Model model, HttpSession session) throws Exception{
 		
 		System.out.println("p_no:"+p_no);
+		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		
+		//상품 정보
+		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, p_no);
+		model.addAttribute("auctionSoldVo", auctionSoldVo);
+		
+		//주문날짜 
+		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String nowDate = nowDateFormat.format(date);
+		System.out.println("nowDate:"+nowDate);
+		model.addAttribute("nowDate", nowDate);
+		
+		//결제 key
+		model.addAttribute("ImPortkey", ImPortkey);
+		
+		//구매자 이름
+		MemberVo memberVo = auctionService.getMember(purchaser);
+		model.addAttribute("memberVo", memberVo);
 		/*
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 
