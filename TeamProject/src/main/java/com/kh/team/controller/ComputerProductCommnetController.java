@@ -46,10 +46,11 @@ public class ComputerProductCommnetController {
 	}
 	
 	@RequestMapping(value="/deleteRef", method=RequestMethod.POST)
-	public String deleteRef(int c_com_comment_no) throws Exception{
+	public int deleteRef(int c_com_comment_no, String c_com_product) throws Exception{
 		System.out.println("c_com_comment_no:" + c_com_comment_no);
 		computerCommentService.deleteComment(c_com_comment_no);
-		return "success";		
+		int countComment = computersService.buyComputerComment(c_com_product);
+		return countComment;		
 	}
 		
 	@RequestMapping(value="/updateRefContent", method=RequestMethod.POST)

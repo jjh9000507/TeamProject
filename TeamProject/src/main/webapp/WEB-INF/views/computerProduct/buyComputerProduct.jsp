@@ -9,6 +9,7 @@
 <script>
 $(function(){
 	var price = "${buyComputerVo.c_com_price}";	
+	var c_com_product = "${buyComputerVo.c_com_name}";	
 	var m_id = "${sessionScope.memberVo.m_id}";
 	
 	console.log("m_id:" + m_id);
@@ -111,11 +112,13 @@ $(function(){
 		console.log("comment_no:" + comment_no);
 		var url = "/computerProductComment/deleteRef";
 		var sendData = {							
-				"c_com_comment_no" : comment_no
+				"c_com_comment_no" : comment_no,
+				"c_com_product"    : c_com_product
 			};
 			$.post(url, sendData, function(data) {
-				if(data == "success"){
+				if(data != null){
 					alert("선택 후기 삭제 성공");
+					$("#buyAfterKey").text(data);
 				}
 			});
 	});
@@ -512,7 +515,7 @@ $(function(){
 <footer class="buyfooter">
 <ul class="nav nav-tabs breadcrumb">
 <li class="nav-item"><button id="detailProductExpain">상세설명</button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="buyAfter">구매후기(<span>${computerCommentCount}</span>)</button></li>&nbsp&nbsp&nbsp
+<li class="nav-item"><button id="buyAfter">구매후기(<span id="buyAfterKey">${computerCommentCount}</span>)</button></li>&nbsp&nbsp&nbsp
 <li class="nav-item"><button id="inquireProduct">상품문의(<span id="inquireKey">${productExplainCount}</span>)</button></li>
 </ul>
 </footer>
