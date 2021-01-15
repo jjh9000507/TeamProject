@@ -6,6 +6,7 @@
 <%@ include file="../include/header.jsp"%>
 <script>
 $(function() {
+	var inputConfirm = "";
 	var inputCheckbox = $(".checkB");
 	var inputCheckForm = $("#divData");
 	var backList = $(".backList");
@@ -14,7 +15,7 @@ $(function() {
 	var searchInComputerPriceSend = $(".searchInComputerPriceSend");
 	var searchInComputerPriceForm = $(".searchInComputerPriceForm");
 	var searchInComputerById = $(".searchInComputerById");
-	var findIdSearchFormFind = $(".findIdSearchFormFind");
+	var findIdSearchFormFind = $(".findIdSearchFormFind");	
 	
 	$("#checkboxSearch").click(function() {
 		inputCheckForm.empty();		
@@ -60,10 +61,18 @@ $(function() {
  			inputCheckForm.append(input);
  			}
  		}
- 		var inputConfirm = backList.find("input").eq(0).val();
- 		if(inputConfirm != null){
+ 		for(var i = 0; i<6; i++){
+ 			var inputConfirmValue = backList.find("input").eq(i).val();
+ 			console.log("inputConfirmValue:" + inputConfirmValue);
+ 			if(inputConfirmValue != ""){
+ 				inputConfirm = inputConfirmValue;
+ 				console.log("inputConfirm:" + inputConfirm);
+ 			}
+ 		} 		
+ 		if(inputConfirm != ""){
  			var nth = inputConfirm.length;
- 	 		if(nth == 3){
+ 			console.log("nth:" + nth);
+ 	 		if(nth < 4){
  	 				alert("뒤로 갈수  없음");	
  	 			}else{
  	 				$("#frmData").submit(); 	 			
@@ -95,7 +104,7 @@ $(function() {
 	$("#findIdSearch").click(function() {
 		searchInComputerById.empty();
 		var ByIdFindInput = findIdSearchFormFind.find("input").clone();
-		var IdVal = findIdSearchFormFind.find("input").val();
+		var IdVal = findIdSearchFormFind.find("input").val();		
 		console.log("IdVal:" + IdVal);
 		searchInComputerById.append(ByIdFindInput);
 		for(var i = 0; i<6; i++){
@@ -124,7 +133,7 @@ $(function() {
 		searchInComputerPriceSend.append(inputName1);
 		searchInComputerPriceSend.append(inputName2);
 		for(var i = 0; i<6; i++){
-			var searchIndex = "search"+i + "no";
+			var searchIndex = "search"+ i + "no";
  			var input = backList.find("input").eq(i).clone();
  			console.log("searchIndex_price:" + searchIndex);
  			input.attr("name",searchIndex);
@@ -142,7 +151,11 @@ $(function() {
 		}
 		});
 });
-</script>	
+</script>
+
+<div style="display: none;" id="cate_no_form">
+<input type="text" name="cate_no_form" value="${cate_no_list}"/>
+</div>	
 <div class="row">
 		<div class="col-md-2"></div>
 <div class="col-md-8" >
@@ -153,7 +166,7 @@ $(function() {
 </div>			
 		<br>
 		<br>		
-<form class="backList"  style="display: none;">
+<form class="backList" style="display: none;">
 <c:forEach var="cate_no_list" items="${cate_no_confirm}">	
 <input type="text" name="${cate_no_list}" value="${cate_no_list}"/>
 </c:forEach>
