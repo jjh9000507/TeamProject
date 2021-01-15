@@ -29,7 +29,8 @@ import com.kh.team.service.ComputersService;
 @Controller
 @RequestMapping("/computerProduct")
 public class ComputersController {	
-	
+	//나중에 보고 지울것
+	private String cate_no_main = "";
 	
 	//인젝
 	@Inject
@@ -59,6 +60,9 @@ public class ComputersController {
 		model.addAttribute("computerList", computerList);
 		model.addAttribute("categoryInfo", categoryInfo);
 		String[] checkList = new String[6];
+		cate_no_main = cate_no;
+		
+		System.out.println("cate_no_main_firstOpen:" + cate_no_main);
 		checkList[0] = cate_no;
 		
 		//뒤로가기 및 체크박스를 이용한 다중검색을 위하여 미리 cate_no를 전달하기
@@ -100,6 +104,11 @@ public class ComputersController {
 			System.out.println("search5no:"+ search5no);
 			confirmList[5] = search5no;
 			}
+			System.out.println("cate_no_main_SearchFunction:" + cate_no_main);
+			
+			
+				
+			
 			
 		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(confirmList);
@@ -154,6 +163,11 @@ public class ComputersController {
 			System.out.println("search5no:"+ search5no);
 			confirmList[5] = search5no;
 		}
+		System.out.println("cate_no_main_SearchByPriceRange:" + cate_no_main);
+		
+		
+			
+		
 		
 		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(confirmList);
@@ -204,6 +218,11 @@ public class ComputersController {
 		System.out.println("fno_check:"+ check5no);
 		checkList[5] = check5no;
 		}
+		System.out.println("cate_no_main_SearchByCheckBox:" + cate_no_main);
+		
+		
+			
+		
 		
 		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(checkList);
@@ -301,41 +320,57 @@ public class ComputersController {
 	public String computersFormSearchById(String c_com_seller, String byId0no, String byId1no, String byId2no, String byId3no, String byId4no, String byId5no, Model model, HttpServletRequest request, RedirectAttributes rttr) throws Exception {
 		System.out.println("c_com_seller:" + c_com_seller);			
 		String redirect_cate_no = "";
-		//배열을 이용하여 컴퓨터제품 폼에서 불러온 값 저장하기
+		//배열을 이용하여 컴퓨터제품 폼에서 불러온 값 저장하기		
+		
+		
 		String[] confirmList = new String[6];
 		if(byId0no != null) {
 			System.out.println("byId0no:"+ byId0no);
 			confirmList[0] = byId0no;
-			if(byId0no.length() > 3) {
-				String newCate_no = byId0no.substring(0, 4);
-				System.out.println("newCate_no:" + newCate_no);
-				redirect_cate_no = newCate_no;
-			}else {
-				String newCate_no = byId0no;
-				System.out.println("newCate_no:" + newCate_no);
-				redirect_cate_no = newCate_no;
-			}
+			
 		}
 		if(byId1no != null) {
 			System.out.println("byId1no:"+ byId1no);
 			confirmList[1] = byId1no;
+			
 		}
 		if(byId2no != null) {
 			System.out.println("byId2no:"+ byId2no);
 			confirmList[2] = byId2no;
+			
 		}
 		if(byId3no != null) {
 			System.out.println("byId3no:"+ byId3no);
 			confirmList[3] = byId3no;
+			
 		}
 		if(byId4no != null) {
 			System.out.println("byId4no:"+ byId4no);
 			confirmList[4] = byId4no;
+			
 		}
 		if(byId5no != null) {
 			System.out.println("byId5no:"+ byId5no);
 			confirmList[5] = byId5no;
+			
 		}
+		
+		for(int i=0; i<6; i++) {
+			if(!confirmList[i].equals("")) {
+				System.out.println("confirmList[i]:" + confirmList[i]);
+				if(confirmList[i].length() > 3) {
+					redirect_cate_no = confirmList[i].substring(0, 3);
+				}else {
+					redirect_cate_no = confirmList[i];
+				}				
+			}
+		}
+		
+		System.out.println("cate_no_main_SearchByMemberId:" + cate_no_main);
+		
+		
+			
+		
 		System.out.println("redirect_cate_no:" + redirect_cate_no);
 		//카테고리 정보 불러와서 모델에 저장
 		List<CategoryVo> categoryInfo = computersService.categoryInfoArray(confirmList);

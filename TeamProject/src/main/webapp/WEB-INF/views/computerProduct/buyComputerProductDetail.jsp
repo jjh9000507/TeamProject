@@ -174,6 +174,7 @@ $(function(){
 	var productNum = "${buyComputerInfo.productNum}";
 	var productName = "${buyComputerInfo.productName}";
 	var sendMethod = "${buyComputerInfo.sendMethod}";
+	var m_id = "${sessionScope.memberVo.m_id}";
 	console.log("todayValueYear:" + todayValueYear);
 	console.log("todayValueMonth:" + todayValueMonth);
 	console.log("todayValueDate:" + todayValueDate);
@@ -235,6 +236,7 @@ $(function(){
 	});
 	
 	$("#buyProduct").click(function(){
+		$("#modal-purchaseRef").trigger("click");
 		if(m_id != ""){	
 		if((postcode != "") && (roadAddress != "") && (extraAddress != "") && (detailAddress != "")){
 		if((memberOfTelephone != "") && (messageForDriver != "")){		
@@ -354,6 +356,30 @@ $(function(){
 			alert("미체크");
 		}
 	});	
+	
+	$("#purchaseRefInputsButton").click(function(){
+		var c_com_comment_content = $("#c_com_comment_content").val();
+		
+		var url = "/buyComputerProduct/insertProductRef";
+		
+		var sendData ={
+				"productName" 			: productName,
+				"m_id" 					: m_id,
+				"c_com_comment_content" : c_com_comment_content
+				
+			};
+		if(m_id != ""){
+			$.post(url,sendData, function(data) {
+				if(data == "success"){
+					alert("성공");
+				}else{
+					alert("실패");
+				}
+			});
+		}else{
+			alert("로그인 하시오");
+		}		
+	});
 });
 </script>
 <div class="row">
@@ -364,6 +390,40 @@ $(function(){
 	</div>
 	<div class="col-md-2"></div>
 </div>
+<div class="row">
+		<div class="col-md-12">
+			 <a id="modal-purchaseRef" href="#modal-container-purchaseRef" role="button" class="btn" data-toggle="modal" style="display:none">Launch demo modal</a>
+			
+			<div class="modal fade" id="modal-container-purchaseRef" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">
+								구매후기 작성하시겠습니까?
+							</h5> 
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">
+							<div id="purchaseRefInputs">
+									<input type="text" id="c_com_comment_content" name="c_com_comment_content" placeholder="내용을 기입하시오"/>									
+								</div>
+						</div>
+						<div class="modal-footer">
+							 
+							<button type="button" id="purchaseRefInputsButton" class="btn btn-primary">
+								작성
+							</button> 
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								닫기
+							</button>
+						</div>
+					</div>					
+				</div>				
+			</div>			
+		</div>
+	</div>
 <div class="row">
 		<div class="col-md-12">
 			<a id="modalAddrByComputer" href="#modalAddr-container-computer" role="button"

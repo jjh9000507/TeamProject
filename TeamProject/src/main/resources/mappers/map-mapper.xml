@@ -8,4 +8,9 @@
 		select * from product
 		where road_address is not null
 	</select>
+	
+	<select id="sellProductData" resultType="ProductVo">
+		select * from product
+		where road_address is not null
+	</select>
 </mapper>

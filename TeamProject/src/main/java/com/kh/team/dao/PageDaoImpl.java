@@ -76,4 +76,10 @@ public class PageDaoImpl implements PageDao {
 		return list;
 	}
 
+	@Override
+	public List<ProductVo> sellProductData() throws Exception {
+		List<ProductVo> list = sqlSession.selectList(NAMESPACE2 + "sellProductData");
+		return list;
+	}
+
 }
