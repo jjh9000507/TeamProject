@@ -10,12 +10,55 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
 <title>간단한 지도 표시하기</title>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=5i2j41zq2n"></script>
-<script type="text/javascript" src="https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=83bfuniegk&amp;submodules=panorama,geocoder,drawing,visualization"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f42f1c15c87cece3983e493bec86605d&libraries=services"></script>
+<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=f42f1c15c87cece3983e493bec86605d"></script>
 <script>
 	$(function() {
+		
+		var url = "/page/sellProductData";
+		
+		$.get(url, function(data){
+			$.each(data, function(){
+// 				console.log(this);
+// 				console.log(this.road_address);
+				var p_no = this.p_no;
+				var p_name = this.p_name;
+				var p_seller = this.p_seller;
+				var p_price = this.p_price;
+// 				console.log(p_name);
+				var geocoder2 = new kakao.maps.services.Geocoder();
+				// 주소로 좌표를 검색합니다
+				geocoder2.addressSearch(this.road_address, function(result, status) {
 
-		$("#btnCoordinate").click(function() {
+				    // 정상적으로 검색이 완료됐으면 
+				     if (status === kakao.maps.services.Status.OK) {
+				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+				        // 결과값으로 받은 위치를 마커로 표시합니다
+				        var marker3 = new kakao.maps.Marker({
+				            map: map,
+				            position: coords
+				        });
+
+				        var iwRemoveable = true;
+				        // 인포윈도우로 장소에 대한 설명을 표시합니다
+				        var infowindow = new kakao.maps.InfoWindow({
+				            content: '<div style="width:300px;text-align:center;padding:6px 0;">' +"상품이름 : <a href='/page/content?p_no="+p_no+"'>" + p_name +"</a><br>판매자 : "+ p_seller + "<br>가격 : " + p_price +'</div>',
+				            removable : iwRemoveable
+				        });
+				        
+
+				        kakao.maps.event.addListener(marker3, 'click', function(){
+				        	infowindow.open(map, marker3);
+				        });
+				        
+				        
+				    } 
+				});    
+			});
+		});
+		
+		$("#btnCoordinate").click(function() {	
 			modalTrigger();
 		});
 		
@@ -24,132 +67,109 @@
 			location.href = "/";
 		});
 		
-		//맵 생성
-		var map = new naver.maps.Map('map');
-		//map.setMapTypeId(naver.maps.MapTypeId.HYBRID); //위성 지도 
-		
-		//검색한 주소로 좌표값 가져오기 (addr : 주소)
-		function searchAddressToCoordinate(addr) {
-			naver.maps.Service.fromAddrToCoord({
-				address : addr
-			}, function(status, response) {
-				if (status == naver.maps.Service.Status.ERROR) {
-					return alert('Something wrong!');
-				}
-
-				// 경도 위도 표시
-				//﻿response.v2.addresses[0].jibunAddress
-				$("#spandCoordinate").text(
-						'경도:' + response.result.items[0].point.y + ', 위도:'
-								+ response.result.items[0].point.x);
-
-				var latlng = new naver.maps.LatLng(
-						response.result.items[0].point.y,
-						response.result.items[0].point.x); //경
-				map.setCenter(latlng);
-				map.setZoom(15);
-				var marker = new naver.maps.Marker({
-					position : new naver.maps.LatLng(latlng),
-					map : map,
-					icon: {
-					        url: '/resources/image/marker/home.png',     //50, 68 크기의 원본 이미지
-					        size: new naver.maps.Size(25, 34),
-					        scaledSize: new naver.maps.Size(25, 34),
-					        origin: new naver.maps.Point(0, 0),
-					        anchor: new naver.maps.Point(12, 34)
-					}
-				});
-
-			});
-		}
-		
-		//등록한 상품 주소의 좌표값 가져오기 (addr : 주소)
-		function sellProductToAddress(addr) {
-			naver.maps.Service.fromAddrToCoord({
-				address : addr
-			}, function(status, response) {
-				if (status == naver.maps.Service.Status.ERROR) {
-					return alert('Something wrong!');
-				}
-
-				// 경도 위도 표시
-				//﻿response.v2.addresses[0].jibunAddress
-// 				$("#spandCoordinate").text(
-// 						'경도:' + response.result.items[0].point.y + ', 위도:'
-// 								+ response.result.items[0].point.x);
-			var y = response.result.items[0].point.y;
-			var x = response.result.items[0].point.x;
-			console.log(x);
-			console.log(y);
-			
-				var latlng_sellProduct = new naver.maps.LatLng(
-						response.result.items[0].point.y,
-						response.result.items[0].point.x
-				); 
-				
-
-				
-				map.setCenter(latlng_sellProduct);
-				map.setZoom(15);
-				
-				var marker_sellProduct = new naver.maps.Marker({
-					position : new naver.maps.LatLng(latlng_sellProduct),
-					map : map
-					
-				});
-
-// 				console.log("latlng_sellProduct" + latlng_sellProduct);
-				var MARKER_SPRITE_X_OFFSET = 29,
-    				MARKER_SPRITE_Y_OFFSET = 50;
-
-				var contentString = [];
-				 contentString = {
-					"A1" : [] ,
-					"B1" : []
-						
-				};
-// 				 등록된 상품 주소들
-				 /* data_addr */
-
-			for (var key in contentString) {
- 				var infowindow = new naver.maps.InfoWindow({
-		      		  content: '<div style="width:150px;text-align:center;padding:10px;">The Letter is <b>"'+ key +'"</b>.</div>'
-				 });
-			};
-				
-				naver.maps.Event.addListener(marker_sellProduct, "click", function(e) {
-				    if (infowindow.getMap()) {
-				        infowindow.close();
-				    } else {
-				        infowindow.open(map, marker_sellProduct);
-				    }
-				});	
-	
-				infowindow.open(map, marker_sellProduct);
-				
-			});
-			
-				
-			
-		} //등록한 상품 주소 마커 
-		
-		
-		
-		
-		
-			// 좌표 값 가져오기
-			var data_Address = $("#address").attr("data-Address");
-			searchAddressToCoordinate(data_Address);
+		// 좌표 값 가져오기
+		var data_Address = $("#address").attr("data-Address");
 			console.log("data_Address : " + data_Address); // 검색한 주소
+		
+		var arr_data_addr = new Array();
 			
-			// 주소 값 가져와서 위도 경도로 변환
-			$(".addr_list").each(function(){
+		// 주소 값 가져와서 위도 경도로 변환
+		$(".addr_list").each(function(){
 			var data_addr = $(this).attr("data-addr"); //등록된 상품들 주소
 			console.log("data_addr : " + data_addr);
-			sellProductToAddress(data_addr);
-			});
+			arr_data_addr.push(data_addr);
+		});
+			
+			console.log(arr_data_addr);
+	
 		
-	});
+//-------------------------------------------- 카카오 지도 api ------------------------------------------	
+		var container = document.getElementById('map'); //지도를 담을 영역의 DOM 레퍼런스
+		var options = { //지도를 생성할 때 필요한 기본 옵션
+			center: new kakao.maps.LatLng(33.450701, 126.570667), //지도의 중심좌표.
+			level: 3 //지도의 레벨(확대, 축소 정도)
+		};
+
+		var mapContainer = document.getElementById('map'), // 지도를 표시할 div  
+	    mapOption = { 
+	        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+	        level: 2 // 지도의 확대 레벨
+	    };
+
+	var map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+	 
+	// 마커를 표시할 위치와 title 객체 배열입니다 
+	var positions = [
+    {
+        content: '<div>카카오</div>', 
+        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+    },
+    {
+        content: '<div>카카오</div>', 
+        latlng: new kakao.maps.LatLng(33.450705, 126.570677)
+    }
+];
+
+
+	// 마커 이미지의 이미지 주소입니다
+	var imageSrc = "https://t1.daumcdn.net/localimg/localimages/07/mapapidoc/markerStar.png"; 
+	    
+	for (var i = 0; i < positions.length; i ++) {
+	    
+	    // 마커 이미지의 이미지 크기 입니다
+	    var imageSize = new kakao.maps.Size(24, 35); 
+	    
+	    // 마커 이미지를 생성합니다    
+	    var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize); 
+	    
+
+	    // 인포윈도우를 표시하는 클로저를 만드는 함수입니다 
+	    function makeOverListener(map, marker, infowindow) {
+	        return function() {
+	            infowindow.open(map, marker);
+	        };
+	    }
+
+	    // 인포윈도우를 닫는 클로저를 만드는 함수입니다 
+	    function makeOutListener(infowindow) {
+	        return function() {
+	            infowindow.close();
+	        };
+	    }
+	}
+// -----------------------------------------검색한 주소 마커 생성------------------------------------------------	
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();
+
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(data_Address, function(result, status) {
+
+	    // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
+
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker2 = new kakao.maps.Marker({
+	            map: map,
+	            position: coords,
+	            image: markerImage
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">검색한 주소</div>'
+	        });
+	        infowindow.open(map, marker2);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
+	});    
+	
+	
+		
+	}); // main function
 	/* ==================================== 네이버 지도 소스 코드 끝 ======================================= */
 </script>
 </head>
@@ -165,16 +185,18 @@
 			<div class="col-md-12">
 				<div class="row">
 					<div class="col-md-8">
-						<div style="position: absolute; left: 63%;">
+					
+					<div id="map" style="top : 20%; width:500px;height:400px; left:55%;"></div>
+					
+						<div style="position: absolute; left: 63%; top: 3%">
 						검색한 주소 : <input type="text" id="txtAddress" name="txtAddress" value="${roadAddress}">
 						</div>
-						<div id="map" style="width: 70%; top: 25%; left: 40%; height: 500px;"></div>
 					</div>
 					
 					<div class="col-md-4">
 						<br>
 						<br>
-						<button type="button" id="btnCoordinate">주소 재검색하기</button>
+						<button class="btn btn-primary" type="button" id="btnCoordinate">주소 재검색하기</button>
 						<br>
 						<input type="hidden" id="address" data-address="${roadAddress}"/>
 						
@@ -182,7 +204,6 @@
 								<input type="hidden" class="addr_list" data-addr="${road_address.road_address}"/>
 							</c:forEach>
 						
-						<button type="button" id="goToTeam">프로젝트로</button>
 					</div>
 				</div>
 			</div>

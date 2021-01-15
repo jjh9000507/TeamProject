@@ -569,7 +569,7 @@ ul, li {
 }
 
 #content_img {
-	padding-left : 20%;
+	padding-left : 35%;
 	height: 450px;
     position: relative;
     float: left;
@@ -583,45 +583,37 @@ ul, li {
 #divContent {
     border-top: 2px solid black;
     border-bottom: 1px solid gainsboro;
-}
-
-#divContent2 {
-    border-bottom: 1px solid gainsboro;
-}
-
-.content_span {
-    padding-left: 15%;
-}
-
-.content_span2 {
-    padding-left: 12%;
-}
-
-.content_span3 {
-    padding-left: 8%;
-}
-
-.content_span4 {
-    padding-left: 7%;
+	text-align: center;
 }
 
 #btnBuy {
-	position: absolute;
-    bottom: 0;
-    left: 10%;
-	width: 60%;
-    height: 12%;
+	position: relative;
+    left: -2%;
+    width: 60%;
+    height: 65%;
+    top: 15px;
 }
 
 #btnBuy2 {
-	position: absolute;
+	position: relative;
     bottom: 0;
-    left: 72%;
-	width: 30%;
-    height: 12%;
+    left: 0%;
+    width: 30%;
+    height: 65%;
+    top: 15px;
     border: 1px solid gainsboro;
     color: black;
 }
+
+.content_span2 {
+	font-weight: bold;
+    font-size: 20px;
+}
+
+.content_span4 {
+    font-size: 13px;
+}
+
 
 #span_detail {
     font-weight: bold;
@@ -630,11 +622,11 @@ ul, li {
 
 #content_detail_info {
 	border-bottom : 1px solid gainsboro;
+	text-align: center;
+	height : 75px;
 }
 
 #content_detail_img {
-	position: relative;
-    left: 20%;
 }
 
 .carousel-caption {
@@ -656,6 +648,12 @@ ul, li {
 	font-size: 35px;
 	color : red;
 	padding-right : 1%;
+}
+
+#btnCoordinate {
+	position: relative;
+    top: -10%;
+    left: -30%;
 }
 
 </style>

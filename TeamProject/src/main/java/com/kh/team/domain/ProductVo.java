@@ -12,6 +12,7 @@ public class ProductVo {
 	private String p_thumbimg; // 썸네일 이미지
 	private Timestamp p_regdate; // 상품등록날짜
 	private int p_no2;
+	private String road_address;
 	
 	public int getP_no() {
 		return p_no;
@@ -67,13 +68,20 @@ public class ProductVo {
 	public void setP_no2(int p_no2) {
 		this.p_no2 = p_no2;
 	}
+	public String getRoad_address() {
+		return road_address;
+	}
+	public void setRoad_address(String road_address) {
+		this.road_address = road_address;
+	}
 	
 	@Override
 	public String toString() {
 		return "ProductVo [p_no=" + p_no + ", p_name=" + p_name + ", p_seller=" + p_seller + ", p_price=" + p_price
 				+ ", cate_no=" + cate_no + ", p_content=" + p_content + ", p_thumbimg=" + p_thumbimg + ", p_regdate="
-				+ p_regdate + ", p_no2=" + p_no2 + "]";
+				+ p_regdate + ", p_no2=" + p_no2 + ", road_address=" + road_address + "]";
 	}
+	
 	
 	
 }
