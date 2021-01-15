@@ -1,7 +1,12 @@
 package com.kh.team.domain;
 
 public class SendProductBoughtInfoVo {
-	
+	private int price;
+	private String seller;
+	private int productNum;
+	private String productName;
+	private String sendMethod;
+	private int p_no;
 	private String radioVal;
 	private int memberOfTelephone;
 	private String messageForDriver;	
@@ -9,11 +14,48 @@ public class SendProductBoughtInfoVo {
 	private String roadAddress;
 	private String extraAddress;		
 	private String detailAddress;
-	private int p_no;
 	private String m_id;
 	private int todayValueYear;
 	private int todayValueMonth;
 	private int todayValueDate;
+	
+	
+	public int getPrice() {
+		return price;
+	}
+	public void setPrice(int price) {
+		this.price = price;
+	}
+	public String getSeller() {
+		return seller;
+	}
+	public void setSeller(String seller) {
+		this.seller = seller;
+	}
+	public int getProductNum() {
+		return productNum;
+	}
+	public void setProductNum(int productNum) {
+		this.productNum = productNum;
+	}
+	public String getProductName() {
+		return productName;
+	}
+	public void setProductName(String productName) {
+		this.productName = productName;
+	}
+	public String getSendMethod() {
+		return sendMethod;
+	}
+	public void setSendMethod(String sendMethod) {
+		this.sendMethod = sendMethod;
+	}
+	public int getP_no() {
+		return p_no;
+	}
+	public void setP_no(int p_no) {
+		this.p_no = p_no;
+	}
 	public String getRadioVal() {
 		return radioVal;
 	}
@@ -56,12 +98,6 @@ public class SendProductBoughtInfoVo {
 	public void setDetailAddress(String detailAddress) {
 		this.detailAddress = detailAddress;
 	}
-	public int getP_no() {
-		return p_no;
-	}
-	public void setP_no(int p_no) {
-		this.p_no = p_no;
-	}
 	public String getM_id() {
 		return m_id;
 	}
@@ -88,10 +124,12 @@ public class SendProductBoughtInfoVo {
 	}
 	@Override
 	public String toString() {
-		return "SendProductBoughtInfoVo [radioVal=" + radioVal + ", memberOfTelephone=" + memberOfTelephone
-				+ ", messageForDriver=" + messageForDriver + ", postcode=" + postcode + ", roadAddress=" + roadAddress
-				+ ", extraAddress=" + extraAddress + ", detailAddress=" + detailAddress + ", p_no=" + p_no + ", m_id="
-				+ m_id + ", todayValueYear=" + todayValueYear + ", todayValueMonth=" + todayValueMonth
-				+ ", todayValueDate=" + todayValueDate + "]";
+		return "SendProductBoughtInfoVo [price=" + price + ", seller=" + seller + ", productNum=" + productNum
+				+ ", productName=" + productName + ", sendMethod=" + sendMethod + ", p_no=" + p_no + ", radioVal="
+				+ radioVal + ", memberOfTelephone=" + memberOfTelephone + ", messageForDriver=" + messageForDriver
+				+ ", postcode=" + postcode + ", roadAddress=" + roadAddress + ", extraAddress=" + extraAddress
+				+ ", detailAddress=" + detailAddress + ", m_id=" + m_id + ", todayValueYear=" + todayValueYear
+				+ ", todayValueMonth=" + todayValueMonth + ", todayValueDate=" + todayValueDate + "]";
 	}	
+	
 }

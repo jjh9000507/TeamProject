@@ -5,7 +5,9 @@ package com.kh.team.controller;
 import java.util.List;
 
 
+
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.team.domain.BuyComputerVo;
 import com.kh.team.domain.ComputerCommentVo;
+
 import com.kh.team.domain.ProductExplainVo;
 import com.kh.team.service.ComputerCommentService;
 import com.kh.team.service.ComputersService;
@@ -43,10 +46,11 @@ public class ComputerProductCommnetController {
 	}
 	
 	@RequestMapping(value="/deleteRef", method=RequestMethod.POST)
-	public String deleteRef(int c_com_comment_no) throws Exception{
+	public int deleteRef(int c_com_comment_no, String c_com_product) throws Exception{
 		System.out.println("c_com_comment_no:" + c_com_comment_no);
 		computerCommentService.deleteComment(c_com_comment_no);
-		return "success";		
+		int countComment = computersService.buyComputerComment(c_com_product);
+		return countComment;		
 	}
 		
 	@RequestMapping(value="/updateRefContent", method=RequestMethod.POST)
@@ -66,14 +70,15 @@ public class ComputerProductCommnetController {
 	}
 
 	@RequestMapping(value="/insertInquireExpain", method=RequestMethod.POST)
-	public String insertInquireExpain(ProductExplainVo productExplainVo) throws Exception{
+	public int insertInquireExpain(ProductExplainVo productExplainVo) throws Exception{
 		System.out.println("p_e_id:" + productExplainVo.getP_e_id());
 		System.out.println("p_e_title:" + productExplainVo.getP_e_title());
 		System.out.println("p_e_inquiry_status:" + productExplainVo.getP_e_inquiry_status());
 		System.out.println("p_e_product:" + productExplainVo.getP_e_product());
 		computerCommentService.insetInquire(productExplainVo);
-		
-		return "success";		
+		String p_e_product = productExplainVo.getP_e_product();
+		int countExplain = computersService.buyComputerExplain(p_e_product);
+		return countExplain;		
 	}
 	@RequestMapping(value="/searchInquireExplain", method=RequestMethod.POST)
 	public List<ProductExplainVo> searchInquireExplain(ProductExplainVo productExplainVo) throws Exception{
@@ -89,10 +94,27 @@ public class ComputerProductCommnetController {
 		String nok = "nok";
 		int like_num_plus = 1;
 		int count = computersService.getPurchaseLike(buyComputerVo,like_num_plus ,nok);
+		int c_com_no = buyComputerVo.getC_com_no();
 		
+		int select_like = computersService.getTotalNumLike(nok);
+		System.out.println("select_like:" + select_like);
+		int likeNum = computersService.getProductNumLike(c_com_no);
+		System.out.println("likeNum:" + likeNum);
+		
+		double productBuyLike = 0;
+		if(select_like != 0) {
+			productBuyLike = ((double)likeNum / (double)select_like) * 100;
+			double resultLike = productBuyLike * 100;
+			double resultAgainLike =  Math.floor(resultLike);
+			productBuyLike = resultAgainLike / 100;
+			
+			System.out.println("productBuyLike:" + productBuyLike);
+			System.out.println("result:" + resultLike);
+			System.out.println("resultAgain:" + resultAgainLike);			
+		}
 		String view = "";
 		if(count == CHECK_FOR_INDEX) {
-			view = "success";
+			view = Double.toString(productBuyLike);
 		}else {
 			view = "fail";
 		}

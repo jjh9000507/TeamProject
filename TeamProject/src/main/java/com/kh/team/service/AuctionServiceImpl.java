@@ -296,4 +296,24 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public void modifyAuction_imgInsert(String fileAllName, int p_no) throws Exception {
 		auctionDao.modifyAuction_imgInsert(fileAllName, p_no);		
 	}
+
+	@Override
+	public void modifyAuctoin(AuctionVo auctionVo) throws Exception {
+		auctionDao.modifyAuctoin(auctionVo);
+	}
+
+	@Override
+	public void modifyAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception {
+		auctionDao.modifyAuctionAddress(auctionAddressVo);
+	}
+
+	@Override
+	public void modifyAuctionMainImg(AuctionMainImgVo auctionMainImgVo) throws Exception {
+		auctionDao.modifyAuctionMainImg(auctionMainImgVo);
+	}
+
+	@Override
+	public void modifyAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception {
+		auctionDao.modifyAuctionExpirationDate(auctionEDateVo);
+	}
 }

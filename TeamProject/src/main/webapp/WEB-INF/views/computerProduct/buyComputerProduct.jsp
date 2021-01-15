@@ -8,8 +8,10 @@
 
 <script>
 $(function(){
-	var price = "${buyComputerVo.c_com_price}";
+	var price = "${buyComputerVo.c_com_price}";	
+	var c_com_product = "${buyComputerVo.c_com_name}";	
 	var m_id = "${sessionScope.memberVo.m_id}";
+	
 	console.log("m_id:" + m_id);
 	var priceFinal = "";
 	var index = "";
@@ -110,17 +112,22 @@ $(function(){
 		console.log("comment_no:" + comment_no);
 		var url = "/computerProductComment/deleteRef";
 		var sendData = {							
-				"c_com_comment_no" : comment_no
+				"c_com_comment_no" : comment_no,
+				"c_com_product"    : c_com_product
 			};
 			$.post(url, sendData, function(data) {
-				if(data == "success"){
+				if(data != null){
 					alert("선택 후기 삭제 성공");
+					$("#buyAfterKey").text(data);
 				}
 			});
 	});
 	$("#inquireControll").on("click", "#inquireProductWrite", function(){
-		$("#modal-inquireModal").trigger("click");
-					
+		if(m_id != ""){
+			$("#modal-inquireModal").trigger("click");
+		}else{
+			alert("로그인 하시오");
+		}					
 	});
 	$("#inquireControll").on("click", "#searchInquireButton", function(){
 		var indexInquire = 1;
@@ -157,7 +164,7 @@ $(function(){
 		console.log("p_e_contents:" + p_e_contents);
 		var buySelectModalVal = $("#buySelectModal option:selected").val();
 		console.log("buySelectModalVal:" + buySelectModalVal);
-		var inquireWriter = $("#getInquireId").val();
+		var inquireWriter = $("#getInquireId").val();		
 		console.log("inquireWriter:" + inquireWriter);
 		var getInquireProduct = $("#getInquireProduct").val();
 		console.log("getInquireProduct:" + getInquireProduct);
@@ -168,11 +175,13 @@ $(function(){
 				"p_e_inquiry_status" : buySelectModalVal,
 				"p_e_product"        : getInquireProduct
 		};
-		$.post(url,sendData,function(data){
-			if(data == "success"){
-				alert("상품문의 사항 전달 성공");
-			}
-		});
+		
+			$.post(url,sendData,function(data){
+				if(data != null){
+					alert("상품문의 사항 전달 성공");
+					$("#inquireKey").text(data);
+				}
+			});		
 	});
 	$("#buyProduct").click(function(){
 		console.log("구매하기 버튼 클릭됨.");
@@ -225,16 +234,21 @@ $(function(){
 	
 	$("#iLikeThisProduct").click(function(){
 		var c_com_name = "${buyComputerVo.c_com_name}";
+		var c_com_no = "${buyComputerVo.c_com_no}";
 		var url = "/computerProductComment/sendForGetPurchaseLike";
 		var sendData = {
-				"productName" : c_com_name
+				"productName" : c_com_name,
+				"c_com_no"	  : c_com_no
+				
 		};
 		if(m_id != ""){
 			$.post(url,sendData,function(data){
-				if(data == "success"){
-					alert("해당 상품에 대한 선호도가 올라갔습니다.");
-				}else if(data == "fail"){
+				if(data == "fail"){
 					alert("다시 클릭하시오");
+					
+				}else{
+					alert("선호도 상승");
+					$("#likeValue").text(data);
 				}
 			});
 		}else{
@@ -316,7 +330,7 @@ $(function(){
 							<option value="기타">기타</option>
 						</select>								
 						<input type="text" class="form-control" name="p_e_contents" id="p_e_contents" placeholder="상품문의 사항 작성"/>
-						<input type="text" style="display: none;" id="getInquireId" value="${buyComputerVo.c_com_seller}"/>
+						<input type="text" style="display: none;" id="getInquireId" value="${sessionScope.memberVo.m_id}"/>
 						<input type="text" style="display: none;" id="getInquireProduct" value="${buyComputerVo.c_com_name}"/>
 						</div>
 						<div class="modal-footer">							 
@@ -473,7 +487,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							컴퓨터 카테고리내에서의 선호도:(<span>${productBuyLike}</span>)&percnt;
+							컴퓨터 카테고리내에서의 선호도:(<span id="likeValue">${productBuyLike}</span>)&percnt;
 							<div>
 							<progress value="${productBuyLike}" max="100"></progress>
 							</div>
@@ -501,8 +515,8 @@ $(function(){
 <footer class="buyfooter">
 <ul class="nav nav-tabs breadcrumb">
 <li class="nav-item"><button id="detailProductExpain">상세설명</button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="buyAfter">구매후기(<span>${computerCommentCount}</span>)</button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="inquireProduct">상품문의(<span>${productExplainCount}</span>)</button></li>
+<li class="nav-item"><button id="buyAfter">구매후기(<span id="buyAfterKey">${computerCommentCount}</span>)</button></li>&nbsp&nbsp&nbsp
+<li class="nav-item"><button id="inquireProduct">상품문의(<span id="inquireKey">${productExplainCount}</span>)</button></li>
 </ul>
 </footer>
 <aside class="buyrightdownaside">
