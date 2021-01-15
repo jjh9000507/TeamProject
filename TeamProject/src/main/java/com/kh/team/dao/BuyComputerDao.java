@@ -31,5 +31,9 @@ public interface BuyComputerDao {
 	//해당 제품 구매시 컴퓨터 카테고리내의 구매한 품목의 선호도를 구해오기 위해 전체 구매수량 저장 테이블에 갯수 더하기
 	public int updateTotalNumLikePlus(String nok,int like_num_plus, int select_number) throws Exception;
 	//해당 제품 구매시 컴퓨터 카테고리내의 구매한 품목의 선호도를 구해오기 위해 전체 구매수량 저장 테이블을 선택하기
-	public int selectTotalTableLike(String nok) throws Exception;		
+	public int selectTotalTableLike(String nok) throws Exception;
+	
+	
+	//결제시 구매후기 작성하는 기능
+	public void insertProductRef(String productName, String m_id, String c_com_comment_content) throws Exception;
 }
