@@ -518,4 +518,13 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		
 		return "redirect:/auction/auctionResisterList";
 	}
+	
+	@RequestMapping(value="/auctionPaymentList", method=RequestMethod.GET)
+	public String auctionPaymentList() throws Exception{
+		
+		
+		
+		return "auction/auctionPaymentList";
+	}
+	
 }

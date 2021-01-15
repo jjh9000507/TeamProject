@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.kh.team.controller.ImPortKey;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.service.AdminService;
@@ -18,7 +19,7 @@ import com.kh.team.service.PageService;
 
 
 @Controller
-public class HomeController {	
+public class HomeController implements ImPortKey {	
 
 	@Inject
 	PageService pageService;
@@ -40,6 +41,7 @@ public class HomeController {
 		session.setAttribute("AllCategory", AllCategory);
 		
 		session.setAttribute("selectAll_List", selectAll_List);
+		
 		return "/main";
 		
 	}

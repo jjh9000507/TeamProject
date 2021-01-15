@@ -19,6 +19,7 @@
 <link rel="stylesheet" href="/resources/css/sidebar.css" />
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
+<script type="text/javascript" src="/resources/js/auctionJS.js" charset="UTF-8"></script>
 
 <style type="text/css">
 
@@ -26,18 +27,21 @@
     padding-top: 30px;
 }
 
-
 </style>
 
 
 <script>
 $(function(){
-	
-	var IMP = window.IMP; // 생략가능
+
+	var IMP = window.IMP;
 	IMP.init('${ImPortkey}');
 	
 	$("#payment").click(function(){
+
+		$("#orderForm").submit();
 		
+		
+		/* 결제 시작
 		var price = $("#resultPrice").text();
 		alert(price);
 		IMP.request_pay({
@@ -67,6 +71,7 @@ $(function(){
 		        msg += '에러내용 : ' + rsp.error_msg;
 		    }
 		});//IMP.request_pay	
+		결제 끝*/
 	});
 	
 	//배송 메세지 
@@ -137,7 +142,7 @@ $(function(){
 	});
 	
 	//--------------------------------------------- 주소 시작 ----------------------------------------------------------//
-	$("#addrFindAuction").click(function(e) {//주소 찾기 버튼
+	$("#btnFindAddr").click(function(e) {//주소 찾기 버튼
 		e.preventDefault();
 		$("#modalAddrAuction").trigger("click");
 	});
@@ -182,17 +187,14 @@ $(function(){
 			var roadAddr = $(this).text();
 			var jibunAddr = $(this).parent().parent().next().next().children().text();//닫는tr-> /tr 도 요소에 포함. next()에 포함시킨다
 			var zip = $(this).attr("data-zip");
-			//alert("도로:"+roadAddr+" ,지번:"+jibunAddr);
+			alert("도로:"+roadAddr+" ,지번:"+jibunAddr);
 			//console.log("zip:"+zip);
-			$("#spanZip").text(zip);
-			$("#spanRoadAddr").text(roadAddr);
-			$("#spanjibundAddr").text(jibunAddr);
-			$("#txtjibundAddrDetail").val("");
+ 			$("#zip").text(zip);
+ 			$("#road_address").text(roadAddr);
+ 			$("#jibun_address").text(jibunAddr);
+ 			$("#detail_address").text("");
 			
-			$("#zip").val(zip);
-			$("#road_address").val(roadAddr);
-			$("#jibun_address").val(jibunAddr);
-			
+			$("#detail_address").prop("readonly",false);
 			
 			$("#btnModalCloseAuction").trigger("click");
 		});
@@ -240,7 +242,18 @@ $(function(){
 
 </script>
 
-<input type=hidden id="phoneNumber" name="m_phonenumber" value="${memberVo.m_phonenumber}"/>
+    
+<!-- 	
+	<input type='hidden' name='e_year' id='e_year'>
+	<input type='hidden' name='e_month' id='e_month'>
+	<input type='hidden' name='e_day' id='e_day'>
+	<input type='hidden' name='e_second' id='e_second'>
+	
+	<input type="hidden" name="zip" id="zip">
+	<input type="hidden" name="road_address" id="road_address">
+	<input type="hidden" name="jibun_address" id="jibun_address">
+ -->											
+
 
 <!--  주소 찾기 모달 시작 -->
 <div class="container-fluid">
@@ -264,7 +277,7 @@ $(function(){
 						<div class="modal-body"> 
 							<div>
 								<input type="text" style="width:300px;margin-bottom:15px;font-size:15px" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
-								<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
+								<a href="#" id="modalAddrFindAuction"><img src="/resources/auctionImage/addrFind.png"></a>
 							</div>
 								<div id="list" style="padding-bottm:20px"></div>
 								<!-- 검색 결과 리스트 출력 영역 -->
@@ -292,13 +305,12 @@ $(function(){
 	<div class="col-md-8">
 		<div class="DetailDiv">
 
+		<form role="form" name="orderForm" id="orderForm" action="/auction/auctionPaymentList">
+			<input type=hidden id="phoneNumber" name="m_phonenumber" value="${memberVo.m_phonenumber}"/>
+			
 		<section class="DetailSection">
 		<span class="mainTitle">주문서</span>
-		<hr>
-		<br>
-		<br>
-		<h4>주문상품내용</h4>
-		<hr>
+		<hr><br><br><h4>주문상품내용</h4><hr>
 		<div class="row">
 				<div class="col-md-12">
 					<table class="table">
@@ -398,24 +410,21 @@ $(function(){
 					<table class="table">
 						<thead>
 							<tr>																		
-								<th style="width: 130px;">
+								<th>
 									주소
 								</th>												
-								<th style="width:400px;">
+								<th>
 									연락처
 								</th>
-								<th>
+								<th colspan='2'>
 									배송 메세지
-								</th>												
-								<th>
-									
 								</th>												
 							</tr>
 						</thead>
 						<tbody>
 							<tr>						
 								<td>
-									<button type="button" id="searchJuso">검색</button><br>							
+									<button type="button" id="btnFindAddr">검색</button><br>							
 								</td>
 								<td>
 									<label>연락처:</label>
@@ -432,7 +441,7 @@ $(function(){
 									<input type="text" style="width:90px" id="txtFinalPhoneNumber">
 									<button type="button" id="btnChangeNumber">변경</button>
 								</td>
-								<td colspan='2' style="width:400px">
+								<td colspan='2'>
 									<input placeholder="택배 기사님께 부탁할 사항을 입력하시오" type="text" id="messageForDriver" style="width:100%"/>(<span id="stringLengthSpan"></span>/50자)
 								</td>
 							</tr>					
@@ -440,17 +449,17 @@ $(function(){
 						<!-- 주소 추가 시작-->
 						<tbody>
 							<tr>						
-								<td>
-									우편번호							
+								<td style="text-align:center">
+									<span id="zip" name="zip">${auctionSoldVo.zip}</span>						
 								</td>
-								<td>
-									<span id="zip" name="zip">${auctionSoldVo.zip}</span>
+								<td style="text-align:center">
+									<span id="road_address" name="road_address">${auctionSoldVo.road_address}</span> /
+									<span id="jibun_address" name="jibun_address">${auctionSoldVo.jibun_address}</span>
 								</td>
-								<td>
-									<span id="road_address" name="road_address">${auctionSoldVo.road_address}</span> 
-									<span id="detail_address" name="detail_address">${auctionSoldVo.detail_address}</span> 
+								<td style="text-align:center">
+									상세 주소 : <input type="text" id="detail_address" name="detail_address" value="${auctionSoldVo.detail_address}" style="width:90px;text-align:center">
 								</td>
-								<td>
+								<td style="width: 300px;text-align:center">
 									<div id="divChangePhone" style="display:none"><span id="spanFirstNumber"></span>-<span id="spanMiddleNumber"></span>-<span id="spanFinalNumber"></span></div>
 									<div id="divPhone">${memberVo.m_phonenumber}</div>
 								</td>
@@ -516,12 +525,14 @@ $(function(){
 				</div>
 			</div>
 		</section>
-
+		</form>
+		
 	</div>
 	</div>
 	<div class="col-md-2"></div>
 </div>
 </div>
+
 
 
 <!-- aside 시작 -->

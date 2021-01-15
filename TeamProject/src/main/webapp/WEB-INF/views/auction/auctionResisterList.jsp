@@ -516,7 +516,7 @@ $(function() {
 												<div class="card">
 														<img src="/furniture/displayImage?imageName=${bidingFinishList.main_img_name}" class="img-class" style="height:200px;">
 													<div class="card-block">
-														<h5 class="card-title">상품:${bidingFinishList.p_title}</h5>
+														<h5 class="card-title">${bidingFinishList.p_title}</h5>
 														<p class="card-text">현재가:${bidingFinishList.present_price}</p>
 														<p class="card-text">즉구가:${bidingFinishList.instant_price}</p>
 														<p class="card-text">등록일:${bidingFinishList.r_year}/${bidingFinishList.r_month}/${bidingFinishList.r_day}</p>
