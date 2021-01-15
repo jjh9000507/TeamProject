@@ -3,6 +3,7 @@ package com.kh.team.dao;
 import java.util.List;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 public interface WhitegoodsDao {
@@ -16,4 +17,7 @@ public interface WhitegoodsDao {
 	public void productImgDelete(int p_no) throws Exception;
 	public void readUpdate(int w_no) throws Exception;
 	public void imgInsert(int p_no, String img_name) throws Exception;
+	
+	//리뷰글 가져오기
+	public List<WhitegoodsReviewVo> reviewList(int w_no) throws Exception;
 }

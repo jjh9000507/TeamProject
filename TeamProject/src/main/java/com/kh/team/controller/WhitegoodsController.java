@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 import com.kh.team.service.WhitegoodsService;
 import com.kh.team.util.UploadFileUtils;
@@ -52,8 +53,10 @@ public class WhitegoodsController {
 		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
 		int p_no = whitegoodsVo.getP_no();
 		List<String> productImgList = whitegoodsService.productImgList(p_no);
+		List<WhitegoodsReviewVo> reviewList = whitegoodsService.reviewList(w_no);
 		model.addAttribute("whitegoodsVo", whitegoodsVo);
 		model.addAttribute("productImgList", productImgList);
+		model.addAttribute("reviewList", reviewList);
 		return "/whitegoods/detailwhitegoods";
 	}
 

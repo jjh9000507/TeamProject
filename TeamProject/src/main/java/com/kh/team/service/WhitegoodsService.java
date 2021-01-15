@@ -4,16 +4,38 @@ import java.util.List;
 
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 public interface WhitegoodsService {
+	
+	//가전제품 리스트 가져오기
 	public List<WhitegoodsVo> getWhitegoodsList(String w_cate_no) throws Exception;
+	
+	//상품 수정
 	public void updateWhitegoods(WhitegoodsVo whitegoodsVo) throws Exception;
+	
+	//상품 삭제
 	public void deleteWhitegoods(int w_no) throws Exception;
+	
+	//카테고리 클릭하여 상품 리스트 페이지 이동 시 해당 카테고리의 하위 카테고리 가져오기
 	public List<CategoryVo> getFirstCategoryList(String w_cate_no) throws Exception;
+	
+	//상품 상세보기
 	public WhitegoodsVo detailWhitegoods(int w_no) throws Exception;
+	
+	//해당 유저 가전제품 전체 삭제
 	public void userPAlldelete(String m_id) throws Exception;
+	
+	//상품 상세보기 시 이미지 가져오기
 	public List<String> productImgList(int p_no) throws Exception;
+	
+	//상품 삭제 시 이미지 삭제
 	public void productImgDelete(int p_no) throws Exception;
+	
+	//상품 수정 시 이미지 넣기
 	public void imgInsert(WhitegoodsVo whitegoodsVo, ProductImgVo productImgVo) throws Exception;
+	
+	//리뷰글 가져오기
+	public List<WhitegoodsReviewVo> reviewList(int w_no) throws Exception;
 }
