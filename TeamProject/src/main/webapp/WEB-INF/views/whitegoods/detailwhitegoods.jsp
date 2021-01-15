@@ -4,14 +4,13 @@
 
 <%@ include file="../include/header.jsp"%>
 <%@ include file="/resources/css/whitegoods.css" %>
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
 <script>
+function scrollMove(seq){
+	var offset = $(".product-" + seq).offset();
+	$('html, body').animate({scrollTop : offset.top}, 400);
+}
 	$(function(){
-		$(".tab-titles > li").click(function(){
-			var type= ${param.type};
-			console.log();
-		})
-		
-		
 		var memberVo = "${sessionScope.memberVo.m_id}";
 		$("#btnCart").click(function(){
 			if(memberVo == ""){
@@ -48,7 +47,6 @@
 <br>
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 <!-- 
-	<br>
 	<div style="text-align: right;">
 			<c:if test="${sessionScope.memberVo.m_id == whitegoodsVo.w_seller}">
 				<div>
@@ -94,38 +92,139 @@
 </div>
 <div id="btfTab" class="tab">
     <ul class="tab-titles">
-        <li name="detail" class="active">상품상세</li>
-        <li name="review">상품평 <span class="product-tab-review-count"></span></li>
-        <li name="qna">상품문의</li>
-        <li name="etc">배송/교환/반품 안내</li>
+        <li name="detail" onclick="scrollMove('detail')" class="active">상품상세</li>
+        <li name="review" onclick="scrollMove('review')">상품평 <span class="product-tab-review-count"></span></li>
+        <li name="qna" onclick="scrollMove('qna')">상품문의</li>
+        <li name="etc" onclick="scrollMove('etc')">배송/교환/반품 안내</li>
     </ul>
     <ul class="tab-contents">
-        <li class="product-detail"></li>
-        <li class="product-review"></li>
-        <li class="product-qna"></li>
-        <li class="product-etc"></li>
+        <li class="product-detail">
+        	<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8 productshow show2">
+					<c:forEach var="productImgVo" items="${productImgList}">
+						<div class="imgProduct">
+							<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
+						</div>
+					</c:forEach>
+					<hr>
+					<div class="content">
+						${whitegoodsVo.w_content}
+					</div>
+			
+				</div>
+			<div class="col-md-2"></div>
+		</div>
+        
+        
+        
+	        
+		</li>
+		<li class="product-review">
+		
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<p>상품평</p>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Product</th>
+								<th>Payment Taken</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>TB - Monthly</td>
+								<td>01/04/2012</td>
+								<td>Default</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</li>
+		<li class="product-qna">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<p>상품 문의</p>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Product</th>
+								<th>Payment Taken</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>TB - Monthly</td>
+								<td>01/04/2012</td>
+								<td>Default</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		</li>
+		<li class="product-etc">
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<p>배송/반품 안내</p>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="row">
+				<div class="col-md-2"></div>
+				<div class="col-md-8">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th>Product</th>
+								<th>Payment Taken</th>
+								<th>Status</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>1</td>
+								<td>TB - Monthly</td>
+								<td>01/04/2012</td>
+								<td>Default</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<div class="col-md-2"></div>
+			</div>
+		
+		
+			
+		</li>
     </ul>
 </div>
-<!-- 
-<div class="row">
-	<div class="col-md-2"></div>
-	
-	<div class="col-md-8 productshow show2">
-	
-		<c:forEach var="productImgVo" items="${productImgList}">
-			<div class="imgProduct">
-				<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
-			</div>
-		</c:forEach>
-		<hr>
-		<div class="content">
-			${whitegoodsVo.w_content}
-		</div>
-		
-	</div>
-	<div class="col-md-2"></div>
-</div>
--->
 <br>
 <br>
 <br>

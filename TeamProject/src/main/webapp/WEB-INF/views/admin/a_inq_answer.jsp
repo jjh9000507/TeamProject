@@ -9,10 +9,10 @@ src="https://cdn.rawgit.com/dwyl/html-form-send-email-via-google-script-without-
 $(function(){
 	$("#btnMail").click(function(){
 		setTimeout(() => {
-			$("#frmMail").attr("action", "/admin/adminForm");
+			$("#frmMail").attr("action", "/admin/adminInquiry");
 			$("#frmMail").attr("method", "get");
 			$("#frmMail").submit();
-		}, 8000);
+		}, 10000);
 	});
 });
 </script>
