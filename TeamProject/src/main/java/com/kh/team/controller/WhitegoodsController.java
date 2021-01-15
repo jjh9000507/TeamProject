@@ -51,12 +51,16 @@ public class WhitegoodsController {
 	@RequestMapping(value="/detailWhitegoods/{w_no}", method=RequestMethod.GET)
 	public String detailWhitegoods(@PathVariable("w_no") int w_no, Model model) throws Exception {
 		WhitegoodsVo whitegoodsVo = whitegoodsService.detailWhitegoods(w_no);
+		String seller = whitegoodsVo.getW_seller();
 		int p_no = whitegoodsVo.getP_no();
 		List<String> productImgList = whitegoodsService.productImgList(p_no);
 		List<WhitegoodsReviewVo> reviewList = whitegoodsService.reviewList(w_no);
+		MemberVo sellingMember = whitegoodsService.sellingMember(seller);
+		
 		model.addAttribute("whitegoodsVo", whitegoodsVo);
 		model.addAttribute("productImgList", productImgList);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("sellingMember", sellingMember);
 		return "/whitegoods/detailwhitegoods";
 	}
 

@@ -78,4 +78,9 @@
 		select * from whitegoods_review
 		where w_no = #{w_no}
 	</select>
+	
+	<select id="sellingMember" resultType="MemberVo">
+		select * from member
+		where m_id = #{m_id}
+	</select>
 </mapper>

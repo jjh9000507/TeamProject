@@ -337,25 +337,13 @@ function scrollMove(seq){
 						<tbody>
 							<tr>
 								<td class="tbls">상호/대표자</td>
-								<td class="tblsval">TB - Monthly</td>
-								<td class="tbls">사업장</td>
-								<td class="tblsval">Default</td>
-							</tr>
-							<tr>
+								<td class="tblsval">${sellingMember.m_id}</td>
 								<td class="tbls">email</td>
-								<td class="tblsval">TB - Monthly</td>
+								<td class="tblsval">${sellingMember.email}</td>
+							</tr>
+							<tr>
 								<td class="tbls">연락처</td>
-								<td class="tblsval">Default</td>
-							</tr>
-							<tr>
-								<td class="tbls">통신판매업 신고번호</td>
-								<td class="tblsval">TB - Monthly</td>
-								<td class="tbls">사업자번호</td>
-								<td class="tblsval">Default</td>
-							</tr>
-							<tr>
-								<td class="tbls">구매안전서비스</td>
-								<td colspan="3" class="tblsval">TB - Monthly</td>
+								<td colspan="3" class="tblsval">${sellingMember.m_phonenumber}</td>
 							</tr>
 						</tbody>
 					</table>
