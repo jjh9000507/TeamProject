@@ -123,5 +123,16 @@ public class BuyComputerDaoImpl implements BuyComputerDao {
 	}
 
 	
+	
+	// -----------------------------------------------------
+		
+	@Override
+	public void insertProductRef(String productName, String m_id, String c_com_comment_content) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("productName", productName);
+		map.put("m_id", m_id);		
+		map.put("c_com_comment_content", c_com_comment_content);	
+		sqlSession.insert(NAMESPACE + "insertProductRef", map);		
+	}
 		
 }

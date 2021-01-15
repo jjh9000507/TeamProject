@@ -316,4 +316,16 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public void modifyAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception {
 		auctionDao.modifyAuctionExpirationDate(auctionEDateVo);
 	}
+
+	@Override
+	public AuctionSoldVo orderAuctionSold(String purchaser, int p_no) throws Exception {
+		AuctionSoldVo auctionSoldVo = auctionDao.orderAuctionSold(purchaser, p_no);
+		return auctionSoldVo;
+	}
+
+	@Override
+	public MemberVo getMember(String m_id) throws Exception {
+		MemberVo memberVo = auctionDao.getMember(m_id);
+		return memberVo;
+	}
 }

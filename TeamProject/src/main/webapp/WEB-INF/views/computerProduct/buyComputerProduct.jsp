@@ -5,7 +5,7 @@
 <%@ include file="/resources/css/buyComputerProduct_css.css" %>
 <%@ include file="../include/header.jsp"%>
 
-
+<script src="/resources/js/computerScript.js"></script>
 <script>
 $(function(){
 	var price = "${buyComputerVo.c_com_price}";	
@@ -49,7 +49,7 @@ $(function(){
 				tr.find("td").eq(0).text(indexAfter);
 				tr.find("td").eq(1).text(this.c_com_comment_content);
 				tr.find("td").eq(2).text(this.c_com_comment_writer);
-				tr.find("td").eq(3).text(this.c_com_comment_regdate);
+				tr.find("td").eq(3).text(changeDateString(this.c_com_comment_regdate));
 				if("${sessionScope.memberVo.m_id}" == this.c_com_comment_writer){			
 					tr.find("td").eq(4).find("button");
 					tr.find("td").eq(5).find("button");			
@@ -79,7 +79,7 @@ $(function(){
 				tr.find("td").eq(2).text(this.p_e_inquiry_status);
 				tr.find("td").eq(3).text(this.p_e_title);
 				tr.find("td").eq(4).text(this.p_e_id);
-				tr.find("td").eq(5).text(this.p_e_regdate);
+				tr.find("td").eq(5).text(changeDateString(this.p_e_regdate));
 				tr.find("td").eq(6).text(this.p_e_no);
 				$("#productExplainTable").append(tr);
 				indexInquire++;
@@ -197,7 +197,7 @@ $(function(){
 		console.log("p_no:" + p_no);
 		var sendMethod = $("#buySelectMenu option:selected").val();
 		console.log("sendMethod:" + sendMethod);
-		if(price == "" || productNum == ""){
+		if(price == "" || productNum == "" || productNum == "0"){
 			alert("내용정보 불충분");
 		}else{
 			searchBuyFormSendData.find("input").eq(0).val(price);
@@ -249,6 +249,7 @@ $(function(){
 				}else{
 					alert("선호도 상승");
 					$("#likeValue").text(data);
+					$("#likeValueProgress").val(data);
 				}
 			});
 		}else{
@@ -489,7 +490,7 @@ $(function(){
 						<td>
 							컴퓨터 카테고리내에서의 선호도:(<span id="likeValue">${productBuyLike}</span>)&percnt;
 							<div>
-							<progress value="${productBuyLike}" max="100"></progress>
+							<progress id="likeValueProgress" value="${productBuyLike}" max="100"></progress>
 							</div>
 						</td>
 						<td>

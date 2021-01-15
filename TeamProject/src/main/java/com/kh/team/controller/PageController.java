@@ -47,14 +47,24 @@ public class PageController {
 	// 내 주변 매물 찾기
 	@RequestMapping(value="/mapSearch" , method=RequestMethod.GET)
 	public String map(String roadAddress, Model model) throws Exception {
-		System.out.println("roadAddress : " + roadAddress);
-		List<AuctionAddressVo> list = pageService.addrList();
+		System.out.println("roadAddress : " + roadAddress); // 검색한 주소
+		List<AuctionAddressVo> list = pageService.addrList(); // 등록된 상품 주소
 //		System.out.println("addr_list : " + list);
 		model.addAttribute("roadAddress" , roadAddress);
 		model.addAttribute("addr_list" , list);
 		return "/map";
 	}
 	
+	
+	@ResponseBody
+	@RequestMapping(value="/sellProductData" , method=RequestMethod.GET)
+	public List<ProductVo> sellProductData() throws Exception {
+		List<ProductVo> list = pageService.sellProductData();
+		System.out.println("sellproduct");
+		return list;
+	}
+	
+	// 선택한 상품 데이터 받아오기
 	@RequestMapping(value="/content" , method=RequestMethod.GET)
 	public String content(int p_no, Model model) throws Exception {
 		
@@ -67,6 +77,7 @@ public class PageController {
 		return "/content";
 	}
 	
+	// 조회수순으로 받아오기
 	@RequestMapping(value="/best" , method=RequestMethod.GET)
 	public String best_item(Model model) throws Exception {
 		List<ProductVo> list = pageService.best_item();
@@ -74,6 +85,7 @@ public class PageController {
 		return "/sell/best";
 	}
 	
+	// 구매하기 페이지로 이동
 	@RequestMapping(value="/purchase", method=RequestMethod.GET)
 	public String purchaseForm() throws Exception {
 		

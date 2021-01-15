@@ -99,4 +99,8 @@ public interface AuctionDao {
 	public void modifyAuctionAddress(AuctionAddressVo auctionAddressVo) throws Exception;
 	public void modifyAuctionMainImg(AuctionMainImgVo auctionMainImgVo) throws Exception;
 	public void modifyAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception;
+	
+	//주문하기
+	public AuctionSoldVo orderAuctionSold(String purchaser, int p_no) throws Exception;
+	public MemberVo getMember(String m_id) throws Exception;
 }

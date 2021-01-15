@@ -68,5 +68,11 @@ public class BuyComputerServiceImpl implements BuyComputerService {
 		return productNum;
 	}
 
+	@Override
+	public void insertProductRef(String productName, String m_id, String c_com_comment_content) throws Exception {
+		buyComputerDao.insertProductRef(productName, m_id, c_com_comment_content);
+		
+	}
+
 	
 }
