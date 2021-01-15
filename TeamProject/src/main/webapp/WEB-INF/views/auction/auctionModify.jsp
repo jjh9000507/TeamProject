@@ -1,9 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
-<%@ include file="/resources/css/bootstrap.jsp"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ include file="../include/header.jsp"%>
 
 <%
 	String inputYn = request.getParameter("inputYn");
@@ -15,13 +12,30 @@
 	String addrDetail = request.getParameter("addrDetail"); //사용자가 직접 입력
 %>
 
-<!-- 달력추가 -->
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script> 
+<%@ include file="/resources/css/bootstrap.jsp"%>
+<%@ include file="../include/header.jsp"%>
+<!-- 달력 스타일 시트 시작 -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
+<!-- 달력 스타일 시트 끝 -->
+<link rel="stylesheet" href="/resources/css/sidebar.css" />
 
-<script type="text/javascript" src="/resources/js/auctionScript.js" charset="UTF-8"></script>
+<!-- 달력 스크립트 시작 -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/locales/bootstrap-datepicker.kr.min.js"></script> 
+<!-- 달력 스크립트 끝 -->
+<script type="text/javascript" src="/resources/js/auctionJS.js" charset="UTF-8"></script>
+
+<style>
+
+input[type=text]{
+	text-align:center;
+	border-left-width:0;
+	border-right-width:0;
+	border-top-width:0;
+	border-bottom-width:1;
+}
+</style>
 
 <script>
 $(function(){
@@ -210,14 +224,11 @@ $(function(){
 			success : function(jsonStr) {
 				$("#list").html("");
 				var htmlStr = "";
-				htmlStr += "<table border='1'>";
+				htmlStr += "<table style='border:1;width:300px'>";
 				$(jsonStr.results.juso).each(function() {
-					htmlStr += "<tr>";
-					htmlStr += "<td><a href='#' id='roadAddrPart1' class='roadAddrPart1'>" + this.roadAddrPart1 + "</a></td>";
-					htmlStr += "<td>" + this.jibunAddr + "</td>";
-					//htmlStr += "<td>" + this.engAddr + "</td>";
-					htmlStr += "<td>" + this.zipNo + "</td>";
-					htmlStr += "</tr>";
+					htmlStr += "<tr><td style='text-align:center;font-size:15px;font-family:verdana;padding:2px'><a href='#' class='roadAddrPart1' data-zip='"+this.zipNo+"'>" + this.roadAddrPart1 + "</a></td><tr>";
+					htmlStr += "<tr><td style='text-align:center;font-size:13px;font-family:verdana;font-color:gray;margin-bottom:4px'>" + this.jibunAddr + "<hr></td><tr>";
+					//htmlStr += "<td>" + this.zipNo + "</td>";
 				});
 				htmlStr += "</table>";
 				$("#list").html(htmlStr);
@@ -227,9 +238,9 @@ $(function(){
 
 			
 		$("#list").on("click",".roadAddrPart1", function(){//모달에서 주소 링크 클릭시 값 넘기기
-			var roadAddr = $(this).parent().parent().find("td").eq(0).text();
-			var jibunAddr = $(this).parent().parent().find("td").eq(1).text();
-			var zip = $(this).parent().parent().find("td").eq(2).text();
+			var roadAddr = $(this).text();
+			var jibunAddr = $(this).parent().parent().next().next().children().text();//닫는tr-> /tr 도 요소에 포함. next()에 포함시킨다
+			var zip = $(this).attr("data-zip");
 			//console.log("zip:"+zip);
 			$("#spanZip").text(zip);
 			$("#spanRoadAddr").text(roadAddr);
@@ -241,7 +252,47 @@ $(function(){
 			$("#jibun_address").val(jibunAddr);
 			
 			$("#btnModalCloseAuction").trigger("click");
+		});//list지번
+		
+
+		/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
+		//메인으로
+		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(1) > ul").show();	
 		});
+		
+		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(1) > ul").hide();	
+		});
+		
+		// 관심상품
+		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(2) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(2) > ul").hide();
+		});
+		
+		//내상품
+		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(3) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(3) > ul").hide();
+		});
+		
+		// 결제내역
+		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
+			$(".sidebar__nav > li:eq(4) > ul").show();
+		});
+		
+		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
+			$(".sidebar__nav > li:eq(4) > ul").hide();
+		});
+		/* ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
+		
 });//function
 
 </script>
@@ -259,7 +310,7 @@ $(function(){
 					<div class="modal-content">
 					
 						<div class="modal-header">
-							<h5 class="modal-title" id="myModalLabel">주소 헤더</h5>
+							<h5 class="modal-title" id="myModalLabel">주소 입력</h5>
 							<button type="button" id="btnModalCloseAuction" class="close" data-dismiss="modal">
 								<span aria-hidden="true">×</span>
 							</button>
@@ -267,17 +318,15 @@ $(function(){
 						
 						<div class="modal-body"> 
 							<div>
-							<input type="text" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
-							<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
-							
+								<input type="text" style="width:300px;margin-bottom:15px;font-size:15px" placeholder="주소를 입력하시오" id="moadlTxtAddrAuction" onkeydown="enterSearch();">
+								<a href="#" id="modalAddrFindAuction"><img src="../resources/image/addrFind.png"></a>
 							</div>
-								<div id="list"></div>
+								<div id="list" style="padding-bottm:20px"></div>
 								<!-- 검색 결과 리스트 출력 영역 -->
 						</div>
 						
 						<div class="modal-footer">
-							<button type="button" class="btn btn-primary">주소선택</button>
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+							<button type="button" class="btn btn-outline-success btn-sm" data-dismiss="modal">취소</button>
 						</div>
 					</div>
 				</div>
@@ -364,14 +413,15 @@ $(function(){
 					<br clear="left">
 					<br>
 					<div>
-						<label>직구를 원하시면 주소를 입력하세요</label>
+						<label style="padding-right:10px">직구를 원하시면 주소를 입력하세요</label>
+						<a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a>
 					<br>
 						
 					<!-- 주소 찾기 시작 -->
-					우편번호:<span id="spanZip"></span><a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a><br/>
+					우편번호:<span id="spanZip" style="padding-left:10px"></span><br/>
 					<span id="spanRoadAddr">${auctionSellVo.road_address}</span><br>
 					<span id="spanjibundAddr">${auctionSellVo.jibun_address}</span><br>
-					<input type="text" placeholder="상세주소를 입력하세요" id="txtjibundAddrDetail" name="detail_address" value="${auctionSellVo.detail_address}"/>
+					<input type="text" style="width:140px;" placeholder="상세주소" id="txtjibundAddrDetail" name="detail_address" value="${auctionSellVo.detail_address}"/>
 					
 					<!-- 주소 찾기 끝-->
 					</div>
@@ -385,3 +435,43 @@ $(function(){
 	<div class="col-md-2"></div><!-- 외부 md2 -->
 	</div><!-- 외부 row -->
 </div><!-- 외부  fluid -->
+
+
+<!-- aside 시작 -->
+<aside class="sidebar">
+	<nav>
+		<ul class="sidebar__nav">
+		 <!-- 메인 -->
+			<li>
+				<a href="/auction/auctionMain" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/main3.png"/></i>
+					<span class="sidebar__nav__text">메인으로</span>
+				</a>
+					<ul class="sidebar__submenu">
+					</ul>
+			</li>
+		 <!-- 관심상품 -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/favorite2.png"/></i>
+					<span class="sidebar__nav__text">관심상품</span>
+				</a>
+			</li>
+		 <!-- 내상품 -->
+			<li>
+				<a href="/auction/auctionResisterList" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/myitem2.png"/></i>
+					<span class="sidebar__nav__text">내상품</span>
+				</a>
+			</li>
+		 <!-- 주문내역 -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i>
+					<span class="sidebar__nav__text">내 결제 내역</span>
+				</a>
+			</li>
+		</ul>
+	</nav>
+</aside>
+<!-- aside 끝 -->

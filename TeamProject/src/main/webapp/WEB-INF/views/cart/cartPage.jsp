@@ -11,17 +11,21 @@ table{
 td.pname{
 	text-align: left;
 }
-.pno{
-	width:90px;
+
+.pcheck{
+	width:60px;
 }
 .btnCart{
 	width:100px;
 }
 .pseller{
-	width:300px;
+	width:200px;
 }
 .pimg{
-	wdith:10%;
+	width:10%;
+}
+.pprice{
+	width:90px;
 }
 a.btns{
 	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -119,22 +123,24 @@ $(function(){
 			<table class="table table-bordered">
 				<thead>
 					<tr>
-						<th><input type="checkbox" id="chkAll"></th>
+						<th class="pcheck"><input type="checkbox" id="chkAll"></th>
 						<th class="pimg">상품이미지</th>
 						<th class="pname">상품명</th>
 						<th class="pseller">판매자</th>
+						<th class="pprice">판매가</th>
 						<th class="btnCart"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="CartVo" items="${cartList}">
 						<tr>
-									<td><input type="checkbox" class="chkProduct" name="cart_no" value="${CartVo.cart_no}"></td>
+									<td class="pcheck"><input type="checkbox" class="chkProduct" name="cart_no" value="${CartVo.cart_no}"></td>
 							<c:forEach var="ProductVo" items="${productList}">
 								<c:if test="${CartVo.p_no == ProductVo.p_no2}">
 									<td class="pimg"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ProductVo.p_thumbimg}" style="width:80px; height:100px;"></td>
 									<td class="pname">${ProductVo.p_name}</td>
 									<td class="pseller">${ProductVo.p_seller}</td>
+									<td class="pprice">${ProductVo.p_price}</td>
 								</c:if>
 							</c:forEach>
 							<td class="btnCart">

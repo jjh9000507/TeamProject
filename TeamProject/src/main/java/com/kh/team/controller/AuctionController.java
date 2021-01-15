@@ -442,9 +442,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		return "redirect:/auction/auctionSelected?p_no="+p_no;
 	}
 	
-	@RequestMapping(value="/auctionPurchaseSelected", method=RequestMethod.GET)
-	public String auctionPurchaseSelectecd(Model model, HttpSession session) throws Exception{
+	@RequestMapping(value="/auctionPurchaseSelected/{p_no}", method=RequestMethod.GET)
+	public String auctionPurchaseSelectecd(@PathVariable("p_no") int p_no, Model model, HttpSession session) throws Exception{
 		
+		System.out.println("p_no:"+p_no);
+		/*
 		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
 
 		if(memberVo != null) {
@@ -457,7 +459,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 			
 			model.addAttribute("purchaserMemberVo", memberVo);
 		}
-		
+		*/
 		return "auction/auctionPurchaseSelected";
 	}
 	
@@ -475,43 +477,26 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		//System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
 		return "auction/auctionModify";
 	}
-	/*
-	@RequestMapping(value="/auctionModifyRun", method=RequestMethod.GET)
-	public String auctionModifyRun(AuctionVo auctionVo, 
-			AuctionAddressVo auctionAddressVo, AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo, HttpSession session) throws Exception{
-		*/
+
 	@RequestMapping(value="/auctionModifyRun", method=RequestMethod.GET)
 	public String auctionModifyRun(AuctionVo auctionVo, AuctionAddressVo auctionAddressVo,
 			AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo) throws Exception{
 		
+		/*이미지 파일들은 x버튼을 누르고 드래그 드롭했을 때 바로바로 삭제, 추가한다 여기선 따로 처리없고 메인 이미지 값만 업데이트한다
+		 * 메인 이미지로 선택한 건 이미 로컬과 s3에 다 들어있다  메인으로 설정만 하는 것 뿐 */
+		 
+		/*
 		System.out.println("AuctionController auctionModifyRun에서 "
 				+ "auctionVo:" + auctionVo
 				+ "auctionAddressVo" + auctionAddressVo
 				+ "auctionEDateVo:" + auctionEDateVo
-				+ "auctionMainImgVo:" + auctionMainImgVo);
-		/*
-		auctionAddressVo.setP_no(nextPNO);
-		auctionImgVo.setP_no(nextPNO);
-		auctionEDateVo.setP_no(nextPNO);
-		auctionMainImgVo.setP_no(nextPNO);
+				+ "auctionMainImgVo:" + auctionMainImgVo);*/
+
+		auctionService.modifyAuctoin(auctionVo);
+		auctionService.modifyAuctionAddress(auctionAddressVo);
+		auctionService.modifyAuctionMainImg(auctionMainImgVo);
+		auctionService.modifyAuctionExpirationDate(auctionEDateVo);
 		
-		//int second = (int)((Math.random()*58)+1);
-		int[] nDate = getNowDate();
-		int[] nTime = getNowTime();
-		AuctionRDateVo auctionRDateVo = new AuctionRDateVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2], nextPNO);
-		
-		//auctionVo -> auctionAddressVo -> auctionRDateVo -> auctionEDateVo -> auctionMainImgVo -> auctionImgVo
-		String seller = ((MemberVo)session.getAttribute("memberVo")).getM_id();
-		
-		auctionVo.setSeller(seller);
-		auctionService.insertAuction(auctionVo);
-		
-		auctionService.insertAuctionAddress(auctionAddressVo);
-		auctionService.insertAuctionRegisterDate(auctionRDateVo);
-		auctionService.insertAuctionExpirationDate(auctionEDateVo);
-		auctionService.insertAuctionMainImg(auctionMainImgVo);
-		auctionService.insertAuctionImg(auctionImgVo);
-		*/
-		return "auction/auctionResisterList";
+		return "redirect:/auction/auctionResisterList";
 	}
 }

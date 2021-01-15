@@ -3,6 +3,7 @@
     
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
+<script type="text/javascript" src="/resources/js/auctionJS.js" charset="UTF-8"></script>
 
 <style>
 .img-class {
@@ -14,11 +15,44 @@
     padding-top: 0px;
     padding-bottom: 35px;
     padding-left: 20px;
+  
 }
 
 .secondTable{
 	height: 400px;
+	border-top: 1px solid #f4f4f4;
+	border-left: 1px solid #f4f4f4;
+	border-right: 1px solid #f4f4f4;
 }
+
+.titleTd{
+	font-size: 14px;
+    font-weight: 400;
+    font-family: noto sans;
+    vertical-align: middle;
+}
+
+.priceTd{
+  	font-size: 14px;
+    font-weight: 400;
+    font-family: noto sans;
+    vertical-align: middle;
+}
+
+.edateTd{
+  	font-size: 14px;
+    font-weight: 400;
+    font-family: noto sans;
+    vertical-align: middle;
+}
+
+.timeTd{
+  	font-size: 14px;
+    font-weight: 400;
+    font-family: noto sans;
+    vertical-align: middle;
+}
+
 </style>
 
 <script type="text/javascript">
@@ -374,15 +408,15 @@ $(function(){
 	
 });//function
 
-function makeTwoDigit(num){
-	console.log("makeTwoDigit num:"+num);
-	var len = num.toString().length;
-	console.log("makeTwoDigit len:"+len);
-	if(len < 2){
-		num = "0"+num;
-	}
-	return num;
-}
+// function makeTwoDigit(num){
+// 	console.log("makeTwoDigit num:"+num);
+// 	var len = num.toString().length;
+// 	console.log("makeTwoDigit len:"+len);
+// 	if(len < 2){
+// 		num = "0"+num;
+// 	}
+// 	return num;
+// }
 
 </script>
 <input type="hidden" id="hiddenDate">
@@ -420,17 +454,17 @@ function makeTwoDigit(num){
 									</td>
 								</tr>
 								<tr>
-									<td>${auctionSellVo.p_title}</td>
+									<td class="titleTd">${auctionSellVo.p_title}</td>
 								</tr>			 				
 								<tr>
-									<td>${auctionSellVo.present_price}원</td>
+									<td class="priceTd">${auctionSellVo.present_price}원</td>
 								</tr>
 								<tr>
-									<td style="font-size:15px">${auctionSellVo.seller} 마감시간:${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
+									<td class="edateTd">${auctionSellVo.seller} 마감시간:${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
 								</tr>
 								<tr>
 									<td>
-										<div class="divCountDown" style="color:red"></div>
+										<div class="divCountDown timeTd" style="color:red"></div>
 										<input type="hidden" class="resultYear" value="${auctionSellVo.e_year}">
 										<input type="hidden" class="resultMonth" value="${auctionSellVo.e_month}">
 										<input type="hidden" class="resultDate" value="${auctionSellVo.e_day}">

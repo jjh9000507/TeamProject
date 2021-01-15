@@ -1,60 +1,27 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<%@ include file="/resources/css/auctionPurchaseSelected_css.css" %>
 <%@ include file="../include/header.jsp"%>
-    
-<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js" ></script> -->
-<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
-<link rel="stylesheet" href="/resources/css/sidebar.css" /> 
 
-<script type="text/javascript">
+<link rel="stylesheet" href="/resources/css/sidebar.css" />
+
+<style>
+
+</style>
+
+
+<script>
 $(function(){
-	/*
-	실제 거래가 이루어지려면 이니시스 관리자 홈페이지에 접속해서 가맹점 등록 후 가맹점 ID를 아이앰포트에 넣어줘야 한다
-	중고거래 가입자 만다 가맹점 ID를 가지고 있어야 한다
-	*/
-	var IMP = window.IMP; // 생략가능
-	IMP.init('${ImPortkey}');
 	
-	$(".payment").click(function(){
-		
-		var sold_price = $(this).parent().parent().next().next().find("td").eq(0).find("span").text();
-		
-		IMP.request_pay({
-		    pg : 'inicis', // version 1.1.0부터 지원.
-		    pay_method : 'card',
-		    merchant_uid : 'merchant_' + new Date().getTime(),
-		    name : '주문명:결제테스트',
-		    amount : sold_price,
-		    buyer_email : '${purchaserMemberVo.email}',
-		    buyer_name : '${purchaserMemberVo.m_id}',
-		    buyer_tel : '${purchaserMemberVo.m_phonenumber}',
-		    //buyer_addr : '${purchaserMemberVo.m_phonenumber}',
-		    //buyer_postcode : '123-456',
-		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
-		}, function(rsp) {
-			var msg="";
-			
-		    if ( rsp.success ) {
-		        msg = '결제가 완료되었습니다.';
-		        msg += '고유ID : ' + rsp.imp_uid;
-		        msg += '유저 ID : ' + rsp.merchant_uid;
-		        msg += '결제 금액 : ' + rsp.paid_amount;
-		        msg += '카드 승인번호 : ' + rsp.apply_num;
-		       	//alert(msg);
-		       	
-		       	$("#txtId").text(rsp.imp_uid);
-		       	$("#txtUserId").text(rsp.merchant_uid);
-		       	$("#txtPrice").text(rsp.paid_amount);
-		       	$("#txtCardNum").text(rsp.apply_num);
-		    } else {
-		        msg = '결제에 실패하였습니다.';
-		        msg += '에러내용 : ' + rsp.error_msg;
-		    }
-		});//IMP.request_pay	
-		
-		$(this).parent().hide();
-	    $(this).parent().next().show();
+	$("#messageForDriver").keydown(function(){
+		//alert("df");
+		var msg = $(this).val();
+		console.log(msg);
+		var len = msg.length;
+		console.log(len)
+		$("#stringLengthSpan").text(len);
 	});
 	
 	/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
@@ -76,7 +43,7 @@ $(function(){
 		$(".sidebar__nav > li:eq(2) > ul").hide();
 	});
 	
-	//내상품
+	// 내상품
 	$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
 		$(".sidebar__nav > li:eq(3) > ul").show();
 	});
@@ -85,7 +52,7 @@ $(function(){
 		$(".sidebar__nav > li:eq(3) > ul").hide();
 	});
 	
-	/* 주문내역
+	// 주문내역
 	$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
 		$(".sidebar__nav > li:eq(4) > ul").show();
 	});
@@ -94,88 +61,195 @@ $(function(){
 		$(".sidebar__nav > li:eq(4) > ul").hide();
 	});
 	/* ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
-});//function
+	
+})
 
 </script>
-<br><br>
+<div class="row">
+	<div class="col-md-2"></div>
+		<div class="col-md-8" ><%@ include file="../include/header_mainCatagories.jsp"%><br></div>
+	<div class="col-md-2"></div>
+</div>
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8"><!-- 외부 md8 -->
-			<div class="col-md-2"></div>
-			<div class="col-md-12">
-								
-				<c:forEach var="purchaserList" items="${purchaserList}" >
-				<table border='1'>
-					<tr>
-						<td>입찰 날짜:<span>${purchaserList.bid_date}</span></td>
-						<td rowspan='3'><img src="/furniture/displayImage?imageName=${purchaserList.main_img_name}" class="img-class" style="height:200px;"></td>
-						<td rowspan='2'>${purchaserList.p_title}</td>
-						<!-- 결제 전 버튼 시작 -->
-						<td rowspan='3' class="tdPaymentBefore"><a href="#" class="payment"><img src="/resources/auctionImage/btn_payment.png"></a></td>
-						<!-- 결제 전 버튼 끝 -->
-						
-						<!-- 결제 완료 테이블 시작-->
-						<td rowspan='3' class="tdPaymentAfter" style="display:none">
-							<h1>결제가 완료 되었습니다</h1>
-							<table>
-								<tr>
-									<td>고유ID</td>
-									<td>유저ID</td>
-									<td>결제 금액</td>
-									<td>카드 승인번호</td>
-								</tr>
-								<tr>
-									<td id="txtId">고유ID</td>
-									<td id="txtUserId">유저ID</td>
-									<td id="txtPrice">결제 금액</td>
-									<td id="txtCardNum">카드 승인번호</td>
-								</tr>
-							</table>
-						</td>
-						<!-- 결제 완료 테이블 끝 -->
-						
-					</tr>
-					<tr>
-						<td>최초금액:<span>${purchaserList.present_price}</span></td>
-				<!-- 												<td>이미지</td> -->
-				<!-- 												<td>제목</td> -->
-				<!-- 												<td>결제버튼</td> -->
-					</tr>
-					<tr>
-						<td>낙찰금액:<span class="classSold_price">${purchaserList.sold_price}</span></td>
-				<!-- 												<td>이미지</td> -->
-						<td>판매자:<span>${purchaserList.seller}</span></td>
-				<!-- 												<td>결제버튼</td> -->
-					</tr>
-				</table>
-				</c:forEach>
-						
-			</div><!-- 외부 md8 -->
-			<div class="col-md-2"></div><!-- 내부 md2 -->
-		</div><!-- 외부 md8 -->
-		<div class="col-md-2"></div><!-- 외부 md2 -->
+<div class="row">
+	<div class="col-md-2"></div>
+	<div class="col-md-8">
+		<div class="DetailDiv">
+
+		<section class="DetailSection">
+		<span class="mainTitle">주문서</span>
+		<hr>
+		<br>
+		<br>
+		<h4>주문상품내용</h4>
+		<hr>
+		<div class="row">
+				<div class="col-md-12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									주문상품명
+								</th>
+								<th>
+									상품수량
+								</th>
+								<th>
+									판매자명
+								</th>
+								<th>
+									배송방식
+								</th>
+								<th>
+									가격
+								</th>
+								<th>
+									주문날짜
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									${buyComputerInfo.productName}
+								</td>
+								<td>
+									${buyComputerInfo.productNum}<span>개</span>
+								</td>
+								<td>
+									${buyComputerInfo.seller}<span>님</span>
+								</td>
+								<td>
+									${buyComputerInfo.sendMethod}
+								</td>
+								<td>
+									${buyComputerInfo.price}<span>원</span>
+								</td>
+								<td>
+									<span id="buyYear"></span>-<span id="buyMonth"></span>-<span id="buyDate"></span>
+								</td>
+							</tr>					
+						</tbody>
+					</table>
+				</div>
+			</div>	
+			<br>
+			<br>
+			<h4>주문자 정보 수정</h4>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>
+									주문자 확인
+								</th>
+								<th>
+									
+								</th>
+								<th>
+									
+								</th>
+																				
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>
+									<label>주문자명:</label>
+									<input placeholder="주문자 기입" name="buyerName" id="buyerName"/>							
+								</td>
+								<td>
+								<div class="checkbox">
+									<label> <input type="checkbox" id="changeMemberName"/>
+								입력한 주문자명으로 회원정보 변경하기</label>
+								</div>
+								</td>
+								<td>
+								<button type="button" id="changeMemberNameButton">변경</button>
+								</td>												
+							</tr>					
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br>
+			<br>
+			<h4>배송지 정보 입력</h4>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table">
+						<thead>
+							<tr>																		
+								<th>
+									주소
+								</th>												
+								<th>
+									연락처
+								</th>
+								<th>
+									배송 메세지
+								</th>												
+								<th>
+									
+								</th>												
+							</tr>
+						</thead>
+						<tbody>
+							<tr>						
+								<td>
+									<button type="button" id="searchJuso">검색</button><br>							
+								</td>
+								<td>
+									<label>연락처:</label>
+									<select name="m_phonenumber1" id="m_phonenumber1" style="width:60px">	
+										<option value="번호 선택">번호</option>
+										<option value="010">010</option>
+										<option value="011">011</option>
+										<option value="016">016</option>
+										<option value="017">017</option>
+										<option value="018">018</option>
+										<option value="019">019</option>									
+									</select>
+									<input type="text" style="width:90px">
+									<input type="text" style="width:90px">
+								</td>
+								<td colspan='2' style="width:490px">
+									<input placeholder="택배 기사님께 부탁할 사항을 입력하시오" type="text" id="messageForDriver" style="width:100%"/>(<span id="stringLengthSpan"></span>/50자)
+								</td>
+																				
+							</tr>					
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<br>
+			<br>
+			<h4>결제하기</h4>
+			<hr>
+			<div class="row">
+				<div class="col-md-12">
+					<table class="table">
+						<tr>
+							<td>
+								<button type="button" class="btn btn-md active disabled btn-outline-danger btn-block">
+									결제하기
+								</button>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</section>
+
 	</div>
+	</div>
+	<div class="col-md-2"></div>
+</div>
 </div>
 
-<!-- 
-<h1>결제가 완료 되었습니다</h1>
-<table>
-	<tr>
-		<td>고유ID</td>
-		<td>유저ID</td>
-		<td>결제 금액</td>
-		<td>카드 승인번호</td>
-	</tr>
-	<tr>
-		<td id="txtId">고유ID</td>
-		<td id="txtUserId">유저ID</td>
-		<td id="txtPrice">결제 금액</td>
-		<td id="txtCardNum">카드 승인번호</td>
-	</tr>
-</table>
-<button type="button" id="btnPayListCheck">창닫기</button>
- -->
 
 <!-- aside 시작 -->
 <aside class="sidebar">
@@ -205,16 +279,13 @@ $(function(){
 				</a>
 			</li>
 		 <!-- 주문내역 -->
-<!-- 			<li> -->
-<!-- 				<a href="/auction/auctionPurchaseSelected?url=auctionPurchaseSelected" class="sidebar__nav__link"> -->
-<!-- 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i> -->
-<!-- 					<span class="sidebar__nav__text">주문 하기</span> -->
-<!-- 				</a> -->
-<!-- 			</li> -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i>
+					<span class="sidebar__nav__text">내 결제 내역</span>
+				</a>
+			</li>
 		</ul>
 	</nav>
 </aside>
 <!-- aside 끝 -->
-
-</body>
-</html>

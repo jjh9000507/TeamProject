@@ -3,27 +3,15 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <%@ include file="../include/header.jsp"%>
-<style>
-.productshow{
-	border-left:2px solid #CCC;
-	border-right:2px solid #CCC;
-	padding:20px;
-	width:900px;
-}
-.show1{
-	border-top: 2px solid #CCC;
-}
-
-.prod-image__detail{float:left;width:410px;height:410px}
-
-.prod-buy-header{position:relative;padding:0 0 10px;border-bottom:1px solid #ccc}
-.prod-buy-header .prod-buy-header__title{font-size:18px;font-weight:bold;width:380px}
-.prod-buy-header .prod-buy-header__title{width:375px}
-.prod-buy-header {padding-top:2px;*zoom:1}
-.prod-buy-header {content:" ";display:table}
-</style>
+<%@ include file="/resources/css/whitegoods.css" %>
 <script>
 	$(function(){
+		$(".tab-titles > li").click(function(){
+			var type= ${param.type};
+			console.log();
+		})
+		
+		
 		var memberVo = "${sessionScope.memberVo.m_id}";
 		$("#btnCart").click(function(){
 			if(memberVo == ""){
@@ -71,12 +59,10 @@
 		</div>
 -->
 <div class="prod-image" data-global-banner-fold="">
-    <div id="repImageContainer" class="prod-image-container">
-        <img class="prod-image__detail" src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}"
-             onload="_logTTI(this)" alt="detail image"/>
-    </div>
-    
-    <div id="prodStickyBanner" class="product-sticky-banner-clickable prod-sticky-banner"></div>
+	<div id="repImageContainer" class="prod-image-container">
+		<img class="prod-image__detail" src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${whitegoodsVo.w_thumbimg}"
+			alt="detail image"/>
+	</div>
 </div>
 
 
@@ -85,12 +71,9 @@
 		</div>
 	    <div class="prod-price-container">
 		    <div class="prod-price">
-		    	<div class="prod-sale-price   prod-major-price" >
-					<span class="total-price">
-						<strong>${whitegoodsVo.w_price}<span class="price-unit">원</span></strong>
-					</span>
-				<span class="unit-price"></span> 
-				</div>
+				<span class="total-price prod-major-price">
+					<strong>${whitegoodsVo.w_price}<span class="price-unit">원</span></strong>
+				</span>
 			</div>
 		</div>
 		<div class="prod-vendor-container without-coach" >
@@ -108,6 +91,20 @@
 			</div>
 		</div>
 	</div>
+</div>
+<div id="btfTab" class="tab">
+    <ul class="tab-titles">
+        <li name="detail" class="active">상품상세</li>
+        <li name="review">상품평 <span class="product-tab-review-count"></span></li>
+        <li name="qna">상품문의</li>
+        <li name="etc">배송/교환/반품 안내</li>
+    </ul>
+    <ul class="tab-contents">
+        <li class="product-detail"></li>
+        <li class="product-review"></li>
+        <li class="product-qna"></li>
+        <li class="product-etc"></li>
+    </ul>
 </div>
 <!-- 
 <div class="row">
