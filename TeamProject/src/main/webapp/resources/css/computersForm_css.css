@@ -9,9 +9,15 @@
 	width:100%;	
 }
 
-
+.navUp{
+	display:inline-block;
+	width:15%;
+	height:15%;
+	float:left;
+	background-color:gray;		
+}
 .header{
-	width:85%;
+	width:70%;
 	height:15%;	
 	background-color:gray;
 	float:left;
@@ -38,8 +44,7 @@
 	width:15%;
 	height:100%;	
 	float:left;
-	background-color:gray;
-			
+	background-color:gray;			
 }
 
 .section{

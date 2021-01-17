@@ -150,6 +150,25 @@ $(function() {
 		}
 		}
 		});
+	$("#computerFavorProduct > li > a").bind({ 
+		"mouseover" : function() {   
+			$("#computerFavorProduct > li > ul").hide(); 
+			$(this).next().show(); 			
+		},
+		
+		"mouseout" : function() { 
+			$("#computerFavorProduct > li > ul").hide();			
+		}
+	});
+	
+	$("#computerFavorProduct > li > ul").on("mouseover" ,function(){
+		$(this).show();
+	});	
+	
+	$("#computerFavorProduct > li > ul").on("mouseout" ,function(){
+		$(this).hide(); 
+	});
+	
 });
 </script>
 
@@ -184,6 +203,16 @@ $(function() {
 </div>
 </form>
 <div class="computersFormDiv">
+<nav class="navUp">
+<ul id="computerFavorProduct">
+<li><a href="#">컴퓨터 카테고리중 최근 구매한 상품</a>
+    	<ul class="sub-menu" style="display: none;">
+				<li><a href="#" class="submenuLink">ㅋ</a></li>
+				<li><a href="#" class="submenuLink">ㅋㅋ</a></li>
+    	</ul>
+    	</li>
+    	</ul>    
+</nav>
 <header class="header">
 <c:if test="${categoryInfo != null}">
 <label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
@@ -200,6 +229,8 @@ $(function() {
 	<div id="divData" style="display:none;">		
 	</div>
 </form>
+
+
 </header>
 <aside class="asideUp">
 <a href="http://www.auction.co.kr/" target="_blank" title="제휴사이트입니다.">

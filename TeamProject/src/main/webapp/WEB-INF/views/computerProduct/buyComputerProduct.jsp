@@ -254,10 +254,8 @@ $(function(){
 			});
 		}else{
 			alert("중고 동네 회원만 가능합니다");
-		}
-		
-		
-	});
+		}		
+	});	
 });
 </script>
 <form role="form" id="frmBuyFormSendData" action="/buyComputerProduct/openBuyComputerProductDetail" method="post">
@@ -299,12 +297,9 @@ $(function(){
 								닫기
 							</button>
 						</div>
-					</div>
-					
-				</div>
-				
-			</div>
-			
+					</div>					
+				</div>				
+			</div>			
 		</div>
 	</div>
 	<div class="row">
