@@ -25,6 +25,7 @@ import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
+import com.kh.team.domain.AuctionOrderVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.MemberVo;
@@ -131,12 +132,15 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		//내가 구매한 상품
 		List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
 		model.addAttribute("purchaserList", purchaserList);
+		//System.out.println("controller purchaserList:"+purchaserList);
 		
 		//폴더 이름을 p_no로 만들고 이미지를 저장하기 위해서 다음 p_no를 가지고 온다
 		int nextSeq = auctionService.getNextSeqNumber();
 		//System.out.println("auctionResisterList nextSeq:"+nextSeq);
 		model.addAttribute("nextPNO", nextSeq);
 
+		model.addAttribute("sidebarRegisterListNO", "no");//내 상품에선 sidebar에서 내 상품을 안 보여준다
+		
 		return "auction/auctionResisterList";
 	}
 	
@@ -144,6 +148,25 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	public String auctionSelected(int p_no, Model model) throws Exception{
 		//System.out.println("pno:"+p_no);
 		makeImgDirectoryAfterCheck();
+		
+		/* 여기 접근 하는 경로
+		 * 1.메인에서
+		 * 2.내 상품에서 - 입찰 중, 입찰 종료, 내가 입찰한, 낙찰 된
+		 * 3.수정하기( 확인 하고 나서 수정을 하는 거니깐 다시 상품을 보여줄 필요가 없다 -> 뺌 )
+		 * 4.주문서
+		 * 5.결제한 상품
+		 * 6.결제된 상품
+		 * 7.관심 상품
+		 * 
+		 * 카운트O - 메인 입찰 중, 내 상품에서 입찰 중
+		 * 카운트X - 메인에서 기간은 마감됐지만 입찰 안된 상품, 
+		 * 			내 상품에서 입찰 종료, 내가 입찰한, 낙찰 된,
+		 * 			주문서, 결제한 상품, 결제된 상품, 관심 상품
+		 * 
+		 *auctionSelected.jsp에서 입찰 하면 2분 추가 -> controller:insertAuctionTempBid -> 시간이 종료되면 -> 
+		 *controller:timeOverAutoCommit(여기서 deadline='Y') -> auctionMain.jsp
+		 *
+		 */ 
 		
 		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
 		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
@@ -163,6 +186,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		model.addAttribute("selectedImg", selectedImg);
 		model.addAttribute("tempBidList", tempBidList);
 		model.addAttribute("bidCount", bidCount);
+		
 		
 		return "auction/auctionSelected";
 	}
@@ -442,46 +466,6 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		return "redirect:/auction/auctionSelected?p_no="+p_no;
 	}
 	
-	@RequestMapping(value="/auctionPurchaseSelected/{p_no}", method=RequestMethod.GET)
-	public String auctionPurchaseSelectecd(@PathVariable("p_no") int p_no, Model model, HttpSession session) throws Exception{
-		
-		System.out.println("p_no:"+p_no);
-		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
-		
-		//상품 정보
-		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, p_no);
-		model.addAttribute("auctionSoldVo", auctionSoldVo);
-		
-		//주문날짜 
-		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = new Date();
-		String nowDate = nowDateFormat.format(date);
-		System.out.println("nowDate:"+nowDate);
-		model.addAttribute("nowDate", nowDate);
-		
-		//결제 key
-		model.addAttribute("ImPortkey", ImPortkey);
-		
-		//구매자 이름
-		MemberVo memberVo = auctionService.getMember(purchaser);
-		model.addAttribute("memberVo", memberVo);
-		/*
-		MemberVo memberVo = (MemberVo)session.getAttribute("memberVo");
-
-		if(memberVo != null) {
-			//내가 구매한 상품
-			List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(memberVo.getM_id());
-			model.addAttribute("purchaserList", purchaserList);
-			
-			makeImgDirectoryAfterCheck();
-			model.addAttribute("ImPortkey", ImPortkey);
-			
-			model.addAttribute("purchaserMemberVo", memberVo);
-		}
-		*/
-		return "auction/auctionPurchaseSelected";
-	}
-	
 	@RequestMapping(value="/auctionModify", method=RequestMethod.GET)
 	public String auctionModify(int p_no, Model model) throws Exception{
 		
@@ -519,8 +503,60 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		return "redirect:/auction/auctionResisterList";
 	}
 	
+	//주문서
+	@RequestMapping(value="/auctionPurchaseSelected/{p_no}", method=RequestMethod.GET)
+	public String auctionPurchaseSelectecd(@PathVariable("p_no") int p_no, Model model, HttpSession session) throws Exception{
+		
+		System.out.println("p_no:"+p_no);
+		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		
+		//상품 정보
+		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, p_no);
+		model.addAttribute("auctionSoldVo", auctionSoldVo);
+		//System.out.println("auctionController auctionPurchaseSelectecd auctionSoldVo:"+auctionSoldVo);
+		//주문날짜 
+		SimpleDateFormat nowDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = new Date();
+		String nowDate = nowDateFormat.format(date);
+		//System.out.println("nowDate:"+nowDate);
+		model.addAttribute("nowDate", nowDate);
+		
+		//결제 key
+		model.addAttribute("ImPortkey", ImPortkey);
+		
+		//구매자 이름
+		MemberVo memberVo = auctionService.getMember(purchaser);
+		model.addAttribute("memberVo", memberVo);
+		
+		return "auction/auctionPurchaseSelected";
+	}
+	
+	//주문서에서 결제를 눌렀을 때 실제 db에 데이터를 넣는다 
+	@RequestMapping(value="/auctionPaymentCompleteShowForm", method=RequestMethod.GET)
+	public String auctionPaymentCompleteShowForm(AuctionOrderVo auctionOrderVo, Model model) throws Exception{
+		
+		System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
+		model.addAttribute("auctionOrderVo", auctionOrderVo);
+		
+		//내가 결제한 상품 내역
+		
+		
+		//판매자의 정보에서 가져올 수 있게 내가 결제한 상품을 업데이트한다
+		
+		
+		
+		return "redirect:/auction/auctionPaymentCompleteShowForm";
+	}
+	
+	//내가 입찰한 상품 결제 내역
 	@RequestMapping(value="/auctionPaymentList", method=RequestMethod.GET)
-	public String auctionPaymentList() throws Exception{
+	public String auctionPaymentList(AuctionOrderVo auctionOrderVo, Model model) throws Exception{
+		System.out.println("controller auctionPaymentList auctionOrderVo:"+auctionOrderVo);
+		
+		//내가 결제한 상품 내역
+		model.addAttribute("auctionOrderVo", auctionOrderVo);
+		
+		//판매자의 정보에서 가져올 수 있게 내가 결제한 상품을 업데이트한다
 		
 		
 		

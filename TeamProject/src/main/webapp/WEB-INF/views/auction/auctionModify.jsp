@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 
 <%
 	String inputYn = request.getParameter("inputYn");
@@ -255,7 +255,7 @@ $(function(){
 		});//list지번
 		
 
-		/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
+		/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- 
 		//메인으로
 		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
 			$(".sidebar__nav > li:eq(1) > ul").show();	
@@ -291,7 +291,7 @@ $(function(){
 		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
 			$(".sidebar__nav > li:eq(4) > ul").hide();
 		});
-		/* ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
+		 ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
 		
 });//function
 
@@ -338,7 +338,7 @@ $(function(){
 
 <div class="container-fluid">
 	<div class="row">
-	<div class="col-md-2"></div>
+	<div class="col-md-2"><%@ include file="auctionSideBar.jsp"%></div>
 		<div class="col-md-8">
 			<div class="col-md-2"></div>
 			<div class="col-md-12">
@@ -435,43 +435,3 @@ $(function(){
 	<div class="col-md-2"></div><!-- 외부 md2 -->
 	</div><!-- 외부 row -->
 </div><!-- 외부  fluid -->
-
-
-<!-- aside 시작 -->
-<aside class="sidebar">
-	<nav>
-		<ul class="sidebar__nav">
-		 <!-- 메인 -->
-			<li>
-				<a href="/auction/auctionMain" class="sidebar__nav__link">
-					<i class=""><img class="sidebar__img" src="/resources/auctionImage/main3.png"/></i>
-					<span class="sidebar__nav__text">메인으로</span>
-				</a>
-					<ul class="sidebar__submenu">
-					</ul>
-			</li>
-		 <!-- 관심상품 -->
-			<li>
-				<a href="#" class="sidebar__nav__link">
-					<i class=""><img class="sidebar__img" src="/resources/auctionImage/favorite2.png"/></i>
-					<span class="sidebar__nav__text">관심상품</span>
-				</a>
-			</li>
-		 <!-- 내상품 -->
-			<li>
-				<a href="/auction/auctionResisterList" class="sidebar__nav__link">
-					<i class=""><img class="sidebar__img" src="/resources/auctionImage/myitem2.png"/></i>
-					<span class="sidebar__nav__text">내상품</span>
-				</a>
-			</li>
-		 <!-- 주문내역 -->
-			<li>
-				<a href="#" class="sidebar__nav__link">
-					<i class=""><img class="sidebar__img" src="/resources/auctionImage/order3.png"/></i>
-					<span class="sidebar__nav__text">내 결제 내역</span>
-				</a>
-			</li>
-		</ul>
-	</nav>
-</aside>
-<!-- aside 끝 -->
