@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.WhitegoodsDao;
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 @Service
@@ -73,6 +75,18 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 				whitegoodsDao.imgInsert(p_no,img_name);
 			}
 		}
+	}
+
+	@Override
+	public List<WhitegoodsReviewVo> reviewList(int w_no) throws Exception {
+		List<WhitegoodsReviewVo> reviewList = whitegoodsDao.reviewList(w_no);
+		return reviewList;
+	}
+
+	@Override
+	public MemberVo sellingMember(String m_id) throws Exception {
+		MemberVo sellingMember = whitegoodsDao.sellingMember(m_id);
+		return sellingMember;
 	}
 
 }

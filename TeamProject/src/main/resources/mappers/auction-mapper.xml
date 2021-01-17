@@ -194,7 +194,7 @@
 	
 	<!-- 마감기한이 지나면 expiration테이블의 deadline 업데이트 -->
 	<update id="updateAuctionExpriationDeadline">
-		update auction_expiration_date set deadline='N' where p_no=#{p_no}
+		update auction_expiration_date set deadline='Y' where p_no=#{p_no}
 	</update>
 	
 	<!-- auction 데이블에 purchaser와 sold_price 업데이트 -->
@@ -321,5 +321,28 @@
 	
 	<select id="getMember" resultType="MemberVo">
 		select * from member where m_id=#{m_id}
+	</select>
+	
+	<!-- 내가 입찰한 상품 결제 내역 : 내가 구매한 결제 내역을 삽입-->
+	<insert id="insertAuctionOrder">
+		insert into auction_order(order_id, seller, purchaser, orderer_name, phonenumber, imp_uid, merchant_uid, 
+		order_price, card_approval_number, order_msg, zip, road_address , jibun_address, detail_address, p_no)
+		values(SEQ_AUCTION_ORDER_NO.nextval, #{seller}, #{purchaser}, #{orderer_name}, #{phonenumber}, #{imp_uid}, #{merchant_uid},
+		#{order_price}, #{card_approval_number}, #{order_msg}, #{zip}, #{road_address}, #{jibun_address}, #{detail_address}, #{p_no})
+	</insert>
+	
+	<select id="getAuctionOrder" resultType="AuctionOrderVo">
+		select * from auction_order where purchaser = #{purchaser}
+	</select>
+	
+	<!-- 결제된 내 상품 내역 insert -->
+	<insert id="insertAuctionReceiveOrder">
+		insert into auction_receive_order(ORDER_RECEIVE_ID, seller, p_no)
+		values(SEQ_ORDER_RECEIVE_ID.nextval,#{seller},#{p_no})
+	</insert>
+	
+	<!-- 결제된 내 상품 내역 -->
+	<select id="getAuctionReceiverOrder" resultType="AuctionReceiveOrderVo">
+		select * from auction_receive_order where seller = #{seller} 
 	</select>
 </mapper>

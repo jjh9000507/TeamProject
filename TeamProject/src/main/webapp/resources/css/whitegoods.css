@@ -58,8 +58,8 @@
     font-size: 12px;
 }
 .productshow{
-	border-left:2px solid #CCC;
-	border-right:2px solid #CCC;
+
+	border:2px solid #CCC;
 	padding:20px;
 	width:900px;
 }
@@ -67,7 +67,9 @@
 	border-top: 2px solid #CCC;
 }
 
-
+.show2 .imgProduct{
+	text-align: center;
+}
 .prod-image{position:relative;float:left;width:490px;text-align:center;}
 .prod-image__detail{float:left;width:410px;height:410px}
 
@@ -104,13 +106,21 @@
 .prod-buy-footer .prod-buy-btn .prod-buy-btn__txt{position:relative;display:inline-block;margin-right:15px}
 .prod-buy-footer .prod-buy-btn .prod-buy-btn__txt:after{position:absolute;display:inline-block;top:50%;right:-18px;width:8px;height:14px;margin-top:-9px;content:''; *margin-top:-5px;margin-top:-5px\9}
 
-.tab{position:relative}
+.tab{position:relative;}
 .tab .tab-titles{border-top:2px solid #555;border-bottom:1px solid #ccc;border-left:1px solid #ccc;list-style-type:none;font-size:0;position:absolute;top:0;width:100%;-webkit-user-select:none;-ms-user-select:none;user-select:none}
 .tab .tab-titles>li{display:inline-block;padding:15px 20px 14px;width:25%;border-right:1px solid #ccc;background-color:#fafafa;text-align:center;color:#555;font-weight:bold;font-size:16px;box-sizing:border-box;cursor:pointer}
 .tab .tab-titles>li.active{margin-bottom:-2px;background:#ffffff;border-bottom:1px solid #fff;color:#111}
 .tab .tab-contents>li{padding-top:40px}
 .tab .tab-contents>li:first-child{padding-top:30px}
-.tab-titles{background:#fff;position:fixed;width:980px;margin:0 auto;top:0;z-index:100}
+
+.tab-dock-top{position:relative;}
+.tab-dock-top .tab-titles{
+	border-top:2px solid #555;border-bottom:1px solid #ccc;position:fixed;border-left:1px solid #ccc;list-style-type:none;font-size:0;top:0;width:100%;margin:0 auto;z-index:100}
+.tab-dock-top .tab-titles>li{display:inline-block;padding:15px 20px 14px;width:25%;border-right:1px solid #ccc;background-color:#fafafa;text-align:center;color:#555;font-weight:bold;font-size:16px;box-sizing:border-box;cursor:pointer}
+.tab .tab-titles>li.active{margin-bottom:-2px;background:#ffffff;border-bottom:1px solid #fff;color:#111}
+.tab .tab-contents>li{padding-top:40px}
+.tab .tab-contents>li:first-child{padding-top:30px}
+
 .tab-contents{padding-top:50px}
 #btfTab{margin-top:50px}
 </style>
