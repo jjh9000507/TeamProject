@@ -18,7 +18,7 @@ function enterSearch() {
 	//alert(evt_code);
 	if (evt_code == 13) { //아스키코드 13은 엔터, 엔터를 치면 검색  
 		event.keyCode = 0;
-		getAddr();
+		//getAddr();
 	}
 }//enterSearch
 

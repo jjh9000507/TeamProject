@@ -5,9 +5,6 @@
 <%@ include file="../include/header.jsp" %>
 <!-- 이거 사이드바로 빼고 css넣고 해야할 듯? -->
 <%@ include file="/resources/css/service_center.css" %>
-<style>
-
-</style>
 <div class="row">
 	<div class="col-md-12 borderAllCategory" id="borderAllCategory">
 		<div class="col-md-2"></div>

@@ -5,7 +5,7 @@
 <%@ include file="/resources/css/buyComputerProduct_css.css" %>
 <%@ include file="../include/header.jsp"%>
 
-
+<script src="/resources/js/computerScript.js"></script>
 <script>
 $(function(){
 	var price = "${buyComputerVo.c_com_price}";	
@@ -49,7 +49,7 @@ $(function(){
 				tr.find("td").eq(0).text(indexAfter);
 				tr.find("td").eq(1).text(this.c_com_comment_content);
 				tr.find("td").eq(2).text(this.c_com_comment_writer);
-				tr.find("td").eq(3).text(this.c_com_comment_regdate);
+				tr.find("td").eq(3).text(changeDateString(this.c_com_comment_regdate));
 				if("${sessionScope.memberVo.m_id}" == this.c_com_comment_writer){			
 					tr.find("td").eq(4).find("button");
 					tr.find("td").eq(5).find("button");			
@@ -79,7 +79,7 @@ $(function(){
 				tr.find("td").eq(2).text(this.p_e_inquiry_status);
 				tr.find("td").eq(3).text(this.p_e_title);
 				tr.find("td").eq(4).text(this.p_e_id);
-				tr.find("td").eq(5).text(this.p_e_regdate);
+				tr.find("td").eq(5).text(changeDateString(this.p_e_regdate));
 				tr.find("td").eq(6).text(this.p_e_no);
 				$("#productExplainTable").append(tr);
 				indexInquire++;
@@ -197,17 +197,21 @@ $(function(){
 		console.log("p_no:" + p_no);
 		var sendMethod = $("#buySelectMenu option:selected").val();
 		console.log("sendMethod:" + sendMethod);
-		if(price == "" || productNum == ""){
-			alert("내용정보 불충분");
+		if(m_id == ""){
+			alert("로그인 하시오");
 		}else{
-			searchBuyFormSendData.find("input").eq(0).val(price);
-			searchBuyFormSendData.find("input").eq(1).val(seller);
-			searchBuyFormSendData.find("input").eq(2).val(productNum);
-			searchBuyFormSendData.find("input").eq(3).val(productName);
-			searchBuyFormSendData.find("input").eq(4).val(sendMethod);
-			searchBuyFormSendData.find("input").eq(5).val(p_no);
-			$("#frmBuyFormSendData").submit();
-		}		
+			if(price == "" || productNum == "" || productNum == "0"){
+				alert("내용정보 불충분");
+			}else{
+				searchBuyFormSendData.find("input").eq(0).val(price);
+				searchBuyFormSendData.find("input").eq(1).val(seller);
+				searchBuyFormSendData.find("input").eq(2).val(productNum);
+				searchBuyFormSendData.find("input").eq(3).val(productName);
+				searchBuyFormSendData.find("input").eq(4).val(sendMethod);
+				searchBuyFormSendData.find("input").eq(5).val(p_no);
+				$("#frmBuyFormSendData").submit();
+			}		
+		}			
 	});
 	$("#putBasket").click(function(){
 		var current_id = "${sessionScope.memberVo.m_id}";
@@ -254,10 +258,8 @@ $(function(){
 			});
 		}else{
 			alert("중고 동네 회원만 가능합니다");
-		}
-		
-		
-	});
+		}		
+	});	
 });
 </script>
 <form role="form" id="frmBuyFormSendData" action="/buyComputerProduct/openBuyComputerProductDetail" method="post">
@@ -299,12 +301,9 @@ $(function(){
 								닫기
 							</button>
 						</div>
-					</div>
-					
-				</div>
-				
-			</div>
-			
+					</div>					
+				</div>				
+			</div>			
 		</div>
 	</div>
 	<div class="row">

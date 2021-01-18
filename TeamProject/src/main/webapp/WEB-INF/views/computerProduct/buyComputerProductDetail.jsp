@@ -220,7 +220,8 @@ $(function(){
 			alert("제대로 기입하십시오");
 			$("#stringLengthSpan").text(m_length);
 		}else{
-			if((m_length < 51) && (mt_length1 < 4) && (mt_length2 < 5) && (mt_length3 < 5)){
+			if((m_length != 0) && (mt_length1 != 0) && (mt_length2 != 0) && (mt_length3 != 0)
+					&& (m_length < 51) && (mt_length1 < 4) && (mt_length2 < 5) && (mt_length3 < 5)){
 				$("#stringLengthSpan").text(m_length);
 				memberOfTelephone = memberOfTelephone1 + memberOfTelephone2 + memberOfTelephone3;		
 				messageForDriver = messageForDriverBefore;
@@ -365,17 +366,20 @@ $(function(){
 		var sendData ={
 				"productName" 			: productName,
 				"m_id" 					: m_id,
-				"c_com_comment_content" : c_com_comment_content
-				
+				"c_com_comment_content" : c_com_comment_content				
 			};
 		if(m_id != ""){
-			$.post(url,sendData, function(data) {
-				if(data == "success"){
-					alert("성공");
-				}else{
-					alert("실패");
-				}
-			});
+			if(c_com_comment_content != ""){
+				$.post(url,sendData, function(data) {
+					if(data == "success"){
+						alert("성공");
+					}else{
+						alert("실패");
+					}
+				});
+			}else{
+				alert("수정사항을 입력하시오");
+			}			
 		}else{
 			alert("로그인 하시오");
 		}		
