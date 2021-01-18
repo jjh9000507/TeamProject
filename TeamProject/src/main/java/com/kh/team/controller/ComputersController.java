@@ -6,13 +6,17 @@ import java.util.List;
 
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
@@ -244,11 +248,71 @@ public class ComputersController {
 	
 	//선택한 컴퓨터 상품정보 보기
 	@RequestMapping(value="/detailComputerForm/{p_no}", method=RequestMethod.GET)
-	public String detailComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
+	@ResponseBody
+	public ComputerVo detailComputerProduct(@PathVariable("p_no") int p_no, HttpServletResponse response,HttpServletRequest request) throws Exception {
 		ComputerVo computerVo = computersService.detailComputerInfo(p_no);
-		model.addAttribute("detailComputerVo", computerVo);
+		
+		String productName = computerVo.getC_com_name();
+		System.out.println("productName:" + productName);
+		Cookie[] cookieRequest = request.getCookies();
+		int c_length = cookieRequest.length;
+		System.out.println("c_length:" + c_length);
+		int index_c = 0;
+		for(int i=0; i<cookieRequest.length; i++){
+
+			Cookie c = cookieRequest[i]; // 객체 생성
+
+			String name = c.getName(); // 쿠키 이름 가져오기
+			
+			String value = c.getValue(); // 쿠키 값 가져오기
+			System.out.println("cookie(name):" + name);
+			System.out.println("cookie(name_length):" + name.length());
+			System.out.println("cookie(value):" + value);
+			System.out.println("cookie(value_length):" + value.length());
+				if((name == null) || (name.equals(""))) {
+					System.out.println("cookie(null)");
+					Cookie cookiePN = new Cookie("productAName", productName);
+					
+					cookiePN.setMaxAge(10 * 60);
+					cookiePN.setPath("/");					
+					
+					response.addCookie(cookiePN);
+				}else if((name != null) && (!name.equals(""))) {
+					System.out.println("compare_name:" + name);
+					System.out.println("compare_length:" + name.length());
+						if(!value.equals(productName)) {
+							System.out.println("forIn(vlaue):" + value);
+							System.out.println("forIn(productName):" + productName);
+							System.out.println("cookie(add)");
+							System.out.println("index_c_before:" + index_c);
+							String productNameNewIndex = "product" + index_c++ + "Name"; 
+							Cookie cookiePNA = new Cookie(productNameNewIndex, productName);
+							System.out.println("index_c_after:" + index_c);
+							cookiePNA.setMaxAge(10 * 60);
+							cookiePNA.setPath("/");					
+							
+							response.addCookie(cookiePNA);
+						
+					}else if(value.equals(productName)) {
+						System.out.println("초과" + i);
+					}
+					
+				}
+				if(c_length > 5) {
+					System.out.println("cookie(delete)");
+					String productNameDeleteIndex = "product" + i + "Name";
+					Cookie kc = new Cookie(productNameDeleteIndex, null); 
+
+					kc.setMaxAge(0); 
+
+					response.addCookie(kc); 
+				}
+			}
+		
+		
+		
 		System.out.println("computerVo_Detail:" + computerVo);
-		return "/computerProduct/detailComputerForm";
+		return computerVo;
 	}
 	
 	//컴퓨터 구매하기 폼으로 가기

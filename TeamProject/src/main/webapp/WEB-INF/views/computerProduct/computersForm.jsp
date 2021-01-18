@@ -169,9 +169,120 @@ $(function() {
 		$(this).hide(); 
 	});
 	
+	$(".showProductInfo").click(function() {
+	 	alert("제품설명 모달창을 띄움니다");
+	 	var p_no = $("#span_p_no").text();
+	 	console.log("p_no:" + p_no);
+		var url = "/computerProduct/detailComputerForm/" + p_no;
+		$.get(url, function(data) {
+			console.log("data:" + data);
+			var tr0 = $("#productInfoTrTable").find("tr").eq(0);
+			var tr1 = $("#productInfoTrTable").find("tr").eq(1);
+			var tr2 = $("#productInfoTrTable").find("tr").eq(2);
+			var tr3 = $("#productInfoTrTable").find("tr").eq(3);
+			var tr4 = $("#productInfoTrTable").find("tr").eq(4);
+			
+			tr0.find("td").eq(1).text(data.c_com_name);
+			tr1.find("td").eq(1).text(data.c_com_seller);
+			tr2.find("td").eq(1).text(data.c_com_content);
+			tr3.find("td").eq(1).text(data.c_com_price);			
+			tr4.find("td").eq(1).text(data.c_com_regdate);			
+		});
+		$("#modal-Info").trigger("click");
+	});
+	
 });
 </script>
-
+<div class="row">
+		<div class="col-md-12">
+<a id="modal-Info" href="#modal-container-Info" role="button" class="btn" data-toggle="modal" style="display: none;">Launch demo modal</a>
+			
+			<div class="modal fade" id="modal-container-Info" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog" role="document">
+					<div class="modal-content">
+						<div class="modal-header">
+							<h5 class="modal-title" id="myModalLabel">
+								제품설명창
+							</h5> 
+							<button type="button" class="close" data-dismiss="modal">
+								<span aria-hidden="true">×</span>
+							</button>
+						</div>
+						<div class="modal-body">				
+							
+			<table class="table">
+				<thead>
+					<tr>
+						<th>
+							목차
+						</th>
+						<th>
+							내용
+						</th>
+					</tr>					
+				</thead>
+				<tbody id="productInfoTrTable">
+					<tr>
+						<td>
+							제품명:
+						</td>
+						<td>
+							
+						</td>
+					</tr>						
+					<tr>
+												
+						<td>
+							판매자:
+						</td>
+						<td>
+														
+						</td>
+					</tr>						
+					<tr>
+												
+						<td>
+							제품설명:
+						</td>
+						<td>
+														
+						</td>
+					</tr>						
+					<tr>	
+						<td>
+							가격:
+						</td>
+						<td>
+							
+						</td>
+					</tr>					
+					<tr>	
+						<td>
+							올린 날짜:
+						</td>
+						<td>
+							
+						</td>
+					</tr>					
+									
+				</tbody>
+			</table>		
+						</div>
+						<div class="modal-footer">
+							 
+							 
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">
+								닫기
+							</button>
+						</div>
+					</div>
+					
+				</div>
+				
+			</div>
+			
+		</div>
+	</div>
 <div style="display: none;" id="cate_no_form">
 <input type="text" name="cate_no_form" value="${cate_no_list}"/>
 </div>	
@@ -204,14 +315,85 @@ $(function() {
 </form>
 <div class="computersFormDiv">
 <nav class="navUp">
-<ul id="computerFavorProduct">
-<li><a href="#">컴퓨터 카테고리중 최근 구매한 상품</a>
-    	<ul class="sub-menu" style="display: none;">
-				<li><a href="#" class="submenuLink">ㅋ</a></li>
-				<li><a href="#" class="submenuLink">ㅋㅋ</a></li>
-    	</ul>
-    	</li>
-    	</ul>    
+<div class="dropdown">
+	<a class="dropdown-toggle" style="cursor: pointer;"
+			data-toggle="dropdown">컴퓨터 카테고리 중 최근 본 상품</a>
+		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
+							style="background-color: #eeddcc">
+		
+		<a class="dropdown-item" href="#">
+		<c:choose>
+			<c:when test="${not empty cookie.productAName.value}">
+				${cookie.productAName.value}
+			</c:when>			
+			<c:otherwise>
+				
+			</c:otherwise>
+		</c:choose>
+		</a>
+		<a class="dropdown-item" href="#">
+		<c:choose>
+			<c:when test="${not empty cookie.product0Name.value}">
+				${cookie.product0Name.value}
+			</c:when>			
+			<c:otherwise>
+				
+			</c:otherwise>
+		</c:choose>
+		</a>
+		<a class="dropdown-item" href="#">
+		<c:choose>
+			<c:when test="${not empty cookie.product1Name.value}">
+				${cookie.product1Name.value}
+			</c:when>			
+			<c:otherwise>
+				
+			</c:otherwise>
+		</c:choose>
+		</a>
+		<a class="dropdown-item" href="#">
+		<c:choose>
+			<c:when test="${not empty cookie.product2Name.value}">
+				${cookie.product2Name.value}
+			</c:when>			
+			<c:otherwise>
+				
+			</c:otherwise>
+		</c:choose>
+		</a>
+		<a class="dropdown-item" href="#">
+		<c:choose>
+			<c:when test="${not empty cookie.product3Name.value}">
+				${cookie.product3Name.value}
+			</c:when>			
+			<c:otherwise>
+				
+			</c:otherwise>
+		</c:choose>
+		</a>
+		<a class="dropdown-item" href="#">
+		<c:choose>
+			<c:when test="${not empty cookie.product4Name.value}">
+				${cookie.product4Name.value}
+			</c:when>			
+			<c:otherwise>
+				
+			</c:otherwise>
+		</c:choose>
+		</a>
+		<a class="dropdown-item" href="#">
+		<c:choose>
+			<c:when test="${not empty cookie.product5Name.value}">
+				${cookie.product5Name.value}
+			</c:when>			
+			<c:otherwise>
+				
+			</c:otherwise>
+		</c:choose>
+		</a>		
+		</div>
+		</div>  
+	
 </nav>
 <header class="header">
 <c:if test="${categoryInfo != null}">
@@ -219,7 +401,7 @@ $(function() {
 &nbsp<button id="computersBack" class="btn btn-warning btn-xs">뒤로</button>
 <ul class="nav nav-tabs computerFormListMenuItem">
 <c:forEach var="CategoryVo" items="${categoryInfo}">
-<li class="nav-item checkB">&nbsp&nbsp&nbsp${CategoryVo.cate_name}
+<li class="nav-item checkB">&nbsp;&nbsp;&nbsp;${CategoryVo.cate_name}
 &nbsp<input type="checkbox" name="${CategoryVo.cate_no}" value="${CategoryVo.cate_no}"/>
 </li>
 </c:forEach>
@@ -230,14 +412,16 @@ $(function() {
 	</div>
 </form>
 
+			 
 
 </header>
+
 <aside class="asideUp">
 <a href="http://www.auction.co.kr/" target="_blank" title="제휴사이트입니다.">
 <img src="/resources/bannerImage/auction.png" alt="제휴사이트" class="asideUpBanner"/>
 </a></aside>
 <nav class="navLeft">
-<span>현재 상품 건수:</span>&nbsp&nbsp(<span>${listNumber}</span>)&nbsp<span>건</span>
+<span>현재 상품 건수:</span>&nbsp;&nbsp;(<span>${listNumber}</span>)&nbsp;<span>건</span>
 <br>
 <br>
 <form role="form">
@@ -308,7 +492,7 @@ $(function() {
 							<tbody>
 								<tr>
 									<td>
-									<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">
+									<a href="#">
 										<c:choose>
 											<c:when test="${ComputerVo.c_com_pic == null}">
 												<img src="/resources/computerImage/default.png"/>
@@ -320,7 +504,7 @@ $(function() {
 										</a>
 									</td>
 									<td>
-										<a href="/computerProduct/detailComputerForm/${ComputerVo.p_no}" target="_blank">${ComputerVo.c_com_name}</a>
+										<a href="#">${ComputerVo.c_com_name}</a><button type="button" class="showProductInfo">보기</button><span id="span_p_no" style="display: none;">${ComputerVo.p_no}</span>
 									</td>
 									<td>
 										<a href="/login/memberVoInfoForm/${ComputerVo.c_com_seller}">${ComputerVo.c_com_seller}</a>

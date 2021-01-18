@@ -9,7 +9,9 @@
 <script>
 $(function(){
 	$("#btnBuy").click(function(){
-		location.href = "/page/purchase"
+		var p_no = '${productVo.p_no}';
+// 		console.log(p_no);
+		location.href = "/page/purchase?p_no=${productVo.p_no}"
 	});
 	
 	$("#btnBuy2").click(function(){

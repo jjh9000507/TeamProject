@@ -92,12 +92,6 @@
 
 	</select>
 	
-	<!-- 서브 카테고리 분류 -->
-	<select id="distinct_num" resultType="CategoryVo">
-		select * from category
-		where distinct_num = #{distinct_num}
-	</select>
-	
 	<!-- 원하는 갯수 만큼  전체 상품목록 받아오기 -->
 	<select id="selectAll_List" resultType="ProductVo">
 		select * from (
