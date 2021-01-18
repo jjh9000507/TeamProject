@@ -14,12 +14,12 @@
 	width:15%;
 	height:15%;
 	float:left;
-	background-color:gray;		
+	background-color:#f0f0f5;		
 }
 .header{
 	width:70%;
 	height:15%;	
-	background-color:gray;
+	background-color:#f0f0f5;
 	float:left;
 }
 .asideUp{
@@ -44,7 +44,7 @@
 	width:15%;
 	height:100%;	
 	float:left;
-	background-color:gray;			
+	background-color:#f0f0f5;			
 }
 
 .section{
@@ -58,7 +58,7 @@
 	height:100%;
 	width:15%;	
 	float:left;
-	background-color:gray;
+	background-color:#f0f0f5;
 		
 }
 
