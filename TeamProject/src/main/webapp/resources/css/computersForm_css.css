@@ -23,27 +23,28 @@
 	float:left;
 	background-color:#f0f0f5;		
 }
+
 .header{
 	width:70%;
 	height:15%;	
 	background-color:#f0f0f5;
 	float:left;
 }
+
 .asideUp{
 	display:inline-block;
 	width:15%;
 	height:15%;
 	float:left;		
 }
+
 .asideUpBanner{	
 	width:100%;
 	height:100%;
-			
 }
+
 .asideBanner{	
 	width:100%;
-	
-			
 }
 
 .navLeft{
@@ -58,48 +59,45 @@
 	width:70%;
 	height:100%;
 	overflow:scroll;	
-	float:left;	
+	float:left;
 }
+
 .aside{
 	display:inline-block;
 	height:100%;
 	width:15%;	
 	float:left;
 	background-color:#f0f0f5;
-		
 }
 
-
 .computerFormListMenu{
-	
 	font-size : 32px;
 	
 }
+
 .computerFormListMenuItem{
-	
 	font-size : 26px;
 	
 }
+
 .computerTable{
 	width:100%;
 	height:15%;
-	font-size : 22px;	
-	
-	
+	font-size : 22px;
 }
+
 .computerThead{
 	width:100%;
 	height:15%;
 	font-size : 30px;	
 }
+
 .text-center {
 	text-align: center;
-	
 }
 
 .searchInComputer{
 	font-size: 26px;
-		
 }
 
 
