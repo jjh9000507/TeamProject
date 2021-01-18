@@ -197,17 +197,21 @@ $(function(){
 		console.log("p_no:" + p_no);
 		var sendMethod = $("#buySelectMenu option:selected").val();
 		console.log("sendMethod:" + sendMethod);
-		if(price == "" || productNum == "" || productNum == "0"){
-			alert("내용정보 불충분");
+		if(m_id == ""){
+			alert("로그인 하시오");
 		}else{
-			searchBuyFormSendData.find("input").eq(0).val(price);
-			searchBuyFormSendData.find("input").eq(1).val(seller);
-			searchBuyFormSendData.find("input").eq(2).val(productNum);
-			searchBuyFormSendData.find("input").eq(3).val(productName);
-			searchBuyFormSendData.find("input").eq(4).val(sendMethod);
-			searchBuyFormSendData.find("input").eq(5).val(p_no);
-			$("#frmBuyFormSendData").submit();
-		}		
+			if(price == "" || productNum == "" || productNum == "0"){
+				alert("내용정보 불충분");
+			}else{
+				searchBuyFormSendData.find("input").eq(0).val(price);
+				searchBuyFormSendData.find("input").eq(1).val(seller);
+				searchBuyFormSendData.find("input").eq(2).val(productNum);
+				searchBuyFormSendData.find("input").eq(3).val(productName);
+				searchBuyFormSendData.find("input").eq(4).val(sendMethod);
+				searchBuyFormSendData.find("input").eq(5).val(p_no);
+				$("#frmBuyFormSendData").submit();
+			}		
+		}			
 	});
 	$("#putBasket").click(function(){
 		var current_id = "${sessionScope.memberVo.m_id}";
