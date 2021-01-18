@@ -319,6 +319,7 @@
 	<!-- Q&A 수정/삭제에 필요한 Q&A 카테고리 리스트 가져오기(이름 필요해서 대조해서 쓸 예정) -->
 	<select id="QACategory" resultType="QACateVo">
 		select * from qa_cate
+		order by qa_cate_no desc
 	</select> 
 	
 	<!-- Q&A 수정 -->
@@ -358,4 +359,16 @@
 		insert into notice(notice_no, notice_title, notice_content)
 		values(seq_notice_no.nextval, #{notice_title}, #{notice_content})
 	</insert>
+	
+	<!-- 카테고리 추가 -->
+	<insert id="qaCategoryInsert">
+	insert into qa_cate(qa_cate_no, qa_cate_name, qa_cate_ref)
+	values(#{qa_cate_no}, #{qa_cate_name}, #{qa_cate_ref})
+	</insert>
+	
+	<!-- 카테고리 삭제 -->
+	<delete id="qaCategoryDelete">
+	delete from qa_cate
+	where qa_cate_no = #{qa_cate_no}
+	</delete>
 </mapper>
