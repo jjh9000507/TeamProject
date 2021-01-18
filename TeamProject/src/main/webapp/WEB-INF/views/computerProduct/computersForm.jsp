@@ -318,7 +318,7 @@ $(function() {
 <nav class="navUp">
 <div class="dropdown">
 	<a class="dropdown-toggle" style="cursor: pointer;"
-			data-toggle="dropdown">컴퓨터 카테고리 중 최근 본 상품</a>
+			data-toggle="dropdown">컴퓨터 카테고리 중 최근 결제한 상품</a>
 		<div class="dropdown-menu" aria-labelledby="dropdownMenuButton"
 							style="background-color: #eeddcc">
 		
