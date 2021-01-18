@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/buyComputerProductDetail_css.css" %>
 <%@ include file="../include/header.jsp"%>
+
 <script>
 setInterval(function(){
     
@@ -200,6 +201,11 @@ $(function(){
 		console.log("detailAddress:" + detailAddress);
 		$("#btnModalCloseComputer").trigger("click");
 		alert("서버에 저장되었습니다.");
+		$("#spanAdressNum").text(postcode);
+		$("#spanRoadAdress").text(roadAddress);
+		$("#spanRef").text(extraAddress);
+		$("#detailAdress").text(detailAddress);
+		$("#addrTable").show();
 	});
 	var m_id = "${sessionScope.memberVo.m_id}";
 	var m_pass = "${sessionScope.memberVo.m_pass}";
@@ -637,6 +643,44 @@ $(function(){
 		</div>
 	</div>
 	<br>
+	<div class="row">
+		<div class="col-md-12">
+			<table class="table" style="display: none;" id="addrTable">
+				<thead>
+					<tr>																		
+						<th>
+							우편번호
+						</th>												
+						<th>
+							도로명주소
+						</th>
+						<th>
+							참고항목
+						</th>												
+						<th>
+							상세주소
+						</th>												
+					</tr>
+				</thead>
+				<tbody>
+					<tr>						
+						<td>
+							<span id="spanAdressNum"></span>						
+						</td>
+						<td>
+							<span id="spanRoadAdress"></span>
+						</td>
+						<td>
+							<span id="spanRef"></span>
+						</td>
+						<td>						
+							<span id="detailAdress"></span>							
+						</td>												
+					</tr>					
+				</tbody>
+			</table>
+		</div>
+	</div>
 	<br>
 	<h4>결제정보</h4>
 	<hr>

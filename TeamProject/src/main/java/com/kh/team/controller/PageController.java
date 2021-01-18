@@ -18,7 +18,7 @@ import com.kh.team.service.PageService;
 
 @Controller
 @RequestMapping("/page")
-public class PageController {
+public class PageController implements ImPortKey {
 	
 	@Inject
 	PageService pageService;
@@ -87,8 +87,15 @@ public class PageController {
 	
 	// 구매하기 페이지로 이동
 	@RequestMapping(value="/purchase", method=RequestMethod.GET)
-	public String purchaseForm() throws Exception {
+	public String purchaseForm(Model model, int p_no) throws Exception {
+		System.out.println("p_no : " + p_no);
 		
+		// 결제 코드 저장
+		model.addAttribute("ImPortkey", ImPortkey);
+		
+		// 글 데이터 불러오기
+		ProductVo productVo = pageService.content(p_no);
+		model.addAttribute("productVo" , productVo);
 		return "/purchaseForm";
 	}
 	

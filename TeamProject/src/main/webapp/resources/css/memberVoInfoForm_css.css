@@ -6,25 +6,25 @@
 @import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
 
 .memberVoInfoFormHeader{		/*  회원정보 양식 설정*/
-	background : orange;
+	background : #f0f0f5;
 	width:100%;
-	outline:orange; 	
+	outline:#f0f0f5; 	
 	padding:10px;
 	border:5px; 	
 }
 
 .memberVoInfoFormTable, .memberInfoHeaderModal{		/*  회원정보 양식 테이블 설정 및 회원정보수정 모달 설정*/
-	background : orange;	
+	background : #f0f0f5;	
 }
 
 .memberVoInfoFormFont{        /* 로그인 폼의 글씨 설정 */ 
 	
-	color:white;
+	color:black;
 	font-size : 16px;
 }
 .memberVoInfoFormFontHead{        /* 로그인 폼의 머릿글 글씨 설정 */ 
 	
-	color:white;
+	color:black;
 	font-size : 32px;
 }
 

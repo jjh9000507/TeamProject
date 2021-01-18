@@ -200,7 +200,7 @@ $(function(){
 		if(m_id == ""){
 			alert("로그인 하시오");
 		}else{
-			if(price == "" || productNum == "" || productNum == "0"){
+			if(price == "" || productNum == "0"){
 				alert("내용정보 불충분");
 			}else{
 				searchBuyFormSendData.find("input").eq(0).val(price);
@@ -450,7 +450,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							컴퓨터 카테고리내에서의 구매율:(<sqan>${productBuyPercentage}</sqan>)&percnt;
+							컴퓨터 카테고리내에서의 구매율:(<span>${productBuyPercentage}</span>)&percnt;
 							<div>
 							<progress value="${productBuyPercentage}" max="100"></progress>
 							</div>
@@ -460,8 +460,8 @@ $(function(){
 					</tr>					
 					<tr>
 						<td>
-							상품수량선택:&nbsp
-							<input id="productNumber" type="number" min="0" max="100" step="1"/>
+							상품수량선택:&nbsp;
+							<input id="productNumber" type="number" min="0" max="100" step="1" value="0"/>
 							<button type="button" id="confirmPrice">결정</button>
 						</td>
 						<td>
@@ -469,7 +469,7 @@ $(function(){
 					</tr>
 					<tr>
 						<td>
-							총 상품금액:<span id="finalPrice"></span>
+							총 상품금액:<span id="finalPrice">0원</span>
 						</td>
 						<td>
 						</td>						
@@ -514,8 +514,8 @@ $(function(){
 </nav>
 <footer class="buyfooter">
 <ul class="nav nav-tabs breadcrumb">
-<li class="nav-item"><button id="detailProductExpain">상세설명</button></li>&nbsp&nbsp&nbsp
-<li class="nav-item"><button id="buyAfter">구매후기(<span id="buyAfterKey">${computerCommentCount}</span>)</button></li>&nbsp&nbsp&nbsp
+<li class="nav-item"><button id="detailProductExpain">상세설명</button></li>&nbsp;&nbsp;&nbsp;
+<li class="nav-item"><button id="buyAfter">구매후기(<span id="buyAfterKey">${computerCommentCount}</span>)</button></li>&nbsp;&nbsp;&nbsp;
 <li class="nav-item"><button id="inquireProduct">상품문의(<span id="inquireKey">${productExplainCount}</span>)</button></li>
 </ul>
 </footer>
@@ -562,14 +562,15 @@ $(function(){
 							<option value="반품/취소/환불">반품/취소/환불</option>
 							<option value="기타">기타</option>
 						</select>			
-			</li>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
-				&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp
+			</li>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
 		<li class="nav-item"><button id="inquireProductWrite">상품문의</button></li>
 		</ul>
 		</div>	
