@@ -323,26 +323,38 @@
 		select * from member where m_id=#{m_id}
 	</select>
 	
-	<!-- 내가 입찰한 상품 결제 내역 : 내가 구매한 결제 내역을 삽입-->
+	<!--  결제 -->
+	<!-- 구매자가 주문서 입력 
+		-> 판매자 쪽에서 자신의 seller 중 delivery_status가 N 가져오기
+		-> 배송을 보내면 배송사와 송장번호를 업데이트 -->
+	
+	<!--  같은 테이블에서 구매자 정보만 먼저 입력 -->
 	<insert id="insertAuctionOrder">
-		insert into auction_order(order_id, seller, purchaser, orderer_name, phonenumber, imp_uid, merchant_uid, 
-		order_price, card_approval_number, order_msg, zip, road_address , jibun_address, detail_address, p_no)
-		values(SEQ_AUCTION_ORDER_NO.nextval, #{seller}, #{purchaser}, #{orderer_name}, #{phonenumber}, #{imp_uid}, #{merchant_uid},
-		#{order_price}, #{card_approval_number}, #{order_msg}, #{zip}, #{road_address}, #{jibun_address}, #{detail_address}, #{p_no})
+		insert into auction_order(order_id, purchaser, orderer_name, phonenumber, imp_uid, merchant_uid, 
+		order_price, card_approval_number, order_msg, zip, road_address , jibun_address, detail_address, seller, p_no)
+		values(SEQ_AUCTION_ORDER_NO.nextval, #{purchaser}, #{orderer_name}, #{phonenumber}, #{imp_uid}, #{merchant_uid},
+		#{order_price}, #{card_approval_number}, #{order_msg}, #{zip}, #{road_address}, #{jibun_address}, #{detail_address}, #{seller}, #{p_no})
 	</insert>
 	
-	<select id="getAuctionOrder" resultType="AuctionOrderVo">
+	<!-- 구매자가 구매한 모든 항목을 가져오다 -->
+	<select id="getAuctionOrderPurchaserList" resultType="AuctionOrderVo">
 		select * from auction_order where purchaser = #{purchaser}
 	</select>
 	
-	<!-- 결제된 내 상품 내역 insert -->
-	<insert id="insertAuctionReceiveOrder">
-		insert into auction_receive_order(ORDER_RECEIVE_ID, seller, p_no)
-		values(SEQ_ORDER_RECEIVE_ID.nextval,#{seller},#{p_no})
-	</insert>
+	<!-- 쪽지를 보내기 위해서 seller의 delivery_status가 N인거 가져오기 -->
+	<select id="getAuctionOrderDeliveryCount" resultType="int">
+		select count(*) from AUCTION_ORDER where seller=#{seller} and delivery_status='N'
+	</select> 
 	
-	<!-- 결제된 내 상품 내역 -->
-	<select id="getAuctionReceiverOrder" resultType="AuctionReceiveOrderVo">
-		select * from auction_receive_order where seller = #{seller} 
+	<!-- 송장 내역 insert 하고 delivery_number를 Y로 바꾼다 : 송장번호 업데이트-->
+	<update id="updateAuctionOrderDeliveryFormation">
+		update auction_order set delivery_company=#{delivery_company}, delivery_number=#{delivery_number} ,delivery_status='Y' where p_no = #{p_no}
+	</update>
+		
+	<!-- 판매자의 모든 배송 항목을 가져온다 -->
+	<select id="getAuctionOrderSellerList" resultType="AuctionOrderVo">
+		select * from auction_order where seller = #{seller}
 	</select>
+	
+	<!-- 결제 끝 -->
 </mapper>

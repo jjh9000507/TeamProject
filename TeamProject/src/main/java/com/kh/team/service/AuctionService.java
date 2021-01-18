@@ -11,6 +11,7 @@ import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
+import com.kh.team.domain.AuctionOrderVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
@@ -105,6 +106,18 @@ public interface AuctionService {
 	public void modifyAuctionExpirationDate(AuctionEDateVo auctionEDateVo) throws Exception;
 	
 	//주문하기
+		//주문서에 상품 정보와 구매자 정보 가져오기
 	public AuctionSoldVo orderAuctionSold(String purchaser, int p_no) throws Exception;
+		//주문자 정보
 	public MemberVo getMember(String m_id) throws Exception;
+		//구매자 정보만 먼저 입력(주문자와 주소가 달라 질 수 있다)
+	public void insertAuctionOrder(AuctionOrderVo auctionOrderVo) throws Exception;
+		//구매자가 구매한 모든 항목을 가져온다
+	public List<AuctionOrderVo> getAuctionOrderPurchaserList(String purchaser) throws Exception;
+		//쪽지를 보내기 위해서 seller의 delivery_status가 N인거 가져오기
+	public int getAuctionOrderDeliveryCount(String seller) throws Exception;
+		//송장 내역 insert 하고 delivery_number를 Y로 바꾼다 : 송장번호 업데이트
+	public void updateAuctionOrderDeliveryFormation(String delivery_company, String delivery_number) throws Exception;
+		//판매자의 모든 배송 항목을 가져온다
+	public List<AuctionOrderVo> getAuctionOrderSellerList(String seller) throws Exception;
 }
