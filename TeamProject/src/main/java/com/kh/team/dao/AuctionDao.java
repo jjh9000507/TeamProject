@@ -1,5 +1,7 @@
 package com.kh.team.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import com.kh.team.domain.AuctionAddressVo;
@@ -12,6 +14,7 @@ import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
+import com.kh.team.domain.AuctionPnoFromTempBiding;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
@@ -33,6 +36,16 @@ public interface AuctionDao {
 	public List<AuctionSellVo> getAuctionBidingFinishList(String m_id, AuctionDateAndTimeVo auctionDandTVo) throws Exception;
 	//거래된 상품
 	public List<AuctionSoldVo> getAuctionUserMemberListSold(String m_id) throws Exception;
+	
+	//내가 입찰 한 상품 : 타이틀 밑으로 입찰 항목을 보이기 위해선 테이블을 각각 가져와야 한다
+	public List<AuctionTempBidVo> getAuctionPurchaserTempBiding(String m_id) throws Exception;
+	//임시테이블에 p_no 만 가져와서 auction과 auction_main_img에 뿌려준다
+	public List<AuctionPnoFromTempBiding> getAuctionPurchaserTmepBidingPno(String m_id) throws Exception;
+	//해당 p_no의 타이틀만 가져온다
+	public List<AuctionVo> getAuctionPurchaserTempBidingTitle(List<AuctionPnoFromTempBiding> tempPno) throws Exception;
+	//해당 p_no의 이미지만 가져온다
+	public List<AuctionMainImgVo> getAuctionPurchaserTempBidingImg(List<AuctionPnoFromTempBiding> tempPno) throws Exception;
+	
 	//내가 구매한 상품
 	public List<AuctionSoldVo> getAuctionPurchaserList(String m_id) throws Exception;
 	//수정할 상품 가져오기

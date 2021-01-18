@@ -21,7 +21,9 @@ import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionImgVo;
+import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
+import com.kh.team.domain.AuctionPnoFromTempBiding;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
@@ -118,5 +120,26 @@ public class AuctionDaoTest {
 		AuctionOrderVo auctionOrderVo = new AuctionOrderVo();
 		auctionOrderVo.setPurchase_confirm("aa");
 		auctionOrderVo.setOrderer_name("orderer_name");
+	}
+	
+	@Test
+	public void getAuctionPurchaserTmepBidingPno() throws Exception{
+		List<AuctionPnoFromTempBiding> p_no = auctionDao.getAuctionPurchaserTmepBidingPno("user02");
+		System.out.println(p_no);
+	}
+	
+	@Test
+	public void getAuctionPurchaserTempBidingTitle() throws Exception{
+		List<AuctionPnoFromTempBiding> aa = auctionDao.getAuctionPurchaserTmepBidingPno("user02");
+		System.out.println(aa);
+		List<AuctionVo> listvo = auctionDao.getAuctionPurchaserTempBidingTitle(aa);
+		System.out.println(listvo);
+	}
+	
+	@Test
+	public void getAuctionPurchaserTempBidingImg() throws Exception{
+		List<AuctionPnoFromTempBiding> aa = auctionDao.getAuctionPurchaserTmepBidingPno("user02");
+		List<AuctionMainImgVo> list = auctionDao.getAuctionPurchaserTempBidingImg(aa);
+		System.out.println(list);
 	}
 }
