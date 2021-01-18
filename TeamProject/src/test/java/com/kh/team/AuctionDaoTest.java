@@ -21,6 +21,7 @@ import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.AuctionDateAndTimeVo;
 import com.kh.team.domain.AuctionImgVo;
+import com.kh.team.domain.AuctionOrderVo;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations= {"file:src/main/webapp/WEB-INF/spring/**/*.xml"})
@@ -110,5 +111,12 @@ public class AuctionDaoTest {
 		map.put("p_no", 22);
 		
 		auctionDao.modifyAuction_imgDel("C:/Temp/auctionImg/22/2_f3694afc-5823-410b-9b2c-d614d0e84f64.jpg",22);
+	}
+	
+	@Test
+	public void insertAuctionOrder() throws Exception{
+		AuctionOrderVo auctionOrderVo = new AuctionOrderVo();
+		auctionOrderVo.setPurchase_confirm("aa");
+		auctionOrderVo.setOrderer_name("orderer_name");
 	}
 }

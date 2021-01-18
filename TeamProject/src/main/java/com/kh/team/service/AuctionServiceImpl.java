@@ -26,6 +26,7 @@ import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
+import com.kh.team.domain.AuctionOrderVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
@@ -327,5 +328,33 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public MemberVo getMember(String m_id) throws Exception {
 		MemberVo memberVo = auctionDao.getMember(m_id);
 		return memberVo;
+	}
+
+	@Override
+	public void insertAuctionOrder(AuctionOrderVo auctionOrderVo) throws Exception {
+		auctionDao.insertAuctionOrder(auctionOrderVo);
+	}
+
+	@Override
+	public List<AuctionOrderVo> getAuctionOrderPurchaserList(String purchaser) throws Exception {
+		List<AuctionOrderVo> list = auctionDao.getAuctionOrderPurchaserList(purchaser);
+		return list;
+	}
+
+	@Override
+	public int getAuctionOrderDeliveryCount(String seller) throws Exception {
+		int count = auctionDao.getAuctionOrderDeliveryCount(seller);
+		return count;
+	}
+
+	@Override
+	public void updateAuctionOrderDeliveryFormation(String delivery_company, String delivery_number) throws Exception {
+		auctionDao.updateAuctionOrderDeliveryFormation(delivery_company, delivery_number);
+	}
+
+	@Override
+	public List<AuctionOrderVo> getAuctionOrderSellerList(String seller) throws Exception {
+		List<AuctionOrderVo> list = auctionDao.getAuctionOrderSellerList(seller);
+		return list;
 	}
 }

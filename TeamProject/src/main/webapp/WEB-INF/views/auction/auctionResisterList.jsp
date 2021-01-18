@@ -142,6 +142,7 @@ $(function() {
 		$("#bidingItemContent").show();
 		$("#bidingFinishItemContent").hide();
 		$("#soldItemContent").hide();
+		$("#purchaseBidingItemContent").hide();
 		$("#purchaseItemContent").hide()
 		$("#registerItemContent").hide();
 	});
@@ -150,6 +151,7 @@ $(function() {
 		$("#bidingItemContent").hide();
 		$("#bidingFinishItemContent").show();
 		$("#soldItemContent").hide();
+		$("#purchaseBidingItemContent").hide();
 		$("#purchaseItemContent").hide()
 		$("#registerItemContent").hide();
 	});
@@ -158,6 +160,16 @@ $(function() {
 		$("#bidingItemContent").hide();
 		$("#bidingFinishItemContent").hide();
 		$("#soldItemContent").show();
+		$("#purchaseBidingItemContent").hide();
+		$("#purchaseItemContent").hide()
+		$("#registerItemContent").hide();
+	});
+	
+	$("#purchaseBidingItem").click(function(){
+		$("#bidingItemContent").hide();
+		$("#bidingFinishItemContent").hide();
+		$("#soldItemContent").hide();
+		$("#purchaseBidingItemContent").show();
 		$("#purchaseItemContent").hide()
 		$("#registerItemContent").hide();
 	});
@@ -166,15 +178,16 @@ $(function() {
 		$("#bidingItemContent").hide();
 		$("#bidingFinishItemContent").hide();
 		$("#soldItemContent").hide();
+		$("#purchaseBidingItemContent").hide();
 		$("#purchaseItemContent").show()
 		$("#registerItemContent").hide();
 	})
 	
-	
-	$("#registerItem").click(function() {//tab3클릭시
+	$("#registerItem").click(function() {//tab5클릭시
 		$("#bidingItemContent").hide();
 		$("#bidingFinishItemContent").hide();
 		$("#soldItemContent").hide();
+		$("#purchaseBidingItemContent").hide();
 		$("#purchaseItemContent").hide()
 		$("#registerItemContent").show();
 	})//registerItem
@@ -369,44 +382,6 @@ $(function() {
 			location.href="/auction/auctionDelete?p_no="+p_no;
 		});
 		
-		/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- 
-		//메인으로
-		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(1) > ul").show();	
-		});
-		
-		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(1) > ul").hide();	
-		});
-		
-		// 관심상품
-		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(2) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(2) > ul").hide();
-		});
-		
-		//내상품
-		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(3) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(3) > ul").hide();
-		});
-		
-		// 주문내역
-		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(4) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(4) > ul").hide();
-		});
-		 ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
-		
 });//function	
 	
 </script>
@@ -467,8 +442,9 @@ $(function() {
 								<li class="nav-item"><a class="nav-link active tabTitle" href="#tab1" data-toggle="tab" id="bidingItem">입찰 중인 상품</a></li>
 								<li class="nav-item"><a class="nav-link tabTitle" href="#tab2" data-toggle="tab" id="bidingFinishItem">입찰 종료된 상품</a></li>
 								<li class="nav-item"><a class="nav-link tabTitle" href="#tab3" data-toggle="tab" id="soldItem">낙찰된 상품</a></li>
-								<li class="nav-item"><a class="nav-link tabTitle" href="#tab4" data-toggle="tab" id="purchaseItem">내가 입찰한 상품</a></li>
-								<li class="nav-item"><a class="nav-link tabTitle" href="#tab5" data-toggle="tab" id="registerItem">물품 등록</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab4" data-toggle="tab" id="purchaseBidingItem">내가 입찰한 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab5" data-toggle="tab" id="purchaseItem">내가 구매한 상품</a></li>
+								<li class="nav-item"><a class="nav-link tabTitle" href="#tab6" data-toggle="tab" id="registerItem">물품 등록</a></li>
 								</ul>
 				
 								<div class="tab-content">
@@ -576,8 +552,14 @@ $(function() {
 										<!--------------------------------- tab3 거래된 상품 div 끝 -------------------------------------->
 									</div><!-- tab3 -->
 									
-									<div class="tab-pane tabMd3" id="purchaseItemContent"><!-- tab4 -->
-										<!---------------------------------- tab4 구매한 상품 div 시작 ------------------------------------>
+										<!--------------------------------- tab4 내가 입찰 한 상품 div 끝 -------------------------------------->
+									<div class="tab-pane tabMd3" id="purchaseBidingItemContent">
+										내가 입찰한 항목
+									</div>
+										<!--------------------------------- tab4 내가 입찰 한 상품 div 끝 -------------------------------------->
+										
+									<div class="tab-pane tabMd3" id="purchaseItemContent"><!-- tab5 -->
+										<!---------------------------------- tab5 구매한 상품 div 시작 ------------------------------------>
 										<c:forEach var="auctionSoldVo" items="${purchaserList}" >
 										<table border='1' class="tablePurchase">
 											<tr>
@@ -606,12 +588,12 @@ $(function() {
 											</tr>
 										</table>
 										</c:forEach>
-										<!---------------------------------- tab4 구매한 상품 div 끝 ------------------------------------>
+										<!---------------------------------- tab5 구매한 상품 div 끝 ------------------------------------>
 									</div>
 									
 									
-									<div class="tab-pane tabMd3" id="registerItemContent"><!-- tab5 -->
-										<!--------------------------------- tab5 물품 등록 div 시작 ------------------------------------>
+									<div class="tab-pane tabMd3" id="registerItemContent"><!-- tab6 -->
+										<!--------------------------------- tab6 물품 등록 div 시작 ------------------------------------>
 										<div class="row">
 											<div class="col-md-12">
 												<form role="form" name="writeForm" id="writeForm" action="/auction/auctionResister">    
@@ -694,8 +676,8 @@ $(function() {
 												</form>
 											</div>
 										</div>
-									</div><!-- tab5 -->
-										<!--------------------------------- tab5 물품 등록 div 끝 -------------------------------------->
+									</div><!-- tab6 -->
+										<!--------------------------------- tab6 물품 등록 div 끝 -------------------------------------->
 								</div>
 							</div>
 							<!--------------------------------------- 탭 끝 ------------------------------------------------------>
@@ -708,5 +690,3 @@ $(function() {
 		</div><!-- col-md-12 -->
 	</div><!-- row -->
 </div><!-- container-fluid -->
-
-

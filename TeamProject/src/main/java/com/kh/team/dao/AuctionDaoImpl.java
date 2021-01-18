@@ -18,6 +18,7 @@ import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
+import com.kh.team.domain.AuctionOrderVo;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
@@ -345,5 +346,37 @@ public class AuctionDaoImpl implements AuctionDao{
 	public MemberVo getMember(String m_id) throws Exception {
 		MemberVo memberVo = sqlSession.selectOne(NAMESPACE + "getMember", m_id);
 		return memberVo;
+	}
+
+	@Override
+	public void insertAuctionOrder(AuctionOrderVo auctionOrderVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "insertAuctionOrder", auctionOrderVo);
+	}
+
+	@Override
+	public List<AuctionOrderVo> getAuctionOrderPurchaserList(String purchaser) throws Exception {
+		List<AuctionOrderVo> list = sqlSession.selectList(NAMESPACE + "getAuctionOrderPurchaserList", purchaser);
+		return list;
+	}
+
+	@Override
+	public int getAuctionOrderDeliveryCount(String seller) throws Exception {
+		int count = sqlSession.selectOne(NAMESPACE + "getAuctionOrderDeliveryCount", seller);
+		return count;
+	}
+
+	@Override
+	public void updateAuctionOrderDeliveryFormation(String delivery_company, String delivery_number) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		map.put("delivery_company", delivery_company);
+		map.put("delivery_number", delivery_number);
+		
+		sqlSession.update(NAMESPACE + "updateAuctionOrderDeliveryFormation", map);
+	}
+
+	@Override
+	public List<AuctionOrderVo> getAuctionOrderSellerList(String seller) throws Exception {
+		List<AuctionOrderVo> list = sqlSession.selectList(NAMESPACE + "getAuctionOrderSellerList", seller);
+		return list;
 	}
 }
