@@ -35,7 +35,7 @@ import com.kh.team.service.ComputersService;
 public class ComputersController {	
 	//나중에 보고 지울것
 	private String cate_no_main = "";
-	
+	private int index_c = 0;
 	//인젝
 	@Inject
 	private ComputersService computersService;
@@ -257,7 +257,7 @@ public class ComputersController {
 		Cookie[] cookieRequest = request.getCookies();
 		int c_length = cookieRequest.length;
 		System.out.println("c_length:" + c_length);
-		int index_c = 0;
+		
 		for(int i=0; i<cookieRequest.length; i++){
 
 			Cookie c = cookieRequest[i]; // 객체 생성
@@ -269,15 +269,16 @@ public class ComputersController {
 			System.out.println("cookie(name_length):" + name.length());
 			System.out.println("cookie(value):" + value);
 			System.out.println("cookie(value_length):" + value.length());
-				if((name == null) || (name.equals(""))) {
-					System.out.println("cookie(null)");
-					Cookie cookiePN = new Cookie("productAName", productName);
-					
-					cookiePN.setMaxAge(10 * 60);
-					cookiePN.setPath("/");					
-					
-					response.addCookie(cookiePN);
-				}else if((name != null) && (!name.equals(""))) {
+			if(name == null || name.equals("")) {
+				System.out.println("cookie_null");
+				Cookie cookiePNA = new Cookie("productAName", productName);
+				
+				cookiePNA.setMaxAge(3 * 60);
+				cookiePNA.setPath("/");					
+				
+				response.addCookie(cookiePNA);
+				
+			}else if((name != null) && (!name.equals(""))) {
 					System.out.println("compare_name:" + name);
 					System.out.println("compare_length:" + name.length());
 						if(!value.equals(productName)) {
@@ -285,30 +286,28 @@ public class ComputersController {
 							System.out.println("forIn(productName):" + productName);
 							System.out.println("cookie(add)");
 							System.out.println("index_c_before:" + index_c);
-							String productNameNewIndex = "product" + index_c++ + "Name"; 
+							String productNameNewIndex = "product" + index_c + "Name"; 
 							Cookie cookiePNA = new Cookie(productNameNewIndex, productName);
 							System.out.println("index_c_after:" + index_c);
-							cookiePNA.setMaxAge(10 * 60);
+							cookiePNA.setMaxAge(3 * 60);
 							cookiePNA.setPath("/");					
 							
 							response.addCookie(cookiePNA);
-						
+							
 					}else if(value.equals(productName)) {
 						System.out.println("초과" + i);
 					}
 					
 				}
-				if(c_length > 5) {
-					System.out.println("cookie(delete)");
-					String productNameDeleteIndex = "product" + i + "Name";
-					Cookie kc = new Cookie(productNameDeleteIndex, null); 
-
-					kc.setMaxAge(0); 
-
-					response.addCookie(kc); 
-				}
+				
 			}
-		
+			index_c++;
+			System.out.println("index_c:" + index_c);
+			if(index_c > 5) {
+				System.out.println("index_c_over:" + index_c);
+				System.out.println("초과");
+				index_c = 0;
+			}
 		
 		
 		System.out.println("computerVo_Detail:" + computerVo);

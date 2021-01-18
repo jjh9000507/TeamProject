@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/buyComputerProductDetail_css.css" %>
 <%@ include file="../include/header.jsp"%>
+
 <script>
 setInterval(function(){
     

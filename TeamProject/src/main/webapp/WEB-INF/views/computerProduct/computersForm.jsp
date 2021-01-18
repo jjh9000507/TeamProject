@@ -4,6 +4,7 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/computersForm_css.css" %>
 <%@ include file="../include/header.jsp"%>
+<script src="/resources/js/computerScript.js"></script>
 <script>
 $(function() {
 	var inputConfirm = "";
@@ -170,8 +171,8 @@ $(function() {
 	});
 	
 	$(".showProductInfo").click(function() {
-	 	alert("제품설명 모달창을 띄움니다");
-	 	var p_no = $("#span_p_no").text();
+	 	alert("제품설명 모달창을 띄움니다");	 	
+	 	var p_no = $(this).attr("data-pno");
 	 	console.log("p_no:" + p_no);
 		var url = "/computerProduct/detailComputerForm/" + p_no;
 		$.get(url, function(data) {
@@ -185,8 +186,8 @@ $(function() {
 			tr0.find("td").eq(1).text(data.c_com_name);
 			tr1.find("td").eq(1).text(data.c_com_seller);
 			tr2.find("td").eq(1).text(data.c_com_content);
-			tr3.find("td").eq(1).text(data.c_com_price);			
-			tr4.find("td").eq(1).text(data.c_com_regdate);			
+			tr3.find("td").eq(1).text(data.c_com_price + "원");			
+			tr4.find("td").eq(1).text(changeDateString(data.c_com_regdate));			
 		});
 		$("#modal-Info").trigger("click");
 	});
@@ -197,9 +198,9 @@ $(function() {
 		<div class="col-md-12">
 <a id="modal-Info" href="#modal-container-Info" role="button" class="btn" data-toggle="modal" style="display: none;">Launch demo modal</a>
 			
-			<div class="modal fade" id="modal-container-Info" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-					<div class="modal-content">
+			<div class="modal fade modal-fullsize" id="modal-container-Info" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog modal-fullsize" role="document">
+					<div class="modal-content modal-fullsize">
 						<div class="modal-header">
 							<h5 class="modal-title" id="myModalLabel">
 								제품설명창
@@ -323,12 +324,14 @@ $(function() {
 		
 		<a class="dropdown-item" href="#">
 		<c:choose>
+	
 			<c:when test="${not empty cookie.productAName.value}">
 				${cookie.productAName.value}
 			</c:when>			
 			<c:otherwise>
 				
 			</c:otherwise>
+			
 		</c:choose>
 		</a>
 		<a class="dropdown-item" href="#">
@@ -396,6 +399,7 @@ $(function() {
 	
 </nav>
 <header class="header">
+
 <c:if test="${categoryInfo != null}">
 <label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
 &nbsp<button id="computersBack" class="btn btn-warning btn-xs">뒤로</button>
@@ -487,6 +491,7 @@ $(function() {
 									<th>
 										구매								
 									</th>
+									
 								</tr>
 							</thead>
 							<tbody>
@@ -504,7 +509,7 @@ $(function() {
 										</a>
 									</td>
 									<td>
-										<a href="#">${ComputerVo.c_com_name}</a><button type="button" class="showProductInfo">보기</button><span id="span_p_no" style="display: none;">${ComputerVo.p_no}</span>
+										<a href="#">${ComputerVo.c_com_name}</a>&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">보기</button>
 									</td>
 									<td>
 										<a href="/login/memberVoInfoForm/${ComputerVo.c_com_seller}">${ComputerVo.c_com_seller}</a>
@@ -515,6 +520,7 @@ $(function() {
 									<td>
 										<a href="/computerProduct/buyComputerProduct/${ComputerVo.p_no}">상품구매하기</a>
 									</td>
+									
 								</tr>
 							</tbody>			
 						</table>
