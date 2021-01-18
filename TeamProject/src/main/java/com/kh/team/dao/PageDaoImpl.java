@@ -35,13 +35,6 @@ public class PageDaoImpl implements PageDao {
 		return list;
 	}
 
-	// 메인 카테고리 뿌려주기
-	@Override
-	public List<CategoryVo> mainCatagories(int distinct_num) throws Exception {
-		List<CategoryVo> list = sqlSession.selectList(NAMESPACE + "distinct_num" , distinct_num);
-		return list;
-	}
-
 	// 등록한 상품 주소 받아오기
 	@Override
 	public List<AuctionAddressVo> addrList() throws Exception {
