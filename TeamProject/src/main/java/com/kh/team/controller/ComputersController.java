@@ -35,7 +35,7 @@ import com.kh.team.service.ComputersService;
 public class ComputersController {	
 	//나중에 보고 지울것
 	private String cate_no_main = "";
-	private int index_c = 0;
+	
 	//인젝
 	@Inject
 	private ComputersService computersService;
@@ -249,68 +249,12 @@ public class ComputersController {
 	//선택한 컴퓨터 상품정보 보기
 	@RequestMapping(value="/detailComputerForm/{p_no}", method=RequestMethod.GET)
 	@ResponseBody
-	public ComputerVo detailComputerProduct(@PathVariable("p_no") int p_no, HttpServletResponse response,HttpServletRequest request) throws Exception {
+	public ComputerVo detailComputerProduct(@PathVariable("p_no") int p_no) throws Exception {
 		ComputerVo computerVo = computersService.detailComputerInfo(p_no);
-		
-		String productName = computerVo.getC_com_name();
-		System.out.println("productName:" + productName);
-		Cookie[] cookieRequest = request.getCookies();
-		int c_length = cookieRequest.length;
-		System.out.println("c_length:" + c_length);
-		
-		for(int i=0; i<cookieRequest.length; i++){
-
-			Cookie c = cookieRequest[i]; // 객체 생성
-
-			String name = c.getName(); // 쿠키 이름 가져오기
-			
-			String value = c.getValue(); // 쿠키 값 가져오기
-			System.out.println("cookie(name):" + name);
-			System.out.println("cookie(name_length):" + name.length());
-			System.out.println("cookie(value):" + value);
-			System.out.println("cookie(value_length):" + value.length());
-			if(name == null || name.equals("")) {
-				System.out.println("cookie_null");
-				Cookie cookiePNA = new Cookie("productAName", productName);
-				
-				cookiePNA.setMaxAge(3 * 60);
-				cookiePNA.setPath("/");					
-				
-				response.addCookie(cookiePNA);
-				
-			}else if((name != null) && (!name.equals(""))) {
-					System.out.println("compare_name:" + name);
-					System.out.println("compare_length:" + name.length());
-						if(!value.equals(productName)) {
-							System.out.println("forIn(vlaue):" + value);
-							System.out.println("forIn(productName):" + productName);
-							System.out.println("cookie(add)");
-							System.out.println("index_c_before:" + index_c);
-							String productNameNewIndex = "product" + index_c + "Name"; 
-							Cookie cookiePNA = new Cookie(productNameNewIndex, productName);
-							System.out.println("index_c_after:" + index_c);
-							cookiePNA.setMaxAge(3 * 60);
-							cookiePNA.setPath("/");					
-							
-							response.addCookie(cookiePNA);
-							
-					}else if(value.equals(productName)) {
-						System.out.println("초과" + i);
-					}
-					
-				}
-				
-			}
-			index_c++;
-			System.out.println("index_c:" + index_c);
-			if(index_c > 5) {
-				System.out.println("index_c_over:" + index_c);
-				System.out.println("초과");
-				index_c = 0;
-			}
-		
+		System.out.println("computerVo:" + computerVo);		
 		
 		System.out.println("computerVo_Detail:" + computerVo);
+		
 		return computerVo;
 	}
 	
