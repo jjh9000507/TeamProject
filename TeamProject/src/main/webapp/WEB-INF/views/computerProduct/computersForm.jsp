@@ -509,7 +509,7 @@ $(function() {
 										</a>
 									</td>
 									<td>
-										<a href="#">${ComputerVo.c_com_name}</a>&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">보기</button>
+										<a href="#">${ComputerVo.c_com_name}</a>&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">상세보기</button>
 									</td>
 									<td>
 										<a href="#">${ComputerVo.c_com_seller}</a>
