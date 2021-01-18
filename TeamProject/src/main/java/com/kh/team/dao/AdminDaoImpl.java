@@ -273,6 +273,18 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.delete(NAMESPACE + "QADelete", qa_no);
 	}
 
+	//Q&A 카테고리 추가하기
+	@Override
+	public void qaCategoryInsert(QACateVo qaCateVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "qaCategoryInsert", qaCateVo);
+	}
+
+	//Q&A 카테고리 삭제하기
+	@Override
+	public void qaCategoryDelete(String qa_cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "qaCategoryDelete", qa_cate_no);
+	}
+	
 	//수정하기에 사용할 상세보기
 	@Override
 	public QandAVo QandADetail(int qa_no) throws Exception {
@@ -311,6 +323,8 @@ public class AdminDaoImpl implements AdminDao{
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeVo);
 	}
+
+	
 
 	
 	

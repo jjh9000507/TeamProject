@@ -37,21 +37,24 @@ $(function(){
 
 	$("#payment").click(function(){
 
-		var name = $("#purchaser").val();
-		var price = $("#order_price").val();
+		$("#orderForm").submit();
+		//alert("dffd");
 		
-		//결제 시작
+		var name = $("#orderer_name").val();
+		var price = $("#order_price").val();
+		var tel= $("#phonenumber").val();
+		
 		IMP.request_pay({
 		    pg : 'inicis', // version 1.1.0부터 지원.
 		    pay_method : 'card',
 		    merchant_uid : 'merchant_' + new Date().getTime(),
 		    name : '중고 동네 결제시스템',
 		    amount : '100',
-		    //buyer_email : '324@naver.com',
-		    //buyer_name : 'aaaa',
-		    //buyer_tel : '0102234556',
-		    //buyer_addr : '${purchaserMemberVo.m_phonenumber}',
-		    //buyer_postcode : '123-456',
+		    buyer_email : '',
+		    buyer_name : name,
+		    buyer_tel : '0102234556',
+		    buyer_addr : '울산 남구 옥동',
+		    buyer_postcode : '123456',
 		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
 		}, function(rsp) {
 			var msg="";
@@ -67,13 +70,26 @@ $(function(){
 		       	$("#imp_uid").val(rsp.imp_uid);
 		       	$("#merchant_uid").val(rsp.merchant_uid);
 		       	$("#card_approval_number").val(rsp.apply_num);
+		       	alert("결제 성공 메세지 띄우는 곳");
 		       	
 		       	$("#orderForm").submit();
+		       	
+		       	result = true;
 		    } else {
+		    	alert("결제 실패");
+		    	
 		        msg = '결제에 실패하였습니다.';
 		        msg += '에러내용 : ' + rsp.error_msg;
+		        
+		        result = false;
 		    }
 		});//IMP.request_pay	
+		
+		if(result){
+			alert("결제 창 밖");
+			//$("#orderForm").submit();
+		}
+	
 		//결제 끝
 	});
 	
@@ -263,7 +279,7 @@ $(function(){
 			<input type="hidden" name="seller" id="seller" value="${auctionSoldVo.seller}">
 			<input type="hidden" name="purchaser" id="purchaser" value="${memberVo.m_id}">
 <!-- 			<input type="hidden" name="orderer_name" value=""> text로 입력-->
-			<input type="hidden" name="phonenumber" value="${memberVo.m_phonenumber}">
+			<input type="hidden" name="phonenumber" id="phonenumber" value="${memberVo.m_phonenumber}">
 <%-- 			<input type="hidden" name="order_date" value="${nowDate}"> 결제 날짜는 폼에 보여주기만 하고 insert는 db의 sysdate로 한다--%>
 <!-- 			<input type="hidden" name="order_price" value=""> text로-->
 			<input type="hidden" name="imp_uid" id="imp_uid">

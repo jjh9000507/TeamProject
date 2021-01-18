@@ -219,6 +219,18 @@ public class AdminServiceImpl implements AdminService{
 	public void QAUpdate(QandAVo qandAVo) throws Exception {
 		adminDao.QAUpdate(qandAVo);
 	}
+
+	//Q&A 카테고리 추가하기
+	@Override
+	public void qaCategoryInsert(QACateVo qaCateVo) throws Exception {
+		adminDao.qaCategoryInsert(qaCateVo);
+	}
+
+	//Q&A 카테고리 삭제하기
+	@Override
+	public void qaCategoryDelete(String qa_cate_no) throws Exception {
+		adminDao.qaCategoryDelete(qa_cate_no);
+	}
 	
 	//공지사항 리스트 가져오기
 	@Override
@@ -245,8 +257,5 @@ public class AdminServiceImpl implements AdminService{
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		adminDao.insertNotice(noticeVo);
 	}
-
-
-
 	
 }

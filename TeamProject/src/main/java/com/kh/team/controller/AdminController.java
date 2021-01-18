@@ -322,6 +322,55 @@ public class AdminController {
 		return "success";
 	}
 	
+	//Q&A 카테고리 추가 페이지 이동
+	@RequestMapping(value="/adminQandACategoryInput", method=RequestMethod.GET)
+	public String QandACategoryInput(Model model) throws Exception{
+		List<QACateVo> firstQACategory = adminService.firstQACategory();
+		model.addAttribute("firstQACategory", firstQACategory);
+		return "/admin/a_q_cateInput";
+	}
+	
+	//Q&A 카테고리 추가
+	@RequestMapping(value="/QandACategoryInputRun", method=RequestMethod.GET)
+	public String QandACategoryInputRun(String qa_cate_name, String qa_cate_ref) throws Exception{
+		String qa_cate_no = null;
+		if(qa_cate_ref.equals("")) {
+			List<QACateVo> firstCategory = adminService.firstQACategory();
+			int categoryLength = firstCategory.size();
+			int cate_num = categoryLength + 1;
+			String num = Integer.toString(cate_num);
+			qa_cate_no = num + "0";
+		} else if(!qa_cate_ref.equals("")) {
+			List<QACateVo> otherCategory = adminService.otherQACategory(qa_cate_ref);
+			int categoryLength = otherCategory.size();
+			int catenum = categoryLength + 1;
+			String num = Integer.toString(catenum);
+			qa_cate_no = qa_cate_ref + num;
+		}
+		QACateVo qaCateVo = new QACateVo();
+		qaCateVo.setQa_cate_no(qa_cate_no);
+		qaCateVo.setQa_cate_name(qa_cate_name);
+		qaCateVo.setQa_cate_ref(qa_cate_ref);
+		adminService.qaCategoryInsert(qaCateVo);
+		return "redirect:/admin/adminQandAMain";
+	}
+	
+	//Q&A 카테고리 삭제 페이지 이동
+	@RequestMapping(value="/adminQandACategoryDelete", method=RequestMethod.GET)
+	public String QandACategoryDelete(Model model) throws Exception{
+		List<QACateVo> QACategory = adminService.QACategory();
+		model.addAttribute("QACategory", QACategory);
+		return "/admin/a_q_cateDelete";
+	}
+	
+	//Q&A 카테고리 삭제
+	@RequestMapping(value="/QandACategoryDeleteRun", method=RequestMethod.GET)
+	@ResponseBody
+	public String QandACategoryDeleteRun(String qa_cate_no) throws Exception{
+		adminService.qaCategoryDelete(qa_cate_no);
+		return "success";
+	}
+	
 	//1:1문의 접수 페이지
 	@RequestMapping(value="/adminInquiry", method=RequestMethod.GET)
 	public String adminInquiry(Model model) throws Exception {

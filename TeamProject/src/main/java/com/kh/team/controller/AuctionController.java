@@ -102,6 +102,12 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		}//for끝
 	}
 	
+	/* sidebar에 쪽지 형식으로 숫자 남기기위해서
+	 * auctionResisterList 
+	 * auctionModify
+	 * auctionPurchaseSelected
+	 * 이 3군데의 controller에 getAuctionOrderDeliveryCount로 count를 가져온다
+	 */
 	@RequestMapping(value="/auctionResisterList", method=RequestMethod.GET)
 	public String auctionResisterList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
 		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
@@ -141,6 +147,10 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 
 		model.addAttribute("sidebarRegisterListNO", "no");//내 상품에선 sidebar에서 내 상품을 안 보여준다
 		
+		//sidebar에 배송 보내야 하는 갯수
+		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(m_id);
+		model.addAttribute("sidebarCount", sidebarCount);
+		//System.out.println("sidebarCount:"+sidebarCount);
 		return "auction/auctionResisterList";
 	}
 	
@@ -186,7 +196,6 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		model.addAttribute("selectedImg", selectedImg);
 		model.addAttribute("tempBidList", tempBidList);
 		model.addAttribute("bidCount", bidCount);
-		
 		
 		return "auction/auctionSelected";
 	}
@@ -400,6 +409,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 			AuctionFileS3Controll fs3 = new AuctionFileS3Controll(filePathName, 1);
 			fs3.fileS3Controll();
 		}
+		
 		return returnFileResult;		
 	}
 	
@@ -467,7 +477,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	}
 	
 	@RequestMapping(value="/auctionModify", method=RequestMethod.GET)
-	public String auctionModify(int p_no, Model model) throws Exception{
+	public String auctionModify(int p_no, Model model, HttpSession session) throws Exception{
 		
 		makeImgDirectoryAfterCheck();
 		
@@ -476,8 +486,13 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		
 		List<String> imgModify = auctionService.getAuctionImgModify(p_no);
 		model.addAttribute("imgModify", imgModify);
-		//System.out.println("imgModify:"+imgModify);
-		//System.out.println("AuctionController auctionSellVo:"+auctionService.toString());
+		
+		//sideBar에 count 가져온다
+		String m_id = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(m_id);
+		model.addAttribute("sidebarCount", sidebarCount);
+		System.out.println("controller auctionModify sidebarCount:"+sidebarCount);
+		
 		return "auction/auctionModify";
 	}
 
@@ -528,36 +543,52 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		MemberVo memberVo = auctionService.getMember(purchaser);
 		model.addAttribute("memberVo", memberVo);
 		
+		//sideBar에 count 가져온다
+		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(purchaser);
+		model.addAttribute("sidebarCount", sidebarCount);
+		System.out.println("controller auctionPurchaseSelectecd sidebarCount:"+sidebarCount);
+		
 		return "auction/auctionPurchaseSelected";
 	}
 	
 	//주문서에서 결제를 눌렀을 때 실제 db에 데이터를 넣는다 
 	@RequestMapping(value="/auctionPaymentCompleteShowForm", method=RequestMethod.GET)
-	public String auctionPaymentCompleteShowForm(AuctionOrderVo auctionOrderVo, Model model) throws Exception{
+	public String auctionPaymentCompleteShowForm(AuctionOrderVo auctionOrderVo, Model model, HttpSession session) throws Exception{
 		
 		System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
-		model.addAttribute("auctionOrderVo", auctionOrderVo);
 		
-		//내가 결제한 상품 내역
+		//구매자 정보만 먼저 입력
+		auctionOrderVo.setImp_uid("121334");
+		auctionOrderVo.setMerchant_uid("78790");
+		auctionOrderVo.setCard_approval_number("934949");
+		auctionService.insertAuctionOrder(auctionOrderVo);
 		
+		//form에 구매자 정보 전달, 제품 정보 전달
+		model.addAttribute("auctonOrderVo", auctionOrderVo);
+		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		//상품 정보
+		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, auctionOrderVo.getP_no());
+		model.addAttribute("auctionSoldVo", auctionSoldVo);
 		
-		//판매자의 정보에서 가져올 수 있게 내가 결제한 상품을 업데이트한다
-		
-		
-		
-		return "redirect:/auction/auctionPaymentCompleteShowForm";
+		return "auction/auctionPaymentCompleteShowForm";
 	}
 	
 	//내가 입찰한 상품 결제 내역
 	@RequestMapping(value="/auctionPaymentList", method=RequestMethod.GET)
-	public String auctionPaymentList(AuctionOrderVo auctionOrderVo, Model model) throws Exception{
-		System.out.println("controller auctionPaymentList auctionOrderVo:"+auctionOrderVo);
+	public String auctionPaymentList(HttpSession session, Model model) throws Exception{
 		
+		/*
 		//내가 결제한 상품 내역
-		model.addAttribute("auctionOrderVo", auctionOrderVo);
+			//상품
+		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		AuctionSoldVo auctionSoldVo 
+		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, );
+		model.addAttribute("auctionSoldVo", auctionSoldVo);
+			//배송지, 금액
+		//AuctionOrderVo auctionOrderVo = auctionService.getauctiono
 		
 		//판매자의 정보에서 가져올 수 있게 내가 결제한 상품을 업데이트한다
-		
+		*/
 		
 		
 		return "auction/auctionPaymentList";

@@ -100,7 +100,11 @@ $(function(){
 			<li>
 				<a href="#" class="sidebar__nav__link">
 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/receive_order_blue.png"/></i>
-					<span class="sidebar__nav__text">결제된 내 상품 내역</span>
+					<span class="sidebar__nav__text">결제된 내 상품 내역
+						<c:if test="${sidebarCount > 0 }">
+							<span style="color:red">(${sidebarCount})</span>
+						</c:if>
+					</span>
 				</a>
 			</li>
 		</ul>

@@ -4,9 +4,8 @@ import java.sql.Timestamp;
 
 public class AuctionOrderVo {
 	private int order_id;
-	private String seller;
 	private String purchaser;
-	private String order_name;
+	private String orderer_name;
 	private String phonenumber;
 	private Timestamp order_date;
 	private String imp_uid;
@@ -19,6 +18,10 @@ public class AuctionOrderVo {
 	private String road_address;
 	private String jibun_address;
 	private String detail_address;
+	private String seller;
+	private String delivery_company;
+	private String delivery_number;
+	private String delivery_status;
 	private int p_no;
 	
 	public int getOrder_id() {
@@ -27,23 +30,17 @@ public class AuctionOrderVo {
 	public void setOrder_id(int order_id) {
 		this.order_id = order_id;
 	}
-	public String getSeller() {
-		return seller;
-	}
-	public void setSeller(String seller) {
-		this.seller = seller;
-	}
 	public String getPurchaser() {
 		return purchaser;
 	}
 	public void setPurchaser(String purchaser) {
 		this.purchaser = purchaser;
 	}
-	public String getOrder_name() {
-		return order_name;
+	public String getOrderer_name() {
+		return orderer_name;
 	}
-	public void setOrder_name(String order_name) {
-		this.order_name = order_name;
+	public void setOrderer_name(String orderer_name) {
+		this.orderer_name = orderer_name;
 	}
 	public String getPhonenumber() {
 		return phonenumber;
@@ -117,6 +114,30 @@ public class AuctionOrderVo {
 	public void setDetail_address(String detail_address) {
 		this.detail_address = detail_address;
 	}
+	public String getSeller() {
+		return seller;
+	}
+	public void setSeller(String seller) {
+		this.seller = seller;
+	}
+	public String getDelivery_company() {
+		return delivery_company;
+	}
+	public void setDelivery_company(String delivery_company) {
+		this.delivery_company = delivery_company;
+	}
+	public String getDelivery_number() {
+		return delivery_number;
+	}
+	public void setDelivery_number(String delivery_number) {
+		this.delivery_number = delivery_number;
+	}
+	public String getDelivery_status() {
+		return delivery_status;
+	}
+	public void setDelivery_status(String delivery_status) {
+		this.delivery_status = delivery_status;
+	}
 	public int getP_no() {
 		return p_no;
 	}
@@ -125,11 +146,13 @@ public class AuctionOrderVo {
 	}
 	@Override
 	public String toString() {
-		return "AuctionOrderVo [order_id=" + order_id + ", seller=" + seller + ", purchaser=" + purchaser
-				+ ", order_name=" + order_name + ", phonenumber=" + phonenumber + ", order_date=" + order_date
-				+ ", imp_uid=" + imp_uid + ", merchant_uid=" + merchant_uid + ", order_price=" + order_price
-				+ ", card_approval_number=" + card_approval_number + ", purchase_confirm=" + purchase_confirm
-				+ ", order_msg=" + order_msg + ", zip=" + zip + ", road_address=" + road_address + ", jibun_address="
-				+ jibun_address + ", detail_address=" + detail_address + ", p_no=" + p_no + "]";
+		return "AuctionOrderVo [order_id=" + order_id + ", purchaser=" + purchaser + ", orderer_name=" + orderer_name
+				+ ", phonenumber=" + phonenumber + ", order_date=" + order_date + ", imp_uid=" + imp_uid
+				+ ", merchant_uid=" + merchant_uid + ", order_price=" + order_price + ", card_approval_number="
+				+ card_approval_number + ", purchase_confirm=" + purchase_confirm + ", order_msg=" + order_msg
+				+ ", zip=" + zip + ", road_address=" + road_address + ", jibun_address=" + jibun_address
+				+ ", detail_address=" + detail_address + ", seller=" + seller + ", delivery_company=" + delivery_company
+				+ ", delivery_number=" + delivery_number + ", delivery_status=" + delivery_status + ", p_no=" + p_no
+				+ "]";
 	}
 }

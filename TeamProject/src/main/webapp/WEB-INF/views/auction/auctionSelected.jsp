@@ -267,7 +267,7 @@ $(function(){
 			//입력된 텀 시간을 불러와서 카운드 다운한다
 			var that = $(this);
 			var deadline = $(this).next().next().next().next().next().next().next().val();
-			alert("deadline:"+deadline);
+			//alert("deadline:"+deadline);
 			if(deadline == 'N'){
 				countDown[index] = setInterval(function(){
 					

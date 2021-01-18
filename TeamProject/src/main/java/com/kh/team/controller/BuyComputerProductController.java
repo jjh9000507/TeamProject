@@ -1,7 +1,9 @@
 package com.kh.team.controller;
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
@@ -20,7 +22,7 @@ import com.kh.team.service.MemberService;
 @Controller
 @RequestMapping("/buyComputerProduct")
 public class BuyComputerProductController {
-	
+	private int index_c = 0;
 	private int CHECK_FOR_INDEX = 1;
 	
 	@Inject
@@ -88,9 +90,66 @@ public class BuyComputerProductController {
 	
 	@RequestMapping(value="/sendProductInfoBought", method=RequestMethod.POST)
 	@ResponseBody
-	public String sendProductInfoBought(SendProductBoughtInfoVo sendProductBoughtInfoVo,HttpSession session, RedirectAttributes rttr) throws Exception{
+	public String sendProductInfoBought(SendProductBoughtInfoVo sendProductBoughtInfoVo,HttpSession session, RedirectAttributes rttr, HttpServletResponse response,HttpServletRequest request) throws Exception{
 		System.out.println("sendProductBoughtInfoVo:" + sendProductBoughtInfoVo);		
 		session.setAttribute("sendProductBoughtInfoVo", sendProductBoughtInfoVo);
+		String productName = sendProductBoughtInfoVo.getProductName();
+		System.out.println("productName:" + productName);
+		Cookie[] cookieRequest = request.getCookies();
+		
+		int c_length = cookieRequest.length;
+		System.out.println("c_length:" + c_length);
+		
+		for(int i=0; i<cookieRequest.length; i++){
+
+			Cookie c = cookieRequest[i]; // 객체 생성
+
+			String name = c.getName(); // 쿠키 이름 가져오기
+			
+			String value = c.getValue(); // 쿠키 값 가져오기
+			System.out.println("cookie(name):" + name);
+			System.out.println("cookie(name_length):" + name.length());
+			System.out.println("cookie(value):" + value);
+			System.out.println("cookie(value_length):" + value.length());
+			if(name == null || name.equals("")) {
+				System.out.println("cookie_null");
+				Cookie cookiePNA = new Cookie("productAName", productName);
+				
+				cookiePNA.setMaxAge(3 * 60);
+				cookiePNA.setPath("/");					
+				
+				response.addCookie(cookiePNA);
+				
+			}else if((name != null) && (!name.equals(""))) {
+					System.out.println("compare_name:" + name);
+					System.out.println("compare_length:" + name.length());
+						if(!value.equals(productName)) {
+							System.out.println("forIn(vlaue):" + value);
+							System.out.println("forIn(productName):" + productName);
+							System.out.println("cookie(add)");
+							System.out.println("index_c_before:" + index_c);
+							String productNameNewIndex = "product" + index_c + "Name"; 
+							Cookie cookiePNA = new Cookie(productNameNewIndex, productName);
+							System.out.println("index_c_after:" + index_c);
+							cookiePNA.setMaxAge(3 * 60);
+							cookiePNA.setPath("/");					
+							
+							response.addCookie(cookiePNA);
+							
+					}else if(value.equals(productName)) {
+						System.out.println("초과" + i);
+					}
+					
+				}
+				
+			}
+			index_c++;
+			System.out.println("index_c:" + index_c);
+			if(index_c > 5) {
+				System.out.println("index_c_over:" + index_c);
+				System.out.println("초과");
+				index_c = 0;
+			}
 		
 		System.out.println("end");
 		return "success";				

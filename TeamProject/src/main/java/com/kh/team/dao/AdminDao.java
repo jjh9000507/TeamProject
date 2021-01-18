@@ -98,7 +98,10 @@ public interface AdminDao {
 	public void QADelete(int qa_no) throws Exception;
 	//Q&A 수정하기
 	public void QAUpdate(QandAVo qandAVo) throws Exception;
-	
+	//Q&A 카테고리 추가하기
+	public void qaCategoryInsert(QACateVo qaCateVo) throws Exception;
+	//Q&A 카테고리 삭제하기
+	public void qaCategoryDelete(String qa_cate_no) throws Exception;
 	
 	//1:1 문의 전체 리스트
 	public List<InquiryVo> inquiryList() throws Exception;

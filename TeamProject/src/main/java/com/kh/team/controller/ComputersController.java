@@ -6,13 +6,17 @@ import java.util.List;
 
 
 import javax.inject.Inject;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CategoryVo;
@@ -244,11 +248,14 @@ public class ComputersController {
 	
 	//선택한 컴퓨터 상품정보 보기
 	@RequestMapping(value="/detailComputerForm/{p_no}", method=RequestMethod.GET)
-	public String detailComputerProduct(@PathVariable("p_no") int p_no, Model model) throws Exception {
+	@ResponseBody
+	public ComputerVo detailComputerProduct(@PathVariable("p_no") int p_no) throws Exception {
 		ComputerVo computerVo = computersService.detailComputerInfo(p_no);
-		model.addAttribute("detailComputerVo", computerVo);
+		System.out.println("computerVo:" + computerVo);		
+		
 		System.out.println("computerVo_Detail:" + computerVo);
-		return "/computerProduct/detailComputerForm";
+		
+		return computerVo;
 	}
 	
 	//컴퓨터 구매하기 폼으로 가기

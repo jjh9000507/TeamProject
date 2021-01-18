@@ -50,10 +50,6 @@ text-align:center;
 </style>
 <script>
 $(function(){
-	$(".cartBuy").on("click", function(e){
-		e.preventDefault();
-		
-	});
 	
 	$(".cartDelete").on("click", function(e){
 		e.preventDefault();
@@ -85,8 +81,9 @@ $(function(){
 	});
 	
 	$("#btnAllBuy").click(function(){
-		if(checkLength() == true){
-			
+		if(checkLength() == true){			
+			$("#frmCart").attr("method","get");
+			$("#frmCart").attr("action","/page/purchase").submit();
 		}
 	});
 	
@@ -137,14 +134,15 @@ $(function(){
 									<td class="pcheck"><input type="checkbox" class="chkProduct" name="cart_no" value="${CartVo.cart_no}"></td>
 							<c:forEach var="ProductVo" items="${productList}">
 								<c:if test="${CartVo.p_no == ProductVo.p_no2}">
-									<td class="pimg"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ProductVo.p_thumbimg}" style="width:80px; height:100px;"></td>
+									<td class="pimg"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ProductVo.p_thumbimg}" style="width:80px; height:100px;"
+									alt="상품 이미지"></td>
 									<td class="pname">${ProductVo.p_name}</td>
 									<td class="pseller">${ProductVo.p_seller}</td>
 									<td class="pprice">${ProductVo.p_price}</td>
 								</c:if>
 							</c:forEach>
 							<td class="btnCart">
-								<a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a>
+								<a href="/page/purchase" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a>
 								<a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartDelete">취소</a>
 								<button type="button" onclick="location.reload()" class="cartHome" style="display: none">홈</button>
 							</td>
