@@ -19,12 +19,12 @@
 
 .memberVoInfoFormFont{        /* 로그인 폼의 글씨 설정 */ 
 	
-	color:white;
+	color:black;
 	font-size : 16px;
 }
 .memberVoInfoFormFontHead{        /* 로그인 폼의 머릿글 글씨 설정 */ 
 	
-	color:white;
+	color:black;
 	font-size : 32px;
 }
 
