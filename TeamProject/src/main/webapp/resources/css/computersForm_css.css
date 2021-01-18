@@ -44,14 +44,14 @@
 	width:15%;
 	height:100%;	
 	float:left;
-	background-color:gray;			
+	background-color:gray;
 }
 
 .section{
 	width:70%;
 	height:100%;
 	overflow:scroll;	
-	float:left;	
+	float:left;
 }
 .aside{
 	display:inline-block;
