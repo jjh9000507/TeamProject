@@ -9,9 +9,17 @@
 <script>
 $(function(){
 	$("#btnBuy").click(function(){
-		var p_no = '${productVo.p_no}';
-// 		console.log(p_no);
-		location.href = "/page/purchase?p_no=${productVo.p_no}"
+		var current_id = "${sessionScope.memberVo.m_id}";
+		
+		if(current_id == null || current_id == ""){
+			alert("로그인 하시오.");
+			return;
+		} else {
+			
+			var p_no = '${productVo.p_no}';
+	// 		console.log(p_no);
+			location.href = "/page/purchase?p_no=${productVo.p_no}"
+		}
 	});
 	
 	$("#btnBuy2").click(function(){

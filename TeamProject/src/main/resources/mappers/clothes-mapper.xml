@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.kh.team.clothes">
-	<select id="getClothesList" resultType="ClothesVo">
+	<select id="getClothesList" resultType="ProductVo">
 		select * from clothes_product
 		where cate_no like ''|| #{cate_no} || '%'
 		order by p_no desc
@@ -37,4 +37,6 @@
 		where cate_no like 101 || '%'
 		
 	</select>
+
+	
 </mapper>

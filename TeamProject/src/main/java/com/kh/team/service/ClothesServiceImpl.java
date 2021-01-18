@@ -17,8 +17,8 @@ public class ClothesServiceImpl implements ClothesService {
 	private ClothesDao clothesDao;
 	
 	@Override
-	public List<ClothesVo> getClothesList(String cate_no) throws Exception {
-		List<ClothesVo> getClothesList = clothesDao.getClothesList(cate_no);
+	public List<ProductVo> getClothesList(String cate_no) throws Exception {
+		List<ProductVo> getClothesList = clothesDao.getClothesList(cate_no);
 		return getClothesList;
 	}
 
