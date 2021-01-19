@@ -616,7 +616,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		auctionService.modifyAuctionMainImg(auctionMainImgVo);
 		auctionService.modifyAuctionExpirationDate(auctionEDateVo);
 		
-		return "redirect:/auction/auctionResisterList";
+		return "redirect:/auction/auctionSellList";
 	}
 	
 	//주문서
