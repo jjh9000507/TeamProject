@@ -9,6 +9,7 @@ import javax.inject.Inject;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
+import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ClothesVo;
 import com.kh.team.domain.ProductVo;
 
@@ -21,8 +22,8 @@ public class ClothesDaoImpl implements ClothesDao {
 	private SqlSession sqlSession;
 	
 	@Override
-	public List<ClothesVo> getClothesList(String cate_no) throws Exception {
-		List<ClothesVo> getClothesList = sqlSession.selectList(NAMESPACE + "getClothesList", cate_no);
+	public List<ProductVo> getClothesList(String cate_no) throws Exception {
+		List<ProductVo> getClothesList = sqlSession.selectList(NAMESPACE + "getClothesList", cate_no);
 		return getClothesList;
 	}
 
@@ -53,5 +54,6 @@ public class ClothesDaoImpl implements ClothesDao {
 		List<ProductVo> list = sqlSession.selectList(NAMESPACE + "maleClothes_List" );
 		return list;
 	}
+
 
 }

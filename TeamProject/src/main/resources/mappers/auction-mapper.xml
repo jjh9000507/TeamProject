@@ -78,6 +78,35 @@
 		order by bid.bid_date desc
 	</select>
 	
+	<!-- 내가 입찰한 다른 사람 상품 : 3개를 각각 가져와야 테이블에서 타이틀 밑에 입찰 항목 씩으로 뿌려줄 수 있다 -->
+
+	<!-- 임시테이블에 p_no 만 가져와서 aution과 auction_main_img에 뿌려준다 -->
+	<select id="getAuctionPurchaserTmepBidingPno" resultType="int">
+		select distinct(p_no) from auction_temp_bid where temp_purchaser_id=#{m_id} order by p_no desc
+	</select>
+
+	<!-- 임시테이블의 목록을 전부 가져온다 -->
+	<select id="getAuctionPurchaserTempBiding" resultType="AuctionTempBidVo">
+		select * from auction_temp_bid where temp_purchaser_id=#{m_id} order by temp_bid_date desc
+	</select>
+	
+	<!-- 해당 p_no의 타이틀만 가져온다 -->
+	<select id="getAuctionPurchaserTempBidingTitle" parameterType="list" resultType="AuctionVo">
+		select p_title, seller, p_no from auction where p_no in
+		<foreach collection="list" item="index" open="(" close=")" separator=",">
+			#{index}
+		</foreach>
+	</select>
+	
+	<!-- 해당 p_no의 메인 이미지만 가져온다 -->
+	<select id="getAuctionPurchaserTempBidingImg" resultType="AuctionMainImgVo">
+		select main_img_name, p_no from auction_main_img where p_no in
+		<foreach collection="list" item="index" open="(" close=")" separator=",">
+			#{index}
+		</foreach>
+	</select>
+	<!-- 내가 입찰한 다른 사람 상품 끝 -->
+	
 	<!-- 내가 구매한 다른 사람 상품 -->
 	<select id="getAuctionPurchaserList" resultType="AuctionSoldVo">
 		select a.*, addr.*, rdate.*, bid.*, img.*

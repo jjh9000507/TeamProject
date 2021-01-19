@@ -8,7 +8,7 @@ public class AuctionTempBidVo {
 	private String temp_seller_id;
 	private int temp_bid_price;
 	private Timestamp temp_bid_date;
-	private int temp_p_no;
+	private int p_no;
 	
 	public int getTemp_bid_no() {
 		return temp_bid_no;
@@ -40,16 +40,16 @@ public class AuctionTempBidVo {
 	public void setTemp_bid_date(Timestamp temp_bid_date) {
 		this.temp_bid_date = temp_bid_date;
 	}
-	public int getTemp_p_no() {
-		return temp_p_no;
+	public int getP_no() {
+		return p_no;
 	}
-	public void setTemp_p_no(int temp_p_no) {
-		this.temp_p_no = temp_p_no;
+	public void setP_no(int p_no) {
+		this.p_no = p_no;
 	}
 	@Override
 	public String toString() {
 		return "AuctionTempBidVo [temp_bid_no=" + temp_bid_no + ", temp_purchaser_id=" + temp_purchaser_id
 				+ ", temp_seller_id=" + temp_seller_id + ", temp_bid_price=" + temp_bid_price + ", temp_bid_date="
-				+ temp_bid_date + ", temp_p_no=" + temp_p_no + "]";
+				+ temp_bid_date + ", p_no=" + p_no + "]";
 	}
 }

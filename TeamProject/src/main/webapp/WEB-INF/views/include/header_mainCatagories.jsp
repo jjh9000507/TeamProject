@@ -79,7 +79,7 @@ $(function(){
 					<c:choose>
 					
 						<c:when test="${CategoryVo.cate_no == 10}">
-						"/clothes/${subCategoryVo.cate_no}"
+						"/clothes/${subCategoryVo.cate_no}?cate_no=${subCategoryVo.cate_no}"
 						</c:when>
 						
 						<c:when test="${CategoryVo.cate_no == 20}">

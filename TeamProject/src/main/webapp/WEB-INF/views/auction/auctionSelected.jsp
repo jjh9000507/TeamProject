@@ -267,8 +267,9 @@ $(function(){
 			//입력된 텀 시간을 불러와서 카운드 다운한다
 			var that = $(this);
 			var deadline = $(this).next().next().next().next().next().next().next().val();
-			alert("deadline:"+deadline);
+			//alert("deadline:"+deadline);
 			if(deadline == 'N'){
+				//alert("deadline 안쪽");
 				countDown[index] = setInterval(function(){
 					
 					var year = that.next().val();
@@ -282,7 +283,6 @@ $(function(){
 	 				var hour = parseInt(timeArray[0]);
 	 				var minute = parseInt(timeArray[1]);
 	 				var second = parseInt(timeArray[2]);
-	
 	
 					if(second<=0){
 						if(minute>0){

@@ -19,6 +19,7 @@ import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
+import com.kh.team.domain.AuctionPnoFromTempBiding;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionSDateVo;
 import com.kh.team.domain.AuctionVo;
@@ -377,6 +378,33 @@ public class AuctionDaoImpl implements AuctionDao{
 	@Override
 	public List<AuctionOrderVo> getAuctionOrderSellerList(String seller) throws Exception {
 		List<AuctionOrderVo> list = sqlSession.selectList(NAMESPACE + "getAuctionOrderSellerList", seller);
+		return list;
+	}
+
+	@Override
+	public List<AuctionTempBidVo> getAuctionPurchaserTempBiding(String m_id) throws Exception {
+		List<AuctionTempBidVo> list = sqlSession.selectList(NAMESPACE + "getAuctionPurchaserTempBiding", m_id);
+		return list;
+	}
+
+	@Override
+	public List<AuctionPnoFromTempBiding> getAuctionPurchaserTmepBidingPno(String m_id) throws Exception {
+		List<AuctionPnoFromTempBiding> p_no = sqlSession.selectList(NAMESPACE + "getAuctionPurchaserTmepBidingPno", m_id);
+		//List<AuctionVo> listTitle = sqlSession.selectList(NAMESPACE + "getAuctionPurchaserTempBidingTitle", p_noArray);
+		return p_no;
+	}
+
+	@Override
+	public List<AuctionVo> getAuctionPurchaserTempBidingTitle(List<AuctionPnoFromTempBiding> tempPno)
+			throws Exception {
+		List<AuctionVo> list = sqlSession.selectList(NAMESPACE+"getAuctionPurchaserTempBidingTitle", tempPno);
+		return list;
+	}
+
+	@Override
+	public List<AuctionMainImgVo> getAuctionPurchaserTempBidingImg(List<AuctionPnoFromTempBiding> tempPno)
+			throws Exception {
+		List<AuctionMainImgVo> list = sqlSession.selectList(NAMESPACE+"getAuctionPurchaserTempBidingImg", tempPno);
 		return list;
 	}
 }
