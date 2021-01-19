@@ -125,8 +125,8 @@ $(function(){
 		$("#spanMiddleNumber").text(middleNum);
 		$("#spanFinalNumber").text(finalNum);
 		
-		var phone = num + "-" + $("#txtMiddlePhoneNumber").val() + "-" + $("#txtFinalPhoneNumber").val();
-		$("#phoneNumber").text(phone);
+		var phone = num + $("#txtMiddlePhoneNumber").val() + $("#txtFinalPhoneNumber").val();
+		$("#phonenumber").val(phone);
 		
 		$("#divChangePhone").show();
 		$("#divPhone").hide();
