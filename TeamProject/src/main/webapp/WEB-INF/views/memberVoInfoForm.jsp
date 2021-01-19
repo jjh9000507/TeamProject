@@ -130,6 +130,8 @@ $(function() {
 							</button>
 						</div>
 						<div class="modal-body">
+						<div class="row">
+		<div class="col-md-12" style="right:31px">
 							<input type="text" class="form-control" id="secretCodeNumberConfirm"
 								name="secretCodeNumberConfirm" placeholder="인증번호를 입력하시오"
 								 required="required"/>
@@ -144,6 +146,8 @@ $(function() {
 								 placeholder="변경할 전화번호를 입력하시오"/>
 							<input type="text" style="display: none;" id="m_id_for_change"
 								 name="m_id_for_change" value="${memberVoInfo.m_id}"/>
+						</div>
+						</div>
 						</div>
 						<div class="modal-footer">							 
 							<button type="button" id="changePwByPhonenumber" class="btn btn-primary">
@@ -164,6 +168,7 @@ $(function() {
 				<div class="form-group">					 
 					<h1 class="memberVoInfoFormFontHead">회원정보<a>&nbsp;&nbsp;&nbsp;</a>
 						<button type="button" id="memberVoInfoUpdateButton" class="btn btn-primary btn-sm">회원정보 수정</button></h1>
+						<a href="/sellproduct/messageList?m_id=${memberVoInfo.m_id}" class="btn btn-success">메시지 함</a>
 				</div>				
 				<div class="form-group">
 					 <div class="row">

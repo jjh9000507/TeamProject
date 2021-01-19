@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <%@ include file="/resources/css/buyComputerProductDetail_css.css" %>
-<%@ include file="include/header.jsp"%>
+<%@ include file="../include/header.jsp"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
@@ -74,35 +74,6 @@ $("#getDirect").click(function(){
 	}
 });
 
-$("#btnSendMessage").click(function(){
-	if(confirm("메시지를 보내시겠습니까 ?") == true){
-        
-        var msg_productName = "${productVo.p_name}";
-        var msg_sender = "${sessionScope.memberVo.m_id}";
-        var msg_receiver = "${productVo.p_seller}";
-        var msg_content = $("#txaMessage").val();
-        
-        var url = "/sellproduct/message";
-        var sendData = {
-        	"msg_productName" : msg_productName,
-        	"msg_sender" : msg_sender,
-        	"msg_receiver" : msg_receiver,
-        	"msg_content" : msg_content
-        };
-        
-        $.post(url, sendData, function(data){
-        	console.log(data);
-        });
-        
-        alert("판매자에게 메시지를 전송하였습니다");
-        window.location = "/page/content?p_no=${productVo.p_no}";
-    }
-    else{
-        return ;
-    }
-
-});
-
 }); // main function
 
 </script>
@@ -110,7 +81,7 @@ $("#btnSendMessage").click(function(){
 	<div class="row">
 			<div class="col-md-2"></div>
 	<div class="col-md-8" >
-	<%@ include file="include/header_mainCatagories.jsp"%>
+	<%@ include file="../include/header_mainCatagories.jsp"%>
 	<br>
 		</div>
 		<div class="col-md-2"></div>
@@ -144,28 +115,25 @@ $("#btnSendMessage").click(function(){
 					</tr>
 				</thead>
 				<tbody>
+					<c:forEach var="productVo" items="${productList}">
 					<tr>
 						<td>
 							${productVo.p_name }
 						</td>
-						<td>
-						<c:choose>
-						<c:when test="${fn:length(productVo.p_content) > 10}">
+						<td>	
+						<c:if test="${fn:length(productVo.p_content) > 10}">
 							<a href="/page/content?p_no=${productVo.p_no}">${fn:substring(productVo.p_content,0,20)}...</a>
-						</c:when>
-						<c:otherwise>
-							<a href="/page/content?p_no=${productVo.p_no}">${productVo.p_content}</a>
-						</c:otherwise>
-						</c:choose>	
+						</c:if>
 						</td>
 						<td>
-							${productVo.p_seller }<span>님</span>
+							${productVo.p_seller}<span>님</span>
 						</td>
 						
 						<td>
-							${productVo.p_price }<span>원</span>
+							${productVo.p_price}<span>원</span>
 						</td>
-					</tr>					
+					</tr>
+					</c:forEach>					
 				</tbody>
 			</table>
 		</div>
@@ -195,10 +163,7 @@ $("#btnSendMessage").click(function(){
 						<td>
 						</td>
 						<td>
-<!-- 						<div class="checkbox"> -->
-<!-- 							<label> <input type="checkbox"/> -->
-<!-- 						입력한 주문자명으로 회원정보 변경하기</label> -->
-<!-- 						</div> -->
+
 						</td>
 						<td>
 						</td>												
@@ -295,7 +260,7 @@ $("#btnSendMessage").click(function(){
 	<h4>판매자에게 직접 구매하기</h4>
 	<hr>
 	
-	<textarea cols="30" rows="5" class="form-control" id="txaMessage">
+	<textarea cols="30" rows="5" class="form-control">
 	                                                     판매자에게 남길 메시지를 적어 주세요.
 	-------------------------------------------------구매 양식-------------------------------------------------
 						    구매한 물품 이름 : 

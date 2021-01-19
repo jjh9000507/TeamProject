@@ -7,12 +7,10 @@ import java.util.List;
 
 
 import javax.inject.Inject;
-import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.kh.team.domain.BuyComputerVo;
@@ -80,6 +78,7 @@ public class ComputerProductCommnetController {
 		int countExplain = computersService.buyComputerExplain(p_e_product);
 		return countExplain;		
 	}
+	
 	@RequestMapping(value="/searchInquireExplain", method=RequestMethod.POST)
 	public List<ProductExplainVo> searchInquireExplain(ProductExplainVo productExplainVo) throws Exception{
 		System.out.println("p_e_title:" + productExplainVo.getP_e_title());
@@ -120,4 +119,20 @@ public class ComputerProductCommnetController {
 		}
 		return view;		
 	}
+	
+	@RequestMapping(value="/explainRef", method=RequestMethod.POST)
+	public String explainRef(int p_e_no, String ref_content) throws Exception{
+		System.out.println("p_e_no:" + p_e_no);
+		System.out.println("ref_content:" + ref_content);
+		int count = computerCommentService.explainRefContent(p_e_no, ref_content);
+		System.out.println("count:" + count);
+		String result = "";
+		if(count == 1) {
+			result = "success";
+		}else {
+			result = "fail";
+		}		
+		return result;
+	}
+	
 }

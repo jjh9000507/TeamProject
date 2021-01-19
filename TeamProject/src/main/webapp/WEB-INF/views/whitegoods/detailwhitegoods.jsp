@@ -41,31 +41,28 @@ function scrollMove(seq){
 			if(scrollTop > 766){
 				$(".tab").addClass("tab-dock-top");
 				$(".tab").removeClass("tab");
-				if(scrollTop >reviewTop && scrollTop < qnaTop){
-					$(".tab-title").find("li[name='detail']").removeClass();
-					$(".tab-title").find("li[name='review']").addClass();
-					$(".tab-title").find("li[name='detail']").removeClass();
-					$(".tab-title").find("li[name='detail']").removeClass();					
-				} else if(scrollTop > qnaTop && scrollTop < etcTop){
-					$(".tab-title").find("li[name='detail']").removeClass();
-					$(".tab-title").find("li[name='review']").removeClass();
-					$(".tab-title").find("li[name='detail']").addClass();
-					$(".tab-title").find("li[name='detail']").removeClass();
-				} else if(scrollTop > etcTop){
-					$(".tab-title").find("li[name='detail']").removeClass();
-					$(".tab-title").find("li[name='review']").removeClass();
-					$(".tab-title").find("li[name='detail']").removeClass();
-					$(".tab-title").find("li[name='detail']").addClass();
-				} else{
-					$(".tab-title").find("li[name='detail']").addClass();
-					$(".tab-title").find("li[name='review']").removeClass();
-					$(".tab-title").find("li[name='detail']").removeClass();
-					$(".tab-title").find("li[name='detail']").removeClass();
-				}
+			
 			} else {
 				$(".tab-dock-top").addClass("tab");
 				$(".tab-dock-top").removeClass("tab-dock-top");
 			}
+		});
+		
+		$("#btnQnaInsert").click(function(){
+			var insert = $("#review_insert").val();
+			if(insert==""){
+				alert("상품 문의 내용을 입력해주세요.");
+				return false;
+			}
+			
+			var url = "";
+			var sendData={
+					"":insert
+			}
+			$.get(url, sendData, function(data){
+				console.log(data);
+			});
+			location.reload();
 		});
 		
 		var memberVo = "${sessionScope.memberVo.m_id}";
@@ -185,6 +182,7 @@ function scrollMove(seq){
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
+					
 					<table class="table">
 						<tbody>
 							<c:forEach var="ReviewVo" items="${reviewList}">
@@ -208,13 +206,13 @@ function scrollMove(seq){
 			<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8">
-					<p>상품 문의</p>
-				</div>
-				<div class="col-md-2"></div>
-			</div>
-			<div class="row">
-				<div class="col-md-2"></div>
-				<div class="col-md-8">
+					<div>
+						<p>상품 문의</p>
+					</div>
+					<div>
+						<input type="text" id="review_insert" class="form-control" required>
+						<button type="button" id="btnQnaInsert">등록</button>
+					</div>
 					<table class="table">
 						<thead>
 							<tr>

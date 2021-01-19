@@ -126,8 +126,8 @@
 				class="btn" data-toggle="modal" style="display: none;">Launch demo modal</a>
 
 			<div class="modal fade" id="modal-container-123574" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				aria-labelledby="myLargeModalLabe" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content loginHeaderModal">
 						<div class="modal-header">
 							<h5 class="modal-title loginFont" id="myModalLabel">비회원으로 로그인 하시겠습니까?(비회원은 물건을 구입할 수 없습니다.)</h5>
@@ -164,8 +164,8 @@
 				demo modal</a>
 
 			<div class="modal fade" id="modal-container-210594" role="dialog"
-				aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog" role="document">
+				aria-labelledby="myLargeModalLabe" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
 					<div class="modal-content loginHeaderModal">
 						<div class="modal-header">
 							<h5 class="modal-title loginFont" id="myModalLabel">아이디 찾기 폼
@@ -175,8 +175,12 @@
 							</button>
 						</div>
 						<div class="modal-body">
+						<div class="row">
+		<div class="col-md-12" style="right:61px">
 							<input type="email" class="form-control" id="to" name="to"
-								placeholder="등록된 e-mail를 입력하시오" required="required" />
+								placeholder="등록된 e-mail를 입력하시오" required="required"/>
+								</div>
+								</div>
 						</div>
 						<div class="modal-footer">
 							<button type="button" class="btn btn-primary"
@@ -210,10 +214,14 @@
 							</button>
 						</div>
 						<div class="modal-body">
+						<div class="row">
+		<div class="col-md-12" style="right:31px">
 							<input type="text" class="form-control" id="m_id_find_pw"
 								name="m_id" placeholder="아이디를 입력하시오" required="required" /> 
 							<input type="email" class="form-control" id="toRe" name="to"
 								placeholder="등록된 e-mail를 입력하시오" required="required" />
+						</div>
+						</div>
 						</div>
 						<div class="modal-footer">
 
@@ -247,6 +255,8 @@
 							</button>
 						</div>
 						<div class="modal-body">
+						<div class="row">
+		<div class="col-md-12" style="right:31px">
 							<input type="text" class="form-control" id="m_id_change"
 								name="m_id" placeholder="아이디를 입력하시오" required="required" /> <input
 								type="text" class="form-control" id="secretNumAgain"
@@ -256,6 +266,8 @@
 								required="required" /> <input type="text" class="form-control"
 								id="m_pass_re" name="m_pass_re" placeholder="변경할 패스워드를 다시 입력하시오"
 								required="required" />
+						</div>
+						</div>
 						</div>
 						<div class="modal-footer">
 

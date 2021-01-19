@@ -78,6 +78,7 @@ $(function(){
 		}
 		$.get(url, sendData, function(data){
 			if(data.trim() == "success"){
+				alert("삭제되었습니다.");
 				$(".btnHome").trigger("click");
 			}
 		});
