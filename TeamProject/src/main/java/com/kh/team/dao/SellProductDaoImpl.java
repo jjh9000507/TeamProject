@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
+import com.kh.team.domain.MessageVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 @Repository
@@ -98,6 +99,25 @@ public class SellProductDaoImpl implements SellProductDao {
 	@Override
 	public void whitegoodsInsert(WhitegoodsVo whitegoodsVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "insertWhitegoods", whitegoodsVo);
+	}
+
+	@Override
+	public void seller_TO_message(MessageVo messageVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "seller_TO_message" , messageVo);
+	}
+
+	// 받은 메시지함
+	@Override
+	public List<MessageVo> receive_MessageList(String m_id) throws Exception {
+		List<MessageVo> list = sqlSession.selectList(NAMESPACE + "receive_MessageList" , m_id);
+		return list;
+	}
+
+	// 보낸 메시지함
+	@Override
+	public List<MessageVo> send_MessageList(String m_id) throws Exception {
+		List<MessageVo> list = sqlSession.selectList(NAMESPACE + "send_MessageList" , m_id);
+		return list;
 	}
 
 }

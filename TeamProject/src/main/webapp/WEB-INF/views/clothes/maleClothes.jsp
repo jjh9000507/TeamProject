@@ -89,7 +89,7 @@ $(function(){
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
 				<ul class="nowMenu">
-					<li><a style="color:red;" href="/clothes/101">남성의류</a></li>
+					<li><a style="color:red;" href="/clothes/101?cate_no=101">남성의류</a></li>
 					
 				</ul>
 				<div id="tab-menu">

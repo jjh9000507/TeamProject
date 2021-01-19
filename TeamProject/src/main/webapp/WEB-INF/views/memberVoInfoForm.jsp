@@ -164,6 +164,7 @@ $(function() {
 				<div class="form-group">					 
 					<h1 class="memberVoInfoFormFontHead">회원정보<a>&nbsp;&nbsp;&nbsp;</a>
 						<button type="button" id="memberVoInfoUpdateButton" class="btn btn-primary btn-sm">회원정보 수정</button></h1>
+						<a href="/sellproduct/messageList?m_id=${memberVoInfo.m_id}" class="btn btn-success">메시지 함</a>
 				</div>				
 				<div class="form-group">
 					 <div class="row">

@@ -10,6 +10,7 @@ import com.kh.team.dao.SellProductDao;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
+import com.kh.team.domain.MessageVo;
 import com.kh.team.domain.ProductImgVo;
 import com.kh.team.domain.WhitegoodsVo;
 
@@ -123,6 +124,26 @@ public class SellProductServiceImpl implements SellProductService {
 				sellProductDao.productImage(img_name, p_no);
 			}
 		}
+	}
+
+	// 판매자에게 메시지 보내기
+	@Override
+	public void seller_TO_message(MessageVo messageVo) throws Exception {
+		sellProductDao.seller_TO_message(messageVo);
+	}
+
+	// 받은 메시지함
+	@Override
+	public List<MessageVo> receive_MessageList(String m_id) throws Exception {
+		List<MessageVo> list = sellProductDao.receive_MessageList(m_id);
+		return list;
+	}
+
+	// 보낸 메시지함
+	@Override
+	public List<MessageVo> send_MessageList(String m_id) throws Exception {
+		List<MessageVo> list = sellProductDao.send_MessageList(m_id);
+		return list;
 	}
 
 
