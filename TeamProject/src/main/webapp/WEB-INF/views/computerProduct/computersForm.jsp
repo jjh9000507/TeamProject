@@ -485,8 +485,7 @@ $(function() {
 							</thead>
 							<tbody>
 								<tr>
-									<td>
-									<a href="#">
+									<td>									
 										<c:choose>
 											<c:when test="${ComputerVo.c_com_pic == null}">
 												<img src="/resources/computerImage/default.png" style="width:150px; height:150px;"/>
@@ -494,8 +493,7 @@ $(function() {
 										<c:otherwise>												
 												<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ComputerVo.c_com_pic}" style="width:150px; height:150px;"/>
 											</c:otherwise>
-										</c:choose>
-										</a>
+										</c:choose>										
 									</td>
 									<td>
 										${ComputerVo.c_com_name}&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">상세보기</button>
