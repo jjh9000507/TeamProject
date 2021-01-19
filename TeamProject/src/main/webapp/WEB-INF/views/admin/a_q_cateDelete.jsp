@@ -31,6 +31,7 @@ a.btns:hover {
 			$.get(url, sendData, function(data){
 				console.log(data);
 				if(data.trim()=="success"){
+					alert("삭제되었습니다.");
 					location.reload();
 				}
 			});

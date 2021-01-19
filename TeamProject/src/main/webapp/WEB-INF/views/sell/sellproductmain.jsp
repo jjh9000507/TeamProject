@@ -16,7 +16,7 @@ h1{
   float: left; width: 150px; text-align: left;
 }
 
-a{
+a.btns{
 	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 	-moz-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
 	-ms-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -27,7 +27,7 @@ a{
 	border-radius: 4px;
 }
 
-a:hover {
+a.btns:hover {
 	color: rgba(255, 255, 255, 0.85);
 	box-shadow: rgba(30, 22, 54, 0.7) 0 0px 0px 40px inset;
 }
@@ -60,8 +60,8 @@ $(function(){
 	<c:otherwise>
 		<h1>판매자 등록된 회원입니다.</h1>
 		<ul>
-			<li><a href="/sellproduct/sellproduct" class="btn">판매하기</a></li>
-			<li><a href="/" class="btn">돌아가기</a></li>
+			<li><a href="/sellproduct/sellproduct" class="btn btns">판매하기</a></li>
+			<li><a href="/" class="btn btns">돌아가기</a></li>
 		</ul>
 	</c:otherwise>
 </c:choose>

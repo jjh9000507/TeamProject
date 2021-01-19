@@ -6,7 +6,10 @@
 
 <script>
 $(function(){
-	
+	var msg = "${msg}";
+	if(msg == "upload"){
+		alert("상품이 등록되었습니다.");
+	}
 	//더 보기 버튼
 	$(".divMore").click(function(e){		
 		e.preventDefault();

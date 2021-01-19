@@ -100,13 +100,13 @@ public class SellProductContoller {
 		whitegoodsVo.setW_thumbimg(upload);
 
 		sellProductService.whitegoodsInsert(whitegoodsVo, productImgVo);
-		
+		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
 	
 	//의류 등록
 	@RequestMapping(value="/clothesUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
-	public String clothesUpload(MultipartFile file, ProductVo productVo, HttpSession session) throws Exception {
+	public String clothesUpload(MultipartFile file, ProductVo productVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
 		String upload = null;
@@ -130,6 +130,7 @@ public class SellProductContoller {
 		clothesVo.setP_thumbimg(upload);
 		
 		clothesService.insertClothes(clothesVo);
+		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
 	
@@ -153,7 +154,7 @@ public class SellProductContoller {
 	
 	//컴퓨터 등록
 	@RequestMapping(value="/computerUpload", method=RequestMethod.POST, produces="application/test;charset=utf-8")
-	public String computerUpload(MultipartFile file, ProductVo productVo, ProductImgVo productImgVo, HttpSession session) throws Exception {
+	public String computerUpload(MultipartFile file, ProductVo productVo, ProductImgVo productImgVo, HttpSession session, RedirectAttributes rttr) throws Exception {
 		System.out.println("ProductVo: " + productVo);
 		String fileName = file.getOriginalFilename();
 		boolean isImage = UploadFileUtils.isImage(fileName);
@@ -178,6 +179,7 @@ public class SellProductContoller {
 		computerVo.setC_com_pic(upload);
 		
 		sellProductService.computerInsert(computerVo, productImgVo);
+		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
 	
