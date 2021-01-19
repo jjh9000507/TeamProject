@@ -3,11 +3,14 @@ package com.kh.team.controller;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,9 +36,12 @@ import com.kh.team.domain.MemberVo;
 import com.kh.team.service.AuctionService;
 import com.kh.team.util.FurnitureFileUtil;
 
+import net.nurigo.java_sdk.api.Message;
+import net.nurigo.java_sdk.exceptions.CoolsmsException;
+
 @Controller
 @RequestMapping(value="/auction")
-public class AuctionController implements AuctionS3Key, ImPortKey {
+public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 
 	@Inject
 	private AuctionService auctionService;
@@ -109,6 +115,77 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	 * auctionPurchaseSelected
 	 * 이 3군데의 controller에 getAuctionOrderDeliveryCount로 count를 가져온다
 	 */
+	
+	@RequestMapping(value="/auctionSellList", method=RequestMethod.GET)
+	public String auctionSellList(HttpSession session, RedirectAttributes rttr, Model model) throws Exception{
+		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
+		if(memberVo == null) {
+			rttr.addFlashAttribute("msg", "loginFail");
+			return "redirect:/auction/auctionMain";
+		}
+		
+		String m_id = memberVo.getM_id();
+		
+		int[] nDate = getNowDate();
+		int[] nTime = getNowTime();
+		
+		//현재 기간으로 db의 expiration_date에 조건을 걸어서 가져온다
+		AuctionDateAndTimeVo dtVo = new AuctionDateAndTimeVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2]);
+		
+		//입찰중
+		List<AuctionSellVo> bidingList = auctionService.getAuctionBidingList(m_id, dtVo);
+		model.addAttribute("bidingList",bidingList);
+		//System.out.println("bidingList:"+bidingList);
+		//입찰 마감
+		List<AuctionSellVo> bidingFinishList = auctionService.getAuctionBidingFinishList(m_id, dtVo);
+		model.addAttribute("bidingFinishList",bidingFinishList);
+		//System.out.println("bidingFinishList:"+bidingFinishList);
+		//거래된
+		List<AuctionSoldVo> soldList = auctionService.getAuctionUserMemberListSold(m_id);
+		model.addAttribute("soldList",soldList);
+		
+		return "auction/auctionSellList";
+	}
+	@RequestMapping(value="/auctionPurchaseList", method=RequestMethod.GET)
+	public String auctionPurchaseList(HttpSession session, RedirectAttributes rttr, Model model) throws Exception{
+		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
+		if(memberVo == null) {
+			rttr.addFlashAttribute("msg", "loginFail");
+			return "redirect:/auction/auctionMain";
+		}
+		
+		String m_id = memberVo.getM_id();
+		
+		//내가 입찰한 상품 3개를 각각 가져와야 뿌려줄 때 타이틀 따로 입찰내용 따로 뿌려줄 수 있다
+		//--------------------------------시작 ----------------------------
+		//내가 입찰 한 상품 : 타이틀 밑으로 입찰 항목을 보이기 위해선 테이블을 각각 가져와야 한다
+		List<AuctionTempBidVo> tempBiding = auctionService.getAuctionPurchaserTempBiding(m_id);
+		//System.out.println("tempBiding:"+tempBiding);
+		model.addAttribute("tempBiding", tempBiding);
+		//임시테이블에 p_no 만 가져와서 auction과 auction_main_img에 뿌려준다
+		List<AuctionPnoFromTempBiding> tempBidingPno = auctionService.getAuctionPurchaserTmepBidingPno(m_id);
+		//System.out.println("tempBidingPno:"+tempBidingPno);
+		model.addAttribute("tempBidingPno", tempBidingPno);
+		//해당 p_no의 타이틀만 가져온다
+		List<AuctionVo> tempBidingTitle = auctionService.getAuctionPurchaserTempBidingTitle(tempBidingPno);
+		//System.out.println("tempBidingTitle:"+tempBidingTitle);
+		model.addAttribute("tempBidingTitle", tempBidingTitle);
+		//해당 p_no의 이미지만 가져온다
+		List<AuctionMainImgVo> tempBidingImg = auctionService.getAuctionPurchaserTempBidingImg(tempBidingPno);
+		//System.out.println("tempBidingImg:"+tempBidingImg);
+		model.addAttribute("tempBidingImg", tempBidingImg);
+		
+		//내가 입찰한 상품 -------------------- 끝 ------------------------------ 
+		
+		//내가 구매한 상품
+		List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
+		model.addAttribute("purchaserList", purchaserList);
+		//System.out.println("controller purchaserList:"+purchaserList);
+		
+		
+		return "auction/auctionPurchaseList";
+	}
+	
 	@RequestMapping(value="/auctionResisterList", method=RequestMethod.GET)
 	public String auctionResisterList(Model model, HttpSession session, RedirectAttributes rttr) throws Exception{
 		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
@@ -125,6 +202,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		AuctionDateAndTimeVo dtVo = new AuctionDateAndTimeVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2]);
 		//System.out.println("nDate:"+nDate.toString()+" ,nTime:"+nTime.toString());
 		
+		/*
 		//입찰중
 		List<AuctionSellVo> bidingList = auctionService.getAuctionBidingList(m_id, dtVo);
 		model.addAttribute("bidingList",bidingList);
@@ -136,24 +214,24 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		//거래된
 		List<AuctionSoldVo> soldList = auctionService.getAuctionUserMemberListSold(m_id);
 		model.addAttribute("soldList",soldList);
-
+		
 		//내가 입찰한 상품 3개를 각각 가져와야 뿌려줄 때 타이틀 따로 입찰내용 따로 뿌려줄 수 있다
 		//--------------------------------시작 ----------------------------
 		//내가 입찰 한 상품 : 타이틀 밑으로 입찰 항목을 보이기 위해선 테이블을 각각 가져와야 한다
 		List<AuctionTempBidVo> tempBiding = auctionService.getAuctionPurchaserTempBiding(m_id);
-		System.out.println("tempBiding:"+tempBiding);
+		//System.out.println("tempBiding:"+tempBiding);
 		model.addAttribute("tempBiding", tempBiding);
 		//임시테이블에 p_no 만 가져와서 auction과 auction_main_img에 뿌려준다
 		List<AuctionPnoFromTempBiding> tempBidingPno = auctionService.getAuctionPurchaserTmepBidingPno(m_id);
-		System.out.println("tempBidingPno:"+tempBidingPno);
+		//System.out.println("tempBidingPno:"+tempBidingPno);
 		model.addAttribute("tempBidingPno", tempBidingPno);
 		//해당 p_no의 타이틀만 가져온다
 		List<AuctionVo> tempBidingTitle = auctionService.getAuctionPurchaserTempBidingTitle(tempBidingPno);
-		System.out.println("tempBidingTitle:"+tempBidingTitle);
+		//System.out.println("tempBidingTitle:"+tempBidingTitle);
 		model.addAttribute("tempBidingTitle", tempBidingTitle);
 		//해당 p_no의 이미지만 가져온다
 		List<AuctionMainImgVo> tempBidingImg = auctionService.getAuctionPurchaserTempBidingImg(tempBidingPno);
-		System.out.println("tempBidingImg:"+tempBidingImg);
+		//System.out.println("tempBidingImg:"+tempBidingImg);
 		model.addAttribute("tempBidingImg", tempBidingImg);
 		
 		//내가 입찰한 상품 -------------------- 끝 ------------------------------ 
@@ -162,7 +240,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
 		model.addAttribute("purchaserList", purchaserList);
 		//System.out.println("controller purchaserList:"+purchaserList);
-		
+		*/
 		//폴더 이름을 p_no로 만들고 이미지를 저장하기 위해서 다음 p_no를 가지고 온다
 		int nextSeq = auctionService.getNextSeqNumber();
 		//System.out.println("auctionResisterList nextSeq:"+nextSeq);
@@ -251,7 +329,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	}
 	
 	@RequestMapping(value="/auctionResister", method=RequestMethod.GET)
-	public String auctionResisterRun(int nextPNO, AuctionVo auctionVo, 
+	public String auctionResister(int nextPNO, AuctionVo auctionVo, 
 			AuctionAddressVo auctionAddressVo, AuctionImgVo auctionImgVo, 
 			AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo, HttpSession session) throws Exception{
 		
@@ -538,7 +616,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		auctionService.modifyAuctionMainImg(auctionMainImgVo);
 		auctionService.modifyAuctionExpirationDate(auctionEDateVo);
 		
-		return "redirect:/auction/auctionResisterList";
+		return "redirect:/auction/auctionSellList";
 	}
 	
 	//주문서
@@ -578,7 +656,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 	@RequestMapping(value="/auctionPaymentCompleteShowForm", method=RequestMethod.GET)
 	public String auctionPaymentCompleteShowForm(AuctionOrderVo auctionOrderVo, Model model, HttpSession session) throws Exception{
 		
-		System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
+		//System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
 		
 		//구매자 정보만 먼저 입력
 		auctionOrderVo.setImp_uid("121334");
@@ -593,7 +671,49 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, auctionOrderVo.getP_no());
 		model.addAttribute("auctionSoldVo", auctionSoldVo);
 		
+		//메세지 보내기 - 구매자 전화번호가 아니라 판매자 전화번호로 보내야 한다
+		System.out.println("auctionOrderVo phonenumber:"+auctionOrderVo.getSeller());
+		String seller = auctionOrderVo.getSeller();
+		MemberVo memberVo = auctionService.getMember(seller);
+		//phoneSMS(memberVo.getM_phonenumber());
+		
 		return "auction/auctionPaymentCompleteShowForm";
+	}
+	
+	public void phoneSMS(String phoneNumber) throws Exception{
+		//System.out.println("phoneNumber:"+phoneNumber);
+	    Message sms = new Message(api_key, api_secret);
+	    
+	    //System.out.println("str_random:"+randomStr);
+	    
+	    // 4 params(to, from, type, text) are mandatory. must be filled
+	    HashMap<String, String> params = new HashMap<String, String>();
+	    params.put("to", phoneNumber);
+	    params.put("from", "01087116886"); //무조건 자기번호 (인증)
+	    params.put("type", "SMS");
+	    params.put("text", "[중고 동네] 결제된 상품이 있습니다. 배송 부탁드립니다");
+	    params.put("app_version", "test app 1.2"); // application name and version
+
+	    try {
+	    	//send() 는 메시지를 보내는 함수  
+	      JSONObject obj = (JSONObject) sms.send(params);
+	      System.out.println(obj.toString());
+	    } catch (CoolsmsException e) {
+	      System.out.println(e.getMessage());
+	      System.out.println(e.getCode());
+	    }
+	}
+	
+	//난수 만드는 함수
+	public String makeRandom(int size) { 
+		StringBuffer randomBuffer = new StringBuffer();
+		Random random = new Random();
+		
+		while(randomBuffer.length() < size) {
+			randomBuffer.append(random.nextInt(9)+1);
+		}
+		
+		return randomBuffer.toString();
 	}
 	
 	//내가 입찰한 상품 결제 내역

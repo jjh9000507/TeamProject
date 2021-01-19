@@ -2,7 +2,7 @@
 	background-color: white;
 	position: fixed;
 	transition: width 0.2s ease;
-	top : 30%;
+	top : 20%;
 }
 
 .sidebar nav {
@@ -28,15 +28,15 @@
 }
 
 .sidebar .sidebar__nav .sidebar__nav__link:hover {
-/* 	background-color: rgba(0, 0, 0, 0.15); */
-/* 	color: #80f; */
+	background-color: rgba(0, 0, 0, 0.15);
+	color: #80f;
 }
 
 .sidebar .sidebar__nav .sidebar__nav__text {
 	color: black;
 	font-size: 14px;
 	font-weight : bold;
-	display: none;
+/* 	display: none; */
 	margin-left: 10%;
 	margin-right: auto;
 	white-space: nowrap;
@@ -53,7 +53,7 @@
     left: 100%;	
     top: 0%;
     width: 150px;
-    display:none;
+/*     display:none; */
     height : 100%;
     border: 1px solid orange;
     
@@ -62,8 +62,8 @@
 .sidebar__submenu li a {
 	text-decoration : none;
 	color : black;
-	
 }
+
 
 .sidebar__submenu li a:hover {
 	font-size:25px;
@@ -136,6 +136,6 @@
 
 @media (max-height: 434px) {
 	.sidebar {
-		overflow-y: scroll;
+/* 		overflow-y: scroll; */
 	}
 }

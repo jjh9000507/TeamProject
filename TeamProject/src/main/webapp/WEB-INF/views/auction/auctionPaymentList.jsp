@@ -13,7 +13,7 @@
 			</div>
 			<div class="col-md-8">
 			<%@ include file="../include/header_mainCatagories.jsp"%>
-				
+				결제 내역 확인
 			</div><!-- 내부 md-8 -->
 			<div class="col-md-2"></div><!-- 내부 md-2 -->
 		</div><!-- 외부 md-8 -->
