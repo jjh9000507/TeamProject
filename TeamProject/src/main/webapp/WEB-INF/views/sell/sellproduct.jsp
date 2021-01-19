@@ -357,7 +357,9 @@ $(function(){
 				<div class="form-group">
 					<label for="">상품 이미지</label><br>
 					<button type="button" id="btnImgDrop">업로드</button>
-					<div id="fileDrop" style="display: none"></div>
+					<div id="fileDrop" style="display: none">
+						<p>업로드할 이미지를 상자 위에 올려주세요.
+					</div>
 				</div>
 				
 				<div class="divUploaded" style="display: none;">

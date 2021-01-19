@@ -46,6 +46,14 @@ a.btns:hover {
 	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
 }
 </style>
+<script>
+$(function(){
+	var msg = "${msg}"
+	if(msg == "success"){
+		alert("삭제되었습니다.");
+	}
+})
+</script>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-12" style="text-align: center"><h1>카테고리 삭제</h1></div>
