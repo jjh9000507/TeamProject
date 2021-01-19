@@ -111,25 +111,25 @@ ul.join_box {
 
 .leftMemberVoInfoNav{
 	display:inline-block;
-	width:15%;
+	width:10%;
 	float:left;
 }
 
 .memberVoInfoNav{
 	display:inline-block;	
-	width:35%;
+	width:30%;
 	float:left;
 }
 
 .memberVoInfoAside{
 	display:inline-block;	
-	width:35%;	
+	width:50%;	
 	float:left;
 }
 
 .rightMemberVoInfoAside{
 	display:inline-block;
-	width:15%;	
+	width:10%;	
 	float:left;
 }
 

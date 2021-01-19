@@ -10,6 +10,7 @@ public class ProductExplainVo {
 	private String p_e_id;
 	private Timestamp p_e_regdate;
 	private String p_e_product;
+	private String p_e_re;
 	public int getP_e_no() {
 		return p_e_no;
 	}
@@ -52,11 +53,17 @@ public class ProductExplainVo {
 	public void setP_e_product(String p_e_product) {
 		this.p_e_product = p_e_product;
 	}
+	public String getP_e_re() {
+		return p_e_re;
+	}
+	public void setP_e_re(String p_e_re) {
+		this.p_e_re = p_e_re;
+	}
 	@Override
 	public String toString() {
 		return "ProductExplainVo [p_e_no=" + p_e_no + ", p_e_answer_status=" + p_e_answer_status
 				+ ", p_e_inquiry_status=" + p_e_inquiry_status + ", p_e_title=" + p_e_title + ", p_e_id=" + p_e_id
-				+ ", p_e_regdate=" + p_e_regdate + ", p_e_product=" + p_e_product + "]";
+				+ ", p_e_regdate=" + p_e_regdate + ", p_e_product=" + p_e_product + ", p_e_re=" + p_e_re + "]";
 	}
 	
 	

@@ -9,13 +9,17 @@
 <script>
 $(function(){
 	var price = "${buyComputerVo.c_com_price}";	
-	var c_com_product = "${buyComputerVo.c_com_name}";	
+	var c_com_product = "${buyComputerVo.c_com_name}";
+	var c_com_seller = "${buyComputerVo.c_com_seller}";
 	var m_id = "${sessionScope.memberVo.m_id}";
-	
+	var p_e_no = "";
+	var w_id = "";
+	var answer_status = "";
 	console.log("m_id:" + m_id);
 	var priceFinal = "";
 	var index = "";
 	var comment_no = "";
+	var explain_content = "";
 	var inputBuyFormSendData = $(".inputBuyFormSendData");
 	var searchBuyFormSendData = $(".searchBuyFormSendData");
 	$("#confirmPrice").click(function() {
@@ -74,6 +78,7 @@ $(function(){
 		$.get(url, function(data) {
 			$.each(data, function() {				
 				var tr = $("#productExplainTrTable").find("tr").clone();
+				answer_status = this.p_e_answer_status;
 				tr.find("td").eq(0).text(indexInquire);
 				tr.find("td").eq(1).text(this.p_e_answer_status);
 				tr.find("td").eq(2).text(this.p_e_inquiry_status);
@@ -81,12 +86,29 @@ $(function(){
 				tr.find("td").eq(4).text(this.p_e_id);
 				tr.find("td").eq(5).text(changeDateString(this.p_e_regdate));
 				tr.find("td").eq(6).text(this.p_e_no);
+				if(c_com_seller == m_id){
+					if(answer_status == "답변예정"){
+						var btnER = $("#btnExplainRefDiv").find("button").clone();
+						tr.find("td").eq(7).append(btnER);
+					}else{
+						tr.find("td").eq(7).append("답변됨");
+					}					
+				}else{					
+				tr.find("td").eq(7).text("답변권한 없음");
+				}
+				if((this.p_e_id == m_id) || (c_com_seller == m_id)){
+					tr.find("td").eq(8).text(this.p_e_re);
+					w_id = this.p_e_id;
+				}else{
+					tr.find("td").eq(8).text("");
+				}
 				$("#productExplainTable").append(tr);
 				indexInquire++;
 			});
 		});
 			
 		$("#productExplainTable").show();
+		
 	});
 	$("#commentTable").on("click", ".btnCommentModify", function(){	
 		comment_no = $(this).parent().parent().find("td").eq(6).text();
@@ -123,10 +145,14 @@ $(function(){
 			});
 	});
 	$("#inquireControll").on("click", "#inquireProductWrite", function(){
-		if(m_id != ""){
+		if((m_id != "") && (m_id != c_com_seller)){
 			$("#modal-inquireModal").trigger("click");
-		}else{
+		}else if(m_id == ""){
 			alert("로그인 하시오");
+		}else if(m_id == c_com_seller){
+			alert("판매자는 작성할 수 없습니다");
+		}else{
+			alert("무슨 경우인지 모름");
 		}					
 	});
 	$("#inquireControll").on("click", "#searchInquireButton", function(){
@@ -144,20 +170,39 @@ $(function(){
 		};
 		$("#productExplainTable > tbody").empty();
 		$.post(url,sendData,function(data){
-			$.each(data, function() {				
+			$.each(data, function() {
+				answer_status = this.p_e_answer_status;
 				var tr = $("#productExplainTrTable").find("tr").clone();
 				tr.find("td").eq(0).text(indexInquire);
 				tr.find("td").eq(1).text(this.p_e_answer_status);
 				tr.find("td").eq(2).text(this.p_e_inquiry_status);
 				tr.find("td").eq(3).text(this.p_e_title);
 				tr.find("td").eq(4).text(this.p_e_id);
-				tr.find("td").eq(5).text(this.p_e_regdate);
+				tr.find("td").eq(5).text(changeDateString(this.p_e_regdate));
 				tr.find("td").eq(6).text(this.p_e_no);
+				if(c_com_seller == m_id){
+					if(answer_status == "답변예정"){
+						var btnER = $("#btnExplainRefDiv").find("button").clone();
+						tr.find("td").eq(7).append(btnER);
+					}else{
+						tr.find("td").eq(7).append("답변됨");
+					}	
+				}else{					
+				tr.find("td").eq(7).text("답변권한 없음");
+				}
+				if((this.p_e_id == m_id) || (c_com_seller == m_id)){
+					tr.find("td").eq(8).text(this.p_e_re);
+					w_id = this.p_e_id;
+				}else{
+					tr.find("td").eq(8).text("");
+				}
+				
 				$("#productExplainTable").append(tr);
 				indexInquire++;
 			});	
 		});
 		$("#productExplainTable").show();
+		
 	});
 	$("#buySelectModalConfirm").click(function(){
 		var p_e_contents = $("#p_e_contents").val();
@@ -200,17 +245,22 @@ $(function(){
 		if(m_id == ""){
 			alert("로그인 하시오");
 		}else{
-			if(price == "" || productNum == "0"){
-				alert("내용정보 불충분");
+			if(m_id != c_com_seller){
+				if(price == "" || productNum == "0"){
+					alert("내용정보 불충분");
+				}else{
+					searchBuyFormSendData.find("input").eq(0).val(price);
+					searchBuyFormSendData.find("input").eq(1).val(seller);
+					searchBuyFormSendData.find("input").eq(2).val(productNum);
+					searchBuyFormSendData.find("input").eq(3).val(productName);
+					searchBuyFormSendData.find("input").eq(4).val(sendMethod);
+					searchBuyFormSendData.find("input").eq(5).val(p_no);
+					$("#frmBuyFormSendData").submit();
+				}		
 			}else{
-				searchBuyFormSendData.find("input").eq(0).val(price);
-				searchBuyFormSendData.find("input").eq(1).val(seller);
-				searchBuyFormSendData.find("input").eq(2).val(productNum);
-				searchBuyFormSendData.find("input").eq(3).val(productName);
-				searchBuyFormSendData.find("input").eq(4).val(sendMethod);
-				searchBuyFormSendData.find("input").eq(5).val(p_no);
-				$("#frmBuyFormSendData").submit();
-			}		
+				alert("판매자가 본인의 상품을 구입할 수 없습니다");
+			}
+			
 		}			
 	});
 	$("#putBasket").click(function(){
@@ -260,6 +310,33 @@ $(function(){
 			alert("중고 동네 회원만 가능합니다");
 		}		
 	});	
+	
+	$("#productExplainTbody").on("click", ".btnExplainRef", function(){
+		p_e_no = $(this).parent().parent().find("td").eq(6).text();		
+		console.log("p_e_no:" + p_e_no);
+		
+		var ref_content = "";
+		ref_content = prompt("상품문의에 대한 답변을 작성하시오","");
+		console.log("ref_content:" + ref_content);
+		
+		if(ref_content == ""){
+			alert("답변을 작성하시오");
+		}else{
+			alert("전송");
+			var url = "/computerProductComment/explainRef";
+			var sendData = {							
+					"p_e_no" 		: p_e_no,
+					"ref_content"   : ref_content
+				};
+				$.post(url, sendData, function(data) {
+					if(data == "success"){
+						alert("답변성공");						
+					}else if(data == "fail"){
+						alert("답변실패");
+					}					
+				});
+		}		
+	});
 });
 </script>
 <form role="form" id="frmBuyFormSendData" action="/buyComputerProduct/openBuyComputerProductDetail" method="post">
@@ -322,6 +399,8 @@ $(function(){
 							</button>
 						</div>
 						<div class="modal-body">
+						<div class="row">
+		<div class="col-md-12" style="right:31px">
 						<select id="buySelectModal">
 							<option value="상품문의" selected="selected">상품문의</option>
 							<option value="배송">배송</option>
@@ -332,6 +411,8 @@ $(function(){
 						<input type="text" class="form-control" name="p_e_contents" id="p_e_contents" placeholder="상품문의 사항 작성"/>
 						<input type="text" style="display: none;" id="getInquireId" value="${sessionScope.memberVo.m_id}"/>
 						<input type="text" style="display: none;" id="getInquireProduct" value="${buyComputerVo.c_com_name}"/>
+						</div>
+						</div>
 						</div>
 						<div class="modal-footer">							 
 							<button type="button" id="buySelectModalConfirm" class="btn btn-primary">
@@ -356,7 +437,9 @@ $(function(){
 </div>	
 <br>
 <br>
-
+<div id="btnExplainRefDiv" style="display: none;">
+<button type="button" class="btn btn-xs btn-primary btnExplainRef">답변</button>
+</div>
 <div class="row">
 <div class="col-md-12">
 <div class="buycomputersFormDiv">
@@ -413,16 +496,18 @@ $(function(){
 					<td></td>
 					<td></td>					
 					<td style="display: none;"></td>					
+					<td></td>					
+					<td></td>					
 				</tr>
 			</table>
 </nav>
 <nav class="buynav">
 <c:choose>
 <c:when test="${buyComputerVo.c_com_pic == null}">
-<img src="/resources/computerImage/default.png" width="400px" height="300px"/>
+<img src="/resources/computerImage/default.png" style="width:400px; height:300px;"/>
 </c:when>
-<c:otherwise>
-<img src="/resources/image/main_logo2.png" width="400px" height="300px"/>
+<c:otherwise>												
+<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${buyComputerVo.c_com_pic}" style="width:400px; height:300px;"/>
 </c:otherwise>
 </c:choose>
 </nav>
@@ -553,7 +638,7 @@ $(function(){
 		<div class="col-md-12">
 		<div>
 		<ul class="nav nav-tabs breadcrumb" id="inquireControll" style="display: none;">
-		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquireListSearch" type="text"/><button type="button" id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
+		<li class="nav-item"><input placeholder="문의내용 입력" id="searchInquireListSearch" type="text"/><button type="button" id="searchInquireButton">검색</button></li>&nbsp;&nbsp;&nbsp;
 		<li class="nav-item">						 
 				<select id="buySelectInquireListSearchOption">
 							<option value="상품문의" selected="selected">상품문의</option>
@@ -583,7 +668,9 @@ $(function(){
 						<th>문의내용</th>
 						<th>작성자</th>
 						<th>작성일자</th>												
-						<th></th>												
+						<th style="display: none;"></th>																	
+						<th></th>																	
+						<th>답변내용</th>												
 					</tr>
 				</thead>
 				<tbody id="productExplainTbody">

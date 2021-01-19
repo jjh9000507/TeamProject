@@ -1,7 +1,7 @@
 package com.kh.team.domain;
 
 public class PagingDto {
-
+	//안쓰는 것 같으니깐 확인해보고 클래스 자체를 삭제할수 있도록 함
 	private int page = 1; // 현재 페이지
 	private int perPage = 10; // 페이지당 보여질 게시글 갯수
 	private int startRow = 1; // 현재 페이지의 시작행
