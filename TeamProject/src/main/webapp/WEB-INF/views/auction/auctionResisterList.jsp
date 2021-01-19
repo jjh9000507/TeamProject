@@ -554,7 +554,31 @@ $(function() {
 									
 										<!--------------------------------- tab4 내가 입찰 한 상품 div 끝 -------------------------------------->
 									<div class="tab-pane tabMd3" id="purchaseBidingItemContent">
-										내가 입찰한 항목
+										<c:forEach var="tempPno" items="${tempBidingPno}">
+										<table border='1' width="600px"><!-- 여기서 테이블 한개 조건 들어가고 -->
+											<tr>
+												<c:forEach var="tempImg" items="${tempBidingImg}">
+												<c:if test="${tempImg.p_no == tempPno }">
+													<th>${tempImg.main_img_name}</th>
+												</c:if>
+												</c:forEach>
+												<c:forEach var="tempTitle" items="${tempBidingTitle}">
+												<c:if test="${tempTitle.p_no == tempPno }">
+													<th>${tempTitle.p_title}</th>
+													<th>${tempTitle.seller}</th>
+												</c:if>
+												</c:forEach>
+											</tr>
+											<c:forEach var="tempbiding" items="${tempBiding}">
+											<c:if test="${tempbiding.p_no == tempPno}">
+											<tr><!-- 여기서 입찰 목록 조건 들어간다 -->
+												<td colspan='2'><span>${tempbiding.temp_bid_date}</span></td>
+												<td>${tempbiding.temp_bid_price}원</td>
+											</tr>
+											</c:if>
+											</c:forEach>
+										</table>
+										</c:forEach>
 									</div>
 										<!--------------------------------- tab4 내가 입찰 한 상품 div 끝 -------------------------------------->
 										

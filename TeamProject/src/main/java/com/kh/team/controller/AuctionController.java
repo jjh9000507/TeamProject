@@ -26,6 +26,7 @@ import com.kh.team.domain.AuctionEDateVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
+import com.kh.team.domain.AuctionPnoFromTempBiding;
 import com.kh.team.domain.AuctionRDateVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.MemberVo;
@@ -135,6 +136,28 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		//거래된
 		List<AuctionSoldVo> soldList = auctionService.getAuctionUserMemberListSold(m_id);
 		model.addAttribute("soldList",soldList);
+
+		//내가 입찰한 상품 3개를 각각 가져와야 뿌려줄 때 타이틀 따로 입찰내용 따로 뿌려줄 수 있다
+		//--------------------------------시작 ----------------------------
+		//내가 입찰 한 상품 : 타이틀 밑으로 입찰 항목을 보이기 위해선 테이블을 각각 가져와야 한다
+		List<AuctionTempBidVo> tempBiding = auctionService.getAuctionPurchaserTempBiding(m_id);
+		System.out.println("tempBiding:"+tempBiding);
+		model.addAttribute("tempBiding", tempBiding);
+		//임시테이블에 p_no 만 가져와서 auction과 auction_main_img에 뿌려준다
+		List<AuctionPnoFromTempBiding> tempBidingPno = auctionService.getAuctionPurchaserTmepBidingPno(m_id);
+		System.out.println("tempBidingPno:"+tempBidingPno);
+		model.addAttribute("tempBidingPno", tempBidingPno);
+		//해당 p_no의 타이틀만 가져온다
+		List<AuctionVo> tempBidingTitle = auctionService.getAuctionPurchaserTempBidingTitle(tempBidingPno);
+		System.out.println("tempBidingTitle:"+tempBidingTitle);
+		model.addAttribute("tempBidingTitle", tempBidingTitle);
+		//해당 p_no의 이미지만 가져온다
+		List<AuctionMainImgVo> tempBidingImg = auctionService.getAuctionPurchaserTempBidingImg(tempBidingPno);
+		System.out.println("tempBidingImg:"+tempBidingImg);
+		model.addAttribute("tempBidingImg", tempBidingImg);
+		
+		//내가 입찰한 상품 -------------------- 끝 ------------------------------ 
+		
 		//내가 구매한 상품
 		List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
 		model.addAttribute("purchaserList", purchaserList);
@@ -546,7 +569,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey {
 		//sideBar에 count 가져온다
 		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(purchaser);
 		model.addAttribute("sidebarCount", sidebarCount);
-		System.out.println("controller auctionPurchaseSelectecd sidebarCount:"+sidebarCount);
+		//System.out.println("controller auctionPurchaseSelectecd sidebarCount:"+sidebarCount);
 		
 		return "auction/auctionPurchaseSelected";
 	}

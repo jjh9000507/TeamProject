@@ -4,12 +4,51 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto&display=swap" />
 <link rel="stylesheet" href="/resources/css/styles.css" />
 <link rel="stylesheet" href="/resources/css/sidebar.css" />
-    
+<%@ include file="/resources/css/computersForm_css.css" %>
 <%@ include file="../include/header.jsp"%>
 
+<style>
+	
+.aside_ad{
+	width:100%;
+	padding-top: 100%;
+}
+
+</style>
 
 <div class="row">
-	<div class="col-md-2"></div>
+	<div class="col-md-2">
+	
+	<aside class="aside_ad">
+<br>
+<a href="https://ulsankh.step.or.kr/page/lms" target="_blank" title="kh 정보교육원 광고동영상입니다.">
+<video class="asideBanner" autoplay loop controls muted>
+	<source src="/resources/bannerVideo/khBanner.mp4" type="video/mp4">
+</video>
+</a>
+<br>
+<br>
+<br>
+<br>
+<br>
+<a href="https://www.samsung.com/sec/" target="_blank" title="삼성 레드 광고동영상입니다.">
+<video class="asideBanner" autoplay loop controls muted>
+	<source src="/resources/bannerVideo/red.mp4" type="video/mp4">
+</video>
+</a>
+<br>
+<br>
+<br>
+<br>
+<br>
+<a href="https://www.netflix.com/kr/" target="_blank" title="넷플릭스 광고동영상입니다.">
+<video class="asideBanner" autoplay loop controls muted>
+	<source src="/resources/bannerVideo/netflix.mp4" type="video/mp4">
+</video>
+</a>
+</aside>
+	
+	</div>
 		<div class="col-md-8" >
 <%@ include file="../include/header_mainCatagories.jsp"%>
 <%@ include file="/resources/css/clothes.css"%>
@@ -17,8 +56,8 @@
 <script>
 $(function(){	
 	var tabBtn = $("#tab-btn > ul > li");     //각각의 버튼을 변수에 저장
-	var tabCont = $("#tab-cont > div");       //각각의 콘텐츠를 변수에 저장
-
+	var tabCont = $("#tab-cont > div");       //각각의 콘텐츠를 변수에 저장	
+	var tabCont_a = $("#tab-cont > div > a");
 	//컨텐츠 내용을 숨겨주세요!
 	tabCont.hide().eq(0).show();
 
@@ -30,7 +69,13 @@ $(function(){
 	  tabCont.css("display","none");
 	  tabCont.eq(index).css("display","block");
 	});
-		
+	
+	tabCont_a.click(function(){
+		var url = "/subCategory_link"
+		$.get(url , sendData , function(data){
+			
+		});
+	});	
 }); // main function
 
 </script>
@@ -38,6 +83,7 @@ $(function(){
 <br>
 
 <!------------------------------------------ 상품 리스트 ---------------------------------------->
+
 <div class="row">
 
 	<div class="col-md-2"></div>
@@ -46,28 +92,33 @@ $(function(){
 					<li><a style="color:red;" href="/clothes/101">남성의류</a></li>
 					
 				</ul>
-				
 				<div id="tab-menu">
+				
+			<!-- 메인 카테고리 받아오기 -->				 
 				  <div id="tab-btn">
 				    <ul>
-				      <li class="active"><a href="#">아우터</a></li>
-				      <li><a href="#">상의</a></li>
-				      <li><a href="#">바지</a></li>
-				      <li><a href="#">스포츠</a></li>
-				      <li><a href="#">신발</a></li>
-				      <li><a href="#">속옷</a></li>
+				      <c:forEach var="mainCategory" items="${mainCategory}">
+				      <li><a href="#">${mainCategory.cate_name }</a></li>
+				    </c:forEach>
 				    </ul>
 				  </div>
+			<!-- 메인 카테고리 받아오기 END -->				 
 				  
+			<!-- 서브 카테고리 받아오기 (이중 forEach) -->				 
 				  <div id="tab-cont">
-				    <div><a href="#">후드집업</a><a href="#">코트</a><a href="#">가디건</a><a href="#">조끼</a><a href="#">자켓</a><a href="#">점퍼/야상/패딩</a><a href="#">수트/블레이저</a></div>
-				    <div><a href="#">민소매</a><a href="#">반팔 티셔츠</a><a href="#">긴팔 티셔츠</a><a href="#">니트/스웨터</a><a>후드티</a><a>셔츠</a></div>
-				    <div><a href="#">숏 팬츠</a><a href="#">점프슈트/오버올</a><a href="#">바지</a><a href="#">청바지</a></div>
-				    <div><a href="#">기능성 의류</a><a href="#">수면/잠옷 (상의)</a><a href="#">교복</a><a href="#">이벤트</a><a href="#">수영복</a></div>
-				    <div>모목도리</div>
-				    <div>남성 속옷</div>
+				<c:forEach var="subCategoryList" items="${subCategory}">
+					<div>
+						<c:forEach var="subCategoryList" items="${subCategoryList}">
+							<a href="/clothes/101?cate_no=${subCategoryList.cate_no}">${subCategoryList.cate_name}</a>
+						</c:forEach>
+					</div>
+				</c:forEach>
+			<!-- 서브 카테고리 받아오기 END -->				 
+				
 				  </div>
 				</div>
+				 
+				 
 		</div>
 		<div class="col-md-2"></div>
 </div>
@@ -94,7 +145,8 @@ $(function(){
 	</div>
 </div>
 		
-		<div class="col-md-2"></div>
+		<div class="col-md-2">
+		</div>
 
 
 <!------------------------------------------ 페이지네이션 ---------------------------------------->

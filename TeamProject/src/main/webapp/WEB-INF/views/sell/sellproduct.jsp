@@ -209,8 +209,27 @@ $(function(){
 			}	
 		}
 
+		var title = $("#p_name").val();
+		if(title == ""){
+			alert("상품명을 입력해주세요.");
+			return false;
+		}
+		
+		var price = $("#p_price").val();
+		if(price == ""){
+			alert("판매가를 입력해 주세요.");
+			return false;
+		}
+		
+		var content = $("#p_content").val();
+		if(content == ""){
+			alert("상품설명을 입력해주세요.");
+			return false;
+		}
+		
 		if(cate_no.val() == "" && cate_no.val() == null){
 			alert("카테고리를 선택해주세요.");
+			return false;
 		}
 
 		var div = $("#uploadedList > .divUploaded");
