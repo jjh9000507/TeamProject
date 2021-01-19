@@ -20,4 +20,6 @@ public interface MemberService {
 	// 구매하기 폼에서 회원정보 중 이름 바꾸기
 	public int changeNameByCallProduct(String buyerName, String m_id, String m_pass) throws Exception;
 	
+	// 컴퓨터 제품 구매시 가격당 포인트 올려주기
+	public int increaseMemberPoint(int totalPoint, String m_id) throws Exception;
 }

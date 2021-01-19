@@ -38,12 +38,24 @@
 			email = #{email},
 			m_phonenumber = #{m_phonenumber}
 		where m_id = #{m_id}				
-	</update>
-	
+	</update>	
 	<update id="changeNameByCallProduct">
 		update member set
 			m_pass = #{m_pass},			
 			m_name = #{buyerName}
+		where m_id = #{m_id}				
+	</update>
+	
+	
+	
+	<select id="getByMemberPoint">
+		select m_point
+		from member
+		where m_id = #{m_id}			
+	</select>	
+	<update id="increaseMemberPoint">
+		update member set
+			m_point = #{point} + #{pointAdd}
 		where m_id = #{m_id}				
 	</update>
 	
