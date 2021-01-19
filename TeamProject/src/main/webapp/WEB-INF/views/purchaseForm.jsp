@@ -14,7 +14,7 @@ $(function(){
 	var IMP = window.IMP; // 생략가능
 	IMP.init('${ImPortkey}');
 	
-	$("#btnBuy_final").click(function(){
+	$("#btnPurchase").click(function(){
 		
 		var price = 1000;
 		IMP.request_pay({
@@ -106,6 +106,22 @@ $("#btnSendMessage").click(function(){
 }); // main function
 
 </script>
+<style>
+	#delivery_name {
+		margin-bottom : 2%;
+	}	
+	#delivery_addr {
+		width: 50%;
+	}
+	#delivery_addr_detail {
+		width: 50%;
+		margin-bottom: 4%;
+	}
+	
+	#delivery_txa{
+		margin-top: 3%;
+	}
+</style>
 
 	<div class="row">
 			<div class="col-md-2"></div>
@@ -211,49 +227,26 @@ $("#btnSendMessage").click(function(){
 	<br>
 		<div id="getDeli_detail" style="display:none;">
 	
-	<h4>배송지 정보 입력</h4>
+	<h4>배송지 정보 입력(*필수입력)</h4>
 	<hr>
 	<div class="row">
-		<div class="col-md-12">
-			<table class="table">
-				<thead>
-					<tr>						
-						<th>
-							이름
-						</th>												
-						<th>
-							주소
-						</th>												
-						<th>
-							연락처
-						</th>
-						<th>
-							배송 메세지
-						</th>												
-					</tr>
-				</thead>
-				<tbody>
-					<tr>						
-						<td>
-						<label>주문자 이름:</label>
-						<input placeholder="성함을 입력하시오"/>
-						</td>
-						<td>
-						<label>주소:</label>
-						<input placeholder="우편번호 입력"/><button>우편번호 검색</button><br>
-						<input placeholder="주소를 입력하시오"/>&nbsp;&nbsp;<input placeholder="상세주소를 입력하시오"/>						
-						</td>
-						<td>
-						<label>연락처:</label>
-						<input type="tel" placeholder="연락처를 입력하시오"/>
-						</td>
-						<td>
-						<label>배송메세지:</label>
-						<input placeholder="택배 기사님께 부탁할 사항을 입력하시오"/>(<span></span>/50자)
-						</td>												
-					</tr>					
-				</tbody>
-			</table>
+		<div class="col-md-2" id="span"><span>*이름</span><br><br><span>*주소</span><br><br><br><br><span>*연락처</span><br><br> 배송 시<br>요구사항 </div>
+		<div class="col-md-10">
+		
+					  <input type="text" id="delivery_name"><br>
+					  <input id="delivery_addr" type="text">&nbsp;<a class="btn btn-success">주소찾기</a><br>
+					<input id="delivery_addr_detail" type="text" placeholder="상세 주소를 입력해 주세요"><br>
+					 <select id="delivery_first_phoneNum">
+								<option>010</option>
+								<option>011</option>
+								<option>016</option>
+								<option>017</option>
+								<option>018</option>
+								<option>019</option>
+							</select>
+							-<input type="text" id="delivery_second_phoneNum"> - <input type="text" id="delivery_third_phoneNum"><br>
+							<textarea id="delivery_txa" rows="3" cols="60"></textarea>
+		
 		</div>
 	</div>
 	
