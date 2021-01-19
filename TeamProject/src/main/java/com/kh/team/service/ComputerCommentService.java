@@ -18,4 +18,8 @@ public interface ComputerCommentService {
 	public void insetInquire(ProductExplainVo productExplainVo) throws Exception;
 	//상품문의 검색
 	public List<ProductExplainVo> searchInquire(ProductExplainVo productExplainVo) throws Exception;
+	
+	//상품문의 답변
+	public int explainRefContent(int p_e_no, String ref_content) throws Exception;
+	
 }

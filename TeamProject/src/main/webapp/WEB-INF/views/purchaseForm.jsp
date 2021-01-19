@@ -74,6 +74,35 @@ $("#getDirect").click(function(){
 	}
 });
 
+$("#btnSendMessage").click(function(){
+	if(confirm("메시지를 보내시겠습니까 ?") == true){
+        
+        var msg_productName = "${productVo.p_name}";
+        var msg_sender = "${sessionScope.memberVo.m_id}";
+        var msg_receiver = "${productVo.p_seller}";
+        var msg_content = $("#txaMessage").val();
+        
+        var url = "/sellproduct/message";
+        var sendData = {
+        	"msg_productName" : msg_productName,
+        	"msg_sender" : msg_sender,
+        	"msg_receiver" : msg_receiver,
+        	"msg_content" : msg_content
+        };
+        
+        $.post(url, sendData, function(data){
+        	console.log(data);
+        });
+        
+        alert("판매자에게 메시지를 전송하였습니다");
+        window.location = "/page/content?p_no=${productVo.p_no}";
+    }
+    else{
+        return ;
+    }
+
+});
+
 }); // main function
 
 </script>
@@ -119,10 +148,15 @@ $("#getDirect").click(function(){
 						<td>
 							${productVo.p_name }
 						</td>
-						<td>	
-						<c:if test="${fn:length(productVo.p_content) > 10}">
+						<td>
+						<c:choose>
+						<c:when test="${fn:length(productVo.p_content) > 10}">
 							<a href="/page/content?p_no=${productVo.p_no}">${fn:substring(productVo.p_content,0,20)}...</a>
-						</c:if>
+						</c:when>
+						<c:otherwise>
+							<a href="/page/content?p_no=${productVo.p_no}">${productVo.p_content}</a>
+						</c:otherwise>
+						</c:choose>	
 						</td>
 						<td>
 							${productVo.p_seller }<span>님</span>
@@ -261,7 +295,7 @@ $("#getDirect").click(function(){
 	<h4>판매자에게 직접 구매하기</h4>
 	<hr>
 	
-	<textarea cols="30" rows="5" class="form-control">
+	<textarea cols="30" rows="5" class="form-control" id="txaMessage">
 	                                                     판매자에게 남길 메시지를 적어 주세요.
 	-------------------------------------------------구매 양식-------------------------------------------------
 						    구매한 물품 이름 : 

@@ -51,6 +51,14 @@ public class ComputerCommentServiceImpl implements ComputerCommentService {
 		List<ProductExplainVo> list = computerCommentDao.searchInquire(productExplainVo);
 		return list;
 	}
+
 	
 
+	@Override
+	public int explainRefContent(int p_e_no, String ref_content) throws Exception {
+		int count = computerCommentDao.explainRefContent(p_e_no, ref_content);
+		return count;
+	}
+
+	
 }

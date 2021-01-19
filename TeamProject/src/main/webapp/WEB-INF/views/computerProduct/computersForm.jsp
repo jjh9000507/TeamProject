@@ -391,11 +391,9 @@ $(function() {
 		</c:choose>
 		</a>		
 		</div>
-		</div>  
-	
+		</div>	
 </nav>
 <header class="header">
-
 <c:if test="${categoryInfo != null}">
 <label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
 &nbsp<button id="computersBack" class="btn btn-warning btn-xs">뒤로</button>
@@ -482,14 +480,12 @@ $(function() {
 									</th>
 									<th>
 										구매								
-									</th>
-									
+									</th>									
 								</tr>
 							</thead>
 							<tbody>
 								<tr>
-									<td>
-									<a href="#">
+									<td>									
 										<c:choose>
 											<c:when test="${ComputerVo.c_com_pic == null}">
 												<img src="/resources/computerImage/default.png" style="width:150px; height:150px;"/>
@@ -497,22 +493,20 @@ $(function() {
 										<c:otherwise>												
 												<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ComputerVo.c_com_pic}" style="width:150px; height:150px;"/>
 											</c:otherwise>
-										</c:choose>
-										</a>
+										</c:choose>										
 									</td>
 									<td>
-										<a href="#">${ComputerVo.c_com_name}</a>&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">상세보기</button>
+										${ComputerVo.c_com_name}&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">상세보기</button>
 									</td>
 									<td>
-										<a href="#">${ComputerVo.c_com_seller}</a>
+										${ComputerVo.c_com_seller}
 									</td>
 									<td>
 										<span id="price">${ComputerVo.c_com_price}</span>원
 									</td>
 									<td>
 										<a href="/computerProduct/buyComputerProduct/${ComputerVo.p_no}">상품구매하기</a>
-									</td>
-									
+									</td>									
 								</tr>
 							</tbody>			
 						</table>
