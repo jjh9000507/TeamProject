@@ -322,6 +322,8 @@ $(function(){
 							</button>
 						</div>
 						<div class="modal-body">
+						<div class="row">
+		<div class="col-md-12" style="right:31px">
 						<select id="buySelectModal">
 							<option value="상품문의" selected="selected">상품문의</option>
 							<option value="배송">배송</option>
@@ -332,6 +334,8 @@ $(function(){
 						<input type="text" class="form-control" name="p_e_contents" id="p_e_contents" placeholder="상품문의 사항 작성"/>
 						<input type="text" style="display: none;" id="getInquireId" value="${sessionScope.memberVo.m_id}"/>
 						<input type="text" style="display: none;" id="getInquireProduct" value="${buyComputerVo.c_com_name}"/>
+						</div>
+						</div>
 						</div>
 						<div class="modal-footer">							 
 							<button type="button" id="buySelectModalConfirm" class="btn btn-primary">
@@ -553,7 +557,7 @@ $(function(){
 		<div class="col-md-12">
 		<div>
 		<ul class="nav nav-tabs breadcrumb" id="inquireControll" style="display: none;">
-		<li class="nav-item"><input placeholder="검색어 입력" id="searchInquireListSearch" type="text"/><button type="button" id="searchInquireButton">검색</button></li>&nbsp&nbsp&nbsp
+		<li class="nav-item"><input placeholder="문의내용 입력" id="searchInquireListSearch" type="text"/><button type="button" id="searchInquireButton">검색</button></li>&nbsp;&nbsp;&nbsp;
 		<li class="nav-item">						 
 				<select id="buySelectInquireListSearchOption">
 							<option value="상품문의" selected="selected">상품문의</option>

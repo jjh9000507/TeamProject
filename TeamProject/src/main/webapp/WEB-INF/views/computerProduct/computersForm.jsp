@@ -194,13 +194,12 @@ $(function() {
 	
 });
 </script>
-<div class="row">
+	<div class="row">
 		<div class="col-md-12">
 <a id="modal-Info" href="#modal-container-Info" role="button" class="btn" data-toggle="modal" style="display: none;">Launch demo modal</a>
-			
-			<div class="modal fade modal-fullsize" id="modal-container-Info" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-				<div class="modal-dialog modal-fullsize" role="document">
-					<div class="modal-content modal-fullsize">
+			<div class="modal fade" id="modal-container-Info" role="dialog" aria-labelledby="myLargeModalLabe" aria-hidden="true">
+				<div class="modal-dialog modal-lg" role="document">
+					<div class="modal-content">
 						<div class="modal-header">
 							<h5 class="modal-title" id="myModalLabel">
 								제품설명창
@@ -209,8 +208,9 @@ $(function() {
 								<span aria-hidden="true">×</span>
 							</button>
 						</div>
-						<div class="modal-body">				
-							
+						<div class="modal-body">
+						<div class="row">
+		<div class="col-md-12" style="right:61px">							
 			<table class="table">
 				<thead>
 					<tr>
@@ -264,26 +264,22 @@ $(function() {
 						<td>
 							
 						</td>
-					</tr>					
-									
+					</tr>									
 				</tbody>
-			</table>		
+			</table>
+			</div>
+			</div>		
 						</div>
-						<div class="modal-footer">
-							 
-							 
+						<div class="modal-footer">							 
 							<button type="button" class="btn btn-secondary" data-dismiss="modal">
 								닫기
 							</button>
 						</div>
-					</div>
-					
-				</div>
-				
+					</div>					
+				</div>				
+			</div>	
 			</div>
-			
-		</div>
-	</div>
+			</div>		
 <div style="display: none;" id="cate_no_form">
 <input type="text" name="cate_no_form" value="${cate_no_list}"/>
 </div>	
@@ -415,11 +411,7 @@ $(function() {
 	<div id="divData" style="display:none;">		
 	</div>
 </form>
-
-			 
-
 </header>
-
 <aside class="asideUp">
 <a href="http://www.auction.co.kr/" target="_blank" title="제휴사이트입니다.">
 <img src="/resources/bannerImage/auction.png" alt="제휴사이트" class="asideUpBanner"/>
@@ -500,10 +492,10 @@ $(function() {
 									<a href="#">
 										<c:choose>
 											<c:when test="${ComputerVo.c_com_pic == null}">
-												<img src="/resources/computerImage/default.png"/>
+												<img src="/resources/computerImage/default.png" style="width:150px; height:150px;"/>
 											</c:when>
-										<c:otherwise>
-												<img src="/resources/image/main_logo2.png"/>
+										<c:otherwise>												
+												<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ComputerVo.c_com_pic}" style="width:150px; height:150px;"/>
 											</c:otherwise>
 										</c:choose>
 										</a>
