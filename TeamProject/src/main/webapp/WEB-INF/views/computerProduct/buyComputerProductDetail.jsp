@@ -176,16 +176,20 @@ $(function(){
 	var productName = "${buyComputerInfo.productName}";
 	var sendMethod = "${buyComputerInfo.sendMethod}";
 	var m_id = "${sessionScope.memberVo.m_id}";
-	var m_point = "${sessionScope.memberVo.m_point}";
+	var m_point = "${m_point}";
+	console.log("m_point:" + m_point);
 	var cPrice = "";
 	if((m_point >= 0)  && (m_point < 5000)){		
 		$("#gradePrice").text("할인가 없음");
-	}else if((m_point >= 5000)  && (m_point < 10000)){
+		cPrice = price;
+	}else if((m_point >= 5000) && (m_point < 10000)){
 		cPrice = price * 0.9;
-		$("#gradePrice").text("10% 할인하여 " + cPrice);
+		console.log("cPrice:" + cPrice);
+		$("#gradePrice").text("10% 할인하여 " + cPrice + "원");
 	}else if(m_point >= 10000){
 		cPrice = price * 0.7;
-		$("#gradePrice").text("30% 할인하여 " + cPrice);
+		console.log("cPrice:" + cPrice);
+		$("#gradePrice").text("30% 할인하여 " + cPrice + "원");
 	}
 	console.log("todayValueYear:" + todayValueYear);
 	console.log("todayValueMonth:" + todayValueMonth);
@@ -564,7 +568,7 @@ $(function(){
 							${buyComputerInfo.price}<span>원</span>
 						</td>
 						<td>
-							<span id="gradePrice"></span><span>원</span>
+							<span id="gradePrice"></span>
 						</td>
 						<td>
 							<span id="buyYear"></span>-<span id="buyMonth"></span>-<span id="buyDate"></span>

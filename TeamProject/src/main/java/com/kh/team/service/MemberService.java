@@ -22,4 +22,6 @@ public interface MemberService {
 	
 	// 컴퓨터 제품 구매시 가격당 포인트 올려주기
 	public int increaseMemberPoint(int totalPoint, String m_id) throws Exception;
+	// 멤버 포인트 가져오기
+	public int getMemberPoint(String m_id) throws Exception;
 }

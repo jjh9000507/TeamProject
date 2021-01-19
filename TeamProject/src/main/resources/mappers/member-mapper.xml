@@ -48,7 +48,7 @@
 	
 	
 	
-	<select id="getByMemberPoint">
+	<select id="getByMemberPoint" resultType="int">
 		select m_point
 		from member
 		where m_id = #{m_id}			

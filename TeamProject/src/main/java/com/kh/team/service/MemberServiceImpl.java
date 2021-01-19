@@ -65,6 +65,12 @@ public class MemberServiceImpl implements MemberService {
 		return count;
 	}
 
+	@Override
+	public int getMemberPoint(String m_id) throws Exception {
+		int originalPoint = memberDao.getByMemberPoint(m_id);
+		return originalPoint;
+	}
+
 	
 
 	

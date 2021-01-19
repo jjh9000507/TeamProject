@@ -255,6 +255,7 @@ $(function(){
 					searchBuyFormSendData.find("input").eq(3).val(productName);
 					searchBuyFormSendData.find("input").eq(4).val(sendMethod);
 					searchBuyFormSendData.find("input").eq(5).val(p_no);
+					searchBuyFormSendData.find("input").eq(6).val(m_id);
 					$("#frmBuyFormSendData").submit();
 				}		
 			}else{
@@ -347,6 +348,7 @@ $(function(){
 	<input type="text" name="productName" value=""/>
 	<input type="text" name="sendMethod" value=""/>
 	<input type="number" name="p_no" value=""/>
+	<input type="text" name="m_id" value=""/>
 </div>
 </form>
 

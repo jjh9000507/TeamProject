@@ -36,8 +36,10 @@ public class BuyComputerProductController {
 	public String openBuyComputerProductDetail(BuyComputerVo buyComputerVo, HttpServletRequest request) throws Exception{
 		System.out.println("/openBuyComputerProductDetail");
 		System.out.println("buyComputerVo:" + buyComputerVo);
-		
+		String m_id = buyComputerVo.getM_id();
+		int m_point = memberService.getMemberPoint(m_id);
 		request.setAttribute("buyComputerInfo", buyComputerVo);	
+		request.setAttribute("m_point", m_point);	
 		return "/computerProduct/buyComputerProductDetail";				
 	}
 	
@@ -111,6 +113,8 @@ public class BuyComputerProductController {
 		
 		if(count == 1) {
 			show = "success";
+		}else {
+			System.out.println("좆같은");
 		}
 	
 		
