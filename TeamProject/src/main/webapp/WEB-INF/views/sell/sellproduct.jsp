@@ -25,6 +25,7 @@
 $(function(){
 	//대분류 선택
 	$("#large").change(function(){
+		$("#sellLevel").val("1");
 		var selected = $("#large option:selected").val();
 		var url = "/sellproduct/getCategoryList";
 		var sendData = {
@@ -52,6 +53,7 @@ $(function(){
 	
 	//중분류 선택
 	$("#middle").on("change", function(){
+		$("#sellLevel").val("2");
 		var selected = $("#middle option:selected");
 		$("#smallDiv").hide();
 		$("#smallDiv2").hide();
@@ -94,6 +96,7 @@ $(function(){
 	});
 	//소분류1 선택
 	$("#small").on("change", function(){
+		$("#sellLevel").val("3");
 		var selected = $("#small option:selected");
 		
 		if(selected.text() == "기타"){
@@ -198,15 +201,21 @@ $(function(){
 		} else if(large == 50){
 			form.attr("action", "/sellproduct/computerUpload");
 		}
-
-		if(small2 != null){
-			cate_no.val(small2);
+		
+		var insertLevel = $("#sellLevel").val();
+		if(insertLevel == ""){
+			alert("카테고리를 선택해주세요.");
+			return false;
+		}
+		
+		if(insertLevel == 1){
+			cate_no.val(large);
+		} else if(insertLevel == 2){
+			cate_no.val(middle);
+		} else if(insertLevel == 3){
+			cate_no.val(small1);
 		} else {
-			if(small1 != null){
-				cate_no.val(small1);
-			} else {
-				cate_no.val(middle);
-			}	
+			cate_no.val(small2);
 		}
 
 		var title = $("#p_name").val();
@@ -275,14 +284,12 @@ $(function(){
 			<form role="form" id="frmUpload" action="" method="post" enctype="multipart/form-data">
 			<div class="form-group">
 					<label for="p_name"> 상품명 </label>
-					<input name="p_name"
-						type="text" class="form-control" id="p_name" required/>
+					<input name="p_name" type="text" class="form-control" id="p_name" required/>
 				</div>
 				
 				<div class="form-group">
 					<label for="p_price"> 판매가 </label>
-					<input name="p_price"
-						type="number" class="form-control" id="p_price" required/>
+					<input name="p_price" type="number" class="form-control" id="p_price" required/>
 				</div>
 				
 				<div class="form-group" style="display: none;">
@@ -362,8 +369,7 @@ $(function(){
 				<div id="uploadedList">
 				
 				</div>
-				
-<!-- 				<input type="hidden" name="p_thumbimg"> -->
+				<input type="hidden" id="sellLevel">
 				<div id="divSellProduct">
 					<button type="button" id="btnSellProduct">상품 등록</button>
 				</div>
