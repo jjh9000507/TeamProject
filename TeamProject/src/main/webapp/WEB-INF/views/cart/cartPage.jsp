@@ -50,7 +50,10 @@ text-align:center;
 </style>
 <script>
 $(function(){
-	
+	var msg = "${msg}"
+	if(msg == "successDelete"){
+		alert("취소되었습니다.");
+	}
 	$(".cartDelete").on("click", function(e){
 		e.preventDefault();
 		var url = "/cart/cartDelete";
@@ -60,7 +63,8 @@ $(function(){
 		
 		$.get(url, sendData, function(data){
 			if(data.trim() == "success"){
-				$(".cartHome").trigger("click");
+				alert("취소되었습니다.");
+				location.reload();
 			}
 		});
 	});
@@ -82,8 +86,8 @@ $(function(){
 	
 	$("#btnAllBuy").click(function(){
 		if(checkLength() == true){			
-			$("#frmCart").attr("method","get");
-			$("#frmCart").attr("action","/page/purchase").submit();
+// 			$("#frmCart").attr("method","get");
+			$("#frmCart").attr("action","/cart/purchase").submit();
 		}
 	});
 	
@@ -142,9 +146,8 @@ $(function(){
 								</c:if>
 							</c:forEach>
 							<td class="btnCart">
-								<a href="/page/purchase" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a>
+								<a href="/cart/purchase" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a>
 								<a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartDelete">취소</a>
-								<button type="button" onclick="location.reload()" class="cartHome" style="display: none">홈</button>
 							</td>
 						</tr>
 					</c:forEach>
