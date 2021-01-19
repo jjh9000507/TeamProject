@@ -504,10 +504,10 @@ $(function(){
 <nav class="buynav">
 <c:choose>
 <c:when test="${buyComputerVo.c_com_pic == null}">
-<img src="/resources/computerImage/default.png" width="400px" height="300px"/>
+<img src="/resources/computerImage/default.png" style="width:400px; height:300px;"/>
 </c:when>
-<c:otherwise>
-<img src="/resources/image/main_logo2.png" width="400px" height="300px"/>
+<c:otherwise>												
+<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${buyComputerVo.c_com_pic}" style="width:400px; height:300px;"/>
 </c:otherwise>
 </c:choose>
 </nav>
