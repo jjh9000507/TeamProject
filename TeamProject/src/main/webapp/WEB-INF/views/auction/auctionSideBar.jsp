@@ -5,8 +5,9 @@
 
 <script>
 $(function(){
-	/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- */
+	// ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- 
 	//메인으로
+	/*
 	$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
 		$(".sidebar__nav > li:eq(1) > ul").show();	
 	});
@@ -70,25 +71,25 @@ $(function(){
 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/main_blue.png"/></i>
 					<span class="sidebar__nav__text">메인으로</span>
 				</a>
-					<ul class="sidebar__submenu">
-					</ul>
+					
 			</li>
-		 <!-- 관심상품 -->
-			<li>
-				<a href="#" class="sidebar__nav__link">
-					<i class=""><img class="sidebar__img" src="/resources/auctionImage/favorite_blue.png"/></i>
-					<span class="sidebar__nav__text">관심상품</span>
-				</a>
-			</li>
-		 <!-- 내상품 -->
+		
+		 <!-- 판매 상품 -->
 		 <c:if test="${sidebarRegisterListNO != 'no'}">
 			<li>
 				<a href="/auction/auctionResisterList" class="sidebar__nav__link">
 					<i class=""><img class="sidebar__img" src="/resources/auctionImage/myitem_blue.png"/></i>
-					<span class="sidebar__nav__text">내상품</span>
+					<span class="sidebar__nav__text">판매 상품</span>
 				</a>
 			</li>
 		</c:if>
+		<!-- 구매 상품 -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/btnPurchaser.png"/></i>
+					<span class="sidebar__nav__text">구매 상품</span>
+				</a>
+			</li>
 		 <!--내가 주문한 내역 -->
 			<li>
 				<a href="#" class="sidebar__nav__link">
@@ -107,6 +108,21 @@ $(function(){
 					</span>
 				</a>
 			</li>
+		<!-- 상품 등록 -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/btnRegister.png"/></i>
+					<span class="sidebar__nav__text">상품 등록</span>
+				</a>
+			</li>
+		<!-- 관심상품 -->
+			<li>
+				<a href="#" class="sidebar__nav__link">
+					<i class=""><img class="sidebar__img" src="/resources/auctionImage/favorite_blue.png"/></i>
+					<span class="sidebar__nav__text">관심상품</span>
+				</a>
+			</li>
+		<!-- 끝 -->
 		</ul>
 	</nav>
 </aside>

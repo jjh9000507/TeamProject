@@ -62,4 +62,14 @@
 		where p_no = #{p_no}
 		and m_id = #{m_id}
 	</select>
+	
+	<select id="getP_no" resultType="_int">
+		select p_no from cart
+		where cart_no = #{cart_no}
+	</select>
+	
+	<select id="getProduct" resultType="ProductVo">
+		select * from product
+		where p_no2 = #{p_no2}
+	</select>
 </mapper>

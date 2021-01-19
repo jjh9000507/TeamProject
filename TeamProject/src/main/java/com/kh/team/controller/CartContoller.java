@@ -1,5 +1,6 @@
 package com.kh.team.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -10,6 +11,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.domain.CartVo;
 import com.kh.team.domain.MemberVo;
@@ -67,18 +69,26 @@ public class CartContoller {
 	
 	//여러개 선택 장바구니 삭제
 	@RequestMapping(value="/cartListDelete", method=RequestMethod.POST)
-	public String cartListDelete(int[] cart_no, String type) throws Exception{
+	public String cartListDelete(int[] cart_no, String type, RedirectAttributes rttr) throws Exception{
 //		for(int i = 0; i<cart_no.length; i++) {
 //			System.out.println("cart_no: " + cart_no[i]);
 //		}
 		cartService.cartOutput(cart_no);
+		rttr.addFlashAttribute("msg", "successDelete");
 		return "redirect:/cart/cartPage";
 	}
 	
 	//상품 구매
-	@RequestMapping(value="/cartListBuy", method=RequestMethod.POST)
-	public String cartListBuy(int[] cart_no, String type) throws Exception{
-		
-		return "";
+	@RequestMapping(value="/purchase", method=RequestMethod.POST)
+	public String cartListBuy(int[] cart_no, String type, Model model) throws Exception{
+		List<ProductVo> productList = new ArrayList<>();
+		for(int i = 0; i<cart_no.length; i++) {
+			int p_no = cartService.getP_no(cart_no[i]);
+			ProductVo productVo = cartService.getProduct(p_no);
+			productList.add(productVo);
+		}
+		System.out.println("productList: " + productList);
+		model.addAttribute("productList", productList);
+		return "/cart/purchaseForm";
 	}
 }

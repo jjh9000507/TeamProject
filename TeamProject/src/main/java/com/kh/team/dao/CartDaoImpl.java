@@ -52,4 +52,16 @@ public class CartDaoImpl implements CartDao {
 		return searchCart;
 	}
 
+	@Override
+	public int getP_no(int cart_no) throws Exception {
+		int getP_no = sqlSession.selectOne(NAMESPACE + "getP_no", cart_no);
+		return getP_no;
+	}
+
+	@Override
+	public ProductVo getProduct(int p_no) throws Exception {
+		ProductVo getProduct = sqlSession.selectOne(NAMESPACE + "getProduct", p_no);
+		return getProduct;
+	}
+
 }

@@ -21,6 +21,7 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ClothesVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.MessageVo;
 import com.kh.team.domain.ProductImgVo;
 import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.SanctionVo;
@@ -100,6 +101,14 @@ public class SellProductContoller {
 		whitegoodsVo.setW_thumbimg(upload);
 
 		sellProductService.whitegoodsInsert(whitegoodsVo, productImgVo);
+		
+		int p_no = whitegoodsVo.getP_no();
+		productVo.setP_seller(memberVo.getM_id());
+		productVo.setP_no(p_no);
+		productVo.setP_no2(p_no);
+		productVo.setP_thumbimg(upload);
+		sellProductService.insertProduct(productVo);
+		
 		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
@@ -130,6 +139,14 @@ public class SellProductContoller {
 		clothesVo.setP_thumbimg(upload);
 		
 		clothesService.insertClothes(clothesVo);
+		
+		int p_no = clothesVo.getP_no();
+		productVo.setP_seller(memberVo.getM_id());
+		productVo.setP_no(p_no);
+		productVo.setP_no2(p_no);
+		productVo.setP_thumbimg(upload);
+		sellProductService.insertProduct(productVo);
+		
 		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
@@ -179,6 +196,14 @@ public class SellProductContoller {
 		computerVo.setC_com_pic(upload);
 		
 		sellProductService.computerInsert(computerVo, productImgVo);
+		
+		int p_no = computerVo.getP_no();
+		productVo.setP_seller(memberVo.getM_id());
+		productVo.setP_no(p_no);
+		productVo.setP_no2(p_no);
+		productVo.setP_thumbimg(upload);
+		sellProductService.insertProduct(productVo);
+		
 		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
@@ -254,5 +279,30 @@ public class SellProductContoller {
 	public String deleteAjax(String filename) throws Exception {
 		UploadFileUtils.delete(filename);
 		return "success";
+	}
+	
+	// 직접 구매하기위해 판매자에게 메시지 보내기
+	@ResponseBody
+	@RequestMapping(value="/message" , method=RequestMethod.POST)
+	public String seller_TO_message(MessageVo messageVo) throws Exception {
+		System.out.println("messageVo : " + messageVo);
+		sellProductService.seller_TO_message(messageVo);
+		return "success";
+	}
+	
+	// 내 메시지 함으로 이동
+	@RequestMapping(value="/messageList" , method=RequestMethod.GET)
+	public String messageList(Model model, String m_id) throws Exception {
+		System.out.println("m_id : " + m_id);
+
+		// 받은 메시지함
+		List<MessageVo> receive_MessageList = sellProductService.receive_MessageList(m_id);
+		model.addAttribute("receive_MessageList" , receive_MessageList);
+		
+		// 보낸 메시지함
+		List<MessageVo> send_MessageList = sellProductService.send_MessageList(m_id);
+		model.addAttribute("send_MessageList" , send_MessageList);
+		
+		return "/sell/messageList";
 	}
 }

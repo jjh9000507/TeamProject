@@ -11,7 +11,7 @@ public class AuctionVo {
 	private int instant_price;
 	private String purchaser;
 	private int sold_price;
-	private String  sell_status;
+	private String sell_status;
 	
 	public int getP_no() {
 		return p_no;

@@ -406,6 +406,9 @@ $(function(){
 		//location.href="/auction/auctionSelected";
 	});
 	
+	$("#dsf").click(function(){
+		alert("df");
+	});
 });//function
 
 // function makeTwoDigit(num){
@@ -425,19 +428,14 @@ $(function(){
 <div class="row">
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
-		
-			<%@ include file="../include/header_mainCatagories.jsp"%>
-	
+			<%@ include file="auctionHeader.jsp"%>
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
-	
 		<div class="col-md-2">
 		<button type="button" id="stopTimer">타이머종료</button>	
 		</div>
 		
-		<div class="col-md-8">
-			<div><a href="/auction/auctionResisterList"><img src="/resources/auctionImage/btn_sell.png"></a></div>
+		<div class="col-md-8" >
 			<div class="lblHOT">
-				
 			 	<table border=0>
 			 		<c:forEach var="auctionSellVo" items="${list}" varStatus="status">
 			 		<c:if test="${(status.count-1) % 4 == 0}">

@@ -54,6 +54,11 @@
 	values(seq_furniter_interior_no, #{life_name}, #{cate_no}, #{life_price}, #{life_content}, #{life_seller}, #{life_thumbimg}, #{p_no})
 	</insert>
 	
+	
+	<insert id="insertProduct">
+		insert into product(p_no, p_name, cate_no, p_price, p_content, p_seller, p_thumbimg,  p_no2)
+		values(#{p_no}, #{p_name}, #{cate_no}, #{p_price}, #{p_content}, #{p_seller}, #{p_thumbimg}, #{p_no2})
+	</insert>
 	<!-- 상품설명 이미지 등록 -->
 	<insert id="productImage">
 		insert into product_images(img_no, img_name, p_no)
@@ -70,5 +75,23 @@
 	<select id="getPnoNextVal" resultType="int">
 		select seq_product_no.nextval
 		from dual
+	</select>
+	
+	<!-- 메시지 보내기 -->
+	<insert id="seller_TO_message">
+		insert into seller_msg ( msg_no , msg_sender, msg_receiver, msg_productName, msg_content, msg_sendDate)
+					values ( seq_msg_no.nextval , #{msg_sender} , #{msg_receiver} , #{msg_productName} , #{msg_content} , sysdate) 	
+	</insert>
+
+	<!--받은 메시지 목록 -->	
+	<select id="receive_MessageList" resultType="MessageVo">
+		select * from seller_msg
+		where msg_receiver = #{msg_receiver}
+	</select>
+	
+	<!--보낸 메시지 목록 -->
+	<select id="send_MessageList" resultType="MessageVo">
+		select * from seller_msg
+		where msg_sender = #{msg_sender}
 	</select>
  </mapper>
