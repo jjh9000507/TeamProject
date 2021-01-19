@@ -100,7 +100,7 @@ $(function(){
 					tr.find("td").eq(8).text(this.p_e_re);
 					w_id = this.p_e_id;
 				}else{
-					tr.find("td").eq(8).text("문의자와 답변자만 볼수 있음");
+					tr.find("td").eq(8).text("");
 				}
 				$("#productExplainTable").append(tr);
 				indexInquire++;
@@ -194,7 +194,7 @@ $(function(){
 					tr.find("td").eq(8).text(this.p_e_re);
 					w_id = this.p_e_id;
 				}else{
-					tr.find("td").eq(8).text("문의자와 답변자만 볼수 있음");
+					tr.find("td").eq(8).text("");
 				}
 				
 				$("#productExplainTable").append(tr);
