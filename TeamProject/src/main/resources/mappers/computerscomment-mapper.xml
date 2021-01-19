@@ -27,8 +27,8 @@
 	</select>
 	
 	<insert id="insetInquire">
-		insert into product_explain_table(p_e_no, p_e_answer_status, p_e_inquiry_status, p_e_title, p_e_id, p_e_regdate, p_e_product)
-		values (explain_table_cno.nextval,'답변예정',#{p_e_inquiry_status},#{p_e_title},#{p_e_id},sysdate,#{p_e_product})
+		insert into product_explain_table(p_e_no, p_e_answer_status, p_e_inquiry_status, p_e_title, p_e_id, p_e_regdate, p_e_product, p_e_re)
+		values (explain_table_cno.nextval,'답변예정',#{p_e_inquiry_status},#{p_e_title},#{p_e_id},sysdate,#{p_e_product},'미기입')
 	</insert>
 	
 	<update id="updateCommentContent">
@@ -40,5 +40,14 @@
 	<delete id="deleteComment">
 		delete from c_com_comment_table
 		where c_com_comment_no = #{c_com_comment_no}
-	</delete>	
+	</delete>
+	
+	<update id="explainRefContent">
+		update product_explain_table set
+			p_e_answer_status = '답변완료',
+			p_e_re = #{p_e_re}
+		where p_e_no = #{p_e_no}
+	</update>
+	
+		
 </mapper>

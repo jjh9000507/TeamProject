@@ -391,11 +391,9 @@ $(function() {
 		</c:choose>
 		</a>		
 		</div>
-		</div>  
-	
+		</div>	
 </nav>
 <header class="header">
-
 <c:if test="${categoryInfo != null}">
 <label class="computerFormListMenu">전체</label>&nbsp<button id="checkboxSearch" class="btn btn-warning btn-xs">검색</button>
 &nbsp<button id="computersBack" class="btn btn-warning btn-xs">뒤로</button>
@@ -482,8 +480,7 @@ $(function() {
 									</th>
 									<th>
 										구매								
-									</th>
-									
+									</th>									
 								</tr>
 							</thead>
 							<tbody>
@@ -501,18 +498,17 @@ $(function() {
 										</a>
 									</td>
 									<td>
-										<a href="#">${ComputerVo.c_com_name}</a>&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">상세보기</button>
+										${ComputerVo.c_com_name}&nbsp;&nbsp;<button type="button" class="showProductInfo" data-pno="${ComputerVo.p_no}">상세보기</button>
 									</td>
 									<td>
-										<a href="#">${ComputerVo.c_com_seller}</a>
+										${ComputerVo.c_com_seller}
 									</td>
 									<td>
 										<span id="price">${ComputerVo.c_com_price}</span>원
 									</td>
 									<td>
 										<a href="/computerProduct/buyComputerProduct/${ComputerVo.p_no}">상품구매하기</a>
-									</td>
-									
+									</td>									
 								</tr>
 							</tbody>			
 						</table>

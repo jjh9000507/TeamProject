@@ -59,6 +59,15 @@ public class ComputerCommentDaoImpl implements ComputerCommentDao {
 		List<ProductExplainVo> list = sqlSession.selectList(NAMESPACE + "searchInquire", productExplainVo);
 		return list;
 	}
-		
+
+	
+	@Override
+	public int explainRefContent(int p_e_no, String ref_content) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("p_e_no", p_e_no);
+		map.put("p_e_re", ref_content);
+		int count = sqlSession.update(NAMESPACE + "explainRefContent", map);
+		return count;
+	}
 	
 }
