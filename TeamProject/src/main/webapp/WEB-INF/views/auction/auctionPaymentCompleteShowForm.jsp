@@ -2,7 +2,14 @@
     pageEncoding="UTF-8"%>
 <%@ include file="../include/header.jsp"%>
     
-${auctionOrderVo}
+<script>
+$(function(){
+	$("#btnMain").click(function(){
+		location.href="/auction/auctionMain";
+	})
+})
+</script>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2">
@@ -102,7 +109,7 @@ ${auctionOrderVo}
 						<!-- 결제 금액 끝 -->
 					</tr>
 				</table>
-			
+				<button id="btnMain">메인으로</button><button>결제 내역 확인</button>
 			</div><!-- 내부 md-8 -->
 			<div class="col-md-2"></div><!-- 내부 md-2 -->
 		</div><!-- 외부 md-8 -->

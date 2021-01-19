@@ -17,4 +17,10 @@ public interface CartDao {
 	
 	//장바구니 넣기 전 장바구니에 상품 있는지 확인
 	public CartVo searchCart(int p_no, String m_id) throws Exception;
+	
+	//카트번호에 대조하여 들어있는 p_no 가져오기
+	public int getP_no(int cart_no) throws Exception;
+	
+	//가져온 p_no에 해당하는 상품 가져오기
+	public ProductVo getProduct(int p_no) throws Exception;
 }

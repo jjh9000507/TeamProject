@@ -12,6 +12,7 @@ import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
 import com.kh.team.domain.MessageVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 @Service
@@ -104,6 +105,11 @@ public class SellProductServiceImpl implements SellProductService {
 			}
 		}
 	}
+	
+	@Override
+	public void insertProduct(ProductVo productVo) throws Exception {
+		sellProductDao.insertProduct(productVo);
+	}
 
 	@Override
 	public List<CategoryVo> firstCategoryList() throws Exception {
@@ -145,6 +151,5 @@ public class SellProductServiceImpl implements SellProductService {
 		List<MessageVo> list = sellProductDao.send_MessageList(m_id);
 		return list;
 	}
-
 
 }

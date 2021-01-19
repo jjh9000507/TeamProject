@@ -10,6 +10,14 @@
 <script>
 $(function() {
 	var secretCodeNum = "";
+	var memberPoint = "${memberVoInfo.m_point}"
+	if((memberPoint >= 0)  && (memberPoint < 5000)){
+		$("#memberGrade").text("일반회원");
+	}else if((memberPoint >= 5000)  && (memberPoint < 10000)){
+		$("#memberGrade").text("골드회원");
+	}else if(memberPoint >= 10000){
+		$("#memberGrade").text("VIP");
+	}
 	
 	$("#memberVoInfoUpdateButton").click(function() {
 		$("#modal-549609").trigger("click");
@@ -200,9 +208,8 @@ $(function() {
 						<td>${memberVoInfo.m_point}</td>						
 					</tr>
 					<tr>
-						<td>사진</td>
-						<td><img height="77" src="/resources/userImage/defaultjjh.jpg"
-						class="img-rounded" alt="User Image" /></td>						
+						<td>회원 등급</td>
+						<td><span id="memberGrade"></span></td>						
 					</tr>
 				</tbody>
 			</table>

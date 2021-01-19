@@ -7,6 +7,7 @@ import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
 import com.kh.team.domain.MessageVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 public interface SellProductService {
@@ -24,7 +25,7 @@ public interface SellProductService {
 	public void fInteriorInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception;
 	public void fKitchenInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception;
 	public void fLifeInsert(FurnitureInteriorVo furnitureInteriorVo, ProductImgVo productImgVo) throws Exception;
-	
+	public void insertProduct(ProductVo productVo) throws Exception;
 	//상품등록 시 이미지 등록
 //	public void productImage(ProductImgVo productImgVo) throws Exception;
 	

@@ -54,6 +54,11 @@
 	values(seq_furniter_interior_no, #{life_name}, #{cate_no}, #{life_price}, #{life_content}, #{life_seller}, #{life_thumbimg}, #{p_no})
 	</insert>
 	
+	
+	<insert id="insertProduct">
+		insert into product(p_no, p_name, cate_no, p_price, p_content, p_seller, p_thumbimg,  p_no2)
+		values(#{p_no}, #{p_name}, #{cate_no}, #{p_price}, #{p_content}, #{p_seller}, #{p_thumbimg}, #{p_no2})
+	</insert>
 	<!-- 상품설명 이미지 등록 -->
 	<insert id="productImage">
 		insert into product_images(img_no, img_name, p_no)

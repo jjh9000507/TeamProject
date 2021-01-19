@@ -13,6 +13,7 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
 import com.kh.team.domain.MessageVo;
+import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 @Repository
@@ -66,6 +67,11 @@ public class SellProductDaoImpl implements SellProductDao {
 		
 	}
 
+	@Override
+	public void insertProduct(ProductVo productVo) throws Exception {
+		sqlSession.insert(NAMESPACE + "insertProduct", productVo);
+	}
+	
 	@Override
 	public void productImage(String img_name, int p_no) throws Exception {
 		Map<String, Object> map = new HashMap<>();

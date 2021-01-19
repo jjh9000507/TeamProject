@@ -101,6 +101,14 @@ public class SellProductContoller {
 		whitegoodsVo.setW_thumbimg(upload);
 
 		sellProductService.whitegoodsInsert(whitegoodsVo, productImgVo);
+		
+		int p_no = whitegoodsVo.getP_no();
+		productVo.setP_seller(memberVo.getM_id());
+		productVo.setP_no(p_no);
+		productVo.setP_no2(p_no);
+		productVo.setP_thumbimg(upload);
+		sellProductService.insertProduct(productVo);
+		
 		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
@@ -131,6 +139,14 @@ public class SellProductContoller {
 		clothesVo.setP_thumbimg(upload);
 		
 		clothesService.insertClothes(clothesVo);
+		
+		int p_no = clothesVo.getP_no();
+		productVo.setP_seller(memberVo.getM_id());
+		productVo.setP_no(p_no);
+		productVo.setP_no2(p_no);
+		productVo.setP_thumbimg(upload);
+		sellProductService.insertProduct(productVo);
+		
 		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}
@@ -180,6 +196,14 @@ public class SellProductContoller {
 		computerVo.setC_com_pic(upload);
 		
 		sellProductService.computerInsert(computerVo, productImgVo);
+		
+		int p_no = computerVo.getP_no();
+		productVo.setP_seller(memberVo.getM_id());
+		productVo.setP_no(p_no);
+		productVo.setP_no2(p_no);
+		productVo.setP_thumbimg(upload);
+		sellProductService.insertProduct(productVo);
+		
 		rttr.addFlashAttribute("msg", "upload");
 		return "redirect:/";
 	}

@@ -6,6 +6,7 @@ import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.FurnitureInteriorVo;
 import com.kh.team.domain.MessageVo;
+import com.kh.team.domain.ProductVo;
 import com.kh.team.domain.WhitegoodsVo;
 
 public interface SellProductDao {
@@ -23,7 +24,7 @@ public interface SellProductDao {
 	public void fInteriorInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception;
 	public void fKitchenInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception;
 	public void fLifeInsert(FurnitureInteriorVo furnitureInteriorVo) throws Exception;
-	
+	public void insertProduct(ProductVo productVo) throws Exception;
 	
 	//nextval
 	public int getPnoNextval();

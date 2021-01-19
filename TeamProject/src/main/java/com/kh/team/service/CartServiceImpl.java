@@ -46,4 +46,16 @@ public class CartServiceImpl implements CartService {
 		return searchCart;
 	}
 
+	@Override
+	public int getP_no(int cart_no) throws Exception {
+		int getP_no = cartDao.getP_no(cart_no);
+		return getP_no;
+	}
+
+	@Override
+	public ProductVo getProduct(int p_no) throws Exception {
+		ProductVo getProduct = cartDao.getProduct(p_no);
+		return getProduct;
+	}
+
 }
