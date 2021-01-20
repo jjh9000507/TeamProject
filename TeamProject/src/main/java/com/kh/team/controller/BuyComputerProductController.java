@@ -1,13 +1,14 @@
 package com.kh.team.controller;
 
 import javax.inject.Inject;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -22,27 +23,30 @@ import com.kh.team.service.MemberService;
 @Controller
 @RequestMapping("/buyComputerProduct")
 public class BuyComputerProductController {
+	//인덱스
 	private int index_c = 0;
 	private int CHECK_FOR_INDEX = 1;
-	
+	//인젝
 	@Inject
 	private BuyComputerService buyComputerService;
-
+	//인젝
 	@Inject
 	private MemberService memberService;
 	
-	
+	//구매하기 창 열기
 	@RequestMapping(value="/openBuyComputerProductDetail", method=RequestMethod.POST)
 	public String openBuyComputerProductDetail(BuyComputerVo buyComputerVo, HttpServletRequest request) throws Exception{
 		System.out.println("/openBuyComputerProductDetail");
 		System.out.println("buyComputerVo:" + buyComputerVo);
 		String m_id = buyComputerVo.getM_id();
+		//포인트 가져오기
 		int m_point = memberService.getMemberPoint(m_id);
 		request.setAttribute("buyComputerInfo", buyComputerVo);	
 		request.setAttribute("m_point", m_point);	
 		return "/computerProduct/buyComputerProductDetail";				
 	}
 	
+	//장바구니에 넣기
 	@RequestMapping(value="/putBasketProduct", method=RequestMethod.POST)
 	@ResponseBody
 	public String putBasketProduct(CartVo cartVo) throws Exception{
@@ -53,6 +57,7 @@ public class BuyComputerProductController {
 		return "success";				
 	}
 	
+	//구매율을 반영하기
 	@RequestMapping(value="/sendForGetPurchasePercentage", method=RequestMethod.POST)
 	@ResponseBody
 	public String sendForGetPurchasePercentage(BuyComputerVo buyComputerVo) throws Exception{
@@ -61,6 +66,7 @@ public class BuyComputerProductController {
 		
 		String nok = "nok";
 		
+		//구매율 가져오기
 		int count = buyComputerService.getPurchasePercentage(buyComputerVo, purchase_num_plus, nok);
 		String view = "";
 		if(count == CHECK_FOR_INDEX) {
@@ -71,6 +77,7 @@ public class BuyComputerProductController {
 		return view;		
 	}
 	
+	//구매자 이름 바꾸기
 	@RequestMapping(value="/changeBuyerName", method=RequestMethod.POST)
 	@ResponseBody
 	public String changeBuyerName(String buyerName, String m_id, String m_pass) throws Exception{
@@ -78,6 +85,7 @@ public class BuyComputerProductController {
 		System.out.println("m_id_buy_form:" + m_id);
 		System.out.println("m_pass_confirm:" + m_pass);
 		
+		//구매자 이름 바꾸기
 		int count = memberService.changeNameByCallProduct(buyerName, m_id, m_pass);
 		
 		String resultValue = "";
@@ -91,23 +99,28 @@ public class BuyComputerProductController {
 		return resultValue;		
 	}
 	
+	//결제하기
 	@RequestMapping(value="/sendProductInfoBought", method=RequestMethod.POST)
 	@ResponseBody
 	public String sendProductInfoBought(SendProductBoughtInfoVo sendProductBoughtInfoVo,HttpSession session, RedirectAttributes rttr, HttpServletResponse response,HttpServletRequest request) throws Exception{
-		System.out.println("sendProductBoughtInfoVo:" + sendProductBoughtInfoVo);		
+		System.out.println("sendProductBoughtInfoVo:" + sendProductBoughtInfoVo);
+		//개인정보 창에서 가져올 때 쓰기
 		session.setAttribute("sendProductBoughtInfoVo", sendProductBoughtInfoVo);
 		String productName = sendProductBoughtInfoVo.getProductName();
 		System.out.println("productName:" + productName);
 		String show = "fail";
+		
 		int totalPrice = sendProductBoughtInfoVo.getPrice();
 		System.out.println("totalPrice:" + totalPrice);
 		
+		//가격을 포인트로 변환하기
 		int totalPoint = totalPrice / 1000;
 		System.out.println("totalPoint:" + totalPoint);		
 		
 		String m_id = sendProductBoughtInfoVo.getM_id();
 		System.out.println("m_id:" + m_id);
 		
+		//포인트 더하기
 		int count = memberService.increaseMemberPoint(totalPoint, m_id);
 		System.out.println("count:" + count);
 		
@@ -136,27 +149,33 @@ public class BuyComputerProductController {
 			System.out.println("cookie(value_length):" + value.length());
 			if(name == null || name.equals("")) {
 				System.out.println("cookie_null");
+				//쿠키가 없을 경우 쿠키 생성
 				Cookie cookiePNA = new Cookie("productAName", productName);
 				
+				//쿠키 시간 설정
 				cookiePNA.setMaxAge(3 * 60);
 				cookiePNA.setPath("/");					
-				
+				//쿠키 더하기
 				response.addCookie(cookiePNA);
 				
 			}else if((name != null) && (!name.equals(""))) {
 					System.out.println("compare_name:" + name);
 					System.out.println("compare_length:" + name.length());
+					//쿠기에 해당 값이 존재하지 않을 경우
 						if(!value.equals(productName)) {
 							System.out.println("forIn(vlaue):" + value);
 							System.out.println("forIn(productName):" + productName);
 							System.out.println("cookie(add)");
 							System.out.println("index_c_before:" + index_c);
+							//인덱스 설정
 							String productNameNewIndex = "product" + index_c + "Name"; 
+							//쿠키 생성
 							Cookie cookiePNA = new Cookie(productNameNewIndex, productName);
 							System.out.println("index_c_after:" + index_c);
+							//쿠키 시간 설정
 							cookiePNA.setMaxAge(3 * 60);
 							cookiePNA.setPath("/");					
-							
+							//쿠키 추가
 							response.addCookie(cookiePNA);
 							
 					}else if(value.equals(productName)) {
@@ -168,9 +187,11 @@ public class BuyComputerProductController {
 			}
 			index_c++;
 			System.out.println("index_c:" + index_c);
+			//인덱스가 5개를 초과할 경우
 			if(index_c > 5) {
 				System.out.println("index_c_over:" + index_c);
 				System.out.println("초과");
+				//인덱스 0으로 만들기
 				index_c = 0;
 			}
 		
@@ -178,12 +199,14 @@ public class BuyComputerProductController {
 		return show;				
 	}
 	
+	//구매후기 추가
 	@RequestMapping(value="/insertProductRef", method=RequestMethod.POST)
 	@ResponseBody
 	public String insertProductRef(String productName, String m_id, String c_com_comment_content) throws Exception{
 		System.out.println("productName:" + productName);
 		System.out.println("m_id:" + m_id);
 		System.out.println("c_com_comment_content:" + c_com_comment_content);
+		//구매후기 추가
 		buyComputerService.insertProductRef(productName, m_id, c_com_comment_content);
 		return "success";				
 	}
