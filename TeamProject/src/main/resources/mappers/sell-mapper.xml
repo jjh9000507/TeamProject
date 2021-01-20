@@ -94,4 +94,10 @@
 		select * from seller_msg
 		where msg_sender = #{msg_sender}
 	</select>
+	
+	<!-- 메시지 컨텐츠 -->
+	<select id="messageContent" resultType="MessageVo">
+		select * from seller_msg
+		where msg_no = #{msg_no}
+	</select>
  </mapper>

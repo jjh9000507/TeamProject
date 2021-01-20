@@ -11,9 +11,12 @@
 
 #tabs-277268 {
     padding-top: 5%;
-    width: 65%;
-    left: 17%;
+    width: 100%;
     position: relative;
+}
+
+#div_receive table thead tr th , #div_send table thead tr th {
+	background : gainsboro;
 }
 
 </style>
@@ -23,11 +26,28 @@ $(function(){
 			$("#div_send").hide();	
 			$("#div_receive").show();
 			
+			$(this).css("border-top" , "2px solid gainsboro");
+			$(this).css("border-left" , "2px solid gainsboro");
+			$(this).css("border-right" , "2px solid gainsboro");
+			
+			$(".send").css("border-top" , "");
+			$(".send").css("border-left" , "");
+			$(".send").css("border-right" , "");
+			
 	});
 	
 	$(".send").click(function(){
 			$("#div_send").show();	
 			$("#div_receive").hide();
+			
+			$(this).css("border-top" , "2px solid gainsboro");
+			$(this).css("border-left" , "2px solid gainsboro");
+			$(this).css("border-right" , "2px solid gainsboro");
+			
+			$(".receive").css("border-top" , "");
+			$(".receive").css("border-left" , "");
+			$(".receive").css("border-right" , "");
+			
 			
 	});
 });
@@ -57,6 +77,8 @@ $(function(){
 		<div class="col-md-2">
 		</div>
 		<div class="col-md-8">
+			<h4 style="padding-top:8%">내 메시지함 </h4><hr>
+		
 			<div class="tabbable" id="tabs-277268">
 				<ul class="nav nav-tabs">
 				
@@ -93,7 +115,7 @@ $(function(){
 										<td>${receive.msg_productName}</td>
 										<td><c:choose>
 												<c:when test="${fn:length(receive.msg_content) > 15}">
-													${fn:substring(receive.msg_content.trim() , 0 , 15)}...
+													<a href="/sellproduct/messageContent?msg_no=${receive.msg_no}&type=receive">${fn:substring(receive.msg_content.trim() , 0 , 15)}...</a> 
 												</c:when>
 												<c:otherwise>
 													${receive.msg_content }
@@ -128,11 +150,11 @@ $(function(){
 								<c:forEach var="send" items="${send_MessageList}">
 									<tr>
 										<td><input type="checkbox" id="allCheckBox_child"></td>
-										<td>${send.msg_sender }</td>
+										<td>${send.msg_receiver}</td>
 										<td>${send.msg_productName}</td>
 										<td><c:choose>
 												<c:when test="${fn:length(send.msg_content) > 15}">
-													${fn:substring(send.msg_content.trim() , 0 , 20)}...
+													<a href="/sellproduct/messageContent?msg_no=${send.msg_no}&type=send">${fn:substring(send.msg_content.trim() , 0 , 20)}...</a>
 												</c:when>
 												<c:otherwise>
 													${send.msg_content }

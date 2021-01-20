@@ -152,4 +152,11 @@ public class SellProductServiceImpl implements SellProductService {
 		return list;
 	}
 
+	// 메시지 컨텐츠
+	@Override
+	public MessageVo messageContent(int msg_no) throws Exception {
+		MessageVo messageVo = sellProductDao.messageContent(msg_no);
+		return messageVo;
+	}
+
 }
