@@ -114,7 +114,7 @@ public class BuyComputerProductController {
 		System.out.println("totalPrice:" + totalPrice);
 		
 		//가격을 포인트로 변환하기
-		int totalPoint = totalPrice / 1000;
+		int totalPoint = totalPrice / 100;
 		System.out.println("totalPoint:" + totalPoint);		
 		
 		String m_id = sendProductBoughtInfoVo.getM_id();
@@ -131,25 +131,9 @@ public class BuyComputerProductController {
 		}
 	
 		
-		Cookie[] cookieRequest = request.getCookies();
 		
-		int c_length = cookieRequest.length;
-		System.out.println("c_length:" + c_length);
-		
-		for(int i=0; i<cookieRequest.length; i++){
-
-			Cookie c = cookieRequest[i]; // 객체 생성
-
-			String name = c.getName(); // 쿠키 이름 가져오기
-			
-			String value = c.getValue(); // 쿠키 값 가져오기
-			System.out.println("cookie(name):" + name);
-			System.out.println("cookie(name_length):" + name.length());
-			System.out.println("cookie(value):" + value);
-			System.out.println("cookie(value_length):" + value.length());
-			if(name == null || name.equals("")) {
 				System.out.println("cookie_null");
-				//쿠키가 없을 경우 쿠키 생성
+				//쿠키 생성
 				Cookie cookiePNA = new Cookie("productAName", productName);
 				
 				//쿠키 시간 설정
@@ -158,42 +142,7 @@ public class BuyComputerProductController {
 				//쿠키 더하기
 				response.addCookie(cookiePNA);
 				
-			}else if((name != null) && (!name.equals(""))) {
-					System.out.println("compare_name:" + name);
-					System.out.println("compare_length:" + name.length());
-					//쿠기에 해당 값이 존재하지 않을 경우
-						if(!value.equals(productName)) {
-							System.out.println("forIn(vlaue):" + value);
-							System.out.println("forIn(productName):" + productName);
-							System.out.println("cookie(add)");
-							System.out.println("index_c_before:" + index_c);
-							//인덱스 설정
-							String productNameNewIndex = "product" + index_c + "Name"; 
-							//쿠키 생성
-							Cookie cookiePNA = new Cookie(productNameNewIndex, productName);
-							System.out.println("index_c_after:" + index_c);
-							//쿠키 시간 설정
-							cookiePNA.setMaxAge(3 * 60);
-							cookiePNA.setPath("/");					
-							//쿠키 추가
-							response.addCookie(cookiePNA);
-							
-					}else if(value.equals(productName)) {
-						System.out.println("초과" + i);
-					}
-					
-				}
-				
-			}
-			index_c++;
-			System.out.println("index_c:" + index_c);
-			//인덱스가 5개를 초과할 경우
-			if(index_c > 5) {
-				System.out.println("index_c_over:" + index_c);
-				System.out.println("초과");
-				//인덱스 0으로 만들기
-				index_c = 0;
-			}
+			
 		
 		System.out.println("end");
 		return show;				
