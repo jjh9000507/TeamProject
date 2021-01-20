@@ -34,7 +34,9 @@ public interface AdminDao {
 	public void adminMemberFKitchenDelete(String m_id) throws Exception;
 	//해당 회원 가구(생활) 상품 삭제
 	public void adminMemberFLifeDelete(String m_id) throws Exception;
-	
+	//해당 회원 상품 삭제
+	public void adminMemberProductDelete(String m_id) throws Exception;
+		
 	//상품 목록 전체 가져오기
 	public List<ProductVo> allProductList() throws Exception;
 	//의류 상품 삭제
@@ -51,6 +53,8 @@ public interface AdminDao {
 	public void adminFKitchenDelete(int p_no) throws Exception;
 	//가구(생활) 상품 삭제
 	public void adminFLifeDelete(int p_no) throws Exception;
+	//전체 리스트에서 상품 삭제
+	public void adminProductDelete(int p_no2) throws Exception;
 	
 	//카테고리 추가
 	public void adminCategoryInput(CategoryVo categoryVo) throws Exception;

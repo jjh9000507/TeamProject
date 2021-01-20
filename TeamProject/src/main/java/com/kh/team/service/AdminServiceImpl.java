@@ -39,6 +39,7 @@ public class AdminServiceImpl implements AdminService{
 		adminDao.adminMemberFInteriorDelete(m_id);
 		adminDao.adminMemberFKitchenDelete(m_id);
 		adminDao.adminMemberFLifeDelete(m_id);
+		adminDao.adminMemberProductDelete(m_id);
 		adminDao.adminCartDelete(m_id);
 		adminDao.adminSanctionDelete(m_id);
 		adminDao.adminMemberDelete(m_id);
@@ -54,14 +55,18 @@ public class AdminServiceImpl implements AdminService{
 
 	//의류 게시물 삭제
 	@Override
-	public void adminClothesDelete(int p_no) throws Exception {
+	public void adminClothesDelete(int p_no, int p_no2) throws Exception {
+		adminDao.productImgDelete(p_no2);
 		adminDao.adminClothesDelete(p_no);
+		adminDao.adminProductDelete(p_no2);
 	}
 
 	//컴퓨터 게시물 삭제
 	@Override
-	public void adminComputerDelete(int p_no) throws Exception {
+	public void adminComputerDelete(int p_no, int p_no2) throws Exception {
+		adminDao.productImgDelete(p_no2);
 		adminDao.adminComputerDelete(p_no);
+		adminDao.adminProductDelete(p_no2);
 	}
 	
 	//가전제품 게시물 삭제
@@ -69,31 +74,41 @@ public class AdminServiceImpl implements AdminService{
 	public void adminWhitegoodsDelete(int p_no, int p_no2) throws Exception {
 		adminDao.productImgDelete(p_no2);
 		adminDao.adminWhitegoodsDelete(p_no);
+		adminDao.adminProductDelete(p_no2);
 	}
 
 	//침구류 게시물 삭제
 	@Override
-	public void adminFBedDelete(int p_no) throws Exception {
+	public void adminFBedDelete(int p_no, int p_no2) throws Exception {
+		adminDao.productImgDelete(p_no2);
 		adminDao.adminFBedDelete(p_no);
+		adminDao.adminProductDelete(p_no2);
 	}
 
 	//인테리어 게시물 삭제
 	@Override
-	public void adminFInteriorDelete(int p_no) throws Exception {
+	public void adminFInteriorDelete(int p_no, int p_no2) throws Exception {
+		adminDao.productImgDelete(p_no2);
 		adminDao.adminFInteriorDelete(p_no);
+		adminDao.adminProductDelete(p_no2);
 	}
 
 	//주방용품 게시물 삭제
 	@Override
-	public void adminFKitchenDelete(int p_no) throws Exception {
+	public void adminFKitchenDelete(int p_no, int p_no2) throws Exception {
+		adminDao.productImgDelete(p_no2);
 		adminDao.adminFKitchenDelete(p_no);
+		adminDao.adminProductDelete(p_no2);
 	}
 
 	//생활용품 게시물 삭제
 	@Override
-	public void adminFLifeDelete(int p_no) throws Exception {
+	public void adminFLifeDelete(int p_no, int p_no2) throws Exception {
+		adminDao.productImgDelete(p_no2);
 		adminDao.adminFLifeDelete(p_no);
+		adminDao.adminProductDelete(p_no2);
 	}
+	
 
 	//카테고리 추가
 	@Override
@@ -257,5 +272,7 @@ public class AdminServiceImpl implements AdminService{
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		adminDao.insertNotice(noticeVo);
 	}
+
+	
 	
 }

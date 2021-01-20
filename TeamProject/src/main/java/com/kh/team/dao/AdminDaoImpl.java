@@ -80,6 +80,12 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.delete(NAMESPACE + "adminMemberFLifeDelete", m_id);
 		
 	}
+	
+	//전체 상품 리스트에서
+	@Override
+	public void adminMemberProductDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberProductDelete", m_id);
+	}
 	//여기까지 해당 회원이 등록한 상품 목록 삭제
 
 	//판매자 권한 박탈 경험 인원 삭제
@@ -148,7 +154,13 @@ public class AdminDaoImpl implements AdminDao{
 	public void adminFLifeDelete(int p_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "adminDeleteFLife", p_no);
 	}
-
+	
+	//전체 리스트에서 상품 삭제
+	@Override
+	public void adminProductDelete(int p_no2) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminDeleteProduct", p_no2);
+	}
+	
 	//카테고리 추가
 	@Override
 	public void adminCategoryInput(CategoryVo categoryVo) throws Exception {
@@ -324,9 +336,6 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeVo);
 	}
 
-	
-
-	
 	
 
 }

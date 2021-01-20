@@ -32,14 +32,6 @@ ul {
 }
 </style>
 <div class="row">
-	<div class="col-md-12 borderAllCategory" id="borderAllCategory">
-		<div class="col-md-2"></div>
-		<div class="col-md-8" >
-			<%@ include file="../include/header_mainCatagories.jsp"%>
-		</div>
-		<div class="col-md-2"></div>
-		<br>
-	</div>
 </div>
 <div class="row">
 <div class="col-md-3"></div>

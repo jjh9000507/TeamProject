@@ -9,6 +9,8 @@ $(function(){
 	var msg = "${msg}";
 	if(msg == "upload"){
 		alert("상품이 등록되었습니다.");
+	} else if(msg == "inquirySuccess"){
+		alert("1:1 문의를 정상적으로 전송했습니다.");
 	}
 	//더 보기 버튼
 	$(".divMore").click(function(e){		

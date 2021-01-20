@@ -156,12 +156,14 @@ function scrollMove(seq){
         	<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8 productshow show2">
+					<c:if test="${productImgList.size() != 0}">
 					<c:forEach var="productImgVo" items="${productImgList}">
 						<div class="imgProduct">
 							<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
 						</div>
 					</c:forEach>
 					<hr>
+					</c:if>
 					<div class="content">
 						${whitegoodsVo.w_content}
 					</div>
