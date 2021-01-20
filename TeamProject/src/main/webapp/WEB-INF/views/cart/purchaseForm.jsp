@@ -118,12 +118,6 @@ $("#getDirect").click(function(){
 						<td>${productVo.p_price}<span>원</span></td>
 					</tr>
 					</c:forEach>
-					<tr>
-						<td><span>합계:</span></td>
-						<td></td>
-						<td></td>
-						<td><span>원</span></td>
-					</tr>
 				</tbody>
 			</table>
 		</div>

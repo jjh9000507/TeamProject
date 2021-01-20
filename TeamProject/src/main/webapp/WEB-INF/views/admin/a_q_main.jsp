@@ -22,7 +22,7 @@ a.btns:hover {
 <div class="row">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
-		<h1>고객센터 Q&A 관리</h1>
+		<h1>고객센터 Q&amp;A 관리</h1>
 	</div>
 	<div class="col-md-4"></div>
 </div>
