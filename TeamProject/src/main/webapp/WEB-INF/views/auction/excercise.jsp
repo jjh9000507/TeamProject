@@ -9,14 +9,11 @@
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2">
-			<%@ include file="auctionSideBar.jsp"%>
-		</div>
+		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<div class="col-md-2">
-			</div>
+			<div class="col-md-2"></div>
 			<div class="col-md-8">
-			<%@ include file="../include/header_mainCatagories.jsp"%>
+				<%@ include file="auctionHeader.jsp"%>
 				
 			</div><!-- 내부 md-8 -->
 			<div class="col-md-2"></div><!-- 내부 md-2 -->

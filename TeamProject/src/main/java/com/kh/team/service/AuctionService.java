@@ -141,4 +141,6 @@ public interface AuctionService {
 	public List<AuctionSellVo> getAuctionFavoritePno(String m_id) throws Exception;
 	//내 관심상품 목록
 	//public List<AuctionSellVo> getAuctionFavoriteList(String m_id) throws Exception;
+	//관심상품 삭제
+	public void deleteAuctionFavoriet(int[] array) throws Exception;
 }

@@ -139,4 +139,6 @@ public interface AuctionDao {
 	public List<AuctionPnoFromTempBiding> getAuctionFavoritePno(String m_id) throws Exception;
 	//int만 있는 클래스list를 받아서 내 관심상품 목록을 가져온다
 	public List<AuctionSellVo> getAuctionFavoriteList(List<AuctionPnoFromTempBiding> list) throws Exception;
+	//관심상품 삭제
+	public void deleteAuctionFavoriet(int[] array) throws Exception;
 }
