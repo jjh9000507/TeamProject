@@ -23,8 +23,7 @@ import com.kh.team.service.MemberService;
 @Controller
 @RequestMapping("/buyComputerProduct")
 public class BuyComputerProductController {
-	//인덱스
-	private int index_c = 0;
+	//인덱스	
 	private int CHECK_FOR_INDEX = 1;
 	//인젝
 	@Inject
@@ -127,11 +126,8 @@ public class BuyComputerProductController {
 		if(count == 1) {
 			show = "success";
 		}else {
-			System.out.println("좆같은");
-		}
-	
-		
-		
+			System.out.println("포인트 더하기 안됨");
+		}		
 				System.out.println("cookie_null");
 				//쿠키 생성
 				Cookie cookiePNA = new Cookie("productAName", productName);
