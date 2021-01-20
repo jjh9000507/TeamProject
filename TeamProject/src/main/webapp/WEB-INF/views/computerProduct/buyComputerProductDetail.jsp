@@ -185,11 +185,11 @@ $(function(){
 	}else if((m_point >= 5000) && (m_point < 10000)){
 		cPrice = price * 0.9;
 		console.log("cPrice:" + cPrice);
-		$("#gradePrice").text("10% 할인하여 " + cPrice + "원");
+		$("#gradePrice").text("골드회원은 10% 할인하여 " + cPrice + "원");
 	}else if(m_point >= 10000){
 		cPrice = price * 0.7;
 		console.log("cPrice:" + cPrice);
-		$("#gradePrice").text("30% 할인하여 " + cPrice + "원");
+		$("#gradePrice").text("VIP는 30% 할인하여 " + cPrice + "원");
 	}
 	console.log("todayValueYear:" + todayValueYear);
 	console.log("todayValueMonth:" + todayValueMonth);
@@ -726,8 +726,8 @@ $(function(){
 						<td>
 						<form>
 							<input type="radio" name="Payment" value="신용/체크카드" checked="checked">신용/체크카드
-							&nbsp&nbsp<input type="radio" name="Payment" value="무통장입금">무통장입금
-							&nbsp&nbsp<input type="radio" name="Payment" value="휴대폰결제">휴대폰결제
+							&nbsp;&nbsp;<input type="radio" name="Payment" value="무통장입금">무통장입금
+							&nbsp;&nbsp;<input type="radio" name="Payment" value="휴대폰결제">휴대폰결제
 						</form>
 						</td>
 						<td>
