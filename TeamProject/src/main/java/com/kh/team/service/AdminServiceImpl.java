@@ -119,6 +119,14 @@ public class AdminServiceImpl implements AdminService{
 	//카테고리 삭제
 	@Override
 	public void adminCategoryDelete(String cate_no) throws Exception {
+		adminDao.adminCateDeleteClothes(cate_no);
+		adminDao.adminCateDeleteComputer(cate_no);
+		adminDao.adminCateDeleteWhitegoods(cate_no);
+		adminDao.adminCateDeleteFBed(cate_no);
+		adminDao.adminCateDeleteFInterior(cate_no);
+		adminDao.adminCateDeleteFKitchen(cate_no);
+		adminDao.adminCateDeleteFLife(cate_no);
+		adminDao.adminCateDeleteProduct(cate_no);
 		adminDao.adminCategoryDelete(cate_no);
 	}
 
