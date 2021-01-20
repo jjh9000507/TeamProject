@@ -187,7 +187,6 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		model.addAttribute("purchaserList", purchaserList);
 		//System.out.println("controller purchaserList:"+purchaserList);
 		
-		
 		return "auction/auctionPurchaseList";
 	}
 	
@@ -750,11 +749,49 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		return "auction/auctionPaymentList";
 	}
 	
+	//관심상품 눌렀을 때 로그인 정보 확인
+	@RequestMapping(value="/CheckMidOfFavorite", method=RequestMethod.GET)
+	@ResponseBody
+	public String CheckMidofFavorite(HttpSession session) throws Exception{
+		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
+		
+		if(memberVo != null) {
+			String m_id = memberVo.getM_id();
+			return m_id;
+		}
 	
+		return "fail";
+	}
+	
+	//관심상품 눌렀을 때 이미 저장 되어있는지 확인
 	@RequestMapping(value="/auctionFavorite", method=RequestMethod.GET)
-	public String auctionFavorite(HttpSession session, Model model) throws Exception{
+	@ResponseBody
+	public String auctionFavorite(String m_id, int p_no, HttpSession session, Model model) throws Exception{
+		System.out.println("m_id:"+m_id+" ,p_no:"+p_no);
 		
+		int count = auctionService.getAuctionFavoriteCont(m_id, p_no);
 		
-		return "auction/auctionFavorite";
+		if(count > 0) {
+			return "fail";
+		}
+		return "success";
+	}
+	
+	//관심상품 눌렀을 때 저장
+	@RequestMapping(value="/auctionFavoriteSave", method=RequestMethod.GET)
+	@ResponseBody
+	public String auctionFavoriteSave(int p_no, HttpSession session) throws Exception{
+		
+		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
+		
+		if(memberVo == null) {
+			return "fail";
+		}
+	
+		String m_id = memberVo.getM_id();
+		System.out.println("mid:"+m_id+" ,p_no:"+p_no);
+		auctionService.insertAuctionFavorite(m_id, p_no);
+		
+		return "success";
 	}
 }

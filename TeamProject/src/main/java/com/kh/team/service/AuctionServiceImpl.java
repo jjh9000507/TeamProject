@@ -24,6 +24,7 @@ import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
+import com.kh.team.domain.AuctionFavoriteVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
@@ -381,6 +382,29 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public List<AuctionMainImgVo> getAuctionPurchaserTempBidingImg(List<AuctionPnoFromTempBiding> tempPno)
 			throws Exception {
 		List<AuctionMainImgVo> list = auctionDao.getAuctionPurchaserTempBidingImg(tempPno);
+		return list;
+	}
+
+	@Override
+	public int getAuctionFavoriteCont(String m_id, int p_no) throws Exception {
+		int count = auctionDao.getAuctionFavoriteCont(m_id, p_no);
+		return count;
+	}
+	
+	@Override
+	public void insertAuctionFavorite(String m_id, int p_no) throws Exception {
+		auctionDao.insertAuctionFavorite(m_id, p_no);
+	}
+
+	@Override
+	public List<AuctionSellVo> getAuctionFavoritePno(String m_id) throws Exception {
+		//controller에서 받아오는 값을 줄이기 위해서 여기서 m_id를 받아서 p_no를 구해서 바로  관심상품 목록을 가져온다
+		List<AuctionPnoFromTempBiding> pnolist = auctionDao.getAuctionFavoritePno(m_id);
+		System.out.println("auctionServie pnoList:" + pnolist.size());
+		List<AuctionSellVo> list = null;
+		if(pnolist.size()>0) {
+			list = auctionDao.getAuctionFavoriteList(pnolist);
+		}
 		return list;
 	}
 }

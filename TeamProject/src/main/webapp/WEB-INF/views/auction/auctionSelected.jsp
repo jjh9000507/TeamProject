@@ -512,9 +512,71 @@ $(function(){
 		}
 	});//goBid
 	
-	
+	//관심 상품 클릭시 로그인과 모달창 띄우기
 	$("#btnFavorite").click(function(){
-		/* ---------------------------------- */
+		
+		var url = "/auction/CheckMidOfFavorite";
+		
+		$.get(url, function(data){//data가 m_id가 된다
+			
+			if(data == "fail"){
+				$("#modaLoginAuction").trigger("click");//로그인 페이지로 모달 창
+				return;
+			}
+		
+			url = "/auction/auctionFavorite";
+			var p_no = $("#p_no").val();
+			
+			var sendData = {
+					"m_id" : data,
+					"p_no" : p_no
+			};
+			
+			$.get(url, sendData, function(result){
+				if(result == "fail"){
+					alert("이미 관심 상품에 있습니다");
+				}else{
+					$("#modalFavorite").trigger("click");
+					//alert("관심 상품 넣기");
+				}
+			});
+		});
+		
+		//관심상품 등록만 하기
+		$("#modalFavoriteSave").click(function(){
+			
+			var url="/auction/auctionFavoriteSave";
+			var p_no = $("#p_no").val();
+			
+			var sendData = {
+					"p_no" : p_no
+			};		
+			
+			$.get(url, sendData, function(data){
+				if(data == "success"){
+					$("#modalClose").trigger("click");
+				}
+			});	
+		});
+		
+		//관심상품 등록 후 이동
+		$("#modalFavoriteSaveMove").click(function(){
+			var url="/auction/auctionFavoriteSave";
+			var p_no = $("#p_no").val();
+			
+			var sendData = {
+					"p_no" : p_no
+			};		
+			
+			$.get(url, sendData, function(data){
+				if(data == "success"){
+					location.href="/cart/cartPage";
+				}
+			});	
+		});
+		
+		
+		/* ---------------------------------- 
 		var width = $(window).width();
 		var height = $(window).height();
 		
@@ -530,7 +592,7 @@ $(function(){
 	       loadingDivObj.css("top", ($(document).height()/2)-75);
 	       loadingDivObj.css("left",($(document).width()/2)-150);
 	       loadingDivObj.fadeIn(500);
-		/* ---------------------------------- */
+		 ---------------------------------- */
 	});
 	
 	 //esc키 누르면 화면 잠김 해제
@@ -547,7 +609,6 @@ $(function(){
 		var height = $(window).height();
 		$(".screenBlock").width(width).height(height);
 	});
-	
 });//function
 
 /*
@@ -608,7 +669,35 @@ function stopCountIndex(indexCatch){
 	</div>
 </div>
 <!-- 로그인 모달 창 끝 -->
+<!-- 관심 상품 모달 시작 -->
+<div class="col-md-12">
+	<a id="modalFavorite" href="#modal-container-355530" role="button"
+		class="btn" data-toggle="modal">관심 상품</a>
 
+	<div class="modal fade" id="modal-container-355530" role="dialog"
+		aria-labelledby="myModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="myModalLabel">관심 상품 등록</h5>
+					<button type="button" class="close" data-dismiss="modal" id="modalClose">
+						<span aria-hidden="true">×</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					관심 상품으로 등록 합니다
+				</div>
+				
+			 	<div class="modal-footer">
+					<button type="button" class="btn btn-primary" id="modalFavoriteSave">저장
+					</button>
+					<button type="button" class="btn btn-secondary" id="modalFavoriteSaveMove">관심상품으로</button>
+				</div> 
+			</div>
+		</div>
+	</div>
+</div>
+<!-- 관심 상품 모달 끝 -->
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2"></div>
@@ -672,6 +761,7 @@ function stopCountIndex(indexCatch){
 										<div id="card-385137">
 											<div class="card collaspsePrice">
 												<button type="button" class="btn btn-sm btn-outline-danger" id="btnFavorite">관심상품</button>
+												
 												<div class="card-header">
 													 <a class="card-link" data-toggle="collapse" data-parent="#card-385137" id="btnBid" href="#">입찰하기</a>
 												</div>
