@@ -22,6 +22,13 @@ a.btns:hover {
 <div class="row">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
+		<h1>고객센터 관리</h1>
+	</div>
+	<div class="col-md-4"></div>
+</div>
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
 		<a class="btn btns" href="/admin/adminQandAMain">Q&A</a>
 		<a class="btn btns" href="/admin/adminInquiry">1:1 문의 접수</a>
 		<a class="btn btns" href="/admin/adminNotice">공지사항</a>

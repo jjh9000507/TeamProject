@@ -34,7 +34,9 @@ public interface AdminDao {
 	public void adminMemberFKitchenDelete(String m_id) throws Exception;
 	//해당 회원 가구(생활) 상품 삭제
 	public void adminMemberFLifeDelete(String m_id) throws Exception;
-	
+	//해당 회원 상품 삭제
+	public void adminMemberProductDelete(String m_id) throws Exception;
+		
 	//상품 목록 전체 가져오기
 	public List<ProductVo> allProductList() throws Exception;
 	//의류 상품 삭제
@@ -51,6 +53,8 @@ public interface AdminDao {
 	public void adminFKitchenDelete(int p_no) throws Exception;
 	//가구(생활) 상품 삭제
 	public void adminFLifeDelete(int p_no) throws Exception;
+	//전체 리스트에서 상품 삭제
+	public void adminProductDelete(int p_no2) throws Exception;
 	
 	//카테고리 추가
 	public void adminCategoryInput(CategoryVo categoryVo) throws Exception;
@@ -66,6 +70,23 @@ public interface AdminDao {
 	public List<ProductVo> productCateList(String cate_no) throws Exception;
 	//선택 카테고리 목록 가져오기
 	public List<CategoryVo> categoryDeleteList(String cate_no) throws Exception;
+	
+	//카테고리 삭제 시 상품 삭제
+	public void adminCateDeleteProduct(String cate_no) throws Exception;
+	//카테고리 삭제 시 가전제품 삭제
+	public void adminCateDeleteWhitegoods(String cate_no) throws Exception;
+	//카테고리 삭제 시 의류 삭제
+	public void adminCateDeleteClothes(String cate_no) throws Exception;
+	//카테고리 삭제 시 컴퓨터 삭제
+	public void adminCateDeleteComputer(String cate_no) throws Exception;
+	//카테고리 삭제 시 침구류 삭제
+	public void adminCateDeleteFBed(String cate_no) throws Exception;
+	//카테고리 삭제 시 인테리어 삭제
+	public void adminCateDeleteFInterior(String cate_no) throws Exception;
+	//카테고리 삭제 시 주방용품 삭제
+	public void adminCateDeleteFKitchen(String cate_no) throws Exception;
+	//카테고리 삭제 시 생활용품 삭제
+	public void adminCateDeleteFLife(String cate_no) throws Exception;
 	
 	//판매자 등록 취소
 	public void rollbackSeller(String m_id) throws Exception;

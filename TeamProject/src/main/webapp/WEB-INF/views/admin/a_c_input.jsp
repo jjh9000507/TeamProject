@@ -22,6 +22,12 @@ a.btns:hover {
 </style>
 <script>
 	$(function(){
+		
+		var msg= "${msg}";
+		if(msg == "category_input_success"){
+			alert("카테고리가 추가되었습니다.");
+		}
+		
 		//대분류 선택
 		$("#large").on("change",function(){
 			var selected = $("#large option:selected").val();
@@ -114,6 +120,7 @@ a.btns:hover {
 			$("#smallDiv").show();
 		});
 		
+		//등록 버튼 클릭 시
 		$("#btnCategoryInsert").click(function(){
 			var categoryLevel = $("#categoryLevel").val();
 			var large = $("#large option:selected").val();
@@ -129,6 +136,22 @@ a.btns:hover {
 			} else if(categoryLevel == 4){
 				$("#cate_ref").val(small);
 			}
+			
+			if($("#cate_name").val() == ""){
+				alert("카테고리 이름을 입력해주세요.");
+				return false;
+				if(categoryLevel >= 2){
+					if($("#cate_ref").val()==""){
+						alert("카테고리를 모두 선택해주세요.");
+					}
+				}
+			}
+			
+			if($("#cate_ref").val()==""){
+				alert("카테고리를 선택해주세요.");
+				return false;
+			}
+			
 			$("#frmCategoryInsert").attr("action", "/admin/categoryInsert");
 			$("#frmCategoryInsert").submit();
 		})

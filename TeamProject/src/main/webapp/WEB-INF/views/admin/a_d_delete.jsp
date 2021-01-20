@@ -79,7 +79,7 @@ $(function(){
 		$.get(url, sendData, function(data){
 			if(data.trim() == "success"){
 				alert("삭제되었습니다.");
-				$(".btnHome").trigger("click");
+				location.reload();
 			}
 		});
 	});
@@ -135,7 +135,6 @@ $(function(){
 						<td class="pregdate">${ProductVo.p_regdate}</td>
 						<td class="pbtn">
 							<a href="#" class="btn btns contentDelete" data-pno="${ProductVo.p_no}" data-cateno="${ProductVo.cate_no}" data-pno2="${ProductVo.p_no2}">게시물 삭제</a>
-							<button style="display: none;" type="button" class="btnHome" onclick="location.reload()">홈</button>
 						</td>
 					</tr>
 				</c:forEach>

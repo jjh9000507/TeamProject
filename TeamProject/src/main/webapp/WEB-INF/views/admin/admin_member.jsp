@@ -31,7 +31,7 @@ a.btns:hover {
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
 		<ul>
-		<li><a class="btn btns" href="/admin/adminMemberCon">회원 관리</a></li>
+		<li><a class="btn btns" href="/admin/adminMemberCon">회원 정보 관리</a></li>
 		<li><a class="btn btns" href="/admin/adminMemberSellCon">회원 판매자권한 관리</a></li>
 		</ul>
 	</div>

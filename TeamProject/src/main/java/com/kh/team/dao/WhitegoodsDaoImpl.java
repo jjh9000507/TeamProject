@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
+import com.kh.team.domain.WhitegoodsQnaVo;
 import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 
@@ -90,6 +91,12 @@ public class WhitegoodsDaoImpl implements WhitegoodsDao {
 	public MemberVo sellingMember(String m_id) throws Exception {
 		MemberVo sellingMember = sqlSession.selectOne(NAMESPACE + "sellingMember", m_id);
 		return sellingMember;
+	}
+
+	@Override
+	public List<WhitegoodsQnaVo> getProductQna(int w_no) throws Exception {
+		List<WhitegoodsQnaVo> getProductQna = sqlSession.selectList(NAMESPACE + "getProductQna", w_no);
+		return getProductQna;
 	}
 
 	

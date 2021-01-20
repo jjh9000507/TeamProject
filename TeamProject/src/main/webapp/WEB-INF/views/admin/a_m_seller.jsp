@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@include file="../include/admin_header.jsp" %>
+
 <style>
 a.btns{
 	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -27,11 +28,21 @@ th{
 .memberid{
 	width:100px;
 }
+
 .membersanc{
 	width:130px;
 	text-align: center;
 }
 </style>
+
+<script>
+$(function(){
+	var msg = "${msg}";
+	if(msg == "selling_delete_success"){
+		alert("판매자 권한을 삭제하였습니다.");
+	}
+});
+</script>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4"></div>

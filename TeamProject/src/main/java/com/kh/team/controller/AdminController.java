@@ -97,7 +97,7 @@ public class AdminController {
 	
 	//관리자페이지 판매자 권한 삭제
 	@RequestMapping(value="/adminRollbackSeller/{m_id}", method=RequestMethod.GET)
-	public String adminRollbackSeller(@PathVariable("m_id") String m_id, Model model) throws Exception {
+	public String adminRollbackSeller(@PathVariable("m_id") String m_id, RedirectAttributes rttr) throws Exception {
 		System.out.println("m_id: " + m_id);
 		adminService.rollbackSeller(m_id);
 		SanctionVo sanctionVo = sanctionService.searchSanc(m_id);
@@ -106,19 +106,17 @@ public class AdminController {
 		} else {
 			sanctionService.sancUpdate(m_id);
 		}
-		List<MemberVo> sellerList = adminService.sellerList();
-		model.addAttribute("sellerList", sellerList);
-		return "/admin/a_m_seller";
+		rttr.addFlashAttribute("msg", "selling_delete_success");
+		return "redirect:/admin/adminMemberSellCon";
 	}
 	
 	//관리자페이지 회원 강제탈퇴
 	@RequestMapping(value="/adminMemberDelete/{m_id}", method=RequestMethod.GET)
-	public String adminMemberDelete(@PathVariable("m_id") String m_id, Model model) throws Exception{
+	public String adminMemberDelete(@PathVariable("m_id") String m_id, RedirectAttributes rttr) throws Exception{
 		whitegoodsService.userPAlldelete(m_id);
 		adminService.adminMemberDelete(m_id);
-		List<MemberVo> memberList = adminService.adminMemberSearch();
-		model.addAttribute("memberList", memberList);
-		return "/admin/a_m_con";
+		rttr.addFlashAttribute("msg", "member_delete_success");
+		return "redirect:/admin/adminMemberCon";
 	}
 	
 	//게시글 삭제 페이지로 이동
@@ -147,37 +145,34 @@ public class AdminController {
 	@RequestMapping(value="/adminProductDelete", method=RequestMethod.GET)
 	@ResponseBody
 	public String adminDelete(String cate_no, int p_no, int p_no2, Model model) throws Exception{
-//		System.out.println("cate_no:" + cate_no);
-//		System.out.println("p_no: " + p_no);
 		String imgName = adminService.imgNameSearch(p_no2);
 		UploadFileUtils.delete(imgName);
+		String[] filenames = adminService.productImgList(p_no2);
+		for(int i = 0; i<filenames.length;i++) {
+			String img_name = filenames[i];
+			UploadFileUtils.delete(img_name);
+		}
 		String cate_sub = cate_no.substring(0, 2);
 		if(cate_sub.equals("50")) {
 			//컴퓨터
-			adminService.adminComputerDelete(p_no);
+			adminService.adminComputerDelete(p_no, p_no2);
 		} else if(cate_sub.equals("10")) {
 			//의류
-			adminService.adminClothesDelete(p_no);
+			adminService.adminClothesDelete(p_no, p_no2);
 		} else if(cate_sub.equals("20")) {
 			//가구
 			String cate_sub2 = cate_no.substring(0,3);
 			if(cate_sub2.equals("201")) {
-				adminService.adminFLifeDelete(p_no);
+				adminService.adminFLifeDelete(p_no, p_no2);
 			} else if(cate_sub2.equals("202")) {
-				adminService.adminFInteriorDelete(p_no);
+				adminService.adminFInteriorDelete(p_no, p_no2);
 			} else if(cate_sub2.equals("203")) {
-				adminService.adminFBedDelete(p_no);
+				adminService.adminFBedDelete(p_no, p_no2);
 			} else if(cate_sub2.equals("204")) {
-				adminService.adminFKitchenDelete(p_no);
+				adminService.adminFKitchenDelete(p_no, p_no2);
 			}
 		} else if(cate_sub.equals("30")) {
 			//가전제품
-			String[] filenames = adminService.productImgList(p_no2);
-			for(int i = 0; i<filenames.length;i++) {
-				String img_name = filenames[i];
-				UploadFileUtils.delete(img_name);
-			}
-
 			adminService.adminWhitegoodsDelete(p_no, p_no2);
 		}
 		return "success";
@@ -228,7 +223,7 @@ public class AdminController {
 	
 	//카테고리 추가
 	@RequestMapping(value="/categoryInsert", method=RequestMethod.GET)
-	public String categoryInsert(String cate_name, String cate_ref) throws Exception {
+	public String categoryInsert(String cate_name, String cate_ref, RedirectAttributes rttr) throws Exception {
 		System.out.println("cate_name: " + cate_name);
 		System.out.println("cate_ref: " + cate_ref);
 		String cate_no = null;
@@ -250,6 +245,8 @@ public class AdminController {
 		categoryVo.setCate_name(cate_name);
 		categoryVo.setCate_ref(cate_ref);
 		adminService.adminCategoryInput(categoryVo);
+		
+		rttr.addFlashAttribute("msg", "category_input_success");
 		return "redirect:/admin/adminCategoryInput";
 	}
 	

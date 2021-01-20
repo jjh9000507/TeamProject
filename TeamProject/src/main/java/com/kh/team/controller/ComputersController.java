@@ -362,6 +362,7 @@ public class ComputersController {
 			
 		}
 		
+		//뒤로가기를 구현하기 위해서 cate_no남기기
 		for(int i=0; i<6; i++) {
 			if(!confirmList[i].equals("")) {
 				System.out.println("confirmList[i]:" + confirmList[i]);
@@ -398,8 +399,10 @@ public class ComputersController {
 		
 		if(count == 0) {
 			rttr.addFlashAttribute("msg", "idIsNull");
+			//아이디가 존재하지 않을 시 첫화면으로 돌아가기
 			view = "redirect:/computerProduct/computersForm/" + redirect_cate_no;
 		}else if(count > 0) {
+			//검색결과 넣기
 			model.addAttribute("categoryInfo", categoryInfo);
 			model.addAttribute("computerList", computerList);
 			request.setAttribute("cate_no_confirm", confirmList);
