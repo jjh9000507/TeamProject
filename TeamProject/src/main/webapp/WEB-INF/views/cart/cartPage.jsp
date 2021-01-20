@@ -4,28 +4,29 @@
 <style>
 table, th, td{
 	text-align: center;
+	vertical-align:middle;
 }
 table{
 	width: 100%;
 }
-td.pname{
-	text-align: left;
+.pname{
+	width:530px
 }
 
 .pcheck{
-	width:60px;
+	width:30px;
 }
 .btnCart{
 	width:100px;
 }
 .pseller{
-	width:200px;
+	width:165px;
 }
 .pimg{
-	width:10%;
+	width:150px;
 }
 .pprice{
-	width:90px;
+	width:170px;
 }
 a.btns{
 	-webkit-transition: all 200ms cubic-bezier(0.390, 0.500, 0.150, 1.360);
@@ -96,6 +97,35 @@ $(function(){
 		}
 	});
 	
+	//경매 체크박스 선택
+	$("#bidchkAll").click(function(){
+		var value = $(this).prop("checked");
+		if(value){
+			$(".chkAuction").each(function(index){
+				$(this).prop("checked", true);
+			});
+		}else{
+			$(".chkAuction").each(function(index){
+				$(this).prop("checked", false);
+			});
+		}
+	});
+	
+	//경매 삭제
+	$("#btnAuctionDel").click(function(){
+		var arryPno = [];
+		$(".chkAuction").each(function(index){
+			
+			var check = $(this).prop("checked");
+			alert(check);
+			
+			if(check){
+				arryPno.push($(this).val());
+			}
+			
+		});
+	});
+	
 	function checkLength(){
 		var len = $(".chkProduct:checked").length;
 		if(len == 0){
@@ -107,6 +137,7 @@ $(function(){
 	}
 });
 </script>
+
 <div class="container-fluid">
 <div class="row">
 	<div class="col-md-12">
@@ -145,22 +176,63 @@ $(function(){
 								<c:if test="${CartVo.p_no == ProductVo.p_no2}">
 									<td class="pimg"><img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${ProductVo.p_thumbimg}" style="width:80px; height:100px;"
 									alt="상품 이미지"></td>
-									<td class="pname">${ProductVo.p_name}</td>
-									<td class="pseller">${ProductVo.p_seller}</td>
-									<td class="pprice">${ProductVo.p_price}</td>
+									<td class="pname" style="vertical-align:middle;">${ProductVo.p_name}</td>
+									<td class="pseller" style="vertical-align:middle;">${ProductVo.p_seller}</td>
+									<td class="pprice" style="vertical-align:middle;">${ProductVo.p_price}</td>
 								</c:if>
 							</c:forEach>
-							<td class="btnCart">
-								<a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a>
-								<a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartDelete">취소</a>
+
+							<td class="btnCart" style="vertical-align:middle">
+								<div><a href="/cart/purchase" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a></div>
+								<div><a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartDelete">취소</a></div>
+
 							</td>
 						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
+			
+			<!-- 경매 테이블 시작 -->
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="pcheck"><input type="checkbox" class="bidchkAll" id="bidchkAll"></th>
+						<th class="pimg">경매상품 이미지</th>
+						<th class="pname">경매상품명</th>
+						<th class="pseller">판매자</th>
+						<th class="pprice">판매가</th>
+						<th class="btnCart"></th>
+					</tr>
+				</thead>
+				<tbody>
+					<c:forEach var="auctionVo" items="${auctionList}">
+						<tr>
+							<td class="pcheck"><input type="checkbox" class="chkAuction" name="chkAuction" value="${auctionVo.p_no}"></td>
+							<td class="pimg"><img src="/furniture/displayImage?imageName=${auctionVo.main_img_name}" style="width:80px; height:100px;" alt="상품 이미지"></td>
+							<td class="pname" style="vertical-align:middle;">${auctionVo.p_title}</td>
+							<td class="pseller" style="vertical-align:middle">${auctionVo.seller}</td>
+							<td class="pprice" style="vertical-align:middle">${auctionVo.present_price}</td>
+							<td class="btnCart" style="vertical-align:middle">
+							<c:choose>
+							<c:when test="${auctionVo.deadline == 'Y' }">
+								입찰 마감
+								</c:when>
+								<c:otherwise>
+								${auctionVo.e_day}일 ${auctionVo.e_hour}:${auctionVo.e_minute} 
+								<a href="/auction/"><img src="/resources/auctionImage/btn_bid.gif"></a>
+								</c:otherwise>
+							</c:choose>		
+							</td>
+						</tr>
+					</c:forEach>
+						<tr>
+							<td colspan='6' style="text-align:left"><button type="button" class="btn btn-outline-secondary" id="btnAuctionDel">삭제 하기</button></td>
+						</tr>
+				</tbody>
+			</table>
+			<!-- 경매 테이블 끝 -->
 			</form>
 		</div>
 		<div class="col-md-2"></div>
 	</div>
 </div>
-<%@include file="../include/footer.jsp" %>

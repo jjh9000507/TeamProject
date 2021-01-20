@@ -16,6 +16,7 @@ import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
+import com.kh.team.domain.AuctionFavoriteVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
@@ -405,6 +406,38 @@ public class AuctionDaoImpl implements AuctionDao{
 	public List<AuctionMainImgVo> getAuctionPurchaserTempBidingImg(List<AuctionPnoFromTempBiding> tempPno)
 			throws Exception {
 		List<AuctionMainImgVo> list = sqlSession.selectList(NAMESPACE+"getAuctionPurchaserTempBidingImg", tempPno);
+		return list;
+	}
+
+	@Override
+	public int getAuctionFavoriteCont(String m_id, int p_no) throws Exception {
+		HashMap<String, Object> map = new HashMap<>();
+		map.put("m_id", m_id);
+		map.put("p_no", p_no);
+		
+		int count = sqlSession.selectOne(NAMESPACE + "getAuctionFavoriteCont", map);
+		
+		return count;
+	}
+
+	@Override
+	public void insertAuctionFavorite(String m_id, int p_no) throws Exception {
+		Map<String, Object> map = new HashMap<>();
+		map.put("m_id", m_id);
+		map.put("p_no", p_no);
+		
+		sqlSession.insert(NAMESPACE + "insertAuctionFavorite", map);
+	}
+	
+	@Override
+	public List<AuctionPnoFromTempBiding> getAuctionFavoritePno(String m_id) throws Exception {
+		List<AuctionPnoFromTempBiding> list = sqlSession.selectList(NAMESPACE + "getAcutionFavoritePno", m_id);
+		return list;
+	}
+	
+	@Override
+	public List<AuctionSellVo> getAuctionFavoriteList(List<AuctionPnoFromTempBiding> pnolist) throws Exception {
+		List<AuctionSellVo> list = sqlSession.selectList(NAMESPACE + "getAuctionFavoriteList", pnolist);
 		return list;
 	}
 }

@@ -142,4 +142,9 @@ public class AuctionDaoTest {
 		List<AuctionMainImgVo> list = auctionDao.getAuctionPurchaserTempBidingImg(aa);
 		System.out.println(list);
 	}
+	
+	@Test
+	public void insertAuctionFavorite() throws Exception {
+		auctionDao.insertAuctionFavorite("user03",41);
+	}
 }

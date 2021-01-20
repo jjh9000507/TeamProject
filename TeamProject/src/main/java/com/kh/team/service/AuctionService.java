@@ -9,6 +9,7 @@ import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
+import com.kh.team.domain.AuctionFavoriteVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
@@ -131,4 +132,13 @@ public interface AuctionService {
 	public void updateAuctionOrderDeliveryFormation(String delivery_company, String delivery_number) throws Exception;
 		//판매자의 모든 배송 항목을 가져온다
 	public List<AuctionOrderVo> getAuctionOrderSellerList(String seller) throws Exception;
+	
+	//관심상품 항목에 있는지 없는 지 체크
+	public int getAuctionFavoriteCont(String m_id, int p_no) throws Exception;
+	//관심상품에 삽입
+	public void insertAuctionFavorite(String m_id, int p_no) throws Exception;
+	//favorite테이블에 있는 p_no
+	public List<AuctionSellVo> getAuctionFavoritePno(String m_id) throws Exception;
+	//내 관심상품 목록
+	//public List<AuctionSellVo> getAuctionFavoriteList(String m_id) throws Exception;
 }

@@ -11,6 +11,7 @@ import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.AuctionSoldVo;
 import com.kh.team.domain.AuctionTempBidVo;
 import com.kh.team.domain.AuctionEDateVo;
+import com.kh.team.domain.AuctionFavoriteVo;
 import com.kh.team.domain.AuctionImgVo;
 import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
@@ -129,5 +130,13 @@ public interface AuctionDao {
 	public void updateAuctionOrderDeliveryFormation(String delivery_company, String delivery_number) throws Exception;
 		//판매자의 모든 배송 항목을 가져온다
 	public List<AuctionOrderVo> getAuctionOrderSellerList(String seller) throws Exception;
-	
+
+	//관심상품 항목에 있는지 없는 지 체크
+	public int getAuctionFavoriteCont(String m_id, int p_no) throws Exception;
+	//관심상품에 삽입
+	public void insertAuctionFavorite(String m_id, int p_no) throws Exception;
+	//favorite테이블에 있는 p_no만 가져오기 때문에 AuctionPnoFromTempBiding 사용
+	public List<AuctionPnoFromTempBiding> getAuctionFavoritePno(String m_id) throws Exception;
+	//int만 있는 클래스list를 받아서 내 관심상품 목록을 가져온다
+	public List<AuctionSellVo> getAuctionFavoriteList(List<AuctionPnoFromTempBiding> list) throws Exception;
 }
