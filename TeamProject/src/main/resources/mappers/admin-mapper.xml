@@ -256,48 +256,49 @@
 	<!-- 회원 삭제 시 의류 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberClothesDelete">
 		delete from clothes_product
-		where m_id = #{m_id}
+		where p_seller = #{p_seller}
 	</delete>
 	
 	<!-- 회원 삭제 시 컴퓨터 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberComputerDelete">
-		delete from computer product
-		where m_id = #{m_id}
+		delete from computer_product
+		where c_com_seller = #{c_com_seller}
 	</delete>
 	
 	<!-- 회원 삭제 시 가전제품 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberWhitegoodsDelete">
 		delete from whitegoods
-		where m_id = #{m_id}
+		where w_seller = #{w_seller}
 	</delete>
 	
 	<!-- 여기부터 회원 삭제 시 가구 상품등록 한 데이터 삭제 -->
 	<delete id="adminMemberFBedDelete">
 		delete from furniture_bed
-		where m_id = #{m_id}
+		where bed_seller = #{bed_seller}
 	</delete>
 	
 	<delete id="adminMemberFInteriorDelete">
 		delete from furniture_interior
-		where m_id = #{m_id}
+		where interior_seller = #{interior_seller}
 	</delete>
 	
 	<delete id="adminMemberFKitchenDelete">
 		delete from furniture_Kitchen
-		where m_id = #{m_id}
+		where kitchen_seller = #{kitchen_seller}
 	</delete>
 	
 	<delete id="adminMemberFLifeDelete">
 		delete from furniture_life
-		where m_id = #{m_id}
+		where life_seller = #{life_seller}
 	</delete>
 	<!-- 여기까지 회원 삭제 시 가구 상품등록 한 데이터 삭제 -->
 	
 	<!-- 회원 삭제시 product 테이블에 있는 데이터 삭제 -->
 	<delete id="adminMemberProductDelete">
 		delete from product
-		where m_id = #{m_id}
+		where p_seller = #{p_seller}
 	</delete>
+	
 	<!-- Q&A 추가에 필요한 카테고리 리스트(대분류) 가져오기 -->
 	<select id="firstQACategory" resultType="QACateVo">
 		select * from qa_cate
