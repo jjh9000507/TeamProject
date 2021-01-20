@@ -89,9 +89,11 @@ public class ServicecenterContorller {
 		return page;
 	}
 	
+	//1:1 문의 등록
 	@RequestMapping(value="/inquiryQ", method=RequestMethod.GET)
-	public String inquiryQ(InquiryVo inquiryVo) throws Exception {
+	public String inquiryQ(InquiryVo inquiryVo, RedirectAttributes rttr) throws Exception {
 		serviceService.inquiryQ(inquiryVo);
+		rttr.addFlashAttribute("msg", "inquirySuccess");
 		return "redirect:/";
 	}
 	

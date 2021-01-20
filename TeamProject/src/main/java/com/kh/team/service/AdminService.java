@@ -21,20 +21,20 @@ public interface AdminService {
 	//상품 목록 전체 가져오기
 	public List<ProductVo> allProductList() throws Exception;
 	//의류 상품 삭제
-	public void adminClothesDelete(int p_no) throws Exception;
+	public void adminClothesDelete(int p_no, int p_no2) throws Exception;
 	//컴퓨터 상품 삭제
-	public void adminComputerDelete(int p_no) throws Exception;
+	public void adminComputerDelete(int p_no, int p_no2) throws Exception;
 	//가전제품 상품 삭제
 	public void adminWhitegoodsDelete(int p_no, int p_no2) throws Exception;
 	//가구(침구) 상품 삭제
-	public void adminFBedDelete(int p_no) throws Exception;
+	public void adminFBedDelete(int p_no, int p_no2) throws Exception;
 	//가구(인테리어) 상품 삭제
-	public void adminFInteriorDelete(int p_no) throws Exception;
+	public void adminFInteriorDelete(int p_no, int p_no2) throws Exception;
 	//가구(주방) 상품 삭제
-	public void adminFKitchenDelete(int p_no) throws Exception;
+	public void adminFKitchenDelete(int p_no, int p_no2) throws Exception;
 	//가구(생활) 상품 삭제
-	public void adminFLifeDelete(int p_no) throws Exception;
-		
+	public void adminFLifeDelete(int p_no, int p_no2) throws Exception;
+	
 	//카테고리 추가
 	public void adminCategoryInput(CategoryVo categoryVo) throws Exception;
 	//카테고리 삭제

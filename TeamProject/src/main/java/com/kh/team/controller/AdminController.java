@@ -147,37 +147,34 @@ public class AdminController {
 	@RequestMapping(value="/adminProductDelete", method=RequestMethod.GET)
 	@ResponseBody
 	public String adminDelete(String cate_no, int p_no, int p_no2, Model model) throws Exception{
-//		System.out.println("cate_no:" + cate_no);
-//		System.out.println("p_no: " + p_no);
 		String imgName = adminService.imgNameSearch(p_no2);
 		UploadFileUtils.delete(imgName);
+		String[] filenames = adminService.productImgList(p_no2);
+		for(int i = 0; i<filenames.length;i++) {
+			String img_name = filenames[i];
+			UploadFileUtils.delete(img_name);
+		}
 		String cate_sub = cate_no.substring(0, 2);
 		if(cate_sub.equals("50")) {
 			//컴퓨터
-			adminService.adminComputerDelete(p_no);
+			adminService.adminComputerDelete(p_no, p_no2);
 		} else if(cate_sub.equals("10")) {
 			//의류
-			adminService.adminClothesDelete(p_no);
+			adminService.adminClothesDelete(p_no, p_no2);
 		} else if(cate_sub.equals("20")) {
 			//가구
 			String cate_sub2 = cate_no.substring(0,3);
 			if(cate_sub2.equals("201")) {
-				adminService.adminFLifeDelete(p_no);
+				adminService.adminFLifeDelete(p_no, p_no2);
 			} else if(cate_sub2.equals("202")) {
-				adminService.adminFInteriorDelete(p_no);
+				adminService.adminFInteriorDelete(p_no, p_no2);
 			} else if(cate_sub2.equals("203")) {
-				adminService.adminFBedDelete(p_no);
+				adminService.adminFBedDelete(p_no, p_no2);
 			} else if(cate_sub2.equals("204")) {
-				adminService.adminFKitchenDelete(p_no);
+				adminService.adminFKitchenDelete(p_no, p_no2);
 			}
 		} else if(cate_sub.equals("30")) {
 			//가전제품
-			String[] filenames = adminService.productImgList(p_no2);
-			for(int i = 0; i<filenames.length;i++) {
-				String img_name = filenames[i];
-				UploadFileUtils.delete(img_name);
-			}
-
 			adminService.adminWhitegoodsDelete(p_no, p_no2);
 		}
 		return "success";

@@ -83,7 +83,12 @@
 	
 	<delete id="adminDeleteWhitegoods">
 		delete from whitegoods
-		where w_no =  #{w_no}
+		where w_no = #{w_no}
+	</delete>
+	
+	<delete id="adminDeleteProduct">
+		delete from product
+		where p_no2 = #{p_no2}
 	</delete>
 	<!-- 여기까지가 삭제 -->
 	
@@ -287,6 +292,12 @@
 		where m_id = #{m_id}
 	</delete>
 	<!-- 여기까지 회원 삭제 시 가구 상품등록 한 데이터 삭제 -->
+	
+	<!-- 회원 삭제시 product 테이블에 있는 데이터 삭제 -->
+	<delete id="adminMemberProductDelete">
+		delete from product
+		where m_id = #{m_id}
+	</delete>
 	<!-- Q&A 추가에 필요한 카테고리 리스트(대분류) 가져오기 -->
 	<select id="firstQACategory" resultType="QACateVo">
 		select * from qa_cate
