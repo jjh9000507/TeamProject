@@ -156,12 +156,14 @@ function scrollMove(seq){
         	<div class="row">
 				<div class="col-md-2"></div>
 				<div class="col-md-8 productshow show2">
+					<c:if test="${productImgList.size() != 0}">
 					<c:forEach var="productImgVo" items="${productImgList}">
 						<div class="imgProduct">
 							<img src="http://teamptbucket.s3.ap-northeast-2.amazonaws.com/goods/${productImgVo}" style="width:260px; height: 300px;">
 						</div>
 					</c:forEach>
 					<hr>
+					</c:if>
 					<div class="content">
 						${whitegoodsVo.w_content}
 					</div>
@@ -216,19 +218,19 @@ function scrollMove(seq){
 					<table class="table">
 						<thead>
 							<tr>
-								<th>#</th>
-								<th>Product</th>
-								<th>Payment Taken</th>
-								<th>Status</th>
+								<th>문의 내용</th>
+								<th>문의자</th>
+								<th>문의일</th>
 							</tr>
 						</thead>
 						<tbody>
+							<c:forEach var="WhitegoodsQnaVo" items="${productQna}">
 							<tr>
-								<td>1</td>
-								<td>TB - Monthly</td>
-								<td>01/04/2012</td>
-								<td>Default</td>
+								<td>${WhitegoodsQnaVo.wqa_content}</td>
+								<td>${WhitegoodsQnaVo.m_id}</td>
+								<td>${WhitegoodsQnaVo.wqa_reg}</td>
 							</tr>
+							</c:forEach>
 						</tbody>
 					</table>
 				</div>

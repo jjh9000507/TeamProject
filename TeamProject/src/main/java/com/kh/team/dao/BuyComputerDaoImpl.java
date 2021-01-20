@@ -24,11 +24,13 @@ public class BuyComputerDaoImpl implements BuyComputerDao {
 	@Inject
 	private SqlSession sqlSession;
 	
+	//장바구니에 넣기
 	@Override
 	public void putBasketCategory(CartVo cartVo) throws Exception {
+		//장바구니에 넣기
 		sqlSession.insert(NAMESPACE + "putBasketCategory", cartVo);		
 	}
-
+	
 	@Override
 	public int getPkForTakePurchasePercentage(BuyComputerVo buyComputerVo) throws Exception {
 		ComputerVo computerVo = sqlSession.selectOne(NAMESPACE + "getComNoForPercentage", buyComputerVo);

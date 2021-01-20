@@ -19,6 +19,14 @@ a.btns:hover {
 	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
 }
 </style>
+<script>
+$(function(){
+	var msg = "${msg}";
+	if(msg == "member_delete_success"){
+		alert("회원정보가 삭제되었습니다.");
+	}
+});
+</script>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-4"></div>

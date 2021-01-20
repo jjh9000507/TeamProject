@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.kh.team.domain.AuctionSellVo;
 import com.kh.team.domain.CartVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductVo;
+import com.kh.team.service.AuctionService;
 import com.kh.team.service.CartService;
 
 @Controller
@@ -24,6 +26,9 @@ public class CartContoller {
 
 	@Inject
 	private CartService cartService;
+	
+	@Inject
+	private AuctionService auctionService;
 	
 	//장바구니 페이지
 	@RequestMapping(value="/cartPage", method=RequestMethod.GET)
@@ -34,6 +39,9 @@ public class CartContoller {
 		List<ProductVo> productList = cartService.productList();
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("productList", productList);
+		
+		List<AuctionSellVo> auctionSellVo = auctionService.getAuctionFavoritePno(m_id);
+		model.addAttribute("auctionList", auctionSellVo);
 		return "/cart/cartPage";
 	}
 	

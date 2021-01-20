@@ -79,10 +79,10 @@ $("#getDirect").click(function(){
 </script>
 
 	<div class="row">
-			<div class="col-md-2"></div>
-	<div class="col-md-8" >
-	<%@ include file="../include/header_mainCatagories.jsp"%>
-	<br>
+		<div class="col-md-2"></div>
+		<div class="col-md-8" >
+			<%@ include file="../include/header_mainCatagories.jsp"%>
+		<br>
 		</div>
 		<div class="col-md-2"></div>
 	</div>
@@ -99,41 +99,25 @@ $("#getDirect").click(function(){
 			<table class="table">
 				<thead>
 					<tr>
-						<th>
-							주문상품명
-						</th>
-						<th>
-							주문 내용
-						</th>
-						<th>
-							판매자명
-						</th>
-						
-						<th>
-							가격
-						</th>
+						<th>주문상품명</th>
+						<th>주문 내용</th>
+						<th>판매자명</th>
+						<th>가격</th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach var="productVo" items="${productList}">
 					<tr>
-						<td>
-							${productVo.p_name }
-						</td>
+						<td>${productVo.p_name}</td>
 						<td>	
-						<c:if test="${fn:length(productVo.p_content) > 10}">
-							<a href="/page/content?p_no=${productVo.p_no}">${fn:substring(productVo.p_content,0,20)}...</a>
-						</c:if>
+							<c:if test="${fn:length(productVo.p_content) > 10}">
+								<a href="/page/content?p_no=${productVo.p_no}">${fn:substring(productVo.p_content,0,20)}...</a>
+							</c:if>
 						</td>
-						<td>
-							${productVo.p_seller}<span>님</span>
-						</td>
-						
-						<td>
-							${productVo.p_price}<span>원</span>
-						</td>
+						<td>${productVo.p_seller}<span>님</span></td>
+						<td>${productVo.p_price}<span>원</span></td>
 					</tr>
-					</c:forEach>					
+					</c:forEach>
 				</tbody>
 			</table>
 		</div>
@@ -183,38 +167,30 @@ $("#getDirect").click(function(){
 			<table class="table">
 				<thead>
 					<tr>						
-						<th>
-							이름
-						</th>												
-						<th>
-							주소
-						</th>												
-						<th>
-							연락처
-						</th>
-						<th>
-							배송 메세지
-						</th>												
+						<th>이름</th>												
+						<th>주소</th>												
+						<th>연락처</th>
+						<th>배송 메세지</th>												
 					</tr>
 				</thead>
 				<tbody>
 					<tr>						
 						<td>
-						<label>주문자 이름:</label>
-						<input placeholder="성함을 입력하시오"/>
+							<label>주문자 이름:</label>
+							<input placeholder="성함을 입력하시오"/>
 						</td>
 						<td>
-						<label>주소:</label>
-						<input placeholder="우편번호 입력"/><button>우편번호 검색</button><br>
-						<input placeholder="주소를 입력하시오"/>&nbsp;&nbsp;<input placeholder="상세주소를 입력하시오"/>						
+							<label>주소:</label>
+							<input placeholder="우편번호 입력"/><button>우편번호 검색</button><br>
+							<input placeholder="주소를 입력하시오"/>&nbsp;&nbsp;<input placeholder="상세주소를 입력하시오"/>						
 						</td>
 						<td>
-						<label>연락처:</label>
-						<input type="tel" placeholder="연락처를 입력하시오"/>
+							<label>연락처:</label>
+							<input type="tel" placeholder="연락처를 입력하시오"/>
 						</td>
 						<td>
-						<label>배송메세지:</label>
-						<input placeholder="택배 기사님께 부탁할 사항을 입력하시오"/>(<span></span>/50자)
+							<label>배송메세지:</label>
+							<input placeholder="택배 기사님께 부탁할 사항을 입력하시오"/>(<span></span>/50자)
 						</td>												
 					</tr>					
 				</tbody>
@@ -231,24 +207,20 @@ $("#getDirect").click(function(){
 			<table class="table">
 				<thead>
 					<tr>
-						<th>
-							결제정보입력
-						</th>
-						<th>
-						</th>						
+						<th>결제정보입력</th>
+						<th></th>						
 					</tr>
 				</thead>
 				<tbody>
 					<tr>
 						<td>
-						<form>
-							<input type="radio" name="cardPayment" value="cardPayment">신용/체크카드
-							&nbsp;&nbsp;<input type="radio" name="bankPayment" value="bankPayment">무통장입금
-							&nbsp;&nbsp;<input type="radio" name="phonePayment" value="phonePayment">휴대폰결제
-						</form>
+							<form>
+								<input type="radio" name="cardPayment" value="cardPayment">신용/체크카드
+								&nbsp;&nbsp;<input type="radio" name="bankPayment" value="bankPayment">무통장입금
+								&nbsp;&nbsp;<input type="radio" name="phonePayment" value="phonePayment">휴대폰결제
+							</form>
 						</td>
-						<td>
-						</td>						
+						<td></td>						
 					</tr>					
 				</tbody>
 			</table>

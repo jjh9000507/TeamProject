@@ -22,6 +22,14 @@ a.btns:hover {
 <div class="row">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">
+		<h1>고객센터 Q&amp;A 관리</h1>
+	</div>
+	<div class="col-md-4"></div>
+</div>
+
+<div class="row">
+	<div class="col-md-4"></div>
+	<div class="col-md-4">
 		<a class="btn btns" href="/admin/adminQandAInput">Q&amp;A 추가</a>
 		<a class="btn btns" href="/admin/adminQandADelete">Q&amp;A 수정/삭제</a>
 		<a class="btn btns" href="/admin/adminQandACategoryInput">Q&amp;A 카테고리 추가</a>

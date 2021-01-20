@@ -10,6 +10,7 @@ import com.kh.team.dao.WhitegoodsDao;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.WhitegoodsQnaVo;
 import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 
@@ -87,6 +88,12 @@ public class WhitegoodsServiceImpl implements WhitegoodsService {
 	public MemberVo sellingMember(String m_id) throws Exception {
 		MemberVo sellingMember = whitegoodsDao.sellingMember(m_id);
 		return sellingMember;
+	}
+
+	@Override
+	public List<WhitegoodsQnaVo> getProductQna(int w_no) throws Exception {
+		List<WhitegoodsQnaVo> getProductQna = whitegoodsDao.getProductQna(w_no);
+		return getProductQna;
 	}
 
 }

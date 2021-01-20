@@ -24,6 +24,6 @@
 		</c:if>-->
 		</a></li>
 	<li><a href="/auction/auctionResisterList">상품 등록</a></li>
-	<li><a href="/auction/auctionFavorite">관심 상품</a></li>
+	<li><a href="#">관심 상품</a></li>
   </ul>
 </nav>

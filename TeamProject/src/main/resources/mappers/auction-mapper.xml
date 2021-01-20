@@ -384,6 +384,39 @@
 	<select id="getAuctionOrderSellerList" resultType="AuctionOrderVo">
 		select * from auction_order where seller = #{seller}
 	</select>
-
 	<!-- 결제 끝 -->
+	
+	<!-- 관심 상품 시작 -->
+	<select id="getAuctionFavoriteCont" resultType="int">
+		select count(*) from auction_favorite where m_id=#{m_id} and p_no=#{p_no}
+	</select>
+	
+	<insert id="insertAuctionFavorite">
+		insert into auction_favorite values(seq_auction_favorite_no.nextval, #{m_id}, #{p_no})
+	</insert>
+	
+	<!-- favorite테이블에 있는 p_no 목록 -->
+	<select id="getAcutionFavoritePno" resultType="int">
+		select p_no from auction_favorite where m_id=#{m_id}
+	</select>
+	
+	<!-- 내 관심 상품 목록 -->
+	<select id="getAuctionFavoriteList" resultType="AuctionSellVo">
+		select a.*, addr.*, rdate.*, edate.*, img.*
+		from auction a 
+		inner join auction_address addr
+		on a.p_no = addr.p_no
+		inner join auction_register_date rdate
+		on addr.p_no = rdate.p_no
+		inner join auction_expiration_date edate
+		on rdate.p_no = edate.p_no
+		inner join auction_main_img img
+		on edate.p_no = img.p_no
+		where a.p_no in 
+		<foreach collection="list" item="index" open="(" close=")" separator=",">
+			#{index}
+		</foreach>
+		order by rdate.r_year desc , rdate.r_month desc, rdate.r_day desc, rdate.r_hour desc, rdate.r_minute desc
+	</select>
+	<!-- 관심 상품 끝 -->
 </mapper>

@@ -79,8 +79,14 @@
 		where w_no = #{w_no}
 	</select>
 	
+	<!-- 판매자정보 가져오기 -->
 	<select id="sellingMember" resultType="MemberVo">
 		select * from member
 		where m_id = #{m_id}
+	</select>
+	
+	<select id="getProductQna" resultType="WhitegoodsQnaVo">
+		select * from whitegoods_qna
+		where w_no = #{w_no}
 	</select>
 </mapper>

@@ -70,8 +70,5 @@ public class MemberServiceImpl implements MemberService {
 		int originalPoint = memberDao.getByMemberPoint(m_id);
 		return originalPoint;
 	}
-
-	
-
 	
 }

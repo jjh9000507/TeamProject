@@ -1,6 +1,7 @@
 package com.kh.team.dao;
 
 import java.util.HashMap;
+
 import java.util.List;
 import java.util.Map;
 
@@ -10,9 +11,9 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
-import com.kh.team.domain.ComputerCommentVo;
+
 import com.kh.team.domain.ComputerVo;
-import com.kh.team.domain.ProductExplainVo;
+
 
 @Repository
 public class ComputersDaoImpl implements ComputersDao {

@@ -6,20 +6,10 @@
 <!-- 이거 사이드바로 빼고 css넣고 해야할 듯? -->
 <%@ include file="/resources/css/service_center.css" %>
 <div class="row">
-	<div class="col-md-12 borderAllCategory" id="borderAllCategory">
-		<div class="col-md-2"></div>
-		<div class="col-md-8" >
-			<%@ include file="../include/header_mainCatagories.jsp"%>
-		</div>
-		<div class="col-md-2"></div>
-		<br>
-	</div>
-</div>
-<div class="row">
 	<div class="col-md-2"></div>
 	<div class="col-md-8">
 		<h3 class="sub-title">자주하는 질문</h3>
-		<a href="/service/Q&A" class="snip1535">Q&A</a>
+		<a href="/service/Q&A" class="snip1535">Q&amp;A</a>
 		
 		<h3 class="sub-title">1:1문의</h3>
 		<p class="more"><span class="more-link"><a href="/service/inquiry?m_id=${memberVo.m_id}" class="snip1535">문의하기</a></span></p>
@@ -30,6 +20,7 @@
 					<h3 class="sub-title">공지사항</h3>
 						<p class="more"><span class="more-link"><a href="/service/notice" class="snip1535">더보기</a></span></p>
 				</div>
+				<br>
 				<ul class="note-event-list">
 					<c:forEach begin="0" end="4" items="${noticeList}" var="NoticeVo" varStatus="status">
 						<li>

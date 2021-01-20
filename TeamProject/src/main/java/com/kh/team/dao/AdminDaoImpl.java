@@ -80,6 +80,12 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.delete(NAMESPACE + "adminMemberFLifeDelete", m_id);
 		
 	}
+	
+	//전체 상품 리스트에서
+	@Override
+	public void adminMemberProductDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberProductDelete", m_id);
+	}
 	//여기까지 해당 회원이 등록한 상품 목록 삭제
 
 	//판매자 권한 박탈 경험 인원 삭제
@@ -148,7 +154,13 @@ public class AdminDaoImpl implements AdminDao{
 	public void adminFLifeDelete(int p_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "adminDeleteFLife", p_no);
 	}
-
+	
+	//전체 리스트에서 상품 삭제
+	@Override
+	public void adminProductDelete(int p_no2) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminDeleteProduct", p_no2);
+	}
+	
 	//카테고리 추가
 	@Override
 	public void adminCategoryInput(CategoryVo categoryVo) throws Exception {
@@ -180,6 +192,54 @@ public class AdminDaoImpl implements AdminDao{
 	public List<CategoryVo> categoryDeleteList(String cate_no) throws Exception {
 		List<CategoryVo> categoryDeleteList = sqlSession.selectList(NAMESPACE + "CategoryDeleteList", cate_no);
 		return categoryDeleteList;
+	}
+	
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteProduct(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE+"adminCateDeleteProduct", cate_no);
+	}
+
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteWhitegoods(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCateDeleteWhitegoods", cate_no);
+	}
+
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteClothes(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCateDeleteClothes", cate_no);
+	}
+
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteComputer(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCateDeleteComputer", cate_no);
+	}
+
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteFBed(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCateDeleteFBed", cate_no);
+	}
+
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteFInterior(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCateDeleteFInterior",cate_no);
+	}
+
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteFKitchen(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCateDeleteFKitchen", cate_no);
+	}
+
+	//카테고리 삭제 시 해당 카테고리 상품 삭제
+	@Override
+	public void adminCateDeleteFLife(String cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminCateDeleteFLife", cate_no);
 	}
 	
 	//판매자 권한 삭제
@@ -324,9 +384,6 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeVo);
 	}
 
-	
-
-	
 	
 
 }
