@@ -102,8 +102,5 @@ private final String NAMESPACE = "com.kh.team.member.";
 		int originalPoint = sqlSession.selectOne(NAMESPACE + "getByMemberPoint", m_id);
 		return originalPoint;
 	}
-
-	
-	
 	
 }

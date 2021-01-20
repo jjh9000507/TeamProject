@@ -329,66 +329,6 @@ $(function() {
 			</c:otherwise>
 			
 		</c:choose>
-		</a>
-		<a class="dropdown-item" href="#">
-		<c:choose>
-			<c:when test="${not empty cookie.product0Name.value}">
-				${cookie.product0Name.value}
-			</c:when>			
-			<c:otherwise>
-				
-			</c:otherwise>
-		</c:choose>
-		</a>
-		<a class="dropdown-item" href="#">
-		<c:choose>
-			<c:when test="${not empty cookie.product1Name.value}">
-				${cookie.product1Name.value}
-			</c:when>			
-			<c:otherwise>
-				
-			</c:otherwise>
-		</c:choose>
-		</a>
-		<a class="dropdown-item" href="#">
-		<c:choose>
-			<c:when test="${not empty cookie.product2Name.value}">
-				${cookie.product2Name.value}
-			</c:when>			
-			<c:otherwise>
-				
-			</c:otherwise>
-		</c:choose>
-		</a>
-		<a class="dropdown-item" href="#">
-		<c:choose>
-			<c:when test="${not empty cookie.product3Name.value}">
-				${cookie.product3Name.value}
-			</c:when>			
-			<c:otherwise>
-				
-			</c:otherwise>
-		</c:choose>
-		</a>
-		<a class="dropdown-item" href="#">
-		<c:choose>
-			<c:when test="${not empty cookie.product4Name.value}">
-				${cookie.product4Name.value}
-			</c:when>			
-			<c:otherwise>
-				
-			</c:otherwise>
-		</c:choose>
-		</a>
-		<a class="dropdown-item" href="#">
-		<c:choose>
-			<c:when test="${not empty cookie.product5Name.value}">
-				${cookie.product5Name.value}
-			</c:when>			
-			<c:otherwise>
-				
-			</c:otherwise>
-		</c:choose>
 		</a>		
 		</div>
 		</div>	
