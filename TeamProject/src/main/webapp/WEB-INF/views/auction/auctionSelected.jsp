@@ -4,7 +4,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
 <%@ include file="/resources/css/auction_css.css" %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.js"></script>
 <script type="text/javascript" src="/resources/js/auctionJS.js" charset="UTF-8"></script>
 
 <script>
@@ -615,7 +614,7 @@ function stopCountIndex(indexCatch){
 		<div class="col-md-2"></div>
 		<button type="button" id="stopTimer">타이머종료</button>	
 		<div class="col-md-8">
-			<%@ include file="../include/header_mainCatagories.jsp"%>
+			<%@ include file="auctionHeader.jsp"%>
 			<table class="table">
 				<tbody>
 					<!-- 이미지랑 세부내용 tr 시작 -->

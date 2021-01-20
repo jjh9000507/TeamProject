@@ -54,6 +54,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		//System.out.println("auctionController getAuctionList list:"+list);
 		model.addAttribute("list", list);
 		
+		//sidebar에 배송 보내야 하는 갯수 <- sessioonScope에 넣기
+		//int deliveryCount = auctionService.getAuctionOrderDeliveryCount(m_id);
+		//model.addAttribute("deliveryCount", deliveryCount);
+		//System.out.println("sidebarCount:"+sidebarCount);
+		
 		makeImgDirectoryAfterCheck();
 		
 		return "auction/auctionMain";
@@ -200,64 +205,18 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		int[] nTime = getNowTime();
 		
 		AuctionDateAndTimeVo dtVo = new AuctionDateAndTimeVo(nDate[0], nDate[1], nDate[2], nTime[0], nTime[1], nTime[2]);
-		//System.out.println("nDate:"+nDate.toString()+" ,nTime:"+nTime.toString());
 		
-		/*
-		//입찰중
-		List<AuctionSellVo> bidingList = auctionService.getAuctionBidingList(m_id, dtVo);
-		model.addAttribute("bidingList",bidingList);
-		//System.out.println("bidingList:"+bidingList);
-		//입찰 마감
-		List<AuctionSellVo> bidingFinishList = auctionService.getAuctionBidingFinishList(m_id, dtVo);
-		model.addAttribute("bidingFinishList",bidingFinishList);
-		//System.out.println("bidingFinishList:"+bidingFinishList);
-		//거래된
-		List<AuctionSoldVo> soldList = auctionService.getAuctionUserMemberListSold(m_id);
-		model.addAttribute("soldList",soldList);
-		
-		//내가 입찰한 상품 3개를 각각 가져와야 뿌려줄 때 타이틀 따로 입찰내용 따로 뿌려줄 수 있다
-		//--------------------------------시작 ----------------------------
-		//내가 입찰 한 상품 : 타이틀 밑으로 입찰 항목을 보이기 위해선 테이블을 각각 가져와야 한다
-		List<AuctionTempBidVo> tempBiding = auctionService.getAuctionPurchaserTempBiding(m_id);
-		//System.out.println("tempBiding:"+tempBiding);
-		model.addAttribute("tempBiding", tempBiding);
-		//임시테이블에 p_no 만 가져와서 auction과 auction_main_img에 뿌려준다
-		List<AuctionPnoFromTempBiding> tempBidingPno = auctionService.getAuctionPurchaserTmepBidingPno(m_id);
-		//System.out.println("tempBidingPno:"+tempBidingPno);
-		model.addAttribute("tempBidingPno", tempBidingPno);
-		//해당 p_no의 타이틀만 가져온다
-		List<AuctionVo> tempBidingTitle = auctionService.getAuctionPurchaserTempBidingTitle(tempBidingPno);
-		//System.out.println("tempBidingTitle:"+tempBidingTitle);
-		model.addAttribute("tempBidingTitle", tempBidingTitle);
-		//해당 p_no의 이미지만 가져온다
-		List<AuctionMainImgVo> tempBidingImg = auctionService.getAuctionPurchaserTempBidingImg(tempBidingPno);
-		//System.out.println("tempBidingImg:"+tempBidingImg);
-		model.addAttribute("tempBidingImg", tempBidingImg);
-		
-		//내가 입찰한 상품 -------------------- 끝 ------------------------------ 
-		
-		//내가 구매한 상품
-		List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
-		model.addAttribute("purchaserList", purchaserList);
-		//System.out.println("controller purchaserList:"+purchaserList);
-		*/
 		//폴더 이름을 p_no로 만들고 이미지를 저장하기 위해서 다음 p_no를 가지고 온다
 		int nextSeq = auctionService.getNextSeqNumber();
 		//System.out.println("auctionResisterList nextSeq:"+nextSeq);
 		model.addAttribute("nextPNO", nextSeq);
-
-		model.addAttribute("sidebarRegisterListNO", "no");//내 상품에선 sidebar에서 내 상품을 안 보여준다
 		
-		//sidebar에 배송 보내야 하는 갯수
-		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(m_id);
-		model.addAttribute("sidebarCount", sidebarCount);
-		//System.out.println("sidebarCount:"+sidebarCount);
 		return "auction/auctionResisterList";
 	}
 	
 	@RequestMapping(value="/auctionSelected", method=RequestMethod.GET)
 	public String auctionSelected(int p_no, Model model) throws Exception{
-		//System.out.println("pno:"+p_no);
+		//이미지 파일 없으면 s3에서 가져오기 체크
 		makeImgDirectoryAfterCheck();
 		
 		/* 여기 접근 하는 경로
@@ -277,7 +236,10 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		 *auctionSelected.jsp에서 입찰 하면 2분 추가 -> controller:insertAuctionTempBid -> 시간이 종료되면 -> 
 		 *controller:timeOverAutoCommit(여기서 deadline='Y') -> auctionMain.jsp
 		 *
+		 *timeOverAutionCommit을 실행이 안 된 경우 여기가 로딩될 때 새로 마감시간을 체크 후 기간이 지났으면 deadline='Y'로하는
+		 *함수 makeDeadlineToY();
 		 */ 
+		makeDeadlineToY(p_no);
 		
 		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
 		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
@@ -301,6 +263,57 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		return "auction/auctionSelected";
 	}
 	
+	//마감 기간 체크해서 기간이 지났으면 deadline을 Y로
+	private void makeDeadlineToY(int p_no) throws Exception{
+		
+		//현재 시간
+		int[] nDate = getNowDate();
+		int[] nTime = getNowTime();
+		int nYear = nDate[0];
+		int nMonth = nDate[1];
+		int nDay = nDate[2];
+		int nHour = nTime[0];
+		int nMinute = nTime[1];
+		int nSecond = nTime[2];
+		//System.out.println("nYear:"+nYear+" ,nMonth:"+nMonth+" ,nDay:"+nDay+" ,nHour:"+nHour+" ,nMinute:"+nMinute+" ,nSecond:"+nSecond);
+		//마감 시간
+		AuctionEDateVo auctionEDateVo = auctionService.getAuctionExpirationDate(p_no);
+		int eYear = auctionEDateVo.getE_year();
+		int eMonth = auctionEDateVo.getE_month();
+		int eDay = auctionEDateVo.getE_day();
+		int eHour = auctionEDateVo.getE_hour();
+		int eMinute = auctionEDateVo.getE_minute();
+		int eSecond = auctionEDateVo.getE_second();
+		//System.out.println("eYear:"+eYear+" ,eMonth:"+eMonth+" ,eDay:"+eDay+" ,eHour:"+eHour+" ,eMinute:"+eMinute+" ,eSecond:"+eSecond);
+		
+		boolean deadLineCheck = true;//기간이 지났으면
+		
+		if(eYear > nYear) {
+			deadLineCheck = false;
+			System.out.println("1");
+		}else if(eYear<=nYear && eMonth>nMonth){
+			deadLineCheck = false;
+			System.out.println("2");
+		}else if(eYear<=nYear && eMonth<=nMonth && eDay>nDay) {
+			deadLineCheck = false;
+			System.out.println("3");
+		}else if(eYear<=nYear && eMonth<=nMonth && eDay<=nDay && eHour>nHour) {
+			deadLineCheck = false;
+			System.out.println("4");
+		}else if(eYear<=nYear && eMonth<=nMonth && eDay<=nDay && eHour<=nHour && eMinute>nMinute) {
+			deadLineCheck = false;
+			System.out.println("5");
+		}else if(eYear<=nYear && eMonth<=nMonth && eDay<=nDay && eHour<=nHour && eMinute<=nMinute && eSecond>nSecond) {
+			deadLineCheck = false;
+			System.out.println("6");
+		}
+		//expiration테이블에 기간이 지났으면 마감기한 Y로 업데이트
+		//System.out.println("deadline:" + deadLineCheck);
+		if(deadLineCheck) {
+			auctionService.updateAuctionExpriationDeadline(p_no);
+		}
+	}
+	
 	@RequestMapping(value="/timeOverAutoCommit", method=RequestMethod.GET)
 	public String timeOverAutoCommit(int p_no) throws Exception{
 	
@@ -317,7 +330,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 			
 			auctionService.updateAuctionAfterFinish(purchaser, sold_price, p_no, seller);
 			
-			//expiration테이블에 마감기한 N로 업데이트
+			//expiration테이블에 마감기한 Y로 업데이트
 			auctionService.updateAuctionExpriationDeadline(p_no);
 		}
 		return "redirect:/auction/auctionMain";
@@ -588,11 +601,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		List<String> imgModify = auctionService.getAuctionImgModify(p_no);
 		model.addAttribute("imgModify", imgModify);
 		
-		//sideBar에 count 가져온다
+		/*sideBar에 count 가져온다
 		String m_id = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(m_id);
 		model.addAttribute("sidebarCount", sidebarCount);
-		System.out.println("controller auctionModify sidebarCount:"+sidebarCount);
+		System.out.println("controller auctionModify sidebarCount:"+sidebarCount);*/
 		
 		return "auction/auctionModify";
 	}
@@ -644,10 +657,10 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		MemberVo memberVo = auctionService.getMember(purchaser);
 		model.addAttribute("memberVo", memberVo);
 		
-		//sideBar에 count 가져온다
+		/*//sideBar에 count 가져온다
 		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(purchaser);
 		model.addAttribute("sidebarCount", sidebarCount);
-		//System.out.println("controller auctionPurchaseSelectecd sidebarCount:"+sidebarCount);
+		//System.out.println("controller auctionPurchaseSelectecd sidebarCount:"+sidebarCount);*/
 		
 		return "auction/auctionPurchaseSelected";
 	}
@@ -737,4 +750,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		return "auction/auctionPaymentList";
 	}
 	
+	
+	@RequestMapping(value="/auctionFavorite", method=RequestMethod.GET)
+	public String auctionFavorite(HttpSession session, Model model) throws Exception{
+		
+		
+		return "auction/auctionFavorite";
+	}
 }

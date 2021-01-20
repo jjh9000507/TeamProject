@@ -18,7 +18,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.min.css"/>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker3.standalone.min.css"/>
 <!-- 달력 스타일 시트 끝 -->
-<link rel="stylesheet" href="/resources/css/sidebar.css" />
 
 <!-- 달력 스크립트 시작 -->
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"></script>
@@ -254,45 +253,6 @@ $(function(){
 			$("#btnModalCloseAuction").trigger("click");
 		});//list지번
 		
-
-		/* ------------------------------------ 옆면에 아우터 이벤트 시작 ---------------------------------- 
-		//메인으로
-		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(1) > ul").show();	
-		});
-		
-		$(".sidebar__nav > li:eq(1) > a , .sidebar__submenu:eq(1)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(1) > ul").hide();	
-		});
-		
-		// 관심상품
-		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(2) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(2) > a , .sidebar__submenu:eq(2)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(2) > ul").hide();
-		});
-		
-		//내상품
-		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(3) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(3) > a , .sidebar__submenu:eq(3)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(3) > ul").hide();
-		});
-		
-		// 결제내역
-		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseover" , function(){
-			$(".sidebar__nav > li:eq(4) > ul").show();
-		});
-		
-		$(".sidebar__nav > li:eq(4) > a , .sidebar__submenu:eq(4)").on("mouseout" , function(){
-			$(".sidebar__nav > li:eq(4) > ul").hide();
-		});
-		 ------------------------------------ 옆면에 아우터 이벤트 끝 ---------------------------------- */
-		
 });//function
 
 </script>
@@ -338,8 +298,9 @@ $(function(){
 
 <div class="container-fluid">
 	<div class="row">
-	<div class="col-md-2"><%@ include file="auctionSideBar.jsp"%></div>
+	<div class="col-md-2"></div>
 		<div class="col-md-8">
+		<%@ include file="auctionHeader.jsp"%>
 			<div class="col-md-2"></div>
 			<div class="col-md-12">
 				<form role="form" name="modifyForm" id="modifyForm" action="/auction/auctionModifyRun">    

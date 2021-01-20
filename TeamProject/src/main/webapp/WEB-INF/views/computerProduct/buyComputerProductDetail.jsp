@@ -176,6 +176,21 @@ $(function(){
 	var productName = "${buyComputerInfo.productName}";
 	var sendMethod = "${buyComputerInfo.sendMethod}";
 	var m_id = "${sessionScope.memberVo.m_id}";
+	var m_point = "${m_point}";
+	console.log("m_point:" + m_point);
+	var cPrice = "";
+	if((m_point >= 0)  && (m_point < 5000)){		
+		$("#gradePrice").text("할인가 없음");
+		cPrice = price;
+	}else if((m_point >= 5000) && (m_point < 10000)){
+		cPrice = price * 0.9;
+		console.log("cPrice:" + cPrice);
+		$("#gradePrice").text("10% 할인하여 " + cPrice + "원");
+	}else if(m_point >= 10000){
+		cPrice = price * 0.7;
+		console.log("cPrice:" + cPrice);
+		$("#gradePrice").text("30% 할인하여 " + cPrice + "원");
+	}
 	console.log("todayValueYear:" + todayValueYear);
 	console.log("todayValueMonth:" + todayValueMonth);
 	console.log("todayValueDate:" + todayValueDate);
@@ -280,7 +295,7 @@ $(function(){
 
 			var urlSendProductInfo = "/buyComputerProduct/sendProductInfoBought";
 			var sendDataSendProductInfo = {
-					"price"					: price,
+					"price"					: cPrice,
 					"seller"				: seller,
 					"productNum"			: productNum,
 					"productName"			: productName,
@@ -300,7 +315,10 @@ $(function(){
 			};
  			$.post(urlSendProductInfo,sendDataSendProductInfo, function(data) {
 				if(data == "success"){
-					alert("개인정보 폼에 구매내역이 저장되었습니다");
+					var totalPoint = price / 1000;
+					alert("개인정보 폼에 구매내역이 저장되었고 포인트가 " + totalPoint + "만큼 증가하였습니다");
+				}else if(data == "fail"){
+					alert("포인트 증가 실패");
 				}
  			});
 		}else{
@@ -525,6 +543,9 @@ $(function(){
 							가격
 						</th>
 						<th>
+							멤버 등급에 따른 할인 가격
+						</th>
+						<th>
 							주문날짜
 						</th>
 					</tr>
@@ -545,6 +566,9 @@ $(function(){
 						</td>
 						<td>
 							${buyComputerInfo.price}<span>원</span>
+						</td>
+						<td>
+							<span id="gradePrice"></span>
 						</td>
 						<td>
 							<span id="buyYear"></span>-<span id="buyMonth"></span>-<span id="buyDate"></span>

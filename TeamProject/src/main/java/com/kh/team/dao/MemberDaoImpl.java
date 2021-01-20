@@ -85,6 +85,24 @@ private final String NAMESPACE = "com.kh.team.member.";
 		return count;
 	}
 
+	@Override
+	public int increaseMemberPoint(int totalPoint, String m_id, int originalPoint) throws Exception {
+		Map<String, String> map = new HashMap<>();
+		String point = String.valueOf(totalPoint); 
+		String pointAdd = String.valueOf(originalPoint);
+		map.put("point", point);
+		map.put("m_id", m_id);
+		map.put("pointAdd", pointAdd);
+		int count = sqlSession.update(NAMESPACE + "increaseMemberPoint", map);
+		return count;
+	}
+
+	@Override
+	public int getByMemberPoint(String m_id) throws Exception {
+		int originalPoint = sqlSession.selectOne(NAMESPACE + "getByMemberPoint", m_id);
+		return originalPoint;
+	}
+
 	
 	
 	

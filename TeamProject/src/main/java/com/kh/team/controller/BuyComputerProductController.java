@@ -31,12 +31,15 @@ public class BuyComputerProductController {
 	@Inject
 	private MemberService memberService;
 	
+	
 	@RequestMapping(value="/openBuyComputerProductDetail", method=RequestMethod.POST)
 	public String openBuyComputerProductDetail(BuyComputerVo buyComputerVo, HttpServletRequest request) throws Exception{
 		System.out.println("/openBuyComputerProductDetail");
 		System.out.println("buyComputerVo:" + buyComputerVo);
-		
+		String m_id = buyComputerVo.getM_id();
+		int m_point = memberService.getMemberPoint(m_id);
 		request.setAttribute("buyComputerInfo", buyComputerVo);	
+		request.setAttribute("m_point", m_point);	
 		return "/computerProduct/buyComputerProductDetail";				
 	}
 	
@@ -95,6 +98,26 @@ public class BuyComputerProductController {
 		session.setAttribute("sendProductBoughtInfoVo", sendProductBoughtInfoVo);
 		String productName = sendProductBoughtInfoVo.getProductName();
 		System.out.println("productName:" + productName);
+		String show = "fail";
+		int totalPrice = sendProductBoughtInfoVo.getPrice();
+		System.out.println("totalPrice:" + totalPrice);
+		
+		int totalPoint = totalPrice / 1000;
+		System.out.println("totalPoint:" + totalPoint);		
+		
+		String m_id = sendProductBoughtInfoVo.getM_id();
+		System.out.println("m_id:" + m_id);
+		
+		int count = memberService.increaseMemberPoint(totalPoint, m_id);
+		System.out.println("count:" + count);
+		
+		if(count == 1) {
+			show = "success";
+		}else {
+			System.out.println("좆같은");
+		}
+	
+		
 		Cookie[] cookieRequest = request.getCookies();
 		
 		int c_length = cookieRequest.length;
@@ -152,7 +175,7 @@ public class BuyComputerProductController {
 			}
 		
 		System.out.println("end");
-		return "success";				
+		return show;				
 	}
 	
 	@RequestMapping(value="/insertProductRef", method=RequestMethod.POST)
