@@ -183,7 +183,7 @@ $(function(){
 							</c:forEach>
 
 							<td class="btnCart" style="vertical-align:middle">
-								<div><a href="/cart/purchase" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a></div>
+								<div><a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a></div>
 								<div><a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartDelete">취소</a></div>
 
 							</td>
