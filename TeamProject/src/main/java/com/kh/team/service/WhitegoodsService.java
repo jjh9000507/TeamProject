@@ -5,6 +5,7 @@ import java.util.List;
 import com.kh.team.domain.CategoryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.ProductImgVo;
+import com.kh.team.domain.WhitegoodsQnaVo;
 import com.kh.team.domain.WhitegoodsReviewVo;
 import com.kh.team.domain.WhitegoodsVo;
 
@@ -42,4 +43,7 @@ public interface WhitegoodsService {
 	
 	//상품판매자 정보를 가져오기 위해 전체 리스트 가져오기
 	public MemberVo sellingMember(String m_id) throws Exception;
+	
+	//상품문의 글 가져오기
+	public List<WhitegoodsQnaVo> getProductQna(int w_no) throws Exception;
 }
