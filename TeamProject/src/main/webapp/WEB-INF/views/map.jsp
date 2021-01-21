@@ -186,7 +186,7 @@
 				<div class="row">
 					<div class="col-md-8">
 					
-					<div id="map" style="top : 20%; width:500px;height:400px; left:55%;"></div>
+					<div id="map" style="top : 20%; width:53%; height:440px; left:51%;"></div>
 					
 						<div style="position: absolute; left: 63%; top: 3%">
 						검색한 주소 : <input type="text" id="txtAddress" name="txtAddress" value="${roadAddress}">

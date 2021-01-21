@@ -37,4 +37,8 @@ public interface SellProductService {
 	
 	// 보낸 메시지 목록
 	public List<MessageVo> send_MessageList(String m_id) throws Exception;
+	
+	// 메시지내용
+	public MessageVo messageContent(int msg_no) throws Exception;
+	
 }

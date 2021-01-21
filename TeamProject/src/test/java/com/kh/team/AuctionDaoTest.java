@@ -147,4 +147,10 @@ public class AuctionDaoTest {
 	public void insertAuctionFavorite() throws Exception {
 		auctionDao.insertAuctionFavorite("user03",41);
 	}
+	
+	@Test
+	public void deleteAuctionFavoriet() throws Exception{
+		int[] arryPno = {24,65};
+		auctionDao.deleteAuctionFavoriet(arryPno);
+	}
 }

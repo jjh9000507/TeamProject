@@ -40,8 +40,15 @@ public class CartContoller {
 		model.addAttribute("cartList", cartList);
 		model.addAttribute("productList", productList);
 		
+		//경매 시작
+		AuctionController ac = new AuctionController();
+		ac.setAuctionService(auctionService);
+		ac.makeImgDirectoryAfterCheck();
+		
 		List<AuctionSellVo> auctionSellVo = auctionService.getAuctionFavoritePno(m_id);
+		System.out.println("controller auctionSellVo:"+auctionSellVo);
 		model.addAttribute("auctionList", auctionSellVo);
+		//경매 끝
 		return "/cart/cartPage";
 	}
 	

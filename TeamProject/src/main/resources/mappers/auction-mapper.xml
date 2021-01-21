@@ -418,5 +418,13 @@
 		</foreach>
 		order by rdate.r_year desc , rdate.r_month desc, rdate.r_day desc, rdate.r_hour desc, rdate.r_minute desc
 	</select>
+	
+	<!-- 관심 상품 삭제 -->
+	<delete id="deleteAuctionFavoriet">
+		delete from auction_favorite where p_no in 
+		<foreach collection="array" item="index" open="(" close=")" separator=",">
+			#{index}
+		</foreach>
+	</delete>
 	<!-- 관심 상품 끝 -->
 </mapper>

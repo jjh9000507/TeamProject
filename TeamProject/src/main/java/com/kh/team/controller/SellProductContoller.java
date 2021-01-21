@@ -7,6 +7,7 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.transaction.xa.XAException;
 
 import org.apache.maven.shared.utils.io.IOUtil;
 import org.springframework.stereotype.Controller;
@@ -304,5 +305,29 @@ public class SellProductContoller {
 		model.addAttribute("send_MessageList" , send_MessageList);
 		
 		return "/sell/messageList";
+	}
+	
+	// 메시지 내용
+	@RequestMapping(value="/messageContent" , method=RequestMethod.GET)
+	public String messageContent(Model model, int msg_no, String type) throws Exception {
+		
+		System.out.println("type : " + type);
+		
+		MessageVo messageVo = sellProductService.messageContent(msg_no);
+		
+		// 메시지 번호에 해당하는 데이터 받아오기
+		model.addAttribute("messageVo" , messageVo);
+		
+		// 받은 보낸 메시지 구분
+		model.addAttribute("type" , type);
+		
+		return "/sell/messageContent";
+	}
+	
+	@RequestMapping(value="/replyMessageForm" , method=RequestMethod.GET)
+	public String replyMessageForm(Model model, int msg_no) throws Exception {
+		MessageVo messageVo = sellProductService.messageContent(msg_no);
+		model.addAttribute("messageVo" , messageVo);
+		return "/sell/replyMessageForm";
 	}
 }

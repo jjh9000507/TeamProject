@@ -115,15 +115,15 @@ $(function(){
 	$("#btnAuctionDel").click(function(){
 		var arryPno = [];
 		$(".chkAuction").each(function(index){
-			
 			var check = $(this).prop("checked");
-			alert(check);
 			
 			if(check){
 				arryPno.push($(this).val());
 			}
-			
 		});
+		
+		var url = "/auction/deleteFavorite?arryPno="+arryPno;
+		location.href = url;
 	});
 	
 	function checkLength(){
@@ -220,7 +220,7 @@ $(function(){
 								</c:when>
 								<c:otherwise>
 								${auctionVo.e_day}일 ${auctionVo.e_hour}:${auctionVo.e_minute} 
-								<a href="/auction/"><img src="/resources/auctionImage/btn_bid.gif"></a>
+								<a href="/auction/auctionSelected?p_no=${auctionVo.p_no}"><img src="/resources/auctionImage/btn_bid.gif"></a>
 								</c:otherwise>
 							</c:choose>		
 							</td>

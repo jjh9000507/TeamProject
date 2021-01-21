@@ -44,8 +44,12 @@ import net.nurigo.java_sdk.exceptions.CoolsmsException;
 public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 
 	@Inject
-	private AuctionService auctionService;
+	public AuctionService auctionService;
 	
+	public AuctionService getAuctionService() {return auctionService;}//장바구니때문에 getter setter 만듦
+
+	public void setAuctionService(AuctionService auctionService) {this.auctionService = auctionService;}
+
 	@RequestMapping(value="/auctionMain", method=RequestMethod.GET)
 	public String getAuctoionMainList(Model model) throws Exception{
 		
@@ -77,7 +81,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 	 * auctionPurchaseSelectecd - 내 상품팔기로 들어갔을 때
 	 * auctionModify - 수정시
 	 * */
-	private void makeImgDirectoryAfterCheck() throws Exception{
+	public void makeImgDirectoryAfterCheck() throws Exception{
 		/* 시작 할 때 s3에 있는 이미지를 다운 받는다 */
 		
 		//이미지 리스트를 가져온다
@@ -793,5 +797,39 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		auctionService.insertAuctionFavorite(m_id, p_no);
 		
 		return "success";
+	}
+	
+	//관심 상품 삭제 
+	
+	@RequestMapping(value="/deleteFavorite", method=RequestMethod.GET)
+	public String deleteFavorite(int[] arryPno, HttpSession session) throws Exception{
+		/*
+		var sendData = {
+				"arryPno" : arryPno
+		};
+		
+		$.ajax({
+			url : "/auction/deleteFavorite",
+			dataType : "json",
+			data : sendData,
+			traditional : true,
+			type : "get",
+			success : function(data){
+				alert(data);
+			}
+		});
+		 */
+		System.out.println("auctionController deleteFavorite arryPno:"+arryPno.length);
+		if(arryPno.length > 0) {
+			auctionService.deleteAuctionFavoriet(arryPno);
+		}
+		return "redirect:/cart/cartPage";
+	}
+	
+	//관심상품 눌렀을 때 저장
+	@RequestMapping(value="/auctionDeliveryList", method=RequestMethod.GET)
+	public String auctionDeliveryList() throws Exception{
+		
+		return "auction/auctionDeliveryList";
 	}
 }

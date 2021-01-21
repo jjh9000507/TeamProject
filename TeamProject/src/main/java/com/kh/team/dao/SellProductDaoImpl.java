@@ -107,6 +107,7 @@ public class SellProductDaoImpl implements SellProductDao {
 		sqlSession.insert(NAMESPACE + "insertWhitegoods", whitegoodsVo);
 	}
 
+	// 판매자에게 메시지 보내기
 	@Override
 	public void seller_TO_message(MessageVo messageVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "seller_TO_message" , messageVo);
@@ -125,5 +126,14 @@ public class SellProductDaoImpl implements SellProductDao {
 		List<MessageVo> list = sqlSession.selectList(NAMESPACE + "send_MessageList" , m_id);
 		return list;
 	}
+
+	// 메시지 컨텐츠
+	@Override
+	public MessageVo messageContent(int msg_no) throws Exception {
+		MessageVo messageVo = sqlSession.selectOne(NAMESPACE + "messageContent" , msg_no);
+		return messageVo;
+	}
+	
+	
 
 }

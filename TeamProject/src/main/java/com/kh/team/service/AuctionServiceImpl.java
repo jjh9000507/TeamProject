@@ -400,11 +400,17 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public List<AuctionSellVo> getAuctionFavoritePno(String m_id) throws Exception {
 		//controller에서 받아오는 값을 줄이기 위해서 여기서 m_id를 받아서 p_no를 구해서 바로  관심상품 목록을 가져온다
 		List<AuctionPnoFromTempBiding> pnolist = auctionDao.getAuctionFavoritePno(m_id);
-		System.out.println("auctionServie pnoList:" + pnolist.size());
+		//System.out.println("auctionServie pnoList.size 밖:" + pnolist.size());
 		List<AuctionSellVo> list = null;
 		if(pnolist.size()>0) {
+			//System.out.println("auctionServie pnoList.size 안:" + pnolist.size());
 			list = auctionDao.getAuctionFavoriteList(pnolist);
 		}
 		return list;
+	}
+
+	@Override
+	public void deleteAuctionFavoriet(int[] array) throws Exception {
+		auctionDao.deleteAuctionFavoriet(array);
 	}
 }

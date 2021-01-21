@@ -432,6 +432,7 @@ public class AuctionDaoImpl implements AuctionDao{
 	@Override
 	public List<AuctionPnoFromTempBiding> getAuctionFavoritePno(String m_id) throws Exception {
 		List<AuctionPnoFromTempBiding> list = sqlSession.selectList(NAMESPACE + "getAcutionFavoritePno", m_id);
+		System.out.println("auctionDaoImpl getAuctionFavoritePno list:"+list);
 		return list;
 	}
 	
@@ -439,5 +440,10 @@ public class AuctionDaoImpl implements AuctionDao{
 	public List<AuctionSellVo> getAuctionFavoriteList(List<AuctionPnoFromTempBiding> pnolist) throws Exception {
 		List<AuctionSellVo> list = sqlSession.selectList(NAMESPACE + "getAuctionFavoriteList", pnolist);
 		return list;
+	}
+
+	@Override
+	public void deleteAuctionFavoriet(int[] array) throws Exception {
+		sqlSession.delete(NAMESPACE + "deleteAuctionFavoriet", array);
 	}
 }
