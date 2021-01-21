@@ -42,14 +42,33 @@ a.btns:hover {
 		});
 		
 		$("#btnSubmit").on("click", function(){
-			var selected = $("#secondQACategory option:selected").val();
-			console.log(selected);
-			var qa_cate_no = $("#qa_cate_no").val(selected);
-			console.log(qa_cate_no);
-			if(qa_cate_no == "" || qa_cate_no == null){
-				alert("카테고리를 선택해주세요.")
+			var first = $("#firstQACategory option:selected").val();
+// 			console.log(first);
+			var second = $("#secondQACategory option:selected").val();
+// 			console.log(selected);
+			var qa_cate_no = $("#qa_cate_no").val(second);
+// 			console.log(qa_cate_no);
+			var q_content = $("#q_content").val();
+			var a_content = $("#a_content").val();
+			
+			if(first=="00"){
+				alert("카테고리를 선택해주세요.");
 				return false;
 			}
+			
+			if(second == "00"){
+				alert("카테고리를 선택해주세요.");
+				return false;
+			}
+			if(q_content == ""){
+				alert("질문을 입력해주세요.");
+				return false;
+			}
+			if(a_content == ""){
+				alert("답변을 입력해주세요");
+				return false;
+			}
+			
 			$("#frmQAInsert").submit();
 		});
 	});
@@ -68,14 +87,14 @@ a.btns:hover {
 		<div class="col-md-6">
 			<form role="form" id="frmQAInsert" action="/admin/adminQAInsert">
 				<select id="firstQACategory">
-					<option value="">선택하세요</option>
+					<option value="00">선택하세요</option>
 					<c:forEach var="QACateVo" items="${firstQACategory}">
 						<option value="${QACateVo.qa_cate_no}">${QACateVo.qa_cate_name}</option>
 					</c:forEach>
 				</select>
 				
 				<select id="secondQACategory">
-					<option value="">선택하세요</option>
+					<option value="00">선택하세요</option>
 				</select>
 				<div class="form-group">
 					<label for="q_content"> 질문 </label>

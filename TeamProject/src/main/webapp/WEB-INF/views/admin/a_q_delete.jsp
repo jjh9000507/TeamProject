@@ -33,6 +33,12 @@ a.btns:hover {
 </style>
 <script>
 	$(function(){
+		
+		var msg = "${msg}";
+		if(msg == "qa_update_success"){
+			alert("Q&A가 수정되었습니다.");
+		}
+		
 		$(".btnShow").on("click", function(){
 			var that = $(this).parent().parent().next();
 			that.toggle();
@@ -57,6 +63,14 @@ a.btns:hover {
 
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-md-4"></div>
+		<div class="col-md-4">
+			<h1>고객센터 Q&amp;A 수정/삭제</h1>
+		</div>
+	<div class="col-md-4"></div>
+	</div>
+
+	<div class="row">
 		<div class="col-md-5"></div>
 		<div class="col-md-3">
 			<a class="btn btns" href="/admin/adminQandAMain">이전 페이지</a>
@@ -65,7 +79,8 @@ a.btns:hover {
 		<div class="col-md-4"></div>
 	</div>
 	<div class="row">
-		<div class="col-md-12">
+		<div class="col-md-2"></div>
+		<div class="col-md-8">
 			<table class="table">
 				<tbody>
 				<c:forEach var="QandAVo" items="${QA_UDList}">
@@ -92,5 +107,6 @@ a.btns:hover {
 				</tbody>
 			</table>
 		</div>
+		<div class="col-md-2"></div>
 	</div>
 </div>
