@@ -17,7 +17,7 @@
 	<li><a id="divPlace" href="/auction/auctionMain"><span style="color:red; font-weight:bold;">메인으로</span></a></li>
 	<li><a href="/auction/auctionSellList">판매 상품</a></li>
 	<li><a href="/auction/auctionPurchaseList">구매 상품</a></li>
-	<li><a href="#">결제한 상품 내역</a></li>
+	<li><a href="/auction/auctionPaymentList">결제한 상품 내역</a></li>
 	<li><a href="/auction/auctionDeliveryList">배송할 상품 내역
 		<!--<c:if test="${sidebarCount > 0 }">
 			<span style="color:red">(${sidebarCount})</span>

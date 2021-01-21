@@ -11,12 +11,14 @@
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
 				<%@ include file="auctionHeader.jsp"%>
+				<div><div style="float:left"><img src="/resources/auctionImage/receive_order_blue.png" style="height:40px;width:40px"></div><h1>배송할 상품</h1></div>
 			<!-- ------------------------------------------------------------------------------- -->
 			<div class="container">
 				<div class="row">
 					<div class="span12">
 						<ul class="thumbnails">
-							<li class="span5 clearfix">
+						
+							<li class="span12 clearfix">
 								<div class="thumbnail clearfix">
 									<img src="http://placehold.it/320x200" alt="ALT NAME"
 										class="pull-left span2 clearfix" style='margin-right: 10px'>
@@ -30,6 +32,7 @@
 									</div>
 								</div>
 							</li>
+							
 						</ul>
 					</div>
 				</div>

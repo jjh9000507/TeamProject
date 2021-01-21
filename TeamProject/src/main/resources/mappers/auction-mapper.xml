@@ -360,9 +360,9 @@
 	<!--  같은 테이블에서 구매자 정보만 먼저 입력 -->
 	<insert id="insertAuctionOrder">
 		insert into auction_order(order_id, purchaser, orderer_name, phonenumber, imp_uid, merchant_uid, 
-		order_price, card_approval_number, order_msg, zip, road_address , jibun_address, detail_address, seller, p_no)
+		order_price, card_approval_number, order_msg, zip, road_address , jibun_address, detail_address, seller, p_no, main_img_name, p_title, sold_price)
 		values(SEQ_AUCTION_ORDER_NO.nextval, #{purchaser}, #{orderer_name}, #{phonenumber}, #{imp_uid}, #{merchant_uid},
-		#{order_price}, #{card_approval_number}, #{order_msg}, #{zip}, #{road_address}, #{jibun_address}, #{detail_address}, #{seller}, #{p_no})
+		#{order_price}, #{card_approval_number}, #{order_msg}, #{zip}, #{road_address}, #{jibun_address}, #{detail_address}, #{seller}, #{p_no}, #{main_img_name}, #{p_title}, #{sold_price})
 	</insert>
 	
 	<!-- 구매자가 구매한 모든 항목을 가져오다 -->
