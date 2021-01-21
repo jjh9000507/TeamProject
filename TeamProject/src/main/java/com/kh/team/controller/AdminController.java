@@ -280,10 +280,11 @@ public class AdminController {
 	
 	//Q&A 추가하기
 	@RequestMapping(value="/adminQAInsert", method=RequestMethod.GET)
-	public String adminQAInsert(QandAVo qandaVo) throws Exception{
+	public String adminQAInsert(QandAVo qandaVo, RedirectAttributes rttr) throws Exception{
 		System.out.println("QandAVo: " + qandaVo);
 		adminService.qaInsert(qandaVo);
-		return "redirect:/admin/adminForm";
+		rttr.addFlashAttribute("msg", "qa_insert_success");
+		return "redirect:/admin/adminQandAMain";
 	}
 	
 	//Q&A 수정/삭제 페이지
@@ -308,9 +309,10 @@ public class AdminController {
 	
 	//Q&A 수정하기
 	@RequestMapping(value="/qaUpdateRun", method=RequestMethod.GET)
-	public String QandAUpdateRun(QandAVo qandAVo) throws Exception {
+	public String QandAUpdateRun(QandAVo qandAVo, RedirectAttributes rttr) throws Exception {
 		adminService.QAUpdate(qandAVo);
-		return "redirect:/admin/adminForm";
+		rttr.addFlashAttribute("msg", "qa_update_success");
+		return "redirect:/admin/adminQandADelete";
 	}
 	
 	//Q&A 삭제
@@ -331,7 +333,7 @@ public class AdminController {
 	
 	//Q&A 카테고리 추가
 	@RequestMapping(value="/QandACategoryInputRun", method=RequestMethod.GET)
-	public String QandACategoryInputRun(String qa_cate_name, String qa_cate_ref) throws Exception{
+	public String QandACategoryInputRun(String qa_cate_name, String qa_cate_ref, RedirectAttributes rttr) throws Exception{
 		String qa_cate_no = null;
 		if(qa_cate_ref.equals("")) {
 			List<QACateVo> firstCategory = adminService.firstQACategory();
@@ -351,6 +353,7 @@ public class AdminController {
 		qaCateVo.setQa_cate_name(qa_cate_name);
 		qaCateVo.setQa_cate_ref(qa_cate_ref);
 		adminService.qaCategoryInsert(qaCateVo);
+		rttr.addFlashAttribute("msg", "qa_cate_insert_success");
 		return "redirect:/admin/adminQandAMain";
 	}
 	
