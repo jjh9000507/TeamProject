@@ -17,7 +17,6 @@ public interface AdminService {
 	//관리자페이지 회원정보 삭제
 	public void adminMemberDelete(String m_id) throws Exception;
 	
-	
 	//상품 목록 전체 가져오기
 	public List<ProductVo> allProductList() throws Exception;
 	//의류 상품 삭제
@@ -84,8 +83,6 @@ public interface AdminService {
 	public void qaCategoryInsert(QACateVo qaCateVo) throws Exception;
 	//Q&A 카테고리 삭제하기
 	public void qaCategoryDelete(String qa_cate_no) throws Exception;
-		
-	
 	
 	//1:1 문의 전체 리스트
 	public List<InquiryVo> inquiryList() throws Exception;
@@ -96,4 +93,6 @@ public interface AdminService {
 	
 	//공지사항 추가
 	public void insertNotice(NoticeVo noticeVo) throws Exception;
+	//공지사항 삭제
+	public void noticeDelete(int notice_no) throws Exception;
 }

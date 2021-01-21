@@ -137,4 +137,6 @@ public interface AdminDao {
 	
 	//공지사항 추가
 	public void insertNotice(NoticeVo noticeVo) throws Exception;
+	//공지사항 삭제
+	public void noticeDelete(int notice_no) throws Exception;
 }

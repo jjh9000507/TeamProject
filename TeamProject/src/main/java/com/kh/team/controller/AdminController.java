@@ -425,8 +425,25 @@ public class AdminController {
 	
 	//공지사항 작성
 	@RequestMapping(value="/insertNotice", method=RequestMethod.GET)
-	public String insertNotice(NoticeVo noticeVo) throws Exception{
+	public String insertNotice(NoticeVo noticeVo, RedirectAttributes rttr) throws Exception{
 		adminService.insertNotice(noticeVo);
-		return "redirect:/admin/adminForm";
+		rttr.addFlashAttribute("msg", "notice_write_success");
+		return "redirect:/admin/adminNotice";
+	}
+	
+	//공지사항 상세보기
+	@RequestMapping(value="/noticeDetail/{notice_no}", method=RequestMethod.GET)
+	public String adminNoticeDetail(@PathVariable("notice_no") int notice_no, Model model) throws Exception{
+		NoticeVo noticeDetail = serviceService.noticeDetail(notice_no);
+		model.addAttribute("noticeDetail", noticeDetail);
+		return "/admin/a_notice_detail";
+	}
+	
+	//공지사항 삭제하기
+	@RequestMapping(value="/noticeDelete/{notice_no}", method=RequestMethod.GET)
+	public String adminNoticeDelete(@PathVariable("notice_no") int notice_no, RedirectAttributes rttr) throws Exception {
+		adminService.noticeDelete(notice_no);
+		rttr.addFlashAttribute("msg", "notice_delete_success");
+		return "redirect:/admin/adminNotice";
 	}
 }

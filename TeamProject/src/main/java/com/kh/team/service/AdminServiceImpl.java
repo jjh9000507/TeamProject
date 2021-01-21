@@ -271,7 +271,7 @@ public class AdminServiceImpl implements AdminService{
 		return detailInquiry;
 	}
 
-	//공지사항 삭제
+	//1:1문의 삭제
 	@Override
 	public void deleteInquiry(int inquiry_no) throws Exception {
 		adminDao.deleteInquiry(inquiry_no);
@@ -281,6 +281,12 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		adminDao.insertNotice(noticeVo);
+	}
+
+	//공지사항 삭제
+	@Override
+	public void noticeDelete(int notice_no) throws Exception {
+		adminDao.noticeDelete(notice_no);
 	}
 
 	

@@ -395,4 +395,10 @@ public class AdminDaoImpl implements AdminDao{
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeVo);
 	}
+
+	//공지사항 삭제
+	@Override
+	public void noticeDelete(int notice_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminNoticeDelete", notice_no);
+	}
 }

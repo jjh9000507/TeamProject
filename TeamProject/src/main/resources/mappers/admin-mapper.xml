@@ -440,4 +440,10 @@
 		delete from q_and_a
 		where qa_cate_no = #{qa_cate_no}
 	</delete>
+	
+	<!-- 공지사항 삭제 -->
+	<delete id="adminNoticeDelete">
+		delete from notice
+		where notice_no = #{notice_no}
+	</delete>
 </mapper>

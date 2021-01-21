@@ -54,7 +54,7 @@ $(function(){
 
     <!-- Customise the Thankyou Message People See when they submit the form: -->
 	<div class="thankyou_message" style="display:none;">
-    	<h2><em>답변 완료</em> 답변 작성 및 송부가 완료되었습니다.</h2>
+    	<h2>답변 작성 및 송부가 완료되었습니다.</h2>
 	</div>
 
 	</form>
