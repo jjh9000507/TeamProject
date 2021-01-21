@@ -169,6 +169,7 @@ $(function(){
 					</tr>
 				</thead>
 				<tbody>
+				<!-- 장바구니 상품 리스트 -->
 					<c:forEach var="CartVo" items="${cartList}">
 						<tr>
 									<td class="pcheck"><input type="checkbox" class="chkProduct" name="cart_no" value="${CartVo.cart_no}"></td>
@@ -181,7 +182,7 @@ $(function(){
 									<td class="pprice" style="vertical-align:middle;">${ProductVo.p_price}</td>
 								</c:if>
 							</c:forEach>
-
+						<!-- 장바구니 내 각 상품 구매/취소 -->
 							<td class="btnCart" style="vertical-align:middle">
 								<div><a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartBuy">구매</a></div>
 								<div><a href="#" data-cartno="${CartVo.cart_no}" class="btn btns cartDelete">취소</a></div>
