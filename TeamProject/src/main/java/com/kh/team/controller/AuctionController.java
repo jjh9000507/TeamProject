@@ -604,7 +604,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		List<String> imgModify = auctionService.getAuctionImgModify(p_no);
 		model.addAttribute("imgModify", imgModify);
 		
-		/*sideBar에 count 가져온다
+		/*sideBar에 count 가져온다 - 로그인 폼에 적용 해야 할 것
 		String m_id = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 		int sidebarCount = auctionService.getAuctionOrderDeliveryCount(m_id);
 		model.addAttribute("sidebarCount", sidebarCount);
@@ -831,20 +831,25 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		
 		//판매자의 정보에서 가져올 수 있게 내가 결제한 상품을 업데이트한다
 		*/
-		
-		
+			
 		return "auction/auctionPaymentList";
 	}	
 	
 	//배송 해야할 상품
 	@RequestMapping(value="/auctionDeliveryList", method=RequestMethod.GET)
-	public String auctionDeliveryList(HttpSession session, RedirectAttributes rttr) throws Exception{
+	public String auctionDeliveryList(HttpSession session, RedirectAttributes rttr, Model model) throws Exception{
 		
 		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
 		if(memberVo == null) {
 			rttr.addFlashAttribute("msg", "loginFail");
 			return "redirect:/auction/auctionMain";
 		}
+		
+		String seller = memberVo.getM_id();
+		
+		List<AuctionOrderVo> deliveryList = auctionService.getAuctionOrderSellerList(seller);
+		System.out.println("auctionPaymentList deliveryList:"+deliveryList);
+		model.addAttribute("deliveryList", deliveryList);
 		
 		//여기선 DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS 만 바꿔준다
 		
