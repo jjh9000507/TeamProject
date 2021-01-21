@@ -153,4 +153,10 @@ public class AuctionDaoTest {
 		int[] arryPno = {24,65};
 		auctionDao.deleteAuctionFavoriet(arryPno);
 	}
+	
+	@Test
+	public void getAuctionOrderPurchaserList() throws Exception{
+		List<AuctionOrderVo> list = auctionDao.getAuctionOrderPurchaserList("user02");
+		System.out.println("list:"+list);
+	}
 }

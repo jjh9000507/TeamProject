@@ -672,7 +672,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 	@RequestMapping(value="/auctionPaymentCompleteShowForm", method=RequestMethod.GET)
 	public String auctionPaymentCompleteShowForm(AuctionOrderVo auctionOrderVo, Model model, HttpSession session) throws Exception{
 		
-		//System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
+		System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
 		
 		//구매자 정보만 먼저 입력
 		auctionOrderVo.setImp_uid("121334");
@@ -732,27 +732,6 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		return randomBuffer.toString();
 	}
 	
-	//내가 입찰한 상품 결제 내역
-	@RequestMapping(value="/auctionPaymentList", method=RequestMethod.GET)
-	public String auctionPaymentList(HttpSession session, Model model) throws Exception{
-		
-		/*
-		//내가 결제한 상품 내역
-			//상품
-		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
-		AuctionSoldVo auctionSoldVo 
-		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, );
-		model.addAttribute("auctionSoldVo", auctionSoldVo);
-			//배송지, 금액
-		//AuctionOrderVo auctionOrderVo = auctionService.getauctiono
-		
-		//판매자의 정보에서 가져올 수 있게 내가 결제한 상품을 업데이트한다
-		*/
-		
-		
-		return "auction/auctionPaymentList";
-	}
-	
 	//관심상품 눌렀을 때 로그인 정보 확인
 	@RequestMapping(value="/CheckMidOfFavorite", method=RequestMethod.GET)
 	@ResponseBody
@@ -800,7 +779,6 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 	}
 	
 	//관심 상품 삭제 
-	
 	@RequestMapping(value="/deleteFavorite", method=RequestMethod.GET)
 	public String deleteFavorite(int[] arryPno, HttpSession session) throws Exception{
 		/*
@@ -826,9 +804,50 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		return "redirect:/cart/cartPage";
 	}
 	
-	//관심상품 눌렀을 때 저장
+	//상품 결제 내역
+	@RequestMapping(value="/auctionPaymentList", method=RequestMethod.GET)
+	public String auctionPaymentList(HttpSession session, RedirectAttributes rttr, Model model) throws Exception{
+		
+		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
+		if(memberVo == null) {
+			rttr.addFlashAttribute("msg", "loginFail");
+			return "redirect:/auction/auctionMain";
+		}
+		
+		String purchaser = memberVo.getM_id();
+		
+		List<AuctionOrderVo> payList = auctionService.getAuctionOrderPurchaserList(purchaser);
+		System.out.println("auctionPaymentList payList:"+payList);
+		model.addAttribute("payList", payList);
+		
+		/*
+		//내가 결제한 상품 내역
+			//상품
+		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		AuctionSoldVo auctionSoldVo = auctionService.orderAuctionSold(purchaser, );
+		model.addAttribute("auctionSoldVo", auctionSoldVo);
+			//배송지, 금액
+		//AuctionOrderVo auctionOrderVo = auctionService.getauctiono
+		
+		//판매자의 정보에서 가져올 수 있게 내가 결제한 상품을 업데이트한다
+		*/
+		
+		
+		return "auction/auctionPaymentList";
+	}	
+	
+	//배송 해야할 상품
 	@RequestMapping(value="/auctionDeliveryList", method=RequestMethod.GET)
-	public String auctionDeliveryList() throws Exception{
+	public String auctionDeliveryList(HttpSession session, RedirectAttributes rttr) throws Exception{
+		
+		MemberVo memberVo =  (MemberVo)session.getAttribute("memberVo");
+		if(memberVo == null) {
+			rttr.addFlashAttribute("msg", "loginFail");
+			return "redirect:/auction/auctionMain";
+		}
+		
+		//여기선 DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS 만 바꿔준다
+		
 		
 		return "auction/auctionDeliveryList";
 	}
