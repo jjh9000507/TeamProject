@@ -46,6 +46,23 @@ a.btns:hover {
 			if(level == 1){
 				$("#qa_cate_ref").val(null);
 			}
+			
+			if(level=="0"){
+				alert("분류를 선택해주세요.");
+				return false;
+			}
+			
+			if(level== 2){
+				if($("#qa_cate_ref").val() == "0"){
+					alert("카테고리를 선택해주세요.");
+					return false;
+				}
+			}
+			var title = $("#qa_cate_name").val();
+			if(title==""){
+				alert("카테고리 명을 입력해주세요.");
+				return false;
+			}
 			$("#frmCateInput").submit();
 		});
 	});
@@ -73,8 +90,8 @@ a.btns:hover {
 					</c:forEach>
 				</select>
 				
-				<input type="hidden" id="qa_cate_level">
-				<input type="hidden" id="qa_cate_ref" name="qa_cate_ref" >
+				<input type="hidden" id="qa_cate_level" value="0">
+				<input type="hidden" id="qa_cate_ref" name="qa_cate_ref" value="0">
 				<div id="cate_name_input" style="display: none">
 				<label>카테고리 이름</label>
 				<input type="text" id="qa_cate_name" name="qa_cate_name">

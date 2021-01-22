@@ -42,6 +42,7 @@ public class AdminServiceImpl implements AdminService{
 		adminDao.adminMemberProductDelete(m_id);
 		adminDao.adminCartDelete(m_id);
 		adminDao.adminSanctionDelete(m_id);
+		adminDao.adminMemberInquiryDelete(m_id);
 		adminDao.adminMemberDelete(m_id);
 	}	
 	
@@ -252,6 +253,7 @@ public class AdminServiceImpl implements AdminService{
 	//Q&A 카테고리 삭제하기
 	@Override
 	public void qaCategoryDelete(String qa_cate_no) throws Exception {
+		adminDao.qaCategoryQADelete(qa_cate_no);
 		adminDao.qaCategoryDelete(qa_cate_no);
 	}
 	
@@ -269,7 +271,7 @@ public class AdminServiceImpl implements AdminService{
 		return detailInquiry;
 	}
 
-	//공지사항 삭제
+	//1:1문의 삭제
 	@Override
 	public void deleteInquiry(int inquiry_no) throws Exception {
 		adminDao.deleteInquiry(inquiry_no);
@@ -279,6 +281,12 @@ public class AdminServiceImpl implements AdminService{
 	@Override
 	public void insertNotice(NoticeVo noticeVo) throws Exception {
 		adminDao.insertNotice(noticeVo);
+	}
+
+	//공지사항 삭제
+	@Override
+	public void noticeDelete(int notice_no) throws Exception {
+		adminDao.noticeDelete(notice_no);
 	}
 
 	

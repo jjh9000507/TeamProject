@@ -34,6 +34,14 @@ a.btns:hover {
 	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
 }
 </style>
+<script>
+	var msg = "${msg}";
+	if(msg == "notice_delete_success"){
+		alert("삭제되었습니다.");
+	} else if(msg=="notice_write_success"){
+		alert("공지사항이 작성되었습니다.");
+	}
+</script>
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-5"></div>
@@ -59,7 +67,7 @@ a.btns:hover {
 					<c:forEach var="NoticeVo" items="${noticeList}">
 						<tr>
 							<td>${NoticeVo.notice_no}</td>
-							<td class="noticeTitle noticeTitleHead"><a href="/service/noticeDetail/${NoticeVo.notice_no}">${NoticeVo.notice_title}</a></td>
+							<td class="noticeTitle noticeTitleHead"><a href="/admin/noticeDetail/${NoticeVo.notice_no}">${NoticeVo.notice_title}</a></td>
 							<td>관리자</td>
 							<td class="noticeReg">${NoticeVo.notice_reg}</td>
 						</tr>

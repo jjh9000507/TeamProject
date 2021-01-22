@@ -88,6 +88,12 @@ public class AdminDaoImpl implements AdminDao{
 	}
 	//여기까지 해당 회원이 등록한 상품 목록 삭제
 
+	// 회원 삭제 시 해당 회원 문의 삭제
+	@Override
+	public void adminMemberInquiryDelete(String m_id) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminMemberInquiryDelete", m_id);
+	}
+	
 	//판매자 권한 박탈 경험 인원 삭제
 	@Override
 	public void adminSanctionDelete(String m_id) throws Exception {
@@ -345,6 +351,12 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.delete(NAMESPACE + "qaCategoryDelete", qa_cate_no);
 	}
 	
+	//Q&A 카테고리 삭제 시 해당 카테고리 이용하는 Q&A 삭제
+	@Override
+	public void qaCategoryQADelete(String qa_cate_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "qaCategoryQADelete", qa_cate_no);
+	}
+	
 	//수정하기에 사용할 상세보기
 	@Override
 	public QandAVo QandADetail(int qa_no) throws Exception {
@@ -384,6 +396,9 @@ public class AdminDaoImpl implements AdminDao{
 		sqlSession.insert(NAMESPACE + "insertNotice",noticeVo);
 	}
 
-	
-
+	//공지사항 삭제
+	@Override
+	public void noticeDelete(int notice_no) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminNoticeDelete", notice_no);
+	}
 }

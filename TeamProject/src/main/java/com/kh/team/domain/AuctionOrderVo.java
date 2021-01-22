@@ -3,25 +3,33 @@ package com.kh.team.domain;
 import java.sql.Timestamp;
 
 public class AuctionOrderVo {
+	//구매자
 	private int order_id;
 	private String purchaser;
 	private String orderer_name;
 	private String phonenumber;
+	//결제
 	private Timestamp order_date;
 	private String imp_uid;
 	private String merchant_uid;
 	private int order_price;
 	private String card_approval_number;
 	private String purchase_confirm;
+	//배송
 	private String order_msg;
 	private String zip;
 	private String road_address;
 	private String jibun_address;
 	private String detail_address;
+	//판매자
 	private String seller;
 	private String delivery_company;
 	private String delivery_number;
 	private String delivery_status;
+	//제품
+	private String main_img_name;
+	private String sold_price;
+	private String p_title;
 	private int p_no;
 	
 	public int getOrder_id() {
@@ -138,6 +146,24 @@ public class AuctionOrderVo {
 	public void setDelivery_status(String delivery_status) {
 		this.delivery_status = delivery_status;
 	}
+	public String getMain_img_name() {
+		return main_img_name;
+	}
+	public void setMain_img_name(String main_img_name) {
+		this.main_img_name = main_img_name;
+	}
+	public String getSold_price() {
+		return sold_price;
+	}
+	public void setSold_price(String sold_price) {
+		this.sold_price = sold_price;
+	}
+	public String getP_title() {
+		return p_title;
+	}
+	public void setP_title(String p_title) {
+		this.p_title = p_title;
+	}
 	public int getP_no() {
 		return p_no;
 	}
@@ -152,7 +178,7 @@ public class AuctionOrderVo {
 				+ card_approval_number + ", purchase_confirm=" + purchase_confirm + ", order_msg=" + order_msg
 				+ ", zip=" + zip + ", road_address=" + road_address + ", jibun_address=" + jibun_address
 				+ ", detail_address=" + detail_address + ", seller=" + seller + ", delivery_company=" + delivery_company
-				+ ", delivery_number=" + delivery_number + ", delivery_status=" + delivery_status + ", p_no=" + p_no
-				+ "]";
+				+ ", delivery_number=" + delivery_number + ", delivery_status=" + delivery_status + ", main_img_name="
+				+ main_img_name + ", sold_price=" + sold_price + ", p_title=" + p_title + ", p_no=" + p_no + "]";
 	}
 }

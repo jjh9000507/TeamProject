@@ -19,6 +19,16 @@ a.btns:hover {
 	box-shadow: rgba(30, 40, 200, 0.7) 0 0px 0px 40px inset;
 }
 </style>
+<script>
+$(function(){
+	var msg = "${msg}";
+	if(msg=="qa_insert_success"){
+		alert("Q&A가 추가되었습니다.");
+	} else if(msg == "qa_cate_insert_success"){
+		alert("Q&A 카테고리가 추가되었습니다.");
+	}
+});
+</script>
 <div class="row">
 	<div class="col-md-4"></div>
 	<div class="col-md-4">

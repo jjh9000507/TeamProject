@@ -288,6 +288,10 @@ $(function(){
 <!-- 			<input type="hidden" name="purchase_confirm" value=""> 디폴트 n -->
 <!-- 			<input type="hidden" name="order_msg" value=""> text로 입력-->
 			<input type="hidden" name="p_no" value="${auctionSoldVo.p_no}">
+			<input type="hidden" name="main_img_name" value="${auctionSoldVo.main_img_name}">
+			<input type="hidden" name="sold_price" value="${auctionSoldVo.sold_price}">
+			<input type="hidden" name="p_no" value="${auctionSoldVo.p_no}">
+			<input type="hidden" name="p_title" value="${auctionSoldVo.p_title}">
 			
 		<section class="DetailSection">
 		<span class="mainTitle">주문서</span>

@@ -432,6 +432,7 @@ $(function(){
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 		<div class="col-md-2">
 		<button type="button" id="stopTimer">타이머종료</button>	
+		<a href="/auction/excercise">연습</a>
 		</div>
 		
 		<div class="col-md-8" >
