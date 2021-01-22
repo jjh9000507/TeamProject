@@ -729,13 +729,13 @@ function stopCountIndex(indexCatch){
 												<td>남은시간</td>
 												<td>
 													<div class="divCountDown" style="color:red"></div>
-														<input type="hidden" class="resultYear" value="${selectedItem.e_year}">
-														<input type="hidden" class="resultMonth" value="${selectedItem.e_month}">
-														<input type="hidden" class="resultDate" value="${selectedItem.e_day}">
-														<input type="hidden" class="countDown_hour" value="${selectedItem.e_hour}">
-														<input type="hidden" class="countDown_minute" value="${selectedItem.e_minute}">
-														<input type="hidden" class="countDown_second" value="${selectedItem.e_second}">
-														<input type="hidden" class="deadline" value="${selectedItem.deadline}">
+													<input type="hidden" class="resultYear" value="${selectedItem.e_year}">
+													<input type="hidden" class="resultMonth" value="${selectedItem.e_month}">
+													<input type="hidden" class="resultDate" value="${selectedItem.e_day}">
+													<input type="hidden" class="countDown_hour" value="${selectedItem.e_hour}">
+													<input type="hidden" class="countDown_minute" value="${selectedItem.e_minute}">
+													<input type="hidden" class="countDown_second" value="${selectedItem.e_second}">
+													<input type="hidden" class="deadline" value="${selectedItem.deadline}">
 												</td>
 											</tr>
 											<tr class="table-danger">

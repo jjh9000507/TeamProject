@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="/resources/css/bootstrap.jsp"%>
 <%@ include file="../include/header.jsp"%>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <style>
 .tablePurchase{
@@ -14,7 +15,6 @@
 .tdPurchase{
 	border-right-width: 3px;
 	width: 300px;
-	font-family: verdana;
 	font-size:14px;
     padding-left: 17px;
 	
@@ -30,18 +30,10 @@
 	padding:20px;
 }
 
-.card-title{
-	text-align: center;
-    font-size: 16px;
-    font-weight: 700;
-   	font-family: verdana;
-    vertical-align: middle;
-    margin:30px;
-}
-
-.card-text{
+table{
 	font-family: verdana;
-	font-size:14px;
+	text-align:center;
+	vertical-align:middle;
 }
 
 input[type=text]{
@@ -73,8 +65,7 @@ $(function(){
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<div class="col-md-2">
-			</div>
+			<div class="col-md-2"></div>
 			<div class="col-md-8">
 			<%@ include file="auctionHeader.jsp"%>
 			<div><div style="float:left"><img src="/resources/auctionImage/btnMainPurchaser.png" height="40px"></div><h1>구매 상품</h1></div>
@@ -89,39 +80,40 @@ $(function(){
 							<div class="tab-content"><!-- 탭 큰 틀 시작 -->
 							<!-- tab 내가 입찰 한 상품 시작-->
 								<div class="tab-pane active" id="purchaseBidingItemContent">
-										<!--------------------------------- tab4 내가 입찰 한 상품 div 시작 -------------------------------------->
-									<div class="tab-pane tabMd3" id="purchaseBidingItemContent">
+									<!--------------------------------- tab4 내가 입찰 한 상품 div 시작 -------------------------------------->
+									<div class="tab-pane tabMd12" style="margin-top:30px;" id="purchaseBidingItemContent">
 										<c:forEach var="tempPno" items="${tempBidingPno}">
-										<table border='1' style="width:600px"><!-- 여기서 테이블 한개 조건 들어가고 -->
-											<tr>
-												<c:forEach var="tempImg" items="${tempBidingImg}">
-												<c:if test="${tempImg.p_no == tempPno }">
-													<th><img src="/furniture/displayImage?imageName=${tempImg.main_img_name}" class="img-class" style="height:100px;width:100px"></th>
-												</c:if>
+											<table border='1' style="color:gray;width:802px;margin-bottom:40px;box-shadow:5px 5px 5px 5px gray"><!-- 여기서 테이블 한개 조건 들어가고 -->
+												<tr>
+													<c:forEach var="tempImg" items="${tempBidingImg}">
+														<c:if test="${tempImg.p_no == tempPno }">
+															<th style="width:104px"><img src="/furniture/displayImage?imageName=${tempImg.main_img_name}" class="img-class" style="width:100px"></th>
+														</c:if>
+													</c:forEach>
+													<c:forEach var="tempTitle" items="${tempBidingTitle}">
+														<c:if test="${tempTitle.p_no == tempPno }">
+															<th style="width:540px"><a href="/auction/auctionSelected?p_no=${tempTitle.p_no}">${tempTitle.p_title}</a></th>
+															<th>${tempTitle.seller}</th>
+														</c:if>
+													</c:forEach>
+												</tr>
+												<c:forEach var="tempbiding" items="${tempBiding}">
+													<c:if test="${tempbiding.p_no == tempPno}">
+														<tr><!-- 여기서 입찰 목록 조건 들어간다 -->
+															<td colspan='2' style="vertical-align:middle;height: 60px;font-family:verdana;"><fmt:formatDate value="${tempbiding.temp_bid_date}" pattern="yyyy/MM/dd HH:mm:ss"/></td>
+															<td>${tempbiding.temp_bid_price}원</td>
+														</tr>
+													</c:if>
 												</c:forEach>
-												<c:forEach var="tempTitle" items="${tempBidingTitle}">
-												<c:if test="${tempTitle.p_no == tempPno }">
-													<th><a href="/auction/auctionSelected?p_no=${tempTitle.p_no}">${tempTitle.p_title}</a></th>
-													<th>${tempTitle.seller}</th>
-												</c:if>
-												</c:forEach>
-											</tr>
-											<c:forEach var="tempbiding" items="${tempBiding}">
-											<c:if test="${tempbiding.p_no == tempPno}">
-											<tr><!-- 여기서 입찰 목록 조건 들어간다 -->
-												<td colspan='2'><span>${tempbiding.temp_bid_date}</span></td>
-												<td>${tempbiding.temp_bid_price}원</td>
-											</tr>
-											</c:if>
-											</c:forEach>
-										</table>
+											</table>
+											<div style="text-align:center"><hr></div>
 										</c:forEach>
 									</div>
 									<!--------------------------------- tab4 내가 입찰 한 상품 div 끝 -------------------------------------->
 								</div>
 							<!-- tab 내가 입찰 한 상품 끝-->
 							<!-- tab 구매한 상품 시작 -->
-								<div class="tab-pane" id="purchaseItemContent">
+								<div class="tab-pane tabMd12" style="margin-top:30px;" id="purchaseItemContent">
 									<!---------------------------------- tab5 구매한 상품 div 시작 ------------------------------------>
 										<c:forEach var="auctionSoldVo" items="${purchaserList}" >
 										<table border='1' class="tablePurchase">
@@ -144,10 +136,26 @@ $(function(){
 												<td class="tdPurchase">낙찰금액:<span>${auctionSoldVo.sold_price}</span></td>
 <!-- 												<td>이미지</td> -->
 												 <td class="tdPurchase" style="padding:0px; height: 45px;text-align:center">
-												 <a href="/auction/auctionPurchaseSelected/${auctionSoldVo.p_no}">
-												 	<img src="/resources/auctionImage/btn_payment.png" style="height:45px;width:80%;cursor:pointer">
-												 </a>
-												 </td>
+												 
+													 <c:set var="exist" value="off" /><!-- 변수 선언 -->
+													 <c:forEach var="auctionOrderVo" items="${auctionOrder}"><!-- 주문 테이블을 돌린다 -->
+														<c:if test="${auctionOrderVo.p_no == auctionSoldVo.p_no}">
+															<c:set var="exist">on</c:set><!-- 주문에 있으면 exist를 변경 -->
+														</c:if>
+													 </c:forEach>
+													 
+													 <c:choose>
+													 <c:when test="${exist == 'off'}"><!-- off면 출력 -->
+													 <a href="/auction/auctionPurchaseSelected/${auctionSoldVo.p_no}">
+														 	<img src="/resources/auctionImage/btn_payment.png" style="height:45px;width:80%;cursor:pointer">
+														 </a>
+													</c:when>
+													<c:otherwise>
+													 	결제 완료
+													</c:otherwise>
+													</c:choose>
+														 
+												</td>
 											</tr>
 										</table>
 										</c:forEach>

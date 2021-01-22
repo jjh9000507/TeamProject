@@ -141,4 +141,9 @@ public interface AuctionDao {
 	public List<AuctionSellVo> getAuctionFavoriteList(List<AuctionPnoFromTempBiding> list) throws Exception;
 	//관심상품 삭제
 	public void deleteAuctionFavoriet(int[] array) throws Exception;
+	
+	//구매확인 버튼 클릭시 purchase_confirm를 Y로
+	public void updateAuctionPurchaseConfirm(int order_id) throws Exception;
+	//배송 완료 버튼 클릭
+	public void updateAuctionDeliveryConfirm(AuctionOrderVo orderVo) throws Exception;
 }

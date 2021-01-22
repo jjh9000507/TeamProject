@@ -427,4 +427,14 @@
 		</foreach>
 	</delete>
 	<!-- 관심 상품 끝 -->
+	
+	<!-- 구매확인 버튼 클릭시 purchase_confirm를 Y로 -->
+	<update id="updateAuctionPurchaseConfirm">
+		update auction_order set purchase_confirm='Y' where order_id=#{order_id}
+	</update>
+	
+	<!-- 배송 완료 버튼 클릭 -->
+	<update id="updateAuctionDeliveryConfirm">
+		update auction_order set delivery_company=#{delivery_company}, delivery_number=#{delivery_number}, delivery_status='Y' where order_id=#{order_id}
+	</update>
 </mapper>

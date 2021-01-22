@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <nav id="mainNav" role="navigation">
-  <ul id="main-menu">
+  <ul id="main-menu" style="width: 1055px;height: 81px;padding-top: 16px;">
   
   	<!-- 전체 카테고리  -->	
   	<li><a href="#" id="allCategory">&#8801;</a>

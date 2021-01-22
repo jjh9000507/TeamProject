@@ -446,4 +446,15 @@ public class AuctionDaoImpl implements AuctionDao{
 	public void deleteAuctionFavoriet(int[] array) throws Exception {
 		sqlSession.delete(NAMESPACE + "deleteAuctionFavoriet", array);
 	}
+
+	@Override
+	public void updateAuctionPurchaseConfirm(int order_id) throws Exception {
+		sqlSession.update(NAMESPACE + "updateAuctionPurchaseConfirm", order_id);
+		
+	}
+
+	@Override
+	public void updateAuctionDeliveryConfirm(AuctionOrderVo orderVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateAuctionDeliveryConfirm", orderVo);
+	}
 }

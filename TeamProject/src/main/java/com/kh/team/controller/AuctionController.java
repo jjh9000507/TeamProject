@@ -31,6 +31,7 @@ import com.kh.team.domain.AuctionMainImgVo;
 import com.kh.team.domain.AuctionOrderVo;
 import com.kh.team.domain.AuctionPnoFromTempBiding;
 import com.kh.team.domain.AuctionRDateVo;
+import com.kh.team.domain.AuctionReceiveOrderVo;
 import com.kh.team.domain.AuctionVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.service.AuctionService;
@@ -183,8 +184,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		List<AuctionMainImgVo> tempBidingImg = auctionService.getAuctionPurchaserTempBidingImg(tempBidingPno);
 		//System.out.println("tempBidingImg:"+tempBidingImg);
 		model.addAttribute("tempBidingImg", tempBidingImg);
-		
 		//내가 입찰한 상품 -------------------- 끝 ------------------------------ 
+		
+		//결제완료하면 결제 버튼이 안 보인다
+		List<AuctionOrderVo> auctionOrder = auctionService.getAuctionOrderPurchaserList(m_id);
+		model.addAttribute("auctionOrder", auctionOrder);
 		
 		//내가 구매한 상품
 		List<AuctionSoldVo> purchaserList = auctionService.getAuctionPurchaserList(m_id);
@@ -851,9 +855,26 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		System.out.println("auctionPaymentList deliveryList:"+deliveryList);
 		model.addAttribute("deliveryList", deliveryList);
 		
-		//여기선 DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS 만 바꿔준다
-		
-		
 		return "auction/auctionDeliveryList";
+	}
+	
+	@RequestMapping(value="/auctionPurchaseConfirm", method=RequestMethod.GET)
+	public String auctionPurchaseConfirm(int orderId) throws Exception{
+		System.out.println("orderid:"+orderId);
+		
+		auctionService.updateAuctionPurchaseConfirm(orderId);
+		
+		return "redirect:/auction/auctionPaymentList";
+	}
+	
+	@RequestMapping(value="/deliveryInfo", method=RequestMethod.GET)
+	public String deliveryInfo(AuctionOrderVo orderVo) throws Exception{
+		System.out.println("orderVo"+orderVo);
+		
+		//여기선 DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS 만 바꿔준다
+		auctionService.updateAuctionDeliveryConfirm(orderVo);
+		
+		
+		return "redirect:/auction/auctionDeliveryList";
 	}
 }

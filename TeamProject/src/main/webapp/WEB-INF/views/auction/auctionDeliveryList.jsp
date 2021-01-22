@@ -7,6 +7,28 @@
 
 <%@ include file="../include/header.jsp"%>
 
+<script>
+$(function(){
+	$(".pull-right").click(function(){
+		var orderId = $(this).attr("data-orderId");
+		var delivery_company = $(this).parent().find(".selectDelivery_company").val();//.next().next().next().next().next().next().next().next().next().val();
+		var delivery_number = $(this).parent().find(".txtDelivery_number").val();
+		
+		$("#order_id").val(orderId);
+		$("#delivery_company").val(delivery_company);
+		$("#delivery_number").val(delivery_number);
+		
+		$("#formDelivery").submit();
+	});
+});
+</script>
+
+<form id="formDelivery" action="/auction/deliveryInfo">
+	<input type="hidden" id="delivery_company" name="delivery_company">
+	<input type="hidden" id="delivery_number" name="delivery_number">
+	<input type="hidden" id="order_id" name="order_id">
+</form>
+
 <div class="container-fluid">
 	<div class="row">
 		<div class="col-md-2"></div>
@@ -26,24 +48,33 @@
 									<img src="/furniture/displayImage?imageName=${deliveryVo.main_img_name}" alt="ALT NAME"
 										class="pull-left span2 clearfix" style='margin-right: 10px;height:110px;width:100px;margin-left: 7px;'>
 									<div class="caption" class="pull-left">
-										<a href="http://bootsnipp.com/"
-											class="btn btn-primary icon  pull-right">배송 완료</a>
+									
+										<c:choose>
+											<c:when test="${deliveryVo.delivery_status == 'N'}">
+											<a href="#" class="btn btn-primary icon pull-right" data-orderId="${deliveryVo.order_id}">배송 완료</a>
+											</c:when>
+											<c:otherwise>
+												<div style="color:red;font-size:13px"><b>배송 완료</b></div>
+											</c:otherwise>
+										</c:choose>
 										<h4>
 											<a href="#">${deliveryVo.p_title}</a>
 										</h4>
 										<small><b>주문자:</b>${deliveryVo.orderer_name}</small> <small><b>연락처:</b>${deliveryVo.phonenumber}</small><br>
-										<small><b>주소:</b>${deliveryVo.road_address}</small> <small><b>연락처:</b>${deliveryVo.detail_address}</small><br>
+										<small><b>주소:</b>${deliveryVo.road_address} ${deliveryVo.detail_address}</small><br>
 										<small><b>남길말:</b>${deliveryVo.order_msg}</small>
 										<hr>
-										<small><b>승인번호:</b>${deliveryVo.card_approval_number}
-										<select name="delivery_company" id="delivery_company" style="width: 116px;padding-bottom: 0px;height: 24px;padding-top: 0px;padding-left: 0px;padding-right: 0px;border-right-width: 1px;margin-left: 120px;">
-										<option value="cj대한통운">cj대한통운</option>
-										<option value="한진택배">한진택배</option>
-										<option value="현대택배">현대택배</option>
-										<option value="로젠택배">로젠택배</option>
-										<option value="KG로지스">KG로지스</option>
+										<small><b>승인번호:</b>${deliveryVo.card_approval_number}</small>
+										<c:if test="${deliveryVo.delivery_status == 'N'}">
+										<select class="selectDelivery_company" style="font-size:12px;width: 116px;padding-bottom: 0px;height: 24px;padding-top: 0px;padding-left: 0px;padding-right: 0px;border-right-width: 1px;margin-left: 120px;">
+											<option value="cj대한통운">cj대한통운</option>
+											<option value="한진택배">한진택배</option>
+											<option value="현대택배">현대택배</option>
+											<option value="로젠택배">로젠택배</option>
+											<option value="KG로지스">KG로지스</option>
 										</select>
-										<input type="text" placeholder="송장 번호를 입력하세요" style="padding-left: 0px;margin-left: 20px;margin-top: 9px;"></small>
+										<input type="text" placeholder="송장 번호를 입력하세요" class="txtDelivery_number" style="padding-left: 0px;margin-left: 20px;margin-top: 9px;">
+										</c:if>
 									</div>
 								</div>
 							</li>

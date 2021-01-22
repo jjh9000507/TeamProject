@@ -4,8 +4,6 @@
 <%@ include file="/resources/css/bootstrap.jsp"%>
 <%@ include file="../include/header.jsp"%>
 
-<link rel="stylesheet" href="/resources/css/sidebar.css" />
-
 <style>
 .tabTitle{
 	font-family: verdana;
@@ -58,18 +56,18 @@ $(function(){
 </script>
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2"></div>
-		<div class="col-md-8">
-		<%@ include file="auctionHeader.jsp"%>
-			<div class="col-md-2">
-			</div>
-			<div class="col-md-8">
+		<div class="col-md-3"></div>
+		<div class="col-md-6">
+		<div><%@ include file="auctionHeader.jsp"%></div>
+<!-- 			<div class="col-md-2"> -->
+<!-- 			</div> -->
+<!-- 			<div class="col-md-8"> -->
 			
-			<div><div style="float:left;"><img src="/resources/auctionImage/btnMainSell.png" height="40px"></div><h1>판매 상품</h1></div>
+			<div><div style="float:left;"><img src="/resources/auctionImage/myitem_blue.png" height="40px"></div><h1 style="margin-top: 45px;">판매 상품</h1></div>
 			<!-- tab 시작 -->
 				<div class="row">
-					<div class="col-md-12">
-						<div class="tabbable" id="tabs-222970" style="width:100%"> 
+					<div class="col-md-12" style="margin-top:50px;text-align:center">
+						<div class="tabbable" id="tabs-222970"> 
 							<ul class="nav nav-tabs">
 								<li class="nav-item"><a class="nav-link active tabTitle" href="#tab1" data-toggle="tab" id="bidingItem">입찰 중인 상품</a></li>
 								<li class="nav-item"><a class="nav-link tabTitle" href="#tab2" data-toggle="tab" id="bidingFinishItem">입찰 종료된 상품</a></li>
@@ -84,8 +82,8 @@ $(function(){
 											<div class="row">
 				
 											<c:forEach var="bidingList" items="${bidingList}" >
-											<div class="col-md-4 tabMd3">
-												<div class="card">
+											<div class="col-md-4 tabMd3" style="margin-bottom: 10px;padding-bottom: 40px;">
+												<div class="card" style="height: 532px;width: 302px;">
 														<a href="/auction/auctionSelected?p_no=${bidingList.p_no}">
 														<img src="/furniture/displayImage?imageName=${bidingList.main_img_name}" class="img-class" style="height:200px;">
 														</a>
@@ -185,9 +183,9 @@ $(function(){
 					</div>
 				</div>
 				<!-- tab 끝-->
-			</div><!-- 내부 md-8 -->
-			<div class="col-md-2"></div><!-- 내부 md-2 -->
+<!-- 			</div>내부 md-8 -->
+<!-- 			<div class="col-md-2"></div>내부 md-2 -->
 		</div><!-- 외부 md-8 -->
-		<div class="col-md-2"></div><!-- 외부 md-2 -->
+		<div class="col-md-3"></div><!-- 외부 md-2 -->
 	</div><!-- 외부 row -->
 </div>

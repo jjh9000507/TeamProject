@@ -413,4 +413,15 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	public void deleteAuctionFavoriet(int[] array) throws Exception {
 		auctionDao.deleteAuctionFavoriet(array);
 	}
+
+	@Override
+	public void updateAuctionPurchaseConfirm(int order_id) throws Exception {
+		auctionDao.updateAuctionPurchaseConfirm(order_id);
+	}
+
+	@Override
+	public void updateAuctionDeliveryConfirm(AuctionOrderVo orderVo) throws Exception {
+		auctionDao.updateAuctionDeliveryConfirm(orderVo);
+		
+	}
 }

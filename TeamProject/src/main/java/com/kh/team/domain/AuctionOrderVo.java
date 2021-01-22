@@ -14,13 +14,13 @@ public class AuctionOrderVo {
 	private String merchant_uid;
 	private int order_price;
 	private String card_approval_number;
-	private String purchase_confirm;
 	//배송
 	private String order_msg;
 	private String zip;
 	private String road_address;
 	private String jibun_address;
 	private String detail_address;
+	private String purchase_confirm;
 	//판매자
 	private String seller;
 	private String delivery_company;

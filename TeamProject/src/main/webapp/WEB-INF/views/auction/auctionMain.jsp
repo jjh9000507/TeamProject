@@ -12,7 +12,6 @@
 
 .firstTd {
     padding-right: 20px;
-    padding-top: 0px;
     padding-bottom: 35px;
     padding-left: 20px;
   
@@ -428,13 +427,16 @@ $(function(){
 <div class="row">
 	<div class="col-md-2"></div>
 		<div class="col-md-8">
-			<%@ include file="auctionHeader.jsp"%>
+			<div><%@ include file="auctionHeader.jsp"%></div> 
+		</div>	
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
 		<div class="col-md-2">
 		<button type="button" id="stopTimer">타이머종료</button>	
 		<a href="/auction/excercise">연습</a>
 		</div>
-		
+</div>	
+<div class="row">
+<div class="col-md-2"></div>
 		<div class="col-md-8" >
 			<div class="lblHOT">
 			 	<table border=0>
@@ -484,15 +486,9 @@ $(function(){
 			 	</table>
 			</div>
 		</div>
-		
-		<div class="col-md-2"></div>
-
-		</div><!-- 첫번째 col-md-8 -->
-	<div class="col-md-2">
-	</div>
-</div> <!-- row -->
+		</div>
+	<div class="col-md-2"></div>
 </div><!-- container-fluid -->
-<hr>
-<br><br>
+
 <%-- <%@ include file="../include/footer.jsp" %> --%>
 

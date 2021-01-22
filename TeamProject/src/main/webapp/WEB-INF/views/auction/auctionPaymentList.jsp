@@ -8,12 +8,68 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
-<%-- <fmt:formatDate value="${messageVo.msg_senddate}" pattern="yyyy/MM/dd HH:mm:ss"/> --%>
 <%@ include file="../include/header.jsp"%>
+
+<script>
+$(function(){
+	$(".pull-right").click(function(){
+		var orderId = $(this).attr("data-orderId");
+		$("#orderId").val(orderId);
+		$("#modalOpen").trigger("click");
+	});	
+	
+	$("#modalSave").click(function(){
+		
+		var orderId = $("#orderId").val();
+		
+		location.href="/auction/auctionPurchaseConfirm?orderId="+orderId;
+		
+		$("#modalClose").trigger("click");
+	})
+});
+</script>
+
+<%-- <fmt:formatDate value="${messageVo.msg_senddate}" pattern="yyyy/MM/dd HH:mm:ss"/> --%>
+
+<input type="hidden" id="orderId">
 
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2"></div>
+		<div class="col-md-2">
+			<!-- ----------------------------------구매확정 모달 창 시작--------------------------------------------- -->
+			<div class="container">
+				<div class="row">
+			    
+				<div id="myModal" class="modal fade in">
+			        <div class="modal-dialog">
+			            <div class="modal-content">
+			 
+			                <div class="modal-header" style="width: 252px;">
+<!-- 			                    <a class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a> -->
+			                    <h4 class="modal-title">구매 확인 창</h4>
+			                </div>
+			                <div class="modal-body" style="width: 338px;left: 13.547;padding-left: 0px;">
+			                    <h4>구매 확인을 누르시겠습니까</h4>
+			                    <small>구매 확인을 하면 결제 대금이 판매자에게로 넘어갑니다</small>
+			                </div>
+			                <div class="modal-footer">
+			                    <div class="btn-group">
+			                    	<button class="btn btn-primary" id="modalSave"><span class="glyphicon glyphicon-check"></span>확인</button>
+			                        <button class="btn btn-danger" data-dismiss="modal" id="modalClose"><span class="glyphicon glyphicon-remove"></span>취소</button>
+			                    </div>
+			                </div>
+			 
+			            </div><!-- /.modal-content -->
+			        </div><!-- /.modal-dalog -->
+			    </div><!-- /.modal -->
+			    
+			<a data-toggle="modal" id="modalOpen" href="#myModal" class="btn btn-primary" style="display:none"></a>
+			
+				</div>
+			</div>
+			<!-- ----------------------------------구매확정 모달 창 끝--------------------------------------------- -->		
+		
+		</div>
 		<div class="col-md-8">
 			<div class="col-md-2"></div>
 			<div class="col-md-8">
@@ -30,10 +86,17 @@
 									<img src="/furniture/displayImage?imageName=${payListVo.main_img_name}" alt="ALT NAME"
 										class="pull-left span2 clearfix" style='margin-right: 9px;width:120px;margin-left: 0px;padding-top: 10px;'>
 									<div class="caption" class="pull-left" style="width: 464px;padding-right: 5px;padding-left: 4px;">
-										<a href="http://bootsnipp.com/" class="btn btn-primary icon  pull-right">구매확정</a>
+										<c:choose>
+											<c:when test="${payListVo.purchase_confirm == 'N'}">
+												<a href="#" class="btn btn-primary icon  pull-right" data-orderId="${payListVo.order_id}">구매확정</a>
+											</c:when>
+											<c:otherwise>
+												<div style="color:red;family:verdana"><b>구매확정</b></div>
+											</c:otherwise>
+										</c:choose>
 										<h4>
 										<c:choose>
-											<c:when test="${fn:length(payListVo.p_title) > 14}">
+											<c:when test="${fn:length(payListVo.p_title) > 14}"><!-- 제목이 14이상이면 ...으로 표시 -->
 												<a href="#" style="font-size:20px">${fn:substring(payListVo.p_title,0,14)}...</a>
 											</c:when>
 											<c:otherwise>
@@ -46,7 +109,6 @@
 										<small><b>주소: </b>${payListVo.road_address} ${payListVo.detail_address}</small>	<small><b>우편번호: </b>${payListVo.zip}</small><br>					
 										<div style="display:none"><small><b>택배사: </b>대한통운</small> <small><b>소장번호: </b><span style="color:red">34234234</span></small></div>
 									</div>
-									
 								</div>
 							</li>
 						</c:forEach>
@@ -54,7 +116,6 @@
 					</div>
 				</div>
 			</div>	
-				
 <!-- ----------------------------------------------------- -->				
 			</div><!-- 내부 md-8 -->
 			<div class="col-md-2"></div><!-- 내부 md-2 -->
