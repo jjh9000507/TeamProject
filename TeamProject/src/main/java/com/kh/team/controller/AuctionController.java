@@ -754,7 +754,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 	@RequestMapping(value="/auctionFavorite", method=RequestMethod.GET)
 	@ResponseBody
 	public String auctionFavorite(String m_id, int p_no, HttpSession session, Model model) throws Exception{
-		System.out.println("m_id:"+m_id+" ,p_no:"+p_no);
+		//System.out.println("m_id:"+m_id+" ,p_no:"+p_no);
 		
 		int count = auctionService.getAuctionFavoriteCont(m_id, p_no);
 		
@@ -776,7 +776,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		}
 	
 		String m_id = memberVo.getM_id();
-		System.out.println("mid:"+m_id+" ,p_no:"+p_no);
+		//System.out.println("mid:"+m_id+" ,p_no:"+p_no);
 		auctionService.insertAuctionFavorite(m_id, p_no);
 		
 		return "success";
@@ -821,7 +821,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		String purchaser = memberVo.getM_id();
 		
 		List<AuctionOrderVo> payList = auctionService.getAuctionOrderPurchaserList(purchaser);
-		System.out.println("auctionPaymentList payList:"+payList);
+		//System.out.println("auctionPaymentList payList:"+payList);
 		model.addAttribute("payList", payList);
 		
 		/*
@@ -852,7 +852,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		String seller = memberVo.getM_id();
 		
 		List<AuctionOrderVo> deliveryList = auctionService.getAuctionOrderSellerList(seller);
-		System.out.println("auctionPaymentList deliveryList:"+deliveryList);
+		//System.out.println("auctionPaymentList deliveryList:"+deliveryList);
 		model.addAttribute("deliveryList", deliveryList);
 		
 		return "auction/auctionDeliveryList";
@@ -869,7 +869,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 	
 	@RequestMapping(value="/deliveryInfo", method=RequestMethod.GET)
 	public String deliveryInfo(AuctionOrderVo orderVo) throws Exception{
-		System.out.println("orderVo"+orderVo);
+		//System.out.println("orderVo"+orderVo);
 		
 		//여기선 DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS 만 바꿔준다
 		auctionService.updateAuctionDeliveryConfirm(orderVo);

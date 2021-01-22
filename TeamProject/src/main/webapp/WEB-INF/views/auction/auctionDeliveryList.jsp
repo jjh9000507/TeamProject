@@ -23,27 +23,27 @@ $(function(){
 });
 </script>
 
-<form id="formDelivery" action="/auction/deliveryInfo">
-	<input type="hidden" id="delivery_company" name="delivery_company">
-	<input type="hidden" id="delivery_number" name="delivery_number">
-	<input type="hidden" id="order_id" name="order_id">
-</form>
+
 
 <div class="container-fluid">
+
 	<div class="row">
 		<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<div class="col-md-2"></div>
+		<div class="col-md-8"><%@ include file="auctionHeader.jsp"%></div>
+		<div class="col-md-2"></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-2"></div>
 			<div class="col-md-8">
-				<%@ include file="auctionHeader.jsp"%>
 				<div><div style="float:left"><img src="/resources/auctionImage/receive_order_blue.png" style="height:40px;width:40px"></div><h1>배송할 상품</h1></div>
 			<!-- ------------------------------------------------------------------------------- -->
-			<div class="containerMy">
+			<div class="containerMy" style="margin-top:50px">
 				<div class="row">
 					<div class="span12">
 						<ul class="thumbnails">
 						<c:forEach var="deliveryVo" items="${deliveryList}">
-							<li class="span9 clearfix">
+							<li class="span9 clearfix" style="margin-bottom: 25px;">
 								<div class="thumbnail clearfix">
 									<img src="/furniture/displayImage?imageName=${deliveryVo.main_img_name}" alt="ALT NAME"
 										class="pull-left span2 clearfix" style='margin-right: 10px;height:110px;width:100px;margin-left: 7px;'>
@@ -84,13 +84,16 @@ $(function(){
 				</div>
 			</div>
 			<!-- ------------------------------------------------------------------------------- -->	
-			</div><!-- 내부 md-8 -->
-			<div class="col-md-2"></div><!-- 내부 md-2 -->
 		</div><!-- 외부 md-8 -->
 		<div class="col-md-2"></div><!-- 외부 md-2 -->
 	</div><!-- 외부 row -->
+
+<form id="formDelivery" action="/auction/deliveryInfo">
+	<input type="hidden" id="delivery_company" name="delivery_company">
+	<input type="hidden" id="delivery_number" name="delivery_number">
+	<input type="hidden" id="order_id" name="order_id">
+</form>
+
 </div>
-
-
 
 

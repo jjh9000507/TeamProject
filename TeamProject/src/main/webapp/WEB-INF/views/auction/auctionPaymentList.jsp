@@ -29,60 +29,55 @@ $(function(){
 });
 </script>
 
-<%-- <fmt:formatDate value="${messageVo.msg_senddate}" pattern="yyyy/MM/dd HH:mm:ss"/> --%>
-
 <input type="hidden" id="orderId">
 
+<!-- ----------------------------------구매확정 모달 창 시작--------------------------------------------- -->
+<div class="container">
+	<div class="row">
+	<div id="myModal" class="modal fade in">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header" style="width: 252px;">
+                    <h4 class="modal-title">구매 확인 창</h4>
+                </div>
+                <div class="modal-body" style="width: 338px;left: 13.547;padding-left: 0px;">
+                    <h4>구매 확인을 누르시겠습니까</h4>
+                    <small>구매 확인을 하면 결제 대금이 판매자에게로 넘어갑니다</small>
+                </div>
+                <div class="modal-footer">
+                    <div class="btn-group">
+                    	<button class="btn btn-primary" id="modalSave"><span class="glyphicon glyphicon-check"></span>확인</button>
+                        <button class="btn btn-danger" data-dismiss="modal" id="modalClose"><span class="glyphicon glyphicon-remove"></span>취소</button>
+                    </div>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dalog -->
+    </div><!-- /.modal -->
+<a data-toggle="modal" id="modalOpen" href="#myModal" class="btn btn-primary" style="display:none"></a>
+	</div>
+</div>
+<!-- ----------------------------------구매확정 모달 창 끝--------------------------------------------- -->		
+		
 <div class="container-fluid">
 	<div class="row">
-		<div class="col-md-2">
-			<!-- ----------------------------------구매확정 모달 창 시작--------------------------------------------- -->
-			<div class="container">
-				<div class="row">
-			    
-				<div id="myModal" class="modal fade in">
-			        <div class="modal-dialog">
-			            <div class="modal-content">
-			 
-			                <div class="modal-header" style="width: 252px;">
-<!-- 			                    <a class="btn btn-default" data-dismiss="modal"><span class="glyphicon glyphicon-remove"></span></a> -->
-			                    <h4 class="modal-title">구매 확인 창</h4>
-			                </div>
-			                <div class="modal-body" style="width: 338px;left: 13.547;padding-left: 0px;">
-			                    <h4>구매 확인을 누르시겠습니까</h4>
-			                    <small>구매 확인을 하면 결제 대금이 판매자에게로 넘어갑니다</small>
-			                </div>
-			                <div class="modal-footer">
-			                    <div class="btn-group">
-			                    	<button class="btn btn-primary" id="modalSave"><span class="glyphicon glyphicon-check"></span>확인</button>
-			                        <button class="btn btn-danger" data-dismiss="modal" id="modalClose"><span class="glyphicon glyphicon-remove"></span>취소</button>
-			                    </div>
-			                </div>
-			 
-			            </div><!-- /.modal-content -->
-			        </div><!-- /.modal-dalog -->
-			    </div><!-- /.modal -->
-			    
-			<a data-toggle="modal" id="modalOpen" href="#myModal" class="btn btn-primary" style="display:none"></a>
-			
-				</div>
-			</div>
-			<!-- ----------------------------------구매확정 모달 창 끝--------------------------------------------- -->		
-		
-		</div>
-		<div class="col-md-8">
-			<div class="col-md-2"></div>
+		<div class="col-md-2"></div>
+		<div class="col-md-8"><%@ include file="auctionHeader.jsp"%></div>
+		<div class="col-md-2"></div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-2"></div>	
 			<div class="col-md-8">
-			<%@ include file="auctionHeader.jsp"%>
-			<div><div style="float:left"><img src="/resources/auctionImage/btnPurchaser.png"  style="height:40px;width:40px"></div><h1>결제한 상품</h1></div>
+			<div><div style="float:left"><img src="/resources/auctionImage/btnPurchaser.png"  style="height:40px"></div><h1>결제한 상품</h1></div>
+
 <!-- ----------------------------------------------------  -->				
-			<div class="containerMy">
+			<div class="containerMy" style="margin-top:50px">
 				<div class="row">
 					<div class="span12">
 						<ul class="thumbnailsMy">
 						<c:forEach var="payListVo" items="${payList}">
 							<li class="span5 clearfix">
-								<div class="thumbnail clearfix">
+								<div class="thumbnail clearfix" style="width:480px;height:140px">
 									<img src="/furniture/displayImage?imageName=${payListVo.main_img_name}" alt="ALT NAME"
 										class="pull-left span2 clearfix" style='margin-right: 9px;width:120px;margin-left: 0px;padding-top: 10px;'>
 									<div class="caption" class="pull-left" style="width: 464px;padding-right: 5px;padding-left: 4px;">
@@ -117,8 +112,6 @@ $(function(){
 				</div>
 			</div>	
 <!-- ----------------------------------------------------- -->				
-			</div><!-- 내부 md-8 -->
-			<div class="col-md-2"></div><!-- 내부 md-2 -->
 		</div><!-- 외부 md-8 -->
 		<div class="col-md-2"></div><!-- 외부 md-2 -->
 	</div><!-- 외부 row -->
