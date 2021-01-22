@@ -94,7 +94,7 @@ $(function() {
 		});
 		}else{
 			alert("인증코드가 다르니 다시 입력하시오.");
->>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
+//github.com/jjh9000507/TeamProject.git
 		}
 
 		$("#memberVoInfoUpdateButton").click(function() {
