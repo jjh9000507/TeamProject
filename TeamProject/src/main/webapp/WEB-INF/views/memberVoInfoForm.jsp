@@ -10,7 +10,9 @@
 <script>
 $(function() {
 	var secretCodeNum = "";
-	var memberPoint = "${memberVoInfo.m_point}"
+	var memberPoint = "${memberVoInfo.m_point}";
+	
+	//멤버 등급 나타내기
 	if((memberPoint >= 0) && (memberPoint < 5000)){
 		$("#memberGrade").text("일반회원");
 	}else if((memberPoint >= 5000) && (memberPoint < 10000)){
@@ -19,9 +21,12 @@ $(function() {
 		$("#memberGrade").text("VIP");
 	}
 	
+	//회원정보 수정창 띄우기
 	$("#memberVoInfoUpdateButton").click(function() {
 		$("#modal-549609").trigger("click");
 	});
+	
+	//회원정보를 수정하기 위해 휴대폰에 인증번호 보내기
 	$("#sendPhoneMessage").click(function() {
 		var m_phonenumber_send = $("#m_phonenumber_send").val();
 		console.log("sendPhoneMessage + m_phonenumber_send:" + m_phonenumber_send);
@@ -50,7 +55,8 @@ $(function() {
 			}
 		});
 	});
-	
+
+	//비밀번호 바꾸기
 	$("#changePwByPhonenumber").click(function() {
 		var m_id_for_change = $("#m_id_for_change").val();		
 		var m_pass_new = $("#m_pass_new").val();		
