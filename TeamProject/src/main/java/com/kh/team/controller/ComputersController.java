@@ -5,11 +5,11 @@ import java.util.List;
 
 
 
+
 import javax.inject.Inject;
-import javax.servlet.http.Cookie;
+
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -261,19 +261,27 @@ public class ComputersController {
 	//컴퓨터 구매하기 폼으로 가기
 	@RequestMapping(value="/buyComputerProduct/{p_no}", method=RequestMethod.GET)
 	public String buyComputerProduct(@PathVariable("p_no") int p_no, Model model,HttpServletRequest request) throws Exception {
+		//제품 정보 가져오기
 		ComputerVo computerVo = computersService.buyComputerProduct(p_no);
 		String nok = "nok";
 		String c_com_cate_no = computerVo.getC_com_cate_no();
 		String c_com_product = computerVo.getC_com_name();
 		System.out.println("buyFormUsed + c_com_cate_no:" + c_com_cate_no);
+		//제품의 경로 가져오기
 		String[] indexName = computersService.buyCategoryInfoGet(c_com_cate_no);
+		//구매후기 갯수 가져오기
 		int countComment = computersService.buyComputerComment(c_com_product);
+		//상품문의 갯수 가져오기
 		int countExplain = computersService.buyComputerExplain(c_com_product);
+		//총 구매갯수 가져오기
 		int select_number = buyComputerService.getTotalNum(nok);
 		int c_com_no = computerVo.getC_com_no();
 		System.out.println("select_number:" + select_number);
+		//해당 제품 구매갯수 가져오기
 		int productNum = buyComputerService.getProductNum(c_com_no);
 		System.out.println("productNum:" + productNum);
+		
+		//구매율 계산
 		double productBuyPercentage = 0;
 		if(select_number == 0) {
 			request.setAttribute("productBuyPercentage", productBuyPercentage);
@@ -290,10 +298,14 @@ public class ComputersController {
 			request.setAttribute("productBuyPercentage", resultConfrim);
 		}
 		
+		//총 선호도 가져오기
 		int select_like = computersService.getTotalNumLike(nok);
 		System.out.println("select_like:" + select_like);
+		//해당 제품 선호도 가져오기
 		int likeNum = computersService.getProductNumLike(c_com_no);
 		System.out.println("likeNum:" + likeNum);
+		
+		//선호도 계산
 		double productBuyLike = 0;
 		if(select_like == 0) {
 			request.setAttribute("productBuyLike", productBuyLike);
@@ -312,7 +324,7 @@ public class ComputersController {
 		
 		
 		
-		
+		//구매하기 폼에 전송
 		model.addAttribute("buyComputerVo", computerVo);
 		request.setAttribute("indexName", indexName);
 		request.setAttribute("computerCommentCount", countComment);

@@ -22,6 +22,8 @@ $(function(){
 	var explain_content = "";
 	var inputBuyFormSendData = $(".inputBuyFormSendData");
 	var searchBuyFormSendData = $(".searchBuyFormSendData");
+	
+	//제품 최종 가격 정하기
 	$("#confirmPrice").click(function() {
 		var productNumber = $("#productNumber").val();
 		console.log("productNumber:" + productNumber);
@@ -29,6 +31,8 @@ $(function(){
 		console.log("priceFinal:" + priceFinal);
 		$("#finalPrice").text(priceFinal + "원");		
 	});
+	
+	//상품정보 나타태기
 	$("#detailProductExpain").click(function() {
 		$("#inquireControll").hide();
 		$("#commentTable").hide();
@@ -36,6 +40,8 @@ $(function(){
 		$("#productExplain").text("상품내용:" + "${buyComputerVo.c_com_content}");
 		$("#productExplain").show();
 	});
+	
+	//구매후기 리스트 나타내기
 	$("#buyAfter").click(function() {
 		$("#inquireControll").hide();
 		$("#productExplain").hide();
@@ -68,6 +74,8 @@ $(function(){
 		});
 		$("#commentTable").show();
 	});
+	
+	//상품문의 리스트 나타내기
 	$("#inquireProduct").click(function() {
 		$("#inquireControll").show();
 		var indexInquire = 1;
@@ -110,11 +118,15 @@ $(function(){
 		$("#productExplainTable").show();
 		
 	});
+	
+	//구매후기 수정하기 버튼 클릭
 	$("#commentTable").on("click", ".btnCommentModify", function(){	
 		comment_no = $(this).parent().parent().find("td").eq(6).text();
 		console.log("comment_no:" + comment_no);
 		$("#modal-modify").trigger("click");		
 	});
+	
+	//구매후기 수정
 	$("#updateAfterBuyProduct").click(function(){				
 		var updateInput = $("#updateInput").val();
 		console.log("c_com_comment_content:" + updateInput);
@@ -129,6 +141,8 @@ $(function(){
 			}
 		});		
 	});
+	
+	//구매후기 삭제
 	$("#commentTable").on("click", ".btnCommentDelete", function(){
 		comment_no = $(this).parent().parent().find("td").eq(6).text();
 		console.log("comment_no:" + comment_no);
@@ -144,6 +158,8 @@ $(function(){
 				}
 			});
 	});
+	
+	//상품문의 보이기
 	$("#inquireControll").on("click", "#inquireProductWrite", function(){
 		if((m_id != "") && (m_id != c_com_seller)){
 			$("#modal-inquireModal").trigger("click");
@@ -155,6 +171,8 @@ $(function(){
 			alert("무슨 경우인지 모름");
 		}					
 	});
+	
+	//상품문의 검색
 	$("#inquireControll").on("click", "#searchInquireButton", function(){
 		var indexInquire = 1;
 		var search = $("#searchInquireListSearch").val();
@@ -204,6 +222,8 @@ $(function(){
 		$("#productExplainTable").show();
 		
 	});
+	
+	//상품문의 기입
 	$("#buySelectModalConfirm").click(function(){
 		var p_e_contents = $("#p_e_contents").val();
 		console.log("p_e_contents:" + p_e_contents);
@@ -228,6 +248,8 @@ $(function(){
 				}
 			});		
 	});
+	
+	//구매하기
 	$("#buyProduct").click(function(){
 		console.log("구매하기 버튼 클릭됨.");
 		var price = parseInt($("#finalPrice").text());
@@ -264,6 +286,8 @@ $(function(){
 			
 		}			
 	});
+	
+	//장바구니에 담기
 	$("#putBasket").click(function(){
 		var current_id = "${sessionScope.memberVo.m_id}";
 		console.log("current_id:" + current_id);
@@ -287,6 +311,7 @@ $(function(){
 		}		
 	});
 	
+	//선호도 증가
 	$("#iLikeThisProduct").click(function(){
 		var c_com_name = "${buyComputerVo.c_com_name}";
 		var c_com_no = "${buyComputerVo.c_com_no}";
@@ -312,6 +337,7 @@ $(function(){
 		}		
 	});	
 	
+	//상품문의 답변하기
 	$("#productExplainTbody").on("click", ".btnExplainRef", function(){
 		p_e_no = $(this).parent().parent().find("td").eq(6).text();		
 		console.log("p_e_no:" + p_e_no);

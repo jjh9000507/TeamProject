@@ -1,23 +1,23 @@
 package com.kh.team.domain;
 
 public class SendProductBoughtInfoVo {
-	private int price;
-	private String seller;
-	private int productNum;
-	private String productName;
-	private String sendMethod;
-	private int p_no;
-	private String radioVal;
-	private int memberOfTelephone;
-	private String messageForDriver;	
-	private int postcode;
-	private String roadAddress;
-	private String extraAddress;		
-	private String detailAddress;
-	private String m_id;
-	private int todayValueYear;
-	private int todayValueMonth;
-	private int todayValueDate;
+	private int price; //결제 가격
+	private String seller; //판매자
+	private int productNum; //상품갯수
+	private String productName; //상품명
+	private String sendMethod; //배송방법
+	private int p_no; //pk(결제한 상품 제품 구분용)
+	private String radioVal; //결제방법
+	private int memberOfTelephone; //구매자 휴대폰번호
+	private String messageForDriver; //배송기사에게 남길 말
+	private int postcode; //우편번호
+	private String roadAddress; //도로명 주소
+	private String extraAddress; //기타 주소		
+	private String detailAddress; //상세 주소
+	private String m_id; //구매자 아이디
+	private int todayValueYear; //구매년도
+	private int todayValueMonth; //구매한 달
+	private int todayValueDate; //구매한 날짜
 	
 	
 	public int getPrice() {

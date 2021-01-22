@@ -4,95 +4,95 @@
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
-.buycomputersFormDiv{
+.buycomputersFormDiv{			/*  컴퓨터 구매폼 배경*/
 	display:inline-block;
 	width:100%;	
 }
-.buyheader{
+.buyheader{				/*  컴퓨터 구매폼 (상단) 배경*/
 	display:inline-block;
 	height:100px;
 	width:70%;		
 	float:left;
 }
-.buynav{
+.buynav{			/*  컴퓨터 구매폼 (좌측 중앙) 배경*/
 	display:inline-block;
 	height:450px;
 	width:35%;
 	float:left;
 }
-.buyaside{
+.buyaside{			/*  컴퓨터 구매폼 (우측 중앙) 배경*/
 	display:inline-block;
 	height:450px;
 	width:35%;	
 	float:left;		
 }
-.buyleftnav{
+.buyleftnav{		/*  컴퓨터 구매폼 (좌측 중앙) 배경*/
 	display:inline-block;
 	height:450px;
 	width:15%;
 	float:left;
 }
-.buyleftupnav{
+.buyleftupnav{			/*  컴퓨터 구매폼 (좌측 상단) 배경*/
 	display:inline-block;
 	height:100px;
 	width:15%;
 	float:left;
 }
 
-.buyrightaside{
+.buyrightaside{			/*  컴퓨터 구매폼 (우측 중앙) 배경*/
 	display:inline-block;
 	height:450px;
 	width:15%;	
 	float:left;		
 }
-.buyrightupaside{
+.buyrightupaside{			/*  컴퓨터 구매폼 (우측 상단) 배경*/
 	display:inline-block;
 	height:100px;
 	width:15%;	
 	float:left;		
 }
-.buyleftdownnav{
+.buyleftdownnav{	`		/*  컴퓨터 구매폼 (좌측 하단) 배경*/
 	display:inline-block;
 	height:100px;
 	width:15%;
 	float:left;
 }
-.buyrightdownaside{
+.buyrightdownaside{			/*  컴퓨터 구매폼 (우측 하단) 배경*/
 	display:inline-block;
 	height:100px;
 	width:15%;	
 	float:left;		
 }
-.buyfooter{
+.buyfooter{			/*  컴퓨터 구매폼 (하단) 배경*/
 	display:inline-block;
 	width:70%;
 	height:100px;
 	float:left;	
 }
-.buycomputersFormDivBeneath{
+.buycomputersFormDivBeneath{			/*  컴퓨터 구매폼 (하단 아래) 배경*/
 	display:inline-block;
 	width:100%;	
 }
-.buyleftbeneathdownnav{
+.buyleftbeneathdownnav{			/*  컴퓨터 구매폼 (하단 아래 왼쪽) 배경*/
 	display:inline-block;
 	width:15%;
 	height:300px;
 	float:left;
 }
-.buyrightbeneathdownaside{
+.buyrightbeneathdownaside{			/*  컴퓨터 구매폼 (하단 아래 오른쪽) 배경*/
 	display:inline-block;
 	width:15%;
 	height:300px;	
 	float:left;		
 }
-.buybeneathfooter{
+.buybeneathfooter{			/*  컴퓨터 구매폼 (하단 아래 끝) 배경*/
 	display:inline-block;
 	width:70%;
 	height:300px;
 	float:left;
 	overflow:scroll;
 }
-.inputModifyModal{
+.inputModifyModal{			/*  컴퓨터 구매폼 모달*/
 	width:300px;
 }
 </style>

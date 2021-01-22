@@ -17,6 +17,84 @@
 			$("#memberGrade").text("골드회원");
 		} else if (memberPoint >= 10000) {
 			$("#memberGrade").text("VIP");
+$(function() {
+	var secretCodeNum = "";
+	var memberPoint = "${memberVoInfo.m_point}";
+	
+	//멤버 등급 나타내기
+	if((memberPoint >= 0) && (memberPoint < 5000)){
+		$("#memberGrade").text("일반회원");
+	}else if((memberPoint >= 5000) && (memberPoint < 10000)){
+		$("#memberGrade").text("골드회원");
+	}else if(memberPoint >= 10000){
+		$("#memberGrade").text("VIP");
+	}
+	
+	//회원정보 수정창 띄우기
+	$("#memberVoInfoUpdateButton").click(function() {
+		$("#modal-549609").trigger("click");
+	});
+	
+	//회원정보를 수정하기 위해 휴대폰에 인증번호 보내기
+	$("#sendPhoneMessage").click(function() {
+		var m_phonenumber_send = $("#m_phonenumber_send").val();
+		console.log("sendPhoneMessage + m_phonenumber_send:" + m_phonenumber_send);
+		var m_pass_new = $("#m_pass_new").val();
+		var m_email_new = $("#m_email_new").val();
+		var m_phonenumber_new = $("#m_phonenumber_new").val();
+		var url = "/login/sendMessageForMemberInfoUpdate";
+		var sendData = {
+ 			"m_phonenumber_send" : m_phonenumber_send
+// 			"m_pass" : m_pass_new,
+// 			"email" : m_email_new,
+// 			"m_phonenumber" : m_phonenumber_new
+		};
+		$.post(url, sendData, function(data) {
+			console.log("sendMessageForMemberInfoUpdate + data1:" + data);
+			
+			
+			if (data[0] == "success") {
+				alert("인증코드 폼");
+// 				$("#btnEmailPwSendClose").trigger("click");
+				$("#closeSecretNumberSend").trigger("click");
+				$("#modal-pw").trigger("click");
+				secretCodeNum = data[1];
+			} else if (data[0] == "fail") {
+				alert("문자 전송 실패");
+			}
+		});
+	});
+
+	//비밀번호 바꾸기
+	$("#changePwByPhonenumber").click(function() {
+		var m_id_for_change = $("#m_id_for_change").val();		
+		var m_pass_new = $("#m_pass_new").val();		
+		var m_email_new = $("#m_email_new").val();
+		var m_phonenumber_new = $("#m_phonenumber_new").val();
+		var url = "/login/sendMessageForMemberInfoUpdateContents";
+		var sendData = { 
+			"m_id" : m_id_for_change,
+			"m_pass" : m_pass_new,
+			"email" : m_email_new,
+			"m_phonenumber" : m_phonenumber_new			
+		};
+		var secretCodeNumberConfirm = $("#secretCodeNumberConfirm").val();
+		console.log("secretCodeNum:" + secretCodeNum);
+		console.log("secretCodeNumberConfirm:" + secretCodeNumberConfirm);
+		if(secretCodeNum == secretCodeNumberConfirm){	
+		
+		$.post(url, sendData, function(data) {
+			console.log("sendMessageForMemberInfoUpdateContents + data:" + data);
+			if (data == "success") {
+				alert("회원정보 변환 성공");
+				$("#changePwByPhonenumberClose").trigger("click");			
+			} else if (data == "fail") {
+				alert("회원정보 변환 실패");
+			}
+		});
+		}else{
+			alert("인증코드가 다르니 다시 입력하시오.");
+>>>>>>> branch 'master' of https://github.com/jjh9000507/TeamProject.git
 		}
 
 		$("#memberVoInfoUpdateButton").click(function() {

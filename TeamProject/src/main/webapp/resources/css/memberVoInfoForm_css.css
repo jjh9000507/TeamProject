@@ -105,30 +105,30 @@ ul.join_box {
 .fpmgBt1{background-color: #fff;color:#888}
 .fpmgBt2{background-color: lightsalmon;color: #fff}
 
-.memberVoInfoClass{
+.memberVoInfoClass{ 		/* 개인정보 폼의 구획을 설정하기위해 바탕 설정 */
 	display:inline-block;
 	width:100%;
 }
 
-.leftMemberVoInfoNav{
+.leftMemberVoInfoNav{		/* 개인정보 폼의 구획을 설정하기위해 왼쪽 여백 마련 설정 */
 	display:inline-block;
 	width:10%;
 	float:left;
 }
 
-.memberVoInfoNav{
+.memberVoInfoNav{	/* 개인정보 폼의 구획을 설정하기위해 이미지를 구현할 공간 마련 설정 */
 	display:inline-block;	
 	width:30%;
 	float:left;
 }
 
-.memberVoInfoAside{
+.memberVoInfoAside{		/* 개인정보 폼의 구획을 설정하기위해 제품설명 및 기능을 구현할 공간 마련 설정 */
 	display:inline-block;	
 	width:50%;	
 	float:left;
 }
 
-.rightMemberVoInfoAside{
+.rightMemberVoInfoAside{		/* 개인정보 폼의 구획을 설정하기위해 오른쪽 여백 마련 설정 */
 	display:inline-block;
 	width:10%;	
 	float:left;

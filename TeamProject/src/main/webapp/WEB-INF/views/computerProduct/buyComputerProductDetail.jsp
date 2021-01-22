@@ -179,6 +179,8 @@ $(function(){
 	var m_point = "${m_point}";
 	console.log("m_point:" + m_point);
 	var cPrice = "";
+	
+	//멤버 등급에 따라 할인하기
 	if((m_point >= 0)  && (m_point < 5000)){		
 		$("#gradePrice").text("할인가 없음");
 		cPrice = price;
@@ -198,6 +200,8 @@ $(function(){
 	var roadAddress = "";
 	var extraAddress = "";
 	var detailAddress = "";
+	
+	//주소 모달창 켜기
 	$("#searchJuso").click(function() {
 		$("#computer_postcode").val("");
 		$("#computer_roadAddress").val("");
@@ -205,6 +209,8 @@ $(function(){
 		$("#computer_detailAddress").val("");
 		$("#modalAddrByComputer").trigger("click");
 	});
+	
+	//주소 서버에 저장
 	$("#selectAddrComputer").click(function() {		
 		postcode = $("#computer_postcode").val();
 		roadAddress = $("#computer_roadAddress").val();
@@ -228,6 +234,7 @@ $(function(){
 	var memberOfTelephone = "";
 	var messageForDriver = "";
 	
+	//휴대폰 번호 및 배송기사에게 전달할 메세지 서버에 저장
 	$("#pushMessageAndTel").click(function(){
 		var messageForDriverBefore = $("#messageForDriver").val();		
 		var m_length = messageForDriverBefore.length;
@@ -257,6 +264,7 @@ $(function(){
 		console.log("messageForDriver:" + messageForDriver);			
 	});
 	
+	//결제하기
 	$("#buyProduct").click(function(){
 		$("#modal-purchaseRef").trigger("click");
 		if(m_id != ""){	
@@ -335,7 +343,8 @@ $(function(){
 		}
 		
 	});
-	
+
+	//주문자 이름 바꾸기
 	$("#changeMemberNameButton").click(function(){
 		
 		if($("#changeMemberName").is(":checked") == true){
@@ -381,7 +390,8 @@ $(function(){
 			alert("미체크");
 		}
 	});	
-	
+
+	//구매후기 작성
 	$("#purchaseRefInputsButton").click(function(){
 		var c_com_comment_content = $("#c_com_comment_content").val();
 		
