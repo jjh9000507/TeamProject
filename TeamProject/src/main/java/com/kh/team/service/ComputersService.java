@@ -2,11 +2,12 @@ package com.kh.team.service;
 
 import java.util.List;
 
+
 import com.kh.team.domain.BuyComputerVo;
 import com.kh.team.domain.CategoryVo;
-import com.kh.team.domain.ComputerCommentVo;
+
 import com.kh.team.domain.ComputerVo;
-import com.kh.team.domain.ProductExplainVo;
+
 
 public interface ComputersService {
 		//컴퓨터 제품 리스트

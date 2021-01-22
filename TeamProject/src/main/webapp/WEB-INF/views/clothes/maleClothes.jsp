@@ -126,14 +126,14 @@ $(function(){
 			<div class="row listMain" style="position:relative;left:15%;">
 				<div class="col-md-8 productList">
 					
-					<select style="float:right;">
-						<option>가격</option>
-						<option>이름</option>
-					</select>
+<!-- 					<select style="float:right;"> -->
+<!-- 						<option>가격</option> -->
+<!-- 						<option>이름</option> -->
+<!-- 					</select> -->
 					
 						<c:forEach var="male" items="${list}">
 					<ul class="nav nav-pills list">
-							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="/resources/image/${male.p_thumbimg }"/></a></li>
+							<li class="nav-item"><a class="nav-link" href="#"><img style="width:225px; height:225px;" src="/resources/image/product/${male.p_thumbimg }"/></a></li>
 							<li class="nav-item" style="width:372px;"><a class="nav-link productName" href="/page/content?p_no=${male.p_no}">${male.p_name }<br></a><span id="price">${male.p_price }</span>원<br> 무료배송</li>
 							<li class="nav-item"><a class="nav-link seller">${male.p_seller}</a></li>
 					</ul>
@@ -150,14 +150,14 @@ $(function(){
 
 
 <!------------------------------------------ 페이지네이션 ---------------------------------------->
-<br>
-<div class="row">
-	<div class="col-md-12 btnMore">
-		<div class="form-control divMore">
-			<a href="#" class="a_More">더보기  <span class="arrow"><img src="/resources/image/arrow.PNG"/></span></a>
-			<input type="hidden" id="morePage" name="morePage"/>
-		</div>
+<!-- <br> -->
+<!-- <div class="row"> -->
+<!-- 	<div class="col-md-12 btnMore"> -->
+<!-- 		<div class="form-control divMore"> -->
+<!-- 			<a href="#" class="a_More">더보기  <span class="arrow"><img src="/resources/image/arrow.PNG"/></span></a> -->
+<!-- 			<input type="hidden" id="morePage" name="morePage"/> -->
+<!-- 		</div> -->
 
-	</div>
-</div>
+<!-- 	</div> -->
+<!-- </div> -->
 

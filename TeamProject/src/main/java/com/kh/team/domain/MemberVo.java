@@ -3,17 +3,17 @@ package com.kh.team.domain;
 import java.sql.Timestamp;
 
 public class MemberVo {
-	private String m_id;
-	private String m_pass;
-	private String email;
-	private int admin_check;
-	private int m_selling;
-	private String m_name;
-	private String m_phonenumber;
-	private int m_point;
-	private String m_pic;
-	private Timestamp m_regdate;
-	private Timestamp m_selling_regdate;
+	private String m_id; //아이디
+	private String m_pass; //비밀번호
+	private String email; //이메일
+	private int admin_check; //관리자 체크
+	private int m_selling; //판매자 가능여부 체크
+	private String m_name; //이름
+	private String m_phonenumber; //휴대폰 번호
+	private int m_point; //포인트
+	private String m_pic; //이미지
+	private Timestamp m_regdate; //가입날짜
+	private Timestamp m_selling_regdate; //판매날짜
 	
 	
 	public String getM_id() {

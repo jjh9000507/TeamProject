@@ -3,10 +3,10 @@ package com.kh.team.domain;
 import java.sql.Timestamp;
 
 public class ComputerCommentVo {
-	private int c_com_comment_no;
-	private String c_com_comment_content;
-	private String c_com_comment_writer;
-	private Timestamp c_com_comment_regdate;
+	private int c_com_comment_no; //후기번호
+	private String c_com_comment_content; //후기내용
+	private String c_com_comment_writer; //작성자
+	private Timestamp c_com_comment_regdate; //작성시간
 	
 	public int getC_com_comment_no() {
 		return c_com_comment_no;

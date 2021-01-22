@@ -18,20 +18,26 @@
 		var url = "/page/sellProductData";
 		
 		$.get(url, function(data){
+			
+			
 			$.each(data, function(){
-// 				console.log(this);
+				
+				
 // 				console.log(this.road_address);
 				var p_no = this.p_no;
 				var p_name = this.p_name;
 				var p_seller = this.p_seller;
 				var p_price = this.p_price;
-// 				console.log(p_name);
+				var p_img = this.p_thumbimg; 
+				console.log(p_img);
+ 			
 				var geocoder2 = new kakao.maps.services.Geocoder();
 				// 주소로 좌표를 검색합니다
 				geocoder2.addressSearch(this.road_address, function(result, status) {
 
 				    // 정상적으로 검색이 완료됐으면 
 				     if (status === kakao.maps.services.Status.OK) {
+				    	 
 				        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
 				        // 결과값으로 받은 위치를 마커로 표시합니다
@@ -47,6 +53,7 @@
 				            removable : iwRemoveable
 				        });
 				        
+				      
 
 				        kakao.maps.event.addListener(marker3, 'click', function(){
 				        	infowindow.open(map, marker3);
@@ -55,7 +62,34 @@
 				        
 				    } 
 				});    
-			});
+				
+				// 사이드에 마크 리스트 넣기
+				$(".side_addr_list").parent().show();
+				
+				// 원본 복사 (display:none)
+				var side_addr_list = $(".side_addr_list").eq(0).clone();
+				
+				// 이미지
+				side_addr_list.find("img").attr("src" , "/resources/image/product/" + p_img);
+				
+				// 상품명
+				side_addr_list.find("a").eq(0).text(p_name);
+				side_addr_list.find("a").eq(0).attr("href" , "/page/content?p_no=" + p_no);
+				
+				// 판매자
+				side_addr_list.find("a").eq(1).text(p_seller);
+				
+				// 주소
+				side_addr_list.find("a").eq(2).text(this.road_address);
+				
+				// 가격
+				side_addr_list.find("span").text(p_price + "원");
+				$(".side_addr_list").parent().append(side_addr_list);
+				
+			}); // each
+			
+				$(".side_addr_list").eq(0).hide();
+			
 		});
 		
 		$("#btnCoordinate").click(function() {	
@@ -166,8 +200,6 @@
 	        map.setCenter(coords);
 	    } 
 	});    
-	
-	
 		
 	}); // main function
 	/* ==================================== 네이버 지도 소스 코드 끝 ======================================= */
@@ -186,6 +218,19 @@
 				<div class="row">
 					<div class="col-md-8">
 					
+					<!-- 사이드 마커 리스트 -->
+						<h3 style="padding-left: 6%;">검색된 상품 목록</h3>
+						<div style="position:absolute; display:none; text-align:center;">
+							<div class="side_addr_list" style="border-bottom:1px solid gainsboro;">
+								<img style="height:190px;" alt="상품이미지" src=""><br>
+								<a href="#" id="addr_ProductName" type="text"></a><br>
+								<span id="addr_ProductPrice"></span><br>
+								<a id="addr_Seller" type="text"></a><br>
+								<a id="addr_Address" type="text"></a><br>
+							</div>
+						</div>
+					<!-- 사이드 마커 리스트 END -->
+					
 					<div id="map" style="top : 20%; width:53%; height:440px; left:51%;"></div>
 					
 						<div style="position: absolute; left: 63%; top: 3%">
@@ -203,6 +248,8 @@
 							<c:forEach var="road_address" items="${addr_list}">
 								<input type="hidden" class="addr_list" data-addr="${road_address.road_address}"/>
 							</c:forEach>
+							
+							
 						
 					</div>
 				</div>

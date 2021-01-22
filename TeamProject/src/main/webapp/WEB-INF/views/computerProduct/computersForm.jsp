@@ -17,7 +17,8 @@ $(function() {
 	var searchInComputerPriceForm = $(".searchInComputerPriceForm");
 	var searchInComputerById = $(".searchInComputerById");
 	var findIdSearchFormFind = $(".findIdSearchFormFind");	
-	
+
+	//체크박스 체크된 값 컨트롤러로 보내기
 	$("#checkboxSearch").click(function() {
 		inputCheckForm.empty();		
 		for(var i = 0; i<6; i++){
@@ -42,6 +43,7 @@ $(function() {
 		}						
 	});
 	
+	//뒤로가기 기능
 	$("#computersBack").click(function() {		
 		inputCheckForm.empty();		
  		for(var i = 0; i<6; i++){
@@ -81,6 +83,7 @@ $(function() {
  		}	
 	});
 	
+	//제품이름으로 검색
 	$("#detailSearch").click(function() {
 		searchInComputerInfo.empty();
 		var inputName = detailSearchFormFind.find("input").clone();
@@ -101,7 +104,8 @@ $(function() {
  		$("#frmSearchData").submit();
 		}
 		});
-	
+
+	//판매자 아이디로 제품 검색
 	$("#findIdSearch").click(function() {
 		searchInComputerById.empty();
 		var ByIdFindInput = findIdSearchFormFind.find("input").clone();
@@ -122,7 +126,8 @@ $(function() {
  		$("#frmSearchById").submit();
 		}
 	});
-	
+
+	//가격대로 제품검색
 	$("#detailPrice").click(function() {
 		searchInComputerPriceSend.empty();
 		var inputName1 = searchInComputerPriceForm.find("input").eq(0).clone();
@@ -151,6 +156,8 @@ $(function() {
 		}
 		}
 		});
+	
+	//최근본 상품리스트 숨기기
 	$("#computerFavorProduct > li > a").bind({ 
 		"mouseover" : function() {   
 			$("#computerFavorProduct > li > ul").hide(); 
@@ -161,15 +168,18 @@ $(function() {
 			$("#computerFavorProduct > li > ul").hide();			
 		}
 	});
-	
+
+	//최근본 상품리스트 보이기
 	$("#computerFavorProduct > li > ul").on("mouseover" ,function(){
 		$(this).show();
 	});	
-	
+
+	//최근본 상품리스트 숨기기-
 	$("#computerFavorProduct > li > ul").on("mouseout" ,function(){
 		$(this).hide(); 
 	});
-	
+
+	//상품 정보 보이기
 	$(".showProductInfo").click(function() {
 	 	alert("제품설명 모달창을 띄움니다");	 	
 	 	var p_no = $(this).attr("data-pno");
@@ -190,8 +200,7 @@ $(function() {
 			tr4.find("td").eq(1).text(changeDateString(data.c_com_regdate));			
 		});
 		$("#modal-Info").trigger("click");
-	});
-	
+	});	
 });
 </script>
 	<div class="row">

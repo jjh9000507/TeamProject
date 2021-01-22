@@ -4,24 +4,24 @@
 <style>
 
 @import url('https://fonts.googleapis.com/css2?family=East+Sea+Dokdo&display=swap');
-.DetailDiv{
+.DetailDiv{			/*  컴퓨터 결제폼 배경*/
 	display:inline-block;
 	width:100%;	
 }
 
-.DetailNav{
+.DetailNav{			/*  컴퓨터 구매폼 (왼쪽) 배경*/
 	display:inline-block;	
 	width:20%;		
 	float:left;
 }
 
-.DetailSection{
+.DetailSection{			/*  컴퓨터 구매폼 (중앙) 배경*/
 	display:inline-block;	
 	width:60%;		
 	float:left;
 }
 
-.DetailAside{
+.DetailAside{			/*  컴퓨터 구매폼 (오른쪽) 배경*/
 	display:inline-block;	
 	width:20%;		
 	float:left;

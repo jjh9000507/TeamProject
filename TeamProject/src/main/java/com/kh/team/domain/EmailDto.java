@@ -2,10 +2,10 @@ package com.kh.team.domain;
 
 public class EmailDto {
 	
-	private String from = "jjh9000507jjh@gmail.com"; // 현재 페이지
-	private String to; 
-	private String subject; 
-	private String content;
+	private String from = "jjh9000507jjh@gmail.com"; // 보내는 이메일 주소
+	private String to; // 받는 이메일 주소
+	private String subject; //제목
+	private String content; //내용
 	public String getFrom() {
 		return from;
 	}
