@@ -3,15 +3,15 @@ package com.kh.team.domain;
 import java.sql.Timestamp;
 
 public class ComputerVo {
-	private int c_com_no;
-	private String c_com_name;
-	private String c_com_seller;
-	private int c_com_price;
-	private String c_com_cate_no;
-	private String c_com_content;
-	private String c_com_pic;
-	private int p_no;
-	private Timestamp c_com_regdate;
+	private int c_com_no; //제품번호
+	private String c_com_name; //제품명
+	private String c_com_seller; //판매자
+	private int c_com_price; //가격
+	private String c_com_cate_no; //참조값
+	private String c_com_content; //제품설명
+	private String c_com_pic; //제품 이미지
+	private int p_no; //pk
+	private Timestamp c_com_regdate; //제품 올린 시간
 	public int getC_com_no() {
 		return c_com_no;
 	}

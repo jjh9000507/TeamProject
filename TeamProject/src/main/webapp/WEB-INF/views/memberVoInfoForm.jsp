@@ -11,9 +11,9 @@
 $(function() {
 	var secretCodeNum = "";
 	var memberPoint = "${memberVoInfo.m_point}"
-	if((memberPoint >= 0)  && (memberPoint < 5000)){
+	if((memberPoint >= 0) && (memberPoint < 5000)){
 		$("#memberGrade").text("일반회원");
-	}else if((memberPoint >= 5000)  && (memberPoint < 10000)){
+	}else if((memberPoint >= 5000) && (memberPoint < 10000)){
 		$("#memberGrade").text("골드회원");
 	}else if(memberPoint >= 10000){
 		$("#memberGrade").text("VIP");

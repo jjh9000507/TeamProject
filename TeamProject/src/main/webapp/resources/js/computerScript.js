@@ -2,6 +2,7 @@
  * 
  */
 
+//날짜 계산
 function changeDateString(timestamp){
 	var d = new Date(timestamp);
 	var year = d.getFullYear();

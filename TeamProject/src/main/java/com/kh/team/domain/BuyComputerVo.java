@@ -2,14 +2,14 @@ package com.kh.team.domain;
 
 public class BuyComputerVo {
 	
-	private int price;
-	private String seller;
-	private int productNum;
-	private String productName;
-	private String sendMethod;
-	private int p_no;
-	private int c_com_no;
-	private String m_id;
+	private int price; //가격
+	private String seller; //판매자
+	private int productNum; //상품갯수
+	private String productName; //상품명
+	private String sendMethod; //배송방법
+	private int p_no; //pk
+	private int c_com_no; //상품번호
+	private String m_id; //아이디
 	public int getPrice() {
 		return price;
 	}

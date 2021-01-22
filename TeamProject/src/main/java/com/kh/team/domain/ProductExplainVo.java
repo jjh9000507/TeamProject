@@ -3,14 +3,14 @@ package com.kh.team.domain;
 import java.sql.Timestamp;
 
 public class ProductExplainVo {
-	private int p_e_no;
-	private String p_e_answer_status;
-	private String p_e_inquiry_status;
-	private String p_e_title;
-	private String p_e_id;
-	private Timestamp p_e_regdate;
-	private String p_e_product;
-	private String p_e_re;
+	private int p_e_no; //상품문의 pk
+	private String p_e_answer_status; //상품문의 답변상태
+	private String p_e_inquiry_status; //상품문의 종류
+	private String p_e_title; //제목
+	private String p_e_id; //작성자 아이디
+	private Timestamp p_e_regdate; //작성날짜
+	private String p_e_product; //상품문의 대상 제품
+	private String p_e_re; //답변내용
 	public int getP_e_no() {
 		return p_e_no;
 	}
