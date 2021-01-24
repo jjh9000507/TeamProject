@@ -178,7 +178,7 @@
 	
 	<!-- 입찰 시작 -->
 	<select id="getAuctionTempBid" resultType="AuctionTempBidVo">
-		select * from auction_temp_bid where p_no = #{p_no}
+		select * from auction_temp_bid where p_no = #{p_no} order by temp_bid_price desc
 	</select>
 	
 	<select id="getAuctionBid" resultType="AuctionBidVo">
@@ -198,7 +198,7 @@
 	</select>
 	
 	<insert id="insertAuctionTempBid">
-		insert into auction_temp_bid(temp_bid_no, temp_purchaser_id, temp_seller_id, temp_bid_price, p_no) values(seq_temp_bid_no.nextval, #{purchaser}, #{seller}, #{bidPrice}, #{p_no})
+		insert into auction_temp_bid(temp_bid_no, temp_purchaser_id, temp_seller_id, temp_bid_price, temp_bid_date, p_no) values(seq_temp_bid_no.nextval, #{temp_purchaser_id}, #{temp_seller_id}, #{temp_bid_price}, #{temp_bid_date}, #{p_no})
 	</insert>
 	
 	<update id="updateAuctionEDate">
@@ -437,4 +437,7 @@
 	<update id="updateAuctionDeliveryConfirm">
 		update auction_order set delivery_company=#{delivery_company}, delivery_number=#{delivery_number}, delivery_status='Y' where order_id=#{order_id}
 	</update>
+	
+
+
 </mapper>

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ include file="../include/header.jsp"%>
 <%@ include file="/resources/css/auction_css.css" %>
@@ -105,7 +105,7 @@ $(function(){
 			var addMinute = 60;
 			var addSecond = 60;
 
-			//console.log("resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
+			console.log("마이너스 계산 전 resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
 			
 			//-----------초 시작---------------------------------------------------------------------------------------//
 			if(resultSecond<0){//잡을 땐 < 일 때마다
@@ -285,6 +285,7 @@ $(function(){
 								resultSecond = 0;
 							}
 			//-----------년 끝---------------------------------------------------------------------------------------//
+			console.log("마이너스 계산 후 resultYear:"+resultYear+" ,resultMonth:"+resultMonth+" ,resultDate:"+resultDate+" ,resultHour:"+resultHour+" ,resultMinute:"+resultMinute+" resultSecond:"+resultSecond);
 			
 			//마감 날짜와 현재 시간을 뺀 값을 this값에 넣는다 
 			$(this).text(resultHour+":"+resultMinute+":"+resultSecond);
@@ -326,6 +327,7 @@ $(function(){
 						if(minute>0){
 							minute--;
 							second += addSecond;
+							console.log("minute에서 뺀다-------------date:"+date+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 						}else{
 							if(hour>0){
 								hour--;
@@ -338,6 +340,7 @@ $(function(){
 									hour += (addHour-1);
 									minute += (addMinute-1);
 									second += addSecond;
+									console.log("date에서 뺀다------------------------date:"+date+" ,hour:"+hour+" ,minute:"+minute+" ,second:"+second);
 								}else{
 									if(month>0){
 										month--;
@@ -385,7 +388,7 @@ $(function(){
 					
 					that.text(twoDigitHour+":"+twoDigitMinute+":"+twoDigitSecond);
 					
-					if(twoDigitHour==0 && twoDigitMinute==0 && twoDigitSecond==0){
+					if(twoDigitHour==0 && twoDigitMinute==0 && twoDigitSecond==0 && date==0 && month==0 && year==0){
 					//-------------------------------- 종료되면 입찰 진행-------------------------------//
 						//$("#stopTimer").trigger("click");
 						//alert("전부 00");
@@ -673,7 +676,7 @@ function stopCountIndex(indexCatch){
 	</div>
 	
 	<div class="row">
-		<div class="col-md-2"></div>
+		<div class="col-md-2"><button type="button" id="stopTimer">타이머종료</button>	</div>
 		<div class="col-md-8">
 			<table class="table">
 				<tbody>
@@ -685,20 +688,20 @@ function stopCountIndex(indexCatch){
 									<table class="table" border="1">
 										<tbody>
 											<tr>
-												<td rowspan=5><img src="/furniture/displayImage?imageName=${selectedItem.main_img_name}" class="img-class" style="height: 300px; width: 300px;"></td>
-												<td colspan=2 style="padding-right: 270px;">${selectedItem.p_title}</td>
+												<td rowspan=5 style="width: 326px;height: 326px;"><img src="/furniture/displayImage?imageName=${selectedItem.main_img_name}" class="img-class" style="height: 300px; width: 300px;"></td>
+												<td colspan=2 style="text-align:center;vertical-align:middle">${selectedItem.p_title}</td>
 											</tr>
 											<tr class="table-active">
-												<td>현재가:${selectedItem.present_price}</td>
-												<td>즉구가:${selectedItem.instant_price}</td>
+												<td style="vertical-align:middle"><small style="padding-right: 10px;">현재가</small>${selectedItem.present_price}<small>원</small></td>
+												<td style="vertical-align:middle"><small style="padding-right: 10px;">즉구가</small>${selectedItem.instant_price}<small>원</small></td>
 											</tr>
 											<tr class="table-success">
-												<td>입찰수:${bidCount}</td>
-												<td>입찰가격: ${maxPrice}</td>
+												<td style="vertical-align:middle"><small style="padding-right: 10px;">입찰수</small>${bidCount}<small>명</small></td>
+												<td style="vertical-align:middle"><small style="padding-right: 10px;">입찰가격</small><b>${maxPrice}<small>원</small></b></td>
 											</tr>
 											<tr class="table-warning">
-												<td>남은시간</td>
-												<td>
+												<td style="vertical-align:middle"><small style="padding-right: 10px;">남은시간</small></td>
+												<td style="vertical-align:middle">
 													<div class="divCountDown" style="color:red"></div>
 													<input type="hidden" class="resultYear" value="${selectedItem.e_year}">
 													<input type="hidden" class="resultMonth" value="${selectedItem.e_month}">
@@ -710,8 +713,8 @@ function stopCountIndex(indexCatch){
 												</td>
 											</tr>
 											<tr class="table-danger">
-												<td>종료일</td>
-												<td>${selectedItem.e_day}일 ${selectedItem.e_hour}:${selectedItem.e_minute}</td>
+												<td style="vertical-align:middle"><small style="padding-right: 10px;">종료일</small></td>
+												<td style="vertical-align:middle">${selectedItem.e_day}<small>일 </small><fmt:formatNumber value="${selectedItem.e_hour}" pattern="00"/>:<fmt:formatNumber value="${selectedItem.e_minute}" pattern="00"/></td>
 											</tr>
 										</tbody>
 									</table>
@@ -728,7 +731,7 @@ function stopCountIndex(indexCatch){
 								<h1>입찰 기간이 종료 되었습니다</h1>
 							</div>
 				<!-------------------------------------- 입찰하기 collapse group 시작 -------------------------------------------->
-								<div class="col-md-12 divBidCollapse">
+								<div class="col-md-12 divBidCollapse" style="padding-left: 0px;padding-right: 0px;">
 										<div id="card-385137">
 											<div class="card collaspsePrice">
 												<button type="button" class="btn btn-sm btn-outline-danger" id="btnFavorite">관심상품</button>
@@ -767,7 +770,7 @@ function stopCountIndex(indexCatch){
 																	<td>${bidList.temp_purchaser_id}</td>
 																	<td>${bidList.temp_seller_id}</td>
 																	<td>${bidList.temp_bid_price}</td>
-																	<td>${bidList.temp_bid_date}</td>
+																	<td><fmt:formatDate value="${bidList.temp_bid_date}" pattern="YYYY-MM-dd HH:mm:ss"/> </td>
 																</tr>
 															</c:forEach>
 															</tbody>
@@ -800,6 +803,44 @@ function stopCountIndex(indexCatch){
 					<!-- 세부 이미지랑 설명 tr 끝 -->
 				</tbody>
 			</table>
+			
+			<hr>			
+			
+			<!-- 옥션 시작 -->
+			<div class="uxb-keypoint">
+				<p><img src="http://pics.auction.co.kr/itempage/txt_keypoint.gif" alt="알아두세요"></p>
+				<ul>
+					<li class="first">중고동네의 결제시스템을 이용하지 않고 <strong>판매자의 계좌로 상품대금을 송금</strong>하는 등의 
+						방법으로 <strong>직거래</strong>를 하는경우, 상품을 받지못하는 등의<br><strong>피해가 발생</strong>할 수 
+						있습니다. 직거래로 인한 피해 발생시, <strong>중고동네는 일체의 책임을 지지않습니다.</strong></li>
+				</ul>
+			</div>
+			<div class="datanamedf mtxs">
+			<p>중고동네에 등록된 판매상품과 상품의 내용은 중고동네가 아닌 개별 판매자가 등록한 것으로서, 중고동네는 중개시스템만 제공하며 그 등록내용에 대하여 일체의 책임을 지지 않습니다.</p>
+			</div>			
+			<div class="bsellerinfo">
+				<table>
+					<colgroup>
+						<col style="width:11%"><col style="width:17%"><col style="width:14%"><col style="width:17%"><col style="width:14%"><col style="width:27%">
+					</colgroup>
+					<tr>
+						<td>해당 판매자는 개인 판매자이므로 결제 이후 마이중고동네에서 판매자 정보 확인이 가능합니다.</td>
+					</tr>
+				</table>
+			</div>
+			<div class="ckescrow"><div class="rdt"><div class="rdb">
+				<strong>중고동네 에스크로 결제대금 예치업등록</strong><span>: 02-006-00008</span>
+				<img src="http://pics.auction.co.kr/itempage/btn_ckescrow.gif" alt="서비스 가입사실 확인">
+				<p>중고동네는 전자금융거래법에 따라 금융위원회에 결제대금 예치업을 등록하였으며, 중고동네에 등록한 모든 입점판매자는 자동적으로 동 서비스에 가입하였습니다.</p>
+			</div></div></div>
+			<!-- 판매자 정보 //-->
+			<h4 class="btmh mtl"><img src="http://pics.auction.co.kr/itempage/tit_cautionlist.gif" alt="주의사항"></h4>
+			<ul class="cautionlist">
+				<li class="c3"><strong>전자상거래 등에서의 소비자보호에 관한 법률</strong>에 의거하여 미성년자가 체결한 계약은 법정대리인이 동의하지 않은 경우 본인 또는 법정대리인이 취소할 수 있습니다.</li>
+				<li class="c3">중고동네에 등록된 판매상품과 상품의 내용은 판매자가 등록한 것으로 중고동네에서는 그 등록내역에 대하여 일체의 책임을 지지 않습니다.</li>
+			</ul>
+			<!-- 옥션 끝 -->
+					
 		</div>
 		<div class="col-md-2"></div>
 	</div><!-- 외부 row -->
@@ -809,44 +850,6 @@ function stopCountIndex(indexCatch){
 <input type="hidden" id="bidPrice" name="bidPrice">
 <input type="hidden" id="remindMinute" name="remindMinute">
 </form>
-
-<!-- 옥션 시작 -->
-
-<div class="uxb-keypoint">
-	<p><img src="http://pics.auction.co.kr/itempage/txt_keypoint.gif" alt="알아두세요"></p>
-	<ul>
-		<li class="first">옥션의 결제시스템을 이용하지 않고 <strong>판매자의 계좌로 상품대금을 송금</strong>하는 등의 
-			방법으로 <strong>직거래</strong>를 하는경우, 상품을 받지못하는 등의<br><strong>피해가 발생</strong>할 수 
-			있습니다. 직거래로 인한 피해 발생시, <strong>옥션은 일체의 책임을 지지않습니다.</strong></li>
-	</ul>
-</div>
-	
-<div class="datanamedf mtxs">
-<p>옥션에 등록된 판매상품과 상품의 내용은 옥션이 아닌 개별 판매자가 등록한 것으로서, 옥션은 중개시스템만 제공하며 그 등록내용에 대하여 일체의 책임을 지지 않습니다.</p>
-</div>			
-<div class="bsellerinfo">
-	<table>
-		<colgroup>
-			<col style="width:11%"><col style="width:17%"><col style="width:14%"><col style="width:17%"><col style="width:14%"><col style="width:27%">
-		</colgroup>
-		<tr>
-			<td>해당 판매자는 개인 판매자이므로 결제 이후 마이옥션에서 판매자 정보 확인이 가능합니다.</td>
-		</tr>
-	</table>
-	
-</div>
-<div class="ckescrow"><div class="rdt"><div class="rdb">
-	<strong>옥션 에스크로 결제대금 예치업등록</strong><span>: 02-006-00008</span>
-	<img src="http://pics.auction.co.kr/itempage/btn_ckescrow.gif" alt="서비스 가입사실 확인">
-	<p>옥션은 전자금융거래법에 따라 금융위원회에 결제대금 예치업을 등록하였으며, 옥션에 등록한 모든 입점판매자는 자동적으로 동 서비스에 가입하였습니다.</p>
-</div></div></div>
-<!-- 판매자 정보 //-->
-<h4 class="btmh mtl"><img src="http://pics.auction.co.kr/itempage/tit_cautionlist.gif" alt="주의사항"></h4>
-<ul class="cautionlist">
-	<li class="c3"><strong>전자상거래 등에서의 소비자보호에 관한 법률</strong>에 의거하여 미성년자가 체결한 계약은 법정대리인이 동의하지 않은 경우 본인 또는 법정대리인이 취소할 수 있습니다.</li>
-	<li class="c3">옥션에 등록된 판매상품과 상품의 내용은 판매자가 등록한 것으로 옥션에서는 그 등록내역에 대하여 일체의 책임을 지지 않습니다.</li>
-</ul>
-<!-- 옥션 끝 -->
 
 </div><!-- 외부 container -->
 
@@ -879,9 +882,9 @@ function stopCountIndex(indexCatch){
 				</div>
 				
 				<div class="modal-body">
-					<div>아 이 디   <input type="text" id="txtId" style="border-style:groove;"></div>
+					<div><input type="text" id="txtId" placeholder="아이디" style="font-size:14px;width:200px"></div>
 					<br>
-					<div>비밀번호  <input type="text" id="txtPw" style="border-style:groove;"></div>
+					<div><input type="password" id="txtPw" placeholder="비밀번호" style="font-size:14px;width:200px"></div>
 				</div>
 				
 				<div class="modal-footer">

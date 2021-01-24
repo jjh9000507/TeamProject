@@ -226,14 +226,16 @@ public class AuctionDaoImpl implements AuctionDao{
 	}
 
 	@Override
-	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception {
+	public void insertAuctionTempBid(AuctionTempBidVo tempBidVo) throws Exception {
+		/*
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("purchaser", purchaser);
 		map.put("seller", seller);
 		map.put("bidPrice", bidPrice);
 		map.put("p_no", p_no);
+		*/
 		
-		sqlSession.insert(NAMESPACE + "insertAuctionTempBid", map);
+		sqlSession.insert(NAMESPACE + "insertAuctionTempBid", tempBidVo);
 	}
 
 	@Override

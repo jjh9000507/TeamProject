@@ -1,5 +1,6 @@
 package com.kh.team.controller;
 
+import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -243,10 +244,15 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		 *auctionSelected.jsp에서 입찰 하면 2분 추가 -> controller:insertAuctionTempBid -> 시간이 종료되면 -> 
 		 *controller:timeOverAutoCommit(여기서 deadline='Y') -> auctionMain.jsp
 		 *
-		 *timeOverAutionCommit을 실행이 안 된 경우 여기가 로딩될 때 새로 마감시간을 체크 후 기간이 지났으면 deadline='Y'로하는
-		 *함수 makeDeadlineToY();
+		 *
+		 *
+		 *main에서 입찰자가 없는데 시간이 마감된 경우 -> selected폼에서 timeOverAutionCommit 실행돼서 makeDeadline을 Y로만
+		 *main에서 입찰자가 있는데 시간이 마감된 경우 -> selected폼에서 timeOverAutionCommit 실행돼서 데이터 입력 후 deadline을 Y로
+		 *selected에서 입찰자가 없는데 시간이 마감된 경우 -> timeOverAutionCommit에서 deadline만 Y로
+		 *selected에서 입찰자가 있는데 시간이 마감된 경우 -> timeOverAutionCommit에서 데이터 입력 후 deadline을 Y로
+		 *
+		 *
 		 */ 
-		makeDeadlineToY(p_no);
 		
 		AuctionSellVo selectedItem = auctionService.getAuctionSelectedItem(p_no);
 		List<AuctionImgVo> selectedImg = auctionService.getAuctionSelectedImg(p_no);
@@ -270,7 +276,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		return "auction/auctionSelected";
 	}
 	
-	//마감 기간 체크해서 기간이 지났으면 deadline을 Y로
+	//마감 기간 체크해서 기간이 지났으면 deadline을 Y로 -> timeOverAutionCommit에서 이기능을 if밖으로 빼서 여기서 체크할 필요없다
 	private void makeDeadlineToY(int p_no) throws Exception{
 		
 		//현재 시간
@@ -282,7 +288,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		int nHour = nTime[0];
 		int nMinute = nTime[1];
 		int nSecond = nTime[2];
-		//System.out.println("nYear:"+nYear+" ,nMonth:"+nMonth+" ,nDay:"+nDay+" ,nHour:"+nHour+" ,nMinute:"+nMinute+" ,nSecond:"+nSecond);
+		System.out.println("nYear:"+nYear+" ,nMonth:"+nMonth+" ,nDay:"+nDay+" ,nHour:"+nHour+" ,nMinute:"+nMinute+" ,nSecond:"+nSecond);
 		//마감 시간
 		AuctionEDateVo auctionEDateVo = auctionService.getAuctionExpirationDate(p_no);
 		int eYear = auctionEDateVo.getE_year();
@@ -297,22 +303,22 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		
 		if(eYear > nYear) {
 			deadLineCheck = false;
-			System.out.println("1");
+			//System.out.println("1");
 		}else if(eYear<=nYear && eMonth>nMonth){
 			deadLineCheck = false;
-			System.out.println("2");
+			//System.out.println("2");
 		}else if(eYear<=nYear && eMonth<=nMonth && eDay>nDay) {
 			deadLineCheck = false;
-			System.out.println("3");
+			//System.out.println("3");
 		}else if(eYear<=nYear && eMonth<=nMonth && eDay<=nDay && eHour>nHour) {
 			deadLineCheck = false;
-			System.out.println("4");
+			//System.out.println("4");
 		}else if(eYear<=nYear && eMonth<=nMonth && eDay<=nDay && eHour<=nHour && eMinute>nMinute) {
 			deadLineCheck = false;
-			System.out.println("5");
+			//System.out.println("5");
 		}else if(eYear<=nYear && eMonth<=nMonth && eDay<=nDay && eHour<=nHour && eMinute<=nMinute && eSecond>nSecond) {
 			deadLineCheck = false;
-			System.out.println("6");
+			//System.out.println("6");
 		}
 		//expiration테이블에 기간이 지났으면 마감기한 Y로 업데이트
 		//System.out.println("deadline:" + deadLineCheck);
@@ -336,10 +342,11 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 			int sold_price = auctionTempBidVo.getTemp_bid_price();
 			
 			auctionService.updateAuctionAfterFinish(purchaser, sold_price, p_no, seller);
-			
-			//expiration테이블에 마감기한 Y로 업데이트
-			auctionService.updateAuctionExpriationDeadline(p_no);
 		}
+		
+		//expiration테이블에 마감기한 Y로 업데이트 -> 마감기한Y는 입찰에 상관없이 실행
+		auctionService.updateAuctionExpriationDeadline(p_no);
+		
 		return "redirect:/auction/auctionMain";
 	}
 	
@@ -540,7 +547,10 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		String purchaser = ((MemberVo)session.getAttribute("memberVo")).getM_id();
 
 		//입찰한 가격 입력
-		auctionService.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
+		Timestamp tempDate = new Timestamp(System.currentTimeMillis());
+		System.out.println("controller insertAuctionTempBid tempDate:"+ tempDate);
+		AuctionTempBidVo tempBidVo = new AuctionTempBidVo(purchaser, seller, bidPrice, tempDate, p_no);
+		auctionService.insertAuctionTempBid(tempBidVo);
 		
 		//시간 2분 추가하기
 		Calendar cal = Calendar.getInstance();
@@ -675,7 +685,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 	//주문서에서 결제를 눌렀을 때 실제 db에 데이터를 넣는다 
 	@RequestMapping(value="/auctionPaymentCompleteShowForm", method=RequestMethod.GET)
 	public String auctionPaymentCompleteShowForm(AuctionOrderVo auctionOrderVo, Model model, HttpSession session) throws Exception{
-		
+		//결제 완료 폼이 실행
 		System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
 		
 		//구매자 정보만 먼저 입력
@@ -839,7 +849,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		return "auction/auctionPaymentList";
 	}	
 	
-	//배송 해야할 상품
+	//배송 해야할 상품 리스트
 	@RequestMapping(value="/auctionDeliveryList", method=RequestMethod.GET)
 	public String auctionDeliveryList(HttpSession session, RedirectAttributes rttr, Model model) throws Exception{
 		
@@ -868,11 +878,17 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 	}
 	
 	@RequestMapping(value="/deliveryInfo", method=RequestMethod.GET)
-	public String deliveryInfo(AuctionOrderVo orderVo) throws Exception{
+	public String deliveryInfo(AuctionOrderVo orderVo, HttpSession session) throws Exception{
 		//System.out.println("orderVo"+orderVo);
 		
 		//여기선 DELIVERY_COMPANY, DELIVERY_NUMBER, DELIVERY_STATUS 만 바꿔준다
 		auctionService.updateAuctionDeliveryConfirm(orderVo);
+		
+		//메세지 카운터를 바꾼다
+		String seller = ((MemberVo)session.getAttribute("memberVo")).getM_id();
+		int count = auctionService.getAuctionOrderDeliveryCount(seller);
+		System.out.println("deliveryInfo count:"+count);
+		session.setAttribute("deliveryCount", count);//session에 deliveryCount는 로그인, 로그아웃할 때, 여기서 수정
 		
 		
 		return "redirect:/auction/auctionDeliveryList";

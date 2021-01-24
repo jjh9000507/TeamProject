@@ -54,6 +54,8 @@ public class HomeController implements ImPortKey {
 		session.removeAttribute("memberVo");
 		session.removeAttribute("sendProductBoughtInfoVo");
 		session.removeAttribute("nonBuyer");
+		/*경매 상품 초기화*/
+		session.removeAttribute("deliveryCount");
 		
 		//메인에서 alert창을 띄우기 위한 request구현
 		request.setAttribute("msg", "logoutSuccess");

@@ -12,13 +12,17 @@ $(function(){
 	$(".pull-right").click(function(){
 		var orderId = $(this).attr("data-orderId");
 		var delivery_company = $(this).parent().find(".selectDelivery_company").val();//.next().next().next().next().next().next().next().next().next().val();
-		var delivery_number = $(this).parent().find(".txtDelivery_number").val();
+		var delivery_number = $(this).parent().find(".txtDelivery_number").val();//find는 자손중에서 찾는다
 		
-		$("#order_id").val(orderId);
-		$("#delivery_company").val(delivery_company);
-		$("#delivery_number").val(delivery_number);
-		
-		$("#formDelivery").submit();
+		if(delivery_number == "" || delivery_number === null){
+			alert("송장번호를 입력하세요");
+		}else{
+			$("#order_id").val(orderId);
+			$("#delivery_company").val(delivery_company);
+			$("#delivery_number").val(delivery_number);
+			
+			$("#formDelivery").submit();
+		}
 	});
 });
 </script>
@@ -65,7 +69,8 @@ $(function(){
 										<small><b>남길말:</b>${deliveryVo.order_msg}</small>
 										<hr>
 										<small><b>승인번호:</b>${deliveryVo.card_approval_number}</small>
-										<c:if test="${deliveryVo.delivery_status == 'N'}">
+										<c:choose>
+										<c:when test="${deliveryVo.delivery_status == 'N'}">
 										<select class="selectDelivery_company" style="font-size:12px;width: 116px;padding-bottom: 0px;height: 24px;padding-top: 0px;padding-left: 0px;padding-right: 0px;border-right-width: 1px;margin-left: 120px;">
 											<option value="cj대한통운">cj대한통운</option>
 											<option value="한진택배">한진택배</option>
@@ -74,7 +79,11 @@ $(function(){
 											<option value="KG로지스">KG로지스</option>
 										</select>
 										<input type="text" placeholder="송장 번호를 입력하세요" class="txtDelivery_number" style="padding-left: 0px;margin-left: 20px;margin-top: 9px;">
-										</c:if>
+										</c:when>
+										<c:otherwise>
+											<small style="padding-left: 133px;"><b>택배사:</b>${deliveryVo.delivery_company}</small><small style="color:red;padding-left: 60px;">송장번호:${deliveryVo.delivery_number}</small>
+										</c:otherwise>
+										</c:choose>
 									</div>
 								</div>
 							</li>

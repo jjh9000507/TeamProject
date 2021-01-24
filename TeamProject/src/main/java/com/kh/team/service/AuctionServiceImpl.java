@@ -235,8 +235,8 @@ public class AuctionServiceImpl implements AuctionService,AuctionS3Key {
 	}
 
 	@Override
-	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception {
-		auctionDao.insertAuctionTempBid(purchaser, seller, bidPrice, p_no);
+	public void insertAuctionTempBid(AuctionTempBidVo tempBidVo) throws Exception {
+		auctionDao.insertAuctionTempBid(tempBidVo);
 	}
 
 	@Override

@@ -10,6 +10,12 @@
 
 <%@ include file="../include/header.jsp"%>
 
+<style>
+.titlePadding{
+	padding-right:5px;
+	padding-left:5px;
+}
+</style>
 <script>
 $(function(){
 	$(".pull-right").click(function(){
@@ -77,10 +83,10 @@ $(function(){
 						<ul class="thumbnailsMy">
 						<c:forEach var="payListVo" items="${payList}">
 							<li class="span5 clearfix">
-								<div class="thumbnail clearfix" style="width:480px;height:140px">
+								<div class="thumbnail clearfix" style="width:480px;height:180px">
 									<img src="/furniture/displayImage?imageName=${payListVo.main_img_name}" alt="ALT NAME"
-										class="pull-left span2 clearfix" style='margin-right: 9px;width:120px;margin-left: 0px;padding-top: 10px;'>
-									<div class="caption" class="pull-left" style="width: 464px;padding-right: 5px;padding-left: 4px;">
+										class="pull-left span2 clearfix" style='margin-right: 9px;width:120px;height:130px;margin-left: 0px;padding-top: 10px;'>
+									<div class="caption" class="pull-left" style="width:464px;height:130px;padding-right: 5px;padding-left: 4px;">
 										<c:choose>
 											<c:when test="${payListVo.purchase_confirm == 'N'}">
 												<a href="#" class="btn btn-primary icon  pull-right" data-orderId="${payListVo.order_id}">구매확정</a>
@@ -99,15 +105,22 @@ $(function(){
 											</c:otherwise>
 										</c:choose>
 										</h4>
-										<h6>판매자: ${payListVo.seller}</h6>
-										<small><b>결제일: </b><fmt:formatDate value="${payListVo.order_date}" pattern="yyyy/MM/dd"/></small> <small><b>승인번호: </b>${payListVo.card_approval_number}</small><br>
-										<small><b>주소: </b>${payListVo.road_address} ${payListVo.detail_address}</small>	<small><b>우편번호: </b>${payListVo.zip}</small><br>					
-										<div style="display:none"><small><b>택배사: </b>대한통운</small> <small><b>소장번호: </b><span style="color:red">34234234</span></small></div>
+										<small><b class="titlePadding">주소:</b>${payListVo.road_address} ${payListVo.detail_address}</small><br>	
+										<small><b class="titlePadding">우편번호:</b>${payListVo.zip} <b class="titlePadding">판매자:</b>${payListVo.seller}<br></small>
+										<small><b class="titlePadding">결제일:</b><fmt:formatDate value="${payListVo.order_date}" pattern="yyyy/MM/dd"/></small> <small><b>승인번호: </b>${payListVo.card_approval_number}</small>
+									</div>
+									<hr style="margin-bottom: 5px;margin-top: 15px;">
+									<div style="text-align:center;vertical-align:middle">
+										<c:if test="${payListVo.delivery_status == 'Y'}">
+											<small><b>택배사: </b>${payListVo.delivery_company}</small> <small><b>송장번호: </b><span style="color:red">${payListVo.delivery_number}</span></small>
+										</c:if>
 									</div>
 								</div>
 							</li>
 						</c:forEach>
+						
 						</ul>
+						
 					</div>
 				</div>
 			</div>	

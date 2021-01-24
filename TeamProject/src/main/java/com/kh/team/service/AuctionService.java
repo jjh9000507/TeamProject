@@ -67,7 +67,7 @@ public interface AuctionService {
 	//입찰자 수
 	public int getAuctionCountBid(int p_no) throws Exception;
 	//입찰 현황 입력
-	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception;
+	public void insertAuctionTempBid(AuctionTempBidVo tempBidVo) throws Exception;
 	
 	//종료일 가져오기
 	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception;

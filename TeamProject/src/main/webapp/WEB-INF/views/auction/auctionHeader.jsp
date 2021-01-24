@@ -14,9 +14,9 @@
 	<li><a href="/auction/auctionPurchaseList" style="padding-right: 10px;">구매 상품</a></li>
 	<li><a href="/auction/auctionPaymentList" style="padding-right: 10px;">결제한 상품 내역</a></li>
 	<li><a href="/auction/auctionDeliveryList" style="padding-right: 10px;">배송할 상품 내역
-		<!--<c:if test="${sidebarCount > 0 }">
-			<span style="color:red">(${sidebarCount})</span>
-		</c:if>-->
+		<c:if test="${sessionScope.deliveryCount > 0 }">
+			<span style="color:red">(${sessionScope.deliveryCount})</span>
+		</c:if>
 		</a></li>
 	<li><a href="/auction/auctionResisterList" style="padding-right: 10px;">상품 등록</a></li>
 	<li><a href="#" style="padding-right: 10px;">관심 상품</a></li>
