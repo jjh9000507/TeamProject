@@ -8,15 +8,7 @@
 <br>
 <br>
 <script>
-	$(function() {
-		var secretCodeNum = "";
-		var memberPoint = "${memberVoInfo.m_point}"
-		if ((memberPoint >= 0) && (memberPoint < 5000)) {
-			$("#memberGrade").text("일반회원");
-		} else if ((memberPoint >= 5000) && (memberPoint < 10000)) {
-			$("#memberGrade").text("골드회원");
-		} else if (memberPoint >= 10000) {
-			$("#memberGrade").text("VIP");
+	
 $(function() {
 	var secretCodeNum = "";
 	var memberPoint = "${memberVoInfo.m_point}";
@@ -94,7 +86,7 @@ $(function() {
 		});
 		}else{
 			alert("인증코드가 다르니 다시 입력하시오.");
-//github.com/jjh9000507/TeamProject.git
+
 		}
 
 		$("#memberVoInfoUpdateButton").click(function() {
