@@ -67,7 +67,7 @@ public interface AuctionService {
 	//입찰자 수
 	public int getAuctionCountBid(int p_no) throws Exception;
 	//입찰 현황 입력
-	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception;
+	public void insertAuctionTempBid(AuctionTempBidVo tempBidVo) throws Exception;
 	
 	//종료일 가져오기
 	public AuctionEDateVo getAuctionExpirationDate(int p_no) throws Exception;
@@ -143,4 +143,9 @@ public interface AuctionService {
 	//public List<AuctionSellVo> getAuctionFavoriteList(String m_id) throws Exception;
 	//관심상품 삭제
 	public void deleteAuctionFavoriet(int[] array) throws Exception;
+	
+	//구매확인 버튼 클릭시 purchase_confirm를 Y로
+	public void updateAuctionPurchaseConfirm(int order_id) throws Exception;
+	//배송 완료 버튼 클릭
+	public void updateAuctionDeliveryConfirm(AuctionOrderVo orderVo) throws Exception;
 }

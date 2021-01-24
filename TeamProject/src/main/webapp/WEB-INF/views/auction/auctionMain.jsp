@@ -10,19 +10,17 @@
     width: 200px; height: 200px;
 }
 
-.firstTd {
+.firstTd { 
     padding-right: 20px;
-    padding-top: 0px;
-    padding-bottom: 35px;
-    padding-left: 20px;
-  
+    padding-bottom: 35px; 
+    padding-left: 20px; 
 }
 
-.secondTable{
-	height: 400px;
-	border-top: 1px solid #f4f4f4;
-	border-left: 1px solid #f4f4f4;
-	border-right: 1px solid #f4f4f4;
+.secondTable{ 
+	height: 400px; 
+	border-top: 1px solid #f4f4f4; 
+	border-left: 1px solid #f4f4f4; 
+	border-right: 1px solid #f4f4f4; 
 }
 
 .titleTd{
@@ -427,72 +425,66 @@ $(function(){
 <div class="container-fluid">
 <div class="row">
 	<div class="col-md-2"></div>
-		<div class="col-md-8">
-			<%@ include file="auctionHeader.jsp"%>
+	<div class="col-md-8">
+		<div><%@ include file="auctionHeader.jsp"%></div> 
+	</div>	
 <!--------------------------------------- 메인 카테고리 목록  END----------------------------------->
-		<div class="col-md-2">
-		<button type="button" id="stopTimer">타이머종료</button>	
-		<a href="/auction/excercise">연습</a>
-		</div>
-		
-		<div class="col-md-8" >
-			<div class="lblHOT">
-			 	<table border=0>
-			 		<c:forEach var="auctionSellVo" items="${list}" varStatus="status">
-			 		<c:if test="${(status.count-1) % 4 == 0}">
-			 			<tr><!-- 4개 넘어서면 tr추가 -->
-					</c:if>
-					
-			 			<td class="firstTd"><!-- 4개까진 td 추가 -->
-
-			 				<table border=1 class="secondTable">
-								<tr>
-									<td>
-										<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a>
-										<img alt="경매" src="http://pics.auction.co.kr/listing/used/2014/icon_auc.png">
-									</td>
-								</tr>
-								<tr>
-									<td class="titleTd">${auctionSellVo.p_title}</td>
-								</tr>			 				
-								<tr>
-									<td class="priceTd">${auctionSellVo.present_price}원</td>
-								</tr>
-								<tr>
-									<td class="edateTd">${auctionSellVo.seller} 마감시간:${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
-								</tr>
-								<tr>
-									<td>
-										<div class="divCountDown timeTd" style="color:red"></div>
-										<input type="hidden" class="resultYear" value="${auctionSellVo.e_year}">
-										<input type="hidden" class="resultMonth" value="${auctionSellVo.e_month}">
-										<input type="hidden" class="resultDate" value="${auctionSellVo.e_day}">
-										<input type="hidden" class="countDown_hour" value="${auctionSellVo.e_hour}">
-										<input type="hidden" class="countDown_minute" value="${auctionSellVo.e_minute}">
-										<input type="hidden" class="countDown_second" value="${auctionSellVo.e_second}">
-										<input type="hidden" class="deadline" value="${auctionSellVo.deadline}">											
-									</td>
-								</tr>
-			 				</table>
-						
-			 			</td><!-- 4개까진 td 추가 -->
-					
-					<c:if test="${status.count%4 == 0}">
-			 			</tr><!-- 4개 넘어서면 tr추가 -->
-			 		</c:if>
-			 		</c:forEach>
-			 	</table>
-			</div>
-		</div>
-		
-		<div class="col-md-2"></div>
-
-		</div><!-- 첫번째 col-md-8 -->
 	<div class="col-md-2">
+	<button type="button" id="stopTimer">타이머종료</button>	
+	<a href="/auction/excercise">연습</a>
 	</div>
-</div> <!-- row -->
-</div><!-- container-fluid -->
-<hr>
-<br><br>
+</div>	
+<div class="row">
+<div class="col-md-2"></div>
+		<div class="col-md-8" >
+	 	<table border=0>
+	 		<c:forEach var="auctionSellVo" items="${list}" varStatus="status">
+	 		<c:if test="${(status.count-1) % 4 == 0}">
+	 			<tr><!-- 4개 넘어서면 tr추가 -->
+			</c:if>
+			
+	 			<td class="firstTd"><!-- 4개까진 td 추가 -->
+	
+	 				<table border=1 class="secondTable">
+						<tr>
+							<td>
+								<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a>
+								<img alt="경매" src="http://pics.auction.co.kr/listing/used/2014/icon_auc.png">
+							</td>
+						</tr>
+						<tr>
+							<td class="titleTd">${auctionSellVo.p_title}</td>
+						</tr>			 				
+						<tr>
+							<td class="priceTd">${auctionSellVo.present_price}원</td>
+						</tr>
+						<tr>
+							<td class="edateTd">${auctionSellVo.seller} 마감시간:${auctionSellVo.e_month}/${auctionSellVo.e_day} ${auctionSellVo.e_hour}:${auctionSellVo.e_minute}</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="divCountDown timeTd" style="color:red"></div>
+								<input type="hidden" class="resultYear" value="${auctionSellVo.e_year}">
+								<input type="hidden" class="resultMonth" value="${auctionSellVo.e_month}">
+								<input type="hidden" class="resultDate" value="${auctionSellVo.e_day}">
+								<input type="hidden" class="countDown_hour" value="${auctionSellVo.e_hour}">
+								<input type="hidden" class="countDown_minute" value="${auctionSellVo.e_minute}">
+								<input type="hidden" class="countDown_second" value="${auctionSellVo.e_second}">
+								<input type="hidden" class="deadline" value="${auctionSellVo.deadline}">											
+							</td>
+						</tr>
+	 				</table>
+				
+	 			</td><!-- 4개까진 td 추가 -->
+			
+			<c:if test="${status.count%4 == 0}">
+	 			</tr><!-- 4개 넘어서면 tr추가 -->
+	 		</c:if>
+	 		</c:forEach>
+	 	</table>
+	</div><!-- col-md-8 -->
+<div class="col-md-2"></div>
+</div><!-- row -->
+</div>
 <%-- <%@ include file="../include/footer.jsp" %> --%>
 

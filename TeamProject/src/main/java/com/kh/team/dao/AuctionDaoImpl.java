@@ -226,14 +226,16 @@ public class AuctionDaoImpl implements AuctionDao{
 	}
 
 	@Override
-	public void insertAuctionTempBid(String purchaser, String seller, int bidPrice, int p_no) throws Exception {
+	public void insertAuctionTempBid(AuctionTempBidVo tempBidVo) throws Exception {
+		/*
 		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("purchaser", purchaser);
 		map.put("seller", seller);
 		map.put("bidPrice", bidPrice);
 		map.put("p_no", p_no);
+		*/
 		
-		sqlSession.insert(NAMESPACE + "insertAuctionTempBid", map);
+		sqlSession.insert(NAMESPACE + "insertAuctionTempBid", tempBidVo);
 	}
 
 	@Override
@@ -445,5 +447,16 @@ public class AuctionDaoImpl implements AuctionDao{
 	@Override
 	public void deleteAuctionFavoriet(int[] array) throws Exception {
 		sqlSession.delete(NAMESPACE + "deleteAuctionFavoriet", array);
+	}
+
+	@Override
+	public void updateAuctionPurchaseConfirm(int order_id) throws Exception {
+		sqlSession.update(NAMESPACE + "updateAuctionPurchaseConfirm", order_id);
+		
+	}
+
+	@Override
+	public void updateAuctionDeliveryConfirm(AuctionOrderVo orderVo) throws Exception {
+		sqlSession.update(NAMESPACE + "updateAuctionDeliveryConfirm", orderVo);
 	}
 }

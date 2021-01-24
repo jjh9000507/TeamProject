@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 import com.kh.team.domain.MemberVo;
-
+import com.kh.team.service.AuctionService;
 import com.kh.team.service.MemberService;
 
 import net.nurigo.java_sdk.api.Message;
@@ -40,6 +40,10 @@ public class LoginController implements PhoneSender{
 	//필요한 상수값 만들기 	
 	private int CHANGE_PW_NUM = 1;
 	private int CHANGE_MEMBERINFO_NUM = 1;
+	
+	//경매service
+	@Inject
+	private AuctionService auctionService;
 	
 	//인젝
 	@Inject
@@ -137,6 +141,11 @@ public class LoginController implements PhoneSender{
 			
 			//세션에 해당 접속자 정보 저장
 			session.setAttribute("memberVo", memberVo);
+			
+			/*경매시작-회원정보 세션에 저장할 때 경매 배달상품 갯수 저장*/
+			int count = auctionService.getAuctionOrderDeliveryCount(m_id);
+			session.setAttribute("deliveryCount", count);
+			/*경매끝*/
 			
 			//세션에서 비회원 정보가 있을 경우를 대비하여 비회원 정보 없애기
 			session.removeAttribute("nonBuyer");				

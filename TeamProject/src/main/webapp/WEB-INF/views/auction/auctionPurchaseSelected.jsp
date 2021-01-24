@@ -38,7 +38,6 @@ $(function(){
 	$("#payment").click(function(){
 
 		$("#orderForm").submit();
-		//alert("dffd");
 		
 		var name = $("#orderer_name").val();
 		var price = $("#order_price").val();
@@ -52,7 +51,7 @@ $(function(){
 		    amount : '100',
 		    buyer_email : '',
 		    buyer_name : name,
-		    buyer_tel : '0102234556',
+		    buyer_tel : tel,
 		    buyer_addr : '울산 남구 옥동',
 		    buyer_postcode : '123456',
 		    m_redirect_url : 'https://www.yourdomain.com/payments/complete'
@@ -70,7 +69,7 @@ $(function(){
 		       	$("#imp_uid").val(rsp.imp_uid);
 		       	$("#merchant_uid").val(rsp.merchant_uid);
 		       	$("#card_approval_number").val(rsp.apply_num);
-		       	alert("결제 성공 메세지 띄우는 곳");
+		       	alert("결제 성공적으로 이루어졌습니다");
 		       	
 		       	$("#orderForm").submit();
 		       	
@@ -84,13 +83,6 @@ $(function(){
 		        result = false;
 		    }
 		});//IMP.request_pay	
-		
-		if(result){
-			alert("결제 창 밖");
-			//$("#orderForm").submit();
-		}
-	
-		//결제 끝
 	});
 	
 	//배송 메세지 
@@ -271,7 +263,13 @@ $(function(){
 
 <div class="container-fluid">
 <div class="row">
-	<div class="col-md-2"><%@ include file="auctionSideBar.jsp"%></div>
+	<div class="col-md-2"></div>
+	<div class="col-md-8"><%@ include file="auctionHeader.jsp"%></div>
+	<div class="col-md-2"></div>
+</div>
+
+<div class="row">
+	<div class="col-md-2"></div>
 	<div class="col-md-8">
 		<div class="DetailDiv">
 
@@ -356,34 +354,27 @@ $(function(){
 					<table class="table">
 						<thead>
 							<tr>
-								<th >
-									주문자 확인
-								</th>
-								<th>
-									
-								</th>
-								<th>
-									
-								</th>
-																				
+								<th>주문자 확인</th>
+								<th></th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td>
-									<label>주문자명:</label>
-									<input placeholder="주문자 기입" name="orderer_name" id="orderer_name" value="${memberVo.m_name}" readonly/>							
-								</td>
-								<td>
+							<td><label>주문자명:</label> <input placeholder="주문자 기입"
+								name="orderer_name" id="orderer_name"
+								value="${memberVo.m_name}" readonly /></td>
+							<td>
 								<div class="checkbox">
-									<label> <input type="checkbox" id="chkBoxContinueName"/>
-								입력한 주문자명으로 다음에도 사용하기</label>
+									<label> <input type="checkbox"
+										id="chkBoxContinueName" /> 입력한 주문자명으로 다음에도 사용하기
+									</label>
 								</div>
-								</td>
-								<td>
+							</td>
+							<td>
 								<button type="button" id="btnChangeName">이름변경</button>
-								</td>												
-							</tr>					
+							</td>
+							</tr>
 						</tbody>
 					</table>
 				</div>

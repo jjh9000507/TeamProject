@@ -389,6 +389,8 @@
 						
 						$("#lblPhoneConfirmResult").text("인증 완료");
 						$("#lblPhoneConfirmResult").show();
+					}else{
+						alert("인증번호가 다릅니다");
 					}
 				});//btnConfimNumber
 				
@@ -504,7 +506,7 @@
 									<input name="m_phonenumber2" type="text" id="m_phonenumber2" style="width:123px;" maxlength="4" title="휴대폰 중간자리 입력" onkeyup="CheckNumberWithKeyupEvent(this);" /> <span class="dash">-</span> 
 									<input name="m_phonenumber3" type="text" id="m_phonenumber3" style="width:123px;" maxlength="4" title="휴대폰 뒷자리 입력" onkeyup="CheckNumberWithKeyupEvent(this);" />
 									<label id="lblPhoneConfirmResult" style="display:none;font-color:red"></label>
-									<button type="button" id="btnPhoneConfirm" style="font-size:14px;width:77px;">본인 인증</button>
+									<button type="button" id="btnPhoneConfirm" style="font-size:14px;width:100px;">본인 인증</button>
 								</li>
 								
 							<!-- 휴대전화 인증 입력-->

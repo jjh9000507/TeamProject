@@ -10,6 +10,18 @@ public class AuctionTempBidVo {
 	private Timestamp temp_bid_date;
 	private int p_no;
 	
+	public AuctionTempBidVo() {
+		super();
+	}
+	public AuctionTempBidVo(String temp_purchaser_id, String temp_seller_id, int temp_bid_price,
+			Timestamp temp_bid_date, int p_no) {
+		super();
+		this.temp_purchaser_id = temp_purchaser_id;
+		this.temp_seller_id = temp_seller_id;
+		this.temp_bid_price = temp_bid_price;
+		this.temp_bid_date = temp_bid_date;
+		this.p_no = p_no;
+	}
 	public int getTemp_bid_no() {
 		return temp_bid_no;
 	}
