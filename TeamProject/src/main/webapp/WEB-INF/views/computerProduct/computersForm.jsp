@@ -155,7 +155,7 @@ $(function() {
 			alert("시작가격이 마지막 가격보다 작거나 같아야 합니다.");
 		}
 		}
-		});
+	});
 	
 	//최근본 상품리스트 숨기기
 	$("#computerFavorProduct > li > a").bind({ 

@@ -32,7 +32,7 @@ $(function(){
 		$("#finalPrice").text(priceFinal + "원");		
 	});
 	
-	//상품정보 나타태기
+	//상품정보 나타내기
 	$("#detailProductExpain").click(function() {
 		$("#inquireControll").hide();
 		$("#commentTable").hide();

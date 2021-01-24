@@ -62,6 +62,7 @@
 
 			});
 		});
+		
 		// 비밀번호를 찾기 위해 등록된 이메일로 보내기
 		$("#btnEmailIdSendForPw").click(function() {
 			var m_id = $("#m_id_find_pw").val();
