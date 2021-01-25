@@ -37,7 +37,7 @@ $(function(){
 
 	$("#payment").click(function(){
 
-		$("#orderForm").submit();
+		//$("#orderForm").submit();
 		
 		var name = $("#orderer_name").val();
 		var price = $("#order_price").val();

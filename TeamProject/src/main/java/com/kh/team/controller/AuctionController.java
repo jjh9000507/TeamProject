@@ -360,6 +360,8 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 			AuctionAddressVo auctionAddressVo, AuctionImgVo auctionImgVo, 
 			AuctionEDateVo auctionEDateVo, AuctionMainImgVo auctionMainImgVo, HttpSession session) throws Exception{
 		
+		//System.out.println("auction EdateVo hour:"+auctionEDateVo.getE_hour()+" ,:minute:"+auctionEDateVo.getE_minute());
+		
 		auctionAddressVo.setP_no(nextPNO);
 		auctionImgVo.setP_no(nextPNO);
 		auctionEDateVo.setP_no(nextPNO);
@@ -689,9 +691,15 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		System.out.println("controller auctionPaymentCompleteShowForm auctionOrderVo:"+auctionOrderVo);
 		
 		//구매자 정보만 먼저 입력
+		/*
 		auctionOrderVo.setImp_uid("121334");
 		auctionOrderVo.setMerchant_uid("78790");
 		auctionOrderVo.setCard_approval_number("934949");
+		auctionService.insertAuctionOrder(auctionOrderVo);
+		*/
+		auctionOrderVo.setImp_uid(auctionOrderVo.getImp_uid());
+		auctionOrderVo.setMerchant_uid(auctionOrderVo.getMerchant_uid());
+		auctionOrderVo.setCard_approval_number(auctionOrderVo.getCard_approval_number());
 		auctionService.insertAuctionOrder(auctionOrderVo);
 		
 		//form에 구매자 정보 전달, 제품 정보 전달

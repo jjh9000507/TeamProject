@@ -19,6 +19,6 @@
 		</c:if>
 		</a></li>
 	<li><a href="/auction/auctionResisterList" style="padding-right: 10px;">상품 등록</a></li>
-	<li><a href="#" style="padding-right: 10px;">관심 상품</a></li>
+	<li><a href="/cart/cartPage" style="padding-right: 10px;">관심 상품</a></li>
   </ul>
 </nav>
