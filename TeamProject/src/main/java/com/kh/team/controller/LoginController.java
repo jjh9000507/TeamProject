@@ -101,10 +101,11 @@ public class LoginController implements PhoneSender{
 	}
 	
 	//접속자 정보 보여주기 기능
-	@RequestMapping(value = "/memberVoInfoForm/{m_id}", method = RequestMethod.GET)
-	public String memberVoInfoForm(@PathVariable("m_id") String m_id,HttpServletRequest request) throws Exception {
-		System.out.println("/memberVoInfoForm/:" + m_id);
-		
+	@RequestMapping(value = "/memberVoInfoForm")
+	public String memberVoInfoForm(HttpServletRequest request, HttpSession session) throws Exception {
+		System.out.println("/memberVoInfoForm/:");
+		MemberVo memberVoBefore = (MemberVo) session.getAttribute("memberVo");
+		String m_id = memberVoBefore.getM_id();
 		//접속자 정보 가져오기
 		MemberVo memberVo = memberService.memberVoInfoSearch(m_id);
 		

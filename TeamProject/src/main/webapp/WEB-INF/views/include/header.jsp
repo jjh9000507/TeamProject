@@ -165,7 +165,7 @@ $(function(){
 						</c:when>							
 
 						<c:when test="${not empty sessionScope.memberVo && empty sessionScope.nonBuyer}">
-							<a class="btn btn-link topHeader-button" href="/login/memberVoInfoForm/${sessionScope.memberVo.m_id}">${sessionScope.memberVo.m_id}님 반갑습니다.</a>
+							<a class="btn btn-link topHeader-button" href="/login/memberVoInfoForm">${sessionScope.memberVo.m_id}님 반갑습니다.</a>
 							<a href="/sellproduct/sellproductMain" type="button" class="btn btn-link topHeader-button">판매하기</a>
 						</c:when>
 						<c:when test="${empty sessionScope.memberVo && not empty sessionScope.nonBuyer}">
