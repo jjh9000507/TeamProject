@@ -262,9 +262,9 @@
 								name="m_id" placeholder="아이디를 입력하시오" required="required" /> <input
 								type="text" class="form-control" id="secretNumAgain"
 								name="secretNumAgain" placeholder="인증코드를 입력하시오"
-								required="required" /> <input type="text" class="form-control"
+								required="required" /> <input type="password" class="form-control"
 								id="m_pass_new" name="m_pass_new" placeholder="변경할 패스워드를 입력하시오"
-								required="required" /> <input type="text" class="form-control"
+								required="required" /> <input type="password" class="form-control"
 								id="m_pass_re" name="m_pass_re" placeholder="변경할 패스워드를 다시 입력하시오"
 								required="required" />
 						</div>
