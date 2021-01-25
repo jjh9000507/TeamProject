@@ -50,3 +50,10 @@ ul {
 </div>
 <div class="col-md-3"></div>
 </div>
+<div class="row">
+	<div class="col-md-3"></div>
+	<div class="col-md-6">
+		<a href="/service/notice" class="btn btn-info">돌아가기</a>
+	</div>
+	<div class="col-md-3"></div>
+</div>

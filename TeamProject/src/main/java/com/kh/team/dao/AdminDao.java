@@ -3,6 +3,7 @@ package com.kh.team.dao;
 import java.util.List;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.NoticeVo;
@@ -57,6 +58,10 @@ public interface AdminDao {
 	public void adminFLifeDelete(int p_no) throws Exception;
 	//전체 리스트에서 상품 삭제
 	public void adminProductDelete(int p_no2) throws Exception;
+	//상품 삭제 시 컴퓨터 카테고리 퍼센트 계산 삭제
+	public void adminComPercentDelete(int c_com_no_ref) throws Exception;
+	//컴퓨터 no 가져오기
+	public ComputerVo computerNoGet(int p_no) throws Exception;
 	
 	//카테고리 추가
 	public void adminCategoryInput(CategoryVo categoryVo) throws Exception;
