@@ -102,7 +102,7 @@
 	<!-- 여기부터 카테고리 삭제 -->
 	<delete id="adminCategoryDelete">
 		delete from category
-		where cate_no = #{cate_no}
+		where cate_no like '' || #{cate_no} || '%'
 	</delete>
 	<!-- 여기까지 카테고리 삭제 -->
 	
@@ -122,49 +122,48 @@
 	<!-- 카테고리 삭제시 해당 카테고리에 존재하는 상품 삭제 -->
 	<delete id="adminCateDeleteProduct">
 		delete from product
-		where cate_no = #{cate_no}
+		where cate_no like '' || #{cate_no} || '%'
 	</delete>
 	
 	<!-- 카테고리 삭제시 해당 카테고리에 존재하는 가전제품 삭제 -->
 	<delete id="adminCateDeleteWhitegoods">
 		delete from whitegoods
-		where cate_no = #{cate_no}
+		where cate_no like '' || #{cate_no} || '%'
 	</delete>
 	
 	<!-- 카테고리 삭제시 해당 카테고리에 존재하는 의류 삭제 -->
 	<delete id="adminCateDeleteClothes">
 		delete from clothes_product
-		where cate_no = #{cate_no}
+		where cate_no like '' || #{cate_no} || '%'
 	</delete>
 	
 	<!-- 카테고리 삭제시 해당 카테고리에 존재하는 컴퓨터 삭제 -->
 	<delete id="adminCateDeleteComputer">
 		delete from computer_product
-		where c_com_cate_no = #{c_com_cate_no}
+		where c_com_cate_no like '' || #{c_com_cate_no} || '%'
 	</delete>
 	
 	<!-- 카테고리 삭제시 해당 카테고리에 존재하는 가구류(4개) 삭제 -->
 	<delete id="adminCateDeleteFBed">
 		delete from furniture_bed
-		where cate_no = #{cate_no}
+		where cate_no like '' || #{cate_no} || '%'
 	</delete>
 	
 	<delete id="adminCateDeleteFInterior">
 		delete from furniture_interior
-		where cate_no = #{cate_no}
+		where cate_no like '' || #{cate_no} || '%'
 	</delete>
 	
 	<delete id="adminCateDeleteFKitchen">
 		delete from furniture_kitchen
-		where cate_no = #{cate_no}
+		where cate_no like '' || #{cate_no} || '%'
 	</delete>
 	
 	<delete id="adminCateDeleteFLife">
 		delete from furniture_life
-		where cate_no = #{cate_no}
 	</delete>
 	<!-- 여기까지 가구류 삭제 -->
-	
+
 	<!-- 게시물 삭제에 필요한 카테고리 별 게시물 리스트 가져오기 -->
 	<select id="productCateList" resultType="ProductVo">
 		select p_no  , p_name , cate_no , p_price , p_content , p_seller , p_thumbimg , p_regdate , p_no2, p_readcount from (
