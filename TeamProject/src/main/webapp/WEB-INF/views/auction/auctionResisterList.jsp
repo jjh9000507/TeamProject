@@ -279,6 +279,16 @@ $(function() {
 			
 	$("#btnSubmit").click(function(){//등록 버튼 클릭시
 		
+		//시간에서 분 체크
+		var hour = $("#e_hour").val();
+		//alert(hour);
+		var minute = $("#txtMinute").val();
+		
+		if(minute<1 || minute>59){
+			alert("분을 정확히 입력하세요");
+			return;
+		}
+		
 		//영어 월을 숫자 월로 입력
 		var engMonth = $("#e_month").val();
 		console.log("engMonth:"+engMonth);
@@ -307,6 +317,7 @@ $(function() {
 		
 		if(radioValue == null || radioValue == "undefined"){
 			alert("메인 이미지를 선택하세요");
+			return;
 		}else{
 			var htmlMainImgName = "<input type='hidden' name='main_img_name' value='"+radioValue+"'>"
 			$("#writeForm").prepend(htmlMainImgName);
@@ -473,7 +484,13 @@ $(function() {
 									<label for="datetimepicker1">경매기한</label>
 									<!-- -------------------- 달력 입력 시작 ------------------------------------- -->
 									<input type="text" id="txtDatePicker" style="width:140px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1">
-									시간<input type="text" id="txtHour" name='e_hour' style="width:50px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1">
+<!-- 									시간<input type="text" id="txtHour" name='e_hour' style="width:50px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1"> -->
+									시간<select name="e_hour" id="e_hour">
+									<c:forEach var="i" begin="1" end="24">
+										<option value="${i}">${i}</option>
+									</c:forEach>
+									
+									</select>
 									분<input type="text" id="txtMinute" name='e_minute' style="width:50px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1">
 									<!-- --------------------- 달력 입력 끝 ------------------------------------ -->
 																		
@@ -497,7 +514,7 @@ $(function() {
 									<br clear="left">
 									<br>
 									<div>
-										<label style="padding-right:10px">직구를 원하시면 주소를 입력하세요</label>
+										<label style="padding-right:10px">주소를 입력하세요</label>
 										<a href="#" id="addrFindAuction"><img src="../resources/image/addrFind.png"></a>
 									<br>
 										

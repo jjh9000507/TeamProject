@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.kh.team.controller.ImPortKey;
 import com.kh.team.domain.CategoryVo;
@@ -48,7 +49,7 @@ public class HomeController implements ImPortKey {
 	
 	//로그아웃
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
-	public String logout(HttpSession session, HttpServletRequest request) throws Exception {
+	public String logout(HttpSession session,RedirectAttributes rttr) throws Exception {
 		
 		//세션 초기화
 		session.removeAttribute("memberVo");
@@ -57,8 +58,8 @@ public class HomeController implements ImPortKey {
 		/*경매 상품 초기화*/
 		session.removeAttribute("deliveryCount");
 		
-		//메인에서 alert창을 띄우기 위한 request구현
-		request.setAttribute("msg", "logoutSuccess");
+		//메인에서 alert창을 띄우기		
+		rttr.addFlashAttribute("msg", "logoutSuccess");
 		return "redirect:/";
 	}
 
