@@ -57,6 +57,12 @@ $(function(){
 		//$("#purchaseBidingItemContent").hide();
 	});
 	
+	$(".btnDelAuction").click(function(e){
+		e.preventDefault();
+		var p_no = $(this).attr("data-pno");
+		location.href="/auction/auctionDelete?p_no="+p_no;
+	});
+	
 });
 </script>
 <div class="container-fluid">
