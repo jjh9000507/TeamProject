@@ -915,11 +915,11 @@ function stopCountIndex(indexCatch){
 					</button>
 				</div>
 				<div class="modal-body">
-					관심 상품으로 등록 합니다
+					관심 상품으로 등록했습니다
 				</div>
 				
 			 	<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="modalFavoriteSave">저장
+					<button type="button" class="btn btn-primary" id="modalFavoriteSave">닫기
 					</button>
 					<button type="button" class="btn btn-secondary" id="modalFavoriteSaveMove">관심상품으로</button>
 				</div> 
