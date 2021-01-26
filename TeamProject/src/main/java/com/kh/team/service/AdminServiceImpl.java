@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.kh.team.dao.AdminDao;
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.NoticeVo;
@@ -65,6 +66,9 @@ public class AdminServiceImpl implements AdminService{
 	//컴퓨터 게시물 삭제
 	@Override
 	public void adminComputerDelete(int p_no, int p_no2) throws Exception {
+		ComputerVo com = adminDao.computerNoGet(p_no2);
+		int c_no = com.getC_com_no();
+		adminDao.adminComPercentDelete(c_no);
 		adminDao.productImgDelete(p_no2);
 		adminDao.adminComputerDelete(p_no);
 		adminDao.adminProductDelete(p_no2);
@@ -288,7 +292,5 @@ public class AdminServiceImpl implements AdminService{
 	public void noticeDelete(int notice_no) throws Exception {
 		adminDao.noticeDelete(notice_no);
 	}
-
-	
 	
 }
