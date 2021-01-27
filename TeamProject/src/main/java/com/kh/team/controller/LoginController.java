@@ -2,11 +2,8 @@ package com.kh.team.controller;
 
 
 
-import java.util.HashMap;
 
 
-
-import java.util.Random;
 
 import javax.inject.Inject;
 import javax.servlet.http.Cookie;
@@ -14,9 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONObject;
+
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
+
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -28,7 +25,7 @@ import com.kh.team.domain.MemberVo;
 import com.kh.team.service.AuctionService;
 import com.kh.team.service.MemberService;
 
-import net.nurigo.java_sdk.api.Message;
+
 
 
 
@@ -39,7 +36,7 @@ public class LoginController implements PhoneSender{
 	
 	//필요한 상수값 만들기 	
 	private int CHANGE_PW_NUM = 1;
-	private int CHANGE_MEMBERINFO_NUM = 1;
+	
 	
 	//경매service
 	@Inject
@@ -165,67 +162,6 @@ public class LoginController implements PhoneSender{
 		}
 	
 	
-	//가입한 사람의 정보 변경하기 위해 핸드폰으로 sms전송하여 인증코드 보내는 기능
-	@RequestMapping(value="/sendMessageForMemberInfoUpdate", method=RequestMethod.POST)
-	@ResponseBody
-	public String[] sendMessageForMemberInfoUpdate(String m_phonenumber_send) throws Exception{
-		
-		
-		
-		System.out.println("m_phonenumber_send:" + m_phonenumber_send);
-		
-		//sms보내기 위하여 coolsms사이트에서 api키와 api비밀번호 받아와서 저장
-		Message coolsms = new Message(api_key, api_secret);    
-		
-	    //랜덤기능을 이용하여 인증 코드 구현
-	    Random rd = new Random();
-	    int[] secretCode = new int[6];
-        for(int i=0;i<6;i++) {
-        	secretCode[i] = rd.nextInt(45)+1;
-        }
-        String secretCodeNumber = Integer.toString(secretCode[0]) + Integer.toString(secretCode[1]) + Integer.toString(secretCode[2])
-        							+ Integer.toString(secretCode[3]) + Integer.toString(secretCode[4]) + Integer.toString(secretCode[5]);
-        
-        //hashmap을 이용하여 보낼 정보 구성하기
-        System.out.println("문자로 보낸 인증코드 확인:" + secretCodeNumber);
-        HashMap<String, String> set = new HashMap<String, String>();
-    	set.put("to", m_phonenumber_send); // 수신번호
-    	set.put("from", sender_phone_num); // 발신번호
-    	set.put("text", "안녕하세요 중고동네입니다. 인증번호는 [" + secretCodeNumber + "] 입니다."); // 문자내용
-    	set.put("type", "sms"); // 문자 타입
-    	   	
-    	String[] resultRedirect = {null,null};
-    	
-    	//문자 보내기
-    	JSONObject obj = (JSONObject) coolsms.send(set);
-    	
-    	//문자보내기가 성공했는지 확인하는 기능
-        if(obj != null) {
-        	resultRedirect[0] = "success";
-        	resultRedirect[1] = "successNum";  
-        	
-        }else if(obj == null) {
-        	resultRedirect[0] = "fail";        	
-        }
-              
-		return resultRedirect;		
-	}
-	
-	//sms로 받은 인증코드를 해당 jsp에서 확인한 후 접속자 정보 업데이트
-	@RequestMapping(value="/sendMessageForMemberInfoUpdateContents", method=RequestMethod.POST)
-	@ResponseBody
-	public String sendMessageForMemberInfoUpdateContents(MemberVo memberVo) throws Exception{
-		System.out.println("memberVoConfirm:" + memberVo);
-		int count = memberService.memberVoInfoChange(memberVo);
-		String resultRedirect ="";
-		if(count == CHANGE_MEMBERINFO_NUM) {
-			resultRedirect = "success";
-		}else {
-			resultRedirect = "fail";
-		}
-				
-		return resultRedirect;		
-	}
 	
 
 	
