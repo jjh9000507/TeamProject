@@ -806,7 +806,8 @@ function stopCountIndex(indexCatch){
 			
 			<hr>			
 			
-			<!-- 옥션 시작 -->
+			<!-- 옥션 글 시작 -->
+			<div style="margin-left: 210px;">
 			<div class="uxb-keypoint">
 				<p><img src="http://pics.auction.co.kr/itempage/txt_keypoint.gif" alt="알아두세요"></p>
 				<ul>
@@ -839,7 +840,8 @@ function stopCountIndex(indexCatch){
 				<li class="c3"><strong>전자상거래 등에서의 소비자보호에 관한 법률</strong>에 의거하여 미성년자가 체결한 계약은 법정대리인이 동의하지 않은 경우 본인 또는 법정대리인이 취소할 수 있습니다.</li>
 				<li class="c3">중고동네에 등록된 판매상품과 상품의 내용은 판매자가 등록한 것으로 중고동네에서는 그 등록내역에 대하여 일체의 책임을 지지 않습니다.</li>
 			</ul>
-			<!-- 옥션 끝 -->
+			</div>
+			<!-- 옥션 글 끝 -->
 					
 		</div>
 		<div class="col-md-2"></div>
@@ -913,11 +915,11 @@ function stopCountIndex(indexCatch){
 					</button>
 				</div>
 				<div class="modal-body">
-					관심 상품으로 등록 합니다
+					관심 상품으로 등록했습니다
 				</div>
 				
 			 	<div class="modal-footer">
-					<button type="button" class="btn btn-primary" id="modalFavoriteSave">저장
+					<button type="button" class="btn btn-primary" id="modalFavoriteSave">닫기
 					</button>
 					<button type="button" class="btn btn-secondary" id="modalFavoriteSaveMove">관심상품으로</button>
 				</div> 

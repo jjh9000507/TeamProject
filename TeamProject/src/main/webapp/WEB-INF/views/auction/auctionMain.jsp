@@ -448,7 +448,7 @@ $(function(){
 	 				<table border=1 class="secondTable">
 						<tr>
 							<td>
-								<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a>
+								<a href="#" class="auctionSelect" data-pno="${auctionSellVo.p_no}"><img src="/furniture/displayImage?imageName=${auctionSellVo.main_img_name}" class="img-class"></a><br>
 								<img alt="경매" src="http://pics.auction.co.kr/listing/used/2014/icon_auc.png">
 							</td>
 						</tr>

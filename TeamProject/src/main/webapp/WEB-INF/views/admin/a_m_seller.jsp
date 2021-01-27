@@ -80,18 +80,13 @@ $(function(){
 						<td>${MemberVo.m_name}</td>
 						<td>${MemberVo.m_regdate}</td>
 						<td>${MemberVo.m_selling_regdate}</td>
-						<c:forEach var="SanctionVo" items="${sancList}">
 						<td class="membersanc">
-							<c:choose>
-								<c:when test="${MemberVo.m_id == SanctionVo.m_id}">
-									${SanctionVo.sanc_count}
-								</c:when>
-								<c:otherwise>
-									0
-								</c:otherwise>
-							</c:choose>
+							<c:forEach var="SanctionVo" items="${sancList}">
+									<c:if test="${SanctionVo.m_id == MemberVo.m_id}">
+										${SanctionVo.sanc_count}
+									</c:if>
+							</c:forEach>
 						</td>
-						</c:forEach>
 						<td>
 							<a class="btn btns btndelete" href="/admin/adminRollbackSeller/${MemberVo.m_id}">판매권한 삭제</a>
 						</td>

@@ -173,18 +173,28 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		List<AuctionTempBidVo> tempBiding = auctionService.getAuctionPurchaserTempBiding(m_id);
 		//System.out.println("tempBiding:"+tempBiding);
 		model.addAttribute("tempBiding", tempBiding);
+		
 		//임시테이블에 p_no 만 가져와서 auction과 auction_main_img에 뿌려준다
 		List<AuctionPnoFromTempBiding> tempBidingPno = auctionService.getAuctionPurchaserTmepBidingPno(m_id);
 		//System.out.println("tempBidingPno:"+tempBidingPno);
 		model.addAttribute("tempBidingPno", tempBidingPno);
 		//해당 p_no의 타이틀만 가져온다
-		List<AuctionVo> tempBidingTitle = auctionService.getAuctionPurchaserTempBidingTitle(tempBidingPno);
-		//System.out.println("tempBidingTitle:"+tempBidingTitle);
-		model.addAttribute("tempBidingTitle", tempBidingTitle);
-		//해당 p_no의 이미지만 가져온다
-		List<AuctionMainImgVo> tempBidingImg = auctionService.getAuctionPurchaserTempBidingImg(tempBidingPno);
-		//System.out.println("tempBidingImg:"+tempBidingImg);
-		model.addAttribute("tempBidingImg", tempBidingImg);
+		System.out.println("---------------- tempBidingPno:"+tempBidingPno);
+		
+		if(tempBidingPno != null && tempBidingPno.size() > 0) {
+			List<AuctionVo> tempBidingTitle = auctionService.getAuctionPurchaserTempBidingTitle(tempBidingPno);
+			//System.out.println("tempBidingTitle:"+tempBidingTitle);
+			model.addAttribute("tempBidingTitle", tempBidingTitle);
+			//해당 p_no의 이미지만 가져온다
+			
+			List<AuctionMainImgVo> tempBidingImg = auctionService.getAuctionPurchaserTempBidingImg(tempBidingPno);
+			//System.out.println("tempBidingImg:"+tempBidingImg);
+			model.addAttribute("tempBidingImg", tempBidingImg);
+		}else {
+			model.addAttribute("tempBidingTitle", null);
+			model.addAttribute("tempBidingImg", null);
+		}
+			
 		//내가 입찰한 상품 -------------------- 끝 ------------------------------ 
 		
 		//결제완료하면 결제 버튼이 안 보인다
@@ -481,7 +491,7 @@ public class AuctionController implements AuctionS3Key, ImPortKey, JoinSMSKey {
 		FurnitureFileUtil.deleteFolder(folderName);
 		
 		//s3 폴더 삭제 
-		return "redirect:/auction/auctionResisterList";
+		return "redirect:/auction/auctionSellList";
 	}
 	
 	//이미지에서 x를 눌렀을 때 실시간으로 바로바로 이미지를 삭제한다

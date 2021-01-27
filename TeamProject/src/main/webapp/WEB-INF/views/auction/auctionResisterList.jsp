@@ -486,7 +486,7 @@ $(function() {
 									<input type="text" id="txtDatePicker" style="width:140px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1">
 <!-- 									시간<input type="text" id="txtHour" name='e_hour' style="width:50px;text-align:center;border-left-width:0;border-right-width:0;border-top-width:0;border-bottom-width:1"> -->
 									시간<select name="e_hour" id="e_hour">
-									<c:forEach var="i" begin="1" end="24">
+									<c:forEach var="i" begin="0" end="24">
 										<option value="${i}">${i}</option>
 									</c:forEach>
 									

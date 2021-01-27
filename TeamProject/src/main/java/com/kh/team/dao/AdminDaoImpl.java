@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import org.springframework.stereotype.Repository;
 
 import com.kh.team.domain.CategoryVo;
+import com.kh.team.domain.ComputerVo;
 import com.kh.team.domain.InquiryVo;
 import com.kh.team.domain.MemberVo;
 import com.kh.team.domain.NoticeVo;
@@ -400,5 +401,16 @@ public class AdminDaoImpl implements AdminDao{
 	@Override
 	public void noticeDelete(int notice_no) throws Exception {
 		sqlSession.delete(NAMESPACE + "adminNoticeDelete", notice_no);
+	}
+
+	@Override
+	public void adminComPercentDelete(int c_com_no_ref) throws Exception {
+		sqlSession.delete(NAMESPACE + "adminComPercentDelete", c_com_no_ref);
+	}
+
+	@Override
+	public ComputerVo computerNoGet(int p_no) throws Exception {
+		ComputerVo computerNoGet = sqlSession.selectOne(NAMESPACE + "computerNoGet", p_no);
+		return computerNoGet;
 	}
 }

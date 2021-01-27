@@ -57,6 +57,12 @@ $(function(){
 		//$("#purchaseBidingItemContent").hide();
 	});
 	
+	$(".btnDelAuction").click(function(e){
+		e.preventDefault();
+		var p_no = $(this).attr("data-pno");
+		location.href="/auction/auctionDelete?p_no="+p_no;
+	});
+	
 });
 </script>
 <div class="container-fluid">
@@ -90,7 +96,7 @@ $(function(){
 				
 											<c:forEach var="bidingList" items="${bidingList}" >
 											<div class="col-md-4 tabMd3" style="margin-bottom: 10px;padding-bottom: 20px;">
-												<div class="card">
+												<div class="card" style="width: 290px;height: 530px;">
 														<a href="/auction/auctionSelected?p_no=${bidingList.p_no}">
 														<img src="/furniture/displayImage?imageName=${bidingList.main_img_name}" class="img-class" style="height:200px;">
 														</a>

@@ -92,6 +92,17 @@
 	</delete>
 	<!-- 여기까지가 삭제 -->
 	
+	<!-- 관리자 게시글 삭제 시 computer 쪽 퍼센트 테이블 값 삭제 -->
+	<delete id="adminComPercentDelete">
+		delete from c_product_purchase_percentage
+		where c_com_no_ref = #{c_com_no_ref}
+	</delete>
+
+	<!-- 퍼센트 테이블 값 삭제하기위한 computer 테이블 가져오기 -->
+	<select id="computerNoGet" resultType="ComputerVo">
+		select * from computer_product
+		where p_no = #{p_no}
+	</select>
 	<!-- 여기부터 카테고리 추가 -->
 	<insert id="adminCategoryInput">
 		insert into category(cate_no, cate_name, cate_ref)
