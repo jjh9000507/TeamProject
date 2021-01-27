@@ -323,7 +323,7 @@ $(function(){
 			};
  			$.post(urlSendProductInfo,sendDataSendProductInfo, function(data) {
 				if(data == "success"){
-					var totalPoint = price / 1000;
+					var totalPoint = price / 100;
 					alert("개인정보 폼에 구매내역이 저장되었고 포인트가 " + totalPoint + "만큼 증가하였습니다");
 				}else if(data == "fail"){
 					alert("포인트 증가 실패");
