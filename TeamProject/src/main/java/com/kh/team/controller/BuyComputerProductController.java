@@ -124,7 +124,7 @@ public class BuyComputerProductController {
 		System.out.println("count:" + count);
 		
 		if(count == 1) {
-			show = "success";
+			show = String.valueOf(totalPoint);
 		}else {
 			System.out.println("포인트 더하기 안됨");
 		}		
