@@ -245,7 +245,7 @@ $("#getDirect").click(function(){
 	<div id="purchaseForm_btnGroup" style="float:right;">
 		<button id="btnPurchase" class="btn btn-success" style="display:none">결제하기</button> &nbsp;
 		<button id="btnSendMessage" class="btn btn-success" style="display:none">메시지 보내기</button>
-		<a style="float:right;" href="/page/content?p_no=${productVo.p_no}" class="btn btn-danger">취소</a>
+		<a style="float:right;" href="/cart/cartPage" class="btn btn-danger">취소</a>
 	</div>
 </section>
 <aside class="DetailAside">

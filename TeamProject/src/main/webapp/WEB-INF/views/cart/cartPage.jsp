@@ -55,6 +55,8 @@ $(function(){
 	if(msg == "successDelete"){
 		alert("취소되었습니다.");
 	}
+	
+	//상품 취소
 	$(".cartDelete").on("click", function(e){
 		e.preventDefault();
 		var url = "/cart/cartDelete";
@@ -70,11 +72,14 @@ $(function(){
 		});
 	});
 	
+	//상품 구매
 	$(".cartBuy").on("click", function(){
 		var cart_no = $(this).attr("data-cartno");
+		console.log(cart_no);
 		$("#frmCart").attr("action","/cart/purchase?cart_no=" + cart_no).submit();
 	});
 	
+	//장바구니 상품 전체 체크
 	$("#chkAll").click(function(){
 		var isChecked = $(this).prop("checked");
 		if(isChecked){
@@ -84,12 +89,14 @@ $(function(){
 		}
 	});
 	
+	//체크된 상품 전체 삭제
 	$("#btnAllDelete").click(function(){
 		if(checkLength() == true){
 			$("#frmCart").attr("action","/cart/cartListDelete").submit();
 		}
 	});
 	
+	//체크된 상품 전체 구매
 	$("#btnAllBuy").click(function(){
 		if(checkLength() == true){			
 // 			$("#frmCart").attr("method","get");
@@ -126,6 +133,7 @@ $(function(){
 		location.href = url;
 	});
 	
+	//체크된 상품 갯수
 	function checkLength(){
 		var len = $(".chkProduct:checked").length;
 		if(len == 0){
@@ -152,6 +160,7 @@ $(function(){
 	</div>
 	<div class="col-md-2"></div>
 </div>
+	<!-- 장바구니 시작 -->
 	<div class="row">
 		<div class="col-md-2"></div>
 		<div class="col-md-8">
@@ -192,7 +201,7 @@ $(function(){
 					</c:forEach>
 				</tbody>
 			</table>
-			
+			<!-- 장바구니 끝 -->
 			<!-- 경매 테이블 시작 -->
 			<table class="table table-bordered">
 				<thead>
